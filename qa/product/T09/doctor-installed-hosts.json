@@ -1,0 +1,152 @@
+{
+  "generated_at": "2026-09-08T11:00:07.000Z",
+  "toolkit": {
+    "node": "22.17.0",
+    "platform": "darwin-arm64",
+    "fingerprint": "sha256:562eeba84752888336046b87df1667d03a0c9fd2e6856378d163801d6224e3d7"
+  },
+  "hosts": [
+    {
+      "provider": "claude",
+      "surface": "native_cli",
+      "installed": true,
+      "version": "2.1.263",
+      "version_recognised": true,
+      "report": {
+        "kind": "capability_report",
+        "schema_version": 1,
+        "report_id": "report_5da304f1c7f91daacc75cd782a2f5113",
+        "provider": "claude",
+        "host_surface": "native_cli",
+        "host_version": "2.1.263",
+        "sdk_version": null,
+        "os": "darwin-arm64",
+        "billing_mode": "native_account",
+        "capabilities": [
+          {
+            "name": "host_version",
+            "documented": true,
+            "configured": true,
+            "observed_working": true,
+            "evidence_refs": [
+              "probe:host_version:exit0"
+            ],
+            "limitation": "A version number establishes the host is present, not that any account or feature works."
+          },
+          {
+            "name": "mcp_registry",
+            "documented": true,
+            "configured": true,
+            "observed_working": true,
+            "evidence_refs": [
+              "probe:mcp_registry:exit0"
+            ],
+            "limitation": "Listing the registry is not permission to enable a server; optional MCP stays disabled until an approval names a capability."
+          },
+          {
+            "name": "sdk_transport",
+            "documented": true,
+            "configured": false,
+            "observed_working": false,
+            "evidence_refs": [],
+            "limitation": "The SDK package being installed says nothing about authentication or billing on this machine."
+          },
+          {
+            "name": "browser_control",
+            "documented": false,
+            "configured": false,
+            "observed_working": false,
+            "evidence_refs": [],
+            "limitation": "No documented browser-control surface was detected for this host; browser evidence comes from the controller-owned probes instead."
+          },
+          {
+            "name": "goal_continuation",
+            "documented": false,
+            "configured": false,
+            "observed_working": false,
+            "evidence_refs": [],
+            "limitation": "Version-dependent continuation behaviour is not assumed. Unknown means unavailable."
+          }
+        ],
+        "observed_at": "2026-09-08T11:00:07.000Z"
+      },
+      "fingerprint": "sha256:562eeba84752888336046b87df1667d03a0c9fd2e6856378d163801d6224e3d7"
+    },
+    {
+      "provider": "codex",
+      "surface": "native_cli",
+      "installed": true,
+      "version": "0.153.4",
+      "version_recognised": true,
+      "report": {
+        "kind": "capability_report",
+        "schema_version": 1,
+        "report_id": "report_8d6549f5d163491179db5544b58fc2b3",
+        "provider": "codex",
+        "host_surface": "native_cli",
+        "host_version": "0.153.4",
+        "sdk_version": null,
+        "os": "darwin-arm64",
+        "billing_mode": "native_account",
+        "capabilities": [
+          {
+            "name": "host_version",
+            "documented": true,
+            "configured": true,
+            "observed_working": true,
+            "evidence_refs": [
+              "probe:host_version:exit0"
+            ],
+            "limitation": "A version number establishes the host is present, not that any account or feature works."
+          },
+          {
+            "name": "mcp_registry",
+            "documented": true,
+            "configured": true,
+            "observed_working": true,
+            "evidence_refs": [
+              "probe:mcp_registry:exit0"
+            ],
+            "limitation": "Listing the registry is not permission to enable a server; optional MCP stays disabled until an approval names a capability."
+          },
+          {
+            "name": "sdk_transport",
+            "documented": true,
+            "configured": false,
+            "observed_working": false,
+            "evidence_refs": [],
+            "limitation": "The SDK package being installed says nothing about authentication or billing on this machine."
+          },
+          {
+            "name": "browser_control",
+            "documented": false,
+            "configured": false,
+            "observed_working": false,
+            "evidence_refs": [],
+            "limitation": "No documented browser-control surface was detected for this host; browser evidence comes from the controller-owned probes instead."
+          },
+          {
+            "name": "goal_continuation",
+            "documented": false,
+            "configured": false,
+            "observed_working": false,
+            "evidence_refs": [],
+            "limitation": "Version-dependent continuation behaviour is not assumed. Unknown means unavailable."
+          }
+        ],
+        "observed_at": "2026-09-08T11:00:07.000Z"
+      },
+      "fingerprint": "sha256:c9f7ca49d5a0104bf5da6c9d66e8cb917ebdbf53e408a2c1bc74c2cdfc62b6b9"
+    }
+  ],
+  "targets": [],
+  "gaps": [
+    "claude.sdk_transport: unavailable",
+    "claude.browser_control: unavailable",
+    "claude.goal_continuation: unavailable",
+    "codex.sdk_transport: unavailable",
+    "codex.browser_control: unavailable",
+    "codex.goal_continuation: unavailable"
+  ],
+  "exit_code": 0
+}

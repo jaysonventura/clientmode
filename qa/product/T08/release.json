@@ -1,6 +1,6 @@
 {
   "authentication": {
-    "cookie_header": "cm_session=sxNIcZyYZPzyFwmF5sQHLL6H49cS-HXe; HttpOnly; SameSite=Strict; Path=/; Max-Age=900",
+    "cookie_header": "cm_session=WfbQz3F46nvgbQW7IlvlYAYsAOMN53qV; HttpOnly; SameSite=Strict; Path=/; Max-Age=900",
     "cookie_notes": [
       "Secure is intentionally absent: the controller listens on loopback HTTP and a Secure cookie would never be sent.",
       "Protection is HttpOnly + SameSite=Strict + origin check + per-session CSRF token + 900s TTL.",
@@ -35,10 +35,10 @@
       "valid": {
         "authenticated": true,
         "session": {
-          "session_id": "sxNIcZyYZPzyFwmF5sQHLL6H49cS-HXe",
+          "session_id": "WfbQz3F46nvgbQW7IlvlYAYsAOMN53qV",
           "actor": "client",
           "actor_id": "owner_1",
-          "csrf_token": "I7rfVbSSNuiUTdiyW59tPBUXI_BvNciz",
+          "csrf_token": "jfowhO3TMuhraalbJFKe-uc9q_Z3T4kf",
           "expires_at": "2026-09-08T10:15:00.000Z",
           "origin": "http://127.0.0.1:7788"
         }
@@ -73,28 +73,28 @@
     "crash": {
       "ok": false,
       "code": "SIMULATED_CRASH_AFTER_INTENT",
-      "message": "SIMULATED_CRASH_AFTER_INTENT: dep_56fd156d-15e0-4807-a392-0ca89033bbf4"
+      "message": "SIMULATED_CRASH_AFTER_INTENT: dep_6da92c9d-0327-4de5-b5b3-f507cb892358"
     },
     "interrupted_row": {
-      "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+      "deployment_id": "dep_6da92c9d-0327-4de5-b5b3-f507cb892358",
       "status": "DEPLOYING",
       "provider_operation_id": null
     },
     "reconciliation": {
-      "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+      "deployment_id": "dep_6da92c9d-0327-4de5-b5b3-f507cb892358",
       "destination_state": "ABSENT",
       "action": "SAFE_TO_RETRY",
       "status": "DEPLOYING"
     },
     "retried": {
       "started": true,
-      "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+      "deployment_id": "dep_6da92c9d-0327-4de5-b5b3-f507cb892358",
       "operation_id": "op_1",
       "replayed": false
     },
     "replayed": {
       "started": true,
-      "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+      "deployment_id": "dep_6da92c9d-0327-4de5-b5b3-f507cb892358",
       "operation_id": "op_1",
       "replayed": true
     },
@@ -129,7 +129,7 @@
   "smoke": {
     "failing": {
       "deployment": {
-        "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+        "deployment_id": "dep_6da92c9d-0327-4de5-b5b3-f507cb892358",
         "status": "FAILED",
         "provider_operation_id": "op_1",
         "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -157,7 +157,7 @@
     },
     "empty": {
       "deployment": {
-        "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+        "deployment_id": "dep_6da92c9d-0327-4de5-b5b3-f507cb892358",
         "status": "FAILED",
         "provider_operation_id": "op_1",
         "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -172,7 +172,7 @@
     },
     "passing": {
       "deployment": {
-        "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+        "deployment_id": "dep_6da92c9d-0327-4de5-b5b3-f507cb892358",
         "status": "RELEASED",
         "provider_operation_id": "op_1",
         "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -208,7 +208,7 @@
     "authorised": {
       "rolled_back": true,
       "deployment": {
-        "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+        "deployment_id": "dep_6da92c9d-0327-4de5-b5b3-f507cb892358",
         "status": "ROLLED_BACK",
         "provider_operation_id": "op_1",
         "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -222,7 +222,7 @@
       {
         "actor_id": "release_owner_1",
         "operation": "rollback",
-        "target_ref": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+        "target_ref": "dep_6da92c9d-0327-4de5-b5b3-f507cb892358",
         "decision": "allow"
       }
     ]
@@ -231,7 +231,7 @@
     "question_status_after_answer": {
       "status": "ANSWERED"
     },
-    "answer_id": "ans_82fb7c56-61dd-47a6-87c6-8acc0b3f833e",
+    "answer_id": "ans_e177694d-9f8d-4b02-a39e-f9919f9ead19",
     "answer_actor": "owner_1",
     "worker_answer": {
       "ok": false,

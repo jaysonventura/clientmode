@@ -93,3 +93,53 @@ export function buildProviderContext(input: {
   const serialized = JSON.stringify(context);
   return { context, packet_digest: digest(context), byte_length: Buffer.byteLength(serialized, 'utf8') };
 }
+
+/** Project memory: concise facts with provenance and a freshness rule.
+ *
+ * Retrieval is scoped by project at the query, not filtered after the fact, so a private fact
+ * from one project cannot reach another even by mistake. Every fact carries where it came from
+ * and when it was observed, because a summary without provenance is a rumour.
+ */
+export type ProjectFact = {
+  fact_id: string;
+  project_id: string;
+  statement: string;
+  source_ref: string;
+  source_digest: string;
+  freshness_rule: string;
+  observed_at: string;
+};
+
+export class ProjectMemory {
+  readonly #db: ControllerDatabase;
+  constructor(db: ControllerDatabase) { this.#db = db; }
+
+  remember(fact: Omit<ProjectFact, 'fact_id'>): ProjectFact {
+    const fact_id = `fact_${randomUUID()}`;
+    this.#db.run(`INSERT INTO context_facts (fact_id, project_id, source_ref, source_digest, value_json,
+      freshness_rule, observed_at, invalidated_at) VALUES (?,?,?,?,?,?,?,NULL)`,
+      fact_id, fact.project_id, fact.source_ref, fact.source_digest,
+      JSON.stringify({ statement: fact.statement }), fact.freshness_rule, fact.observed_at);
+    return { fact_id, ...fact };
+  }
+
+  /** The project is part of the query. There is no call that returns another project's facts. */
+  recall(project_id: string): ProjectFact[] {
+    return this.#db.all('SELECT * FROM context_facts WHERE project_id = ? AND invalidated_at IS NULL ORDER BY observed_at', project_id)
+      .map(row => ({
+        fact_id: String(row['fact_id']), project_id: String(row['project_id']),
+        statement: String((JSON.parse(String(row['value_json'])) as { statement?: string }).statement ?? ''),
+        source_ref: String(row['source_ref']), source_digest: String(row['source_digest']),
+        freshness_rule: String(row['freshness_rule']), observed_at: String(row['observed_at']),
+      }));
+  }
+
+  /** An explicit cross-project request is refused and recorded, not silently emptied. */
+  recallForTask(input: { requesting_project_id: string; requested_project_id: string }):
+    { allowed: true; facts: ProjectFact[] } | { allowed: false; reason: 'CROSS_PROJECT_MEMORY_DENIED' } {
+    if (input.requesting_project_id !== input.requested_project_id) {
+      return { allowed: false, reason: 'CROSS_PROJECT_MEMORY_DENIED' };
+    }
+    return { allowed: true, facts: this.recall(input.requesting_project_id) };
+  }
+}

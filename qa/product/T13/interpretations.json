@@ -1,0 +1,251 @@
+[
+  {
+    "label": "plain_english",
+    "result": {
+      "requirements": [
+        {
+          "id": "no-account",
+          "description": "Customers order without registering or logging in.",
+          "source_message_ids": [
+            "request_plain_english"
+          ],
+          "classification": "excluded",
+          "material": true
+        },
+        {
+          "id": "no-online-payment",
+          "description": "Do not add online payment.",
+          "source_message_ids": [
+            "request_plain_english"
+          ],
+          "classification": "excluded",
+          "material": true
+        },
+        {
+          "id": "cash-on-delivery",
+          "description": "Payment happens on delivery, outside the software.",
+          "source_message_ids": [
+            "request_plain_english"
+          ],
+          "classification": "excluded",
+          "material": true
+        },
+        {
+          "id": "ordering",
+          "description": "Customers can place an order.",
+          "source_message_ids": [
+            "request_plain_english"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "cart",
+          "description": "Customers can add items to a cart and change quantities.",
+          "source_message_ids": [
+            "request_plain_english"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "mobile-friendly",
+          "description": "The experience works on a phone.",
+          "source_message_ids": [
+            "request_plain_english"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "catalog",
+          "description": "Customers can browse the available products.",
+          "source_message_ids": [
+            "request_plain_english"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "delivery",
+          "description": "Orders are delivered.",
+          "source_message_ids": [
+            "request_plain_english"
+          ],
+          "classification": "required",
+          "material": true
+        }
+      ],
+      "material_questions": [],
+      "internal_decisions": [],
+      "stack_intents": [],
+      "language_hint": "en"
+    }
+  },
+  {
+    "label": "rough_english",
+    "result": {
+      "requirements": [
+        {
+          "id": "no-account",
+          "description": "Customers order without registering or logging in.",
+          "source_message_ids": [
+            "request_rough_english"
+          ],
+          "classification": "excluded",
+          "material": true
+        },
+        {
+          "id": "no-online-payment",
+          "description": "Do not add online payment.",
+          "source_message_ids": [
+            "request_rough_english"
+          ],
+          "classification": "excluded",
+          "material": true
+        },
+        {
+          "id": "cash-on-delivery",
+          "description": "Payment happens on delivery, outside the software.",
+          "source_message_ids": [
+            "request_rough_english"
+          ],
+          "classification": "excluded",
+          "material": true
+        },
+        {
+          "id": "ordering",
+          "description": "Customers can place an order.",
+          "source_message_ids": [
+            "request_rough_english"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "cart",
+          "description": "Customers can add items to a cart and change quantities.",
+          "source_message_ids": [
+            "request_rough_english"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "mobile-friendly",
+          "description": "The experience works on a phone.",
+          "source_message_ids": [
+            "request_rough_english"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "catalog",
+          "description": "Customers can browse the available products.",
+          "source_message_ids": [
+            "request_rough_english"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "delivery",
+          "description": "Orders are delivered.",
+          "source_message_ids": [
+            "request_rough_english"
+          ],
+          "classification": "required",
+          "material": true
+        }
+      ],
+      "material_questions": [],
+      "internal_decisions": [],
+      "stack_intents": [],
+      "language_hint": "en"
+    }
+  },
+  {
+    "label": "taglish",
+    "result": {
+      "requirements": [
+        {
+          "id": "no-account",
+          "description": "Customers order without registering or logging in.",
+          "source_message_ids": [
+            "request_taglish"
+          ],
+          "classification": "excluded",
+          "material": true
+        },
+        {
+          "id": "no-online-payment",
+          "description": "Do not add online payment.",
+          "source_message_ids": [
+            "request_taglish"
+          ],
+          "classification": "excluded",
+          "material": true
+        },
+        {
+          "id": "cash-on-delivery",
+          "description": "Payment happens on delivery, outside the software.",
+          "source_message_ids": [
+            "request_taglish"
+          ],
+          "classification": "excluded",
+          "material": true
+        },
+        {
+          "id": "ordering",
+          "description": "Customers can place an order.",
+          "source_message_ids": [
+            "request_taglish"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "cart",
+          "description": "Customers can add items to a cart and change quantities.",
+          "source_message_ids": [
+            "request_taglish"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "mobile-friendly",
+          "description": "The experience works on a phone.",
+          "source_message_ids": [
+            "request_taglish"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "catalog",
+          "description": "Customers can browse the available products.",
+          "source_message_ids": [
+            "request_taglish"
+          ],
+          "classification": "required",
+          "material": true
+        },
+        {
+          "id": "delivery",
+          "description": "Orders are delivered.",
+          "source_message_ids": [
+            "request_taglish"
+          ],
+          "classification": "required",
+          "material": true
+        }
+      ],
+      "material_questions": [],
+      "internal_decisions": [],
+      "stack_intents": [],
+      "language_hint": "mixed"
+    }
+  }
+]

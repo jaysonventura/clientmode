@@ -11,7 +11,7 @@
     "usage": {
       "kind": "usage_event",
       "schema_version": 1,
-      "usage_event_id": "usage_45d7d6e1-4d81-4de8-aa46-b29ae4906eb9",
+      "usage_event_id": "usage_871105fc-f6a1-4ee7-ad58-f4727eca559b",
       "provider_event_id": "turn:attempt_t11:19023:7",
       "run_id": "run_t11",
       "attempt_id": "attempt_t11",
@@ -123,7 +123,7 @@
   },
   "fresh_session": {
     "exit_code": 0,
-    "thread_id": "01a07cdd-89d1-7260-8952-0661af76563d",
+    "thread_id": "01a07ce2-71ca-7392-905f-49ba991169d0",
     "claims": [
       "CLIENT_MODE_INSTRUCTIONS_LOADED"
     ],
@@ -131,7 +131,7 @@
       {
         "kind": "usage_event",
         "schema_version": 1,
-        "usage_event_id": "usage_e67deed9-aa1e-4576-8426-d0d1c184592a",
+        "usage_event_id": "usage_65556284-f1fd-4877-b474-cbbcc287959e",
         "provider_event_id": "turn:attempt_t11_fresh:19164:10",
         "run_id": "run_t11",
         "attempt_id": "attempt_t11_fresh",
@@ -161,8 +161,8 @@
     ],
     "exit_code": 0,
     "claims": [
-      "I’ll attempt to create the file in the current directory.",
-      "CANNOT_WRITE — the filesystem is read-only; creating `permission-probe.txt` failed with “operation not permitted.”"
+      "I’ll try to create the file in the current directory.",
+      "CANNOT_WRITE: The filesystem is read-only; creating permission-probe.txt was denied with “operation not permitted.”"
     ],
     "file_created": false,
     "verified_by": "filesystem check after the turn, not the session transcript"

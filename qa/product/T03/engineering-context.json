@@ -1,0 +1,104 @@
+{
+  "kind": "engineering_context",
+  "schema_version": 1,
+  "context_id": "ctx_t03",
+  "project_id": "project_t03_polyglot",
+  "task_id": "task_polyglot",
+  "source_digest": "sha256:a0bf0fe41e73d5ae5c9d4c364cce2540a5e11564526e9c05d2fd03f0259f2fdf",
+  "requirements_revision": 1,
+  "components": [
+    {
+      "component_id": "component.gateway",
+      "root_ref": "gateway",
+      "domain": "backend",
+      "languages": [
+        "Go"
+      ],
+      "frameworks": [],
+      "target_platforms": [
+        "server"
+      ],
+      "environment_ref": null,
+      "grounding_status": "BLOCKED",
+      "source_refs": [
+        "gateway/go.mod"
+      ],
+      "required_check_ids": [
+        "go:test",
+        "go:vet"
+      ],
+      "capability_gaps": [
+        "Required toolchain not available on this host: go"
+      ]
+    },
+    {
+      "component_id": "component.ios",
+      "root_ref": "ios",
+      "domain": "native",
+      "languages": [
+        "Swift"
+      ],
+      "frameworks": [
+        "SwiftPM"
+      ],
+      "target_platforms": [
+        "iOS",
+        "macOS"
+      ],
+      "environment_ref": null,
+      "grounding_status": "GROUNDED",
+      "source_refs": [
+        "ios/Package.swift"
+      ],
+      "required_check_ids": [
+        "swift:test"
+      ],
+      "capability_gaps": []
+    },
+    {
+      "component_id": "component.pricing",
+      "root_ref": "pricing",
+      "domain": "backend",
+      "languages": [
+        "Python"
+      ],
+      "frameworks": [],
+      "target_platforms": [
+        "server"
+      ],
+      "environment_ref": null,
+      "grounding_status": "GROUNDED",
+      "source_refs": [
+        "pricing/pyproject.toml"
+      ],
+      "required_check_ids": [
+        "python:pytest"
+      ],
+      "capability_gaps": []
+    },
+    {
+      "component_id": "component.unclassified",
+      "root_ref": "root",
+      "domain": "unclassified",
+      "languages": [
+        "fixturelang"
+      ],
+      "frameworks": [],
+      "target_platforms": [
+        "undetermined"
+      ],
+      "environment_ref": null,
+      "grounding_status": "NEEDS_GROUNDING",
+      "source_refs": [
+        "tools/report.fixturelang"
+      ],
+      "required_check_ids": [
+        "check:UNDETERMINED"
+      ],
+      "capability_gaps": [
+        "Source present without a recognised manifest; ground from the project itself"
+      ]
+    }
+  ],
+  "observed_at": "2026-09-07T14:00:05.000Z"
+}

@@ -1,0 +1,201 @@
+{
+  "onboarding": {
+    "before": {
+      "fingerprint": "sha256:78b954d7569764c44b5e6fc1e530670954621cd45ce9b459da84215845e3ac68",
+      "git": {
+        "available": true,
+        "head": "2952537f02c288e6f39b3af8f1701c949375ac84",
+        "branch": "main",
+        "modified_tracked": [
+          "src/checkout.js"
+        ],
+        "untracked": [
+          "src/promo.js"
+        ],
+        "staged": []
+      }
+    },
+    "after": {
+      "fingerprint": "sha256:78b954d7569764c44b5e6fc1e530670954621cd45ce9b459da84215845e3ac68",
+      "git": {
+        "available": true,
+        "head": "2952537f02c288e6f39b3af8f1701c949375ac84",
+        "branch": "main",
+        "modified_tracked": [
+          "src/checkout.js"
+        ],
+        "untracked": [
+          "src/promo.js"
+        ],
+        "staged": []
+      }
+    },
+    "head": "2952537f02c288e6f39b3af8f1701c949375ac84",
+    "modified_tracked": [
+      "src/checkout.js"
+    ],
+    "untracked": [
+      "src/promo.js"
+    ],
+    "discovered_checks": [
+      "npm:lint",
+      "npm:test"
+    ]
+  },
+  "digests": {
+    "forward": "sha256:a78e2faf473cefb3a54b354530cdf5eca2f1a7c31672ab1e767884cc5c70c71f",
+    "reversed": "sha256:a78e2faf473cefb3a54b354530cdf5eca2f1a7c31672ab1e767884cc5c70c71f",
+    "shuffled": "sha256:a78e2faf473cefb3a54b354530cdf5eca2f1a7c31672ab1e767884cc5c70c71f",
+    "after_untracked_edit": "sha256:290ff0aa378933b8bf477471cb49aaa925e6e9e39a957bc1fe314d72a323acb7",
+    "entry_count": 5,
+    "unicode_entry": true
+  },
+  "path_escape": {
+    "escaping": {
+      "ok": false,
+      "code": "SYMLINK_ESCAPES_ROOT",
+      "message": "SYMLINK_ESCAPES_ROOT: escape-link -> /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t03-uo8f4t/private-elsewhere"
+    },
+    "internal_symlink_recorded": true
+  },
+  "ownership": {
+    "claim_a_epoch": 1,
+    "overlapping": {
+      "ok": false,
+      "code": "OVERLAPPING_WRITE_CLAIM",
+      "message": "OVERLAPPING_WRITE_CLAIM: src/menu ñ/ conflicts with attempt_a:src/"
+    },
+    "second_writer": {
+      "ok": false,
+      "code": "WRITER_LEASE_CONFLICT",
+      "message": "project project_t03 already has an active writer"
+    },
+    "disjoint_integration": {
+      "accepted": true
+    },
+    "out_of_scope_integration": {
+      "accepted": false,
+      "reason": "PATH_NOT_OWNED"
+    }
+  },
+  "seal": {
+    "candidate": {
+      "kind": "candidate",
+      "schema_version": 1,
+      "candidate_id": "candidate_be3f2d78a4ee44bc9b55ed2b91dda545",
+      "project_id": "project_t03",
+      "run_id": "run_eac42e47-e2c4-49a0-9698-84e83f9171b6",
+      "source_digest": "sha256:88371e59c4007d11aaf30eaa9848b951fb8d212517adf0cf634f4977acca8846",
+      "artifact_digest": "sha256:b7115d755edbb520edac17392f38b6f160f8da2c1842d9b9ca088c0bc747a08e",
+      "requirements_revision": 1,
+      "policy_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "environment_digest": "sha256:ea9da0b940cb7f3ed671209126f5bf543a1fa8bb16ece31ad7f2e993bf29d7f3",
+      "created_at": "2026-09-07T14:00:04.000Z"
+    },
+    "artifact_manifest": {
+      "artifact_path": "artifact.json",
+      "byte_length": 515
+    },
+    "schema": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  "polyglot": {
+    "preserved": true,
+    "components": [
+      {
+        "id": "component.gateway",
+        "languages": [
+          "Go"
+        ],
+        "checks": [
+          "go:test",
+          "go:vet"
+        ],
+        "grounding": "BLOCKED",
+        "gaps": [
+          "Required toolchain not available on this host: go"
+        ]
+      },
+      {
+        "id": "component.ios",
+        "languages": [
+          "Swift"
+        ],
+        "checks": [
+          "swift:test"
+        ],
+        "grounding": "GROUNDED",
+        "gaps": []
+      },
+      {
+        "id": "component.pricing",
+        "languages": [
+          "Python"
+        ],
+        "checks": [
+          "python:pytest"
+        ],
+        "grounding": "GROUNDED",
+        "gaps": []
+      },
+      {
+        "id": "component.unclassified",
+        "languages": [
+          "fixturelang"
+        ],
+        "checks": [
+          "check:UNDETERMINED"
+        ],
+        "grounding": "NEEDS_GROUNDING",
+        "gaps": [
+          "Source present without a recognised manifest; ground from the project itself"
+        ]
+      }
+    ],
+    "unrecognised_languages": [
+      "fixturelang"
+    ],
+    "engineering_context_schema": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  "non_js_edits": {
+    "before": "sha256:a0bf0fe41e73d5ae5c9d4c364cce2540a5e11564526e9c05d2fd03f0259f2fdf",
+    "after_swift": "sha256:a38a849ff1027edd68cb650dc365c10c099dffea3cc8a8bac69698be3b8503f2",
+    "after_model_config": "sha256:bb0367d7f4cd2af8489064fd860fbba4889f40fab55bd5a533d6296917498d1f"
+  },
+  "no_whitelist": {
+    "csharp_components": [
+      {
+        "id": "component.root",
+        "languages": [
+          "C#"
+        ],
+        "checks": [
+          "dotnet:test"
+        ]
+      }
+    ],
+    "unrecognised_languages": [
+      "fixturelang"
+    ]
+  },
+  "cleanup": {
+    "disposed": {
+      "ok": true,
+      "value": {
+        "removed": true,
+        "path": "/private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t03-uo8f4t/workspaces/ws_attempt_a"
+      }
+    },
+    "refused_client_root": {
+      "ok": false,
+      "code": "WORKSPACE_NOT_OWNED",
+      "message": "WORKSPACE_NOT_OWNED: /private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t03-uo8f4t/authorized/shop"
+    },
+    "client_root_intact": "sha256:1118ed913f437769b93f0091e8e0be3f1123873bd6734e3a07b3bda595a14383"
+  }
+}

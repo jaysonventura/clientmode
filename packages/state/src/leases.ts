@@ -34,7 +34,9 @@ export function acquire(db: ControllerDatabase, request: {
       request.is_writer ? 1 : 0, epoch, request.expires_at);
   } catch (error) {
     // The partial unique index is the single enforcement point for one writer per project.
-    if (String((error as Error).message).includes('one_active_writer_per_project')) {
+    // SQLite names the columns rather than the index, so match the table and constraint class.
+    const message = String((error as Error).message);
+    if (message.includes('UNIQUE constraint failed') && message.includes('workspace_leases')) {
       throw new ControllerDatabaseError('WRITER_LEASE_CONFLICT', `project ${request.project_id} already has an active writer`);
     }
     throw error;

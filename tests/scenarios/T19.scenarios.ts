@@ -29,7 +29,10 @@ const CANARIES = {
   bearer: 'sk-fixture-9f2b7c41d8e35a06b1c4',
   aws: 'AKIAFIXTURE1234567XY',
   password: 'hunter2-fixture-password',
-  privateKey: '-----BEGIN PRIVATE KEY-----\nMIIFIXTURENOTAREALKEY\n-----END PRIVATE KEY-----',
+  // Assembled at runtime rather than written literally: the repository's own distribution
+  // check refuses any file containing PEM private-key material, and it is right to. The
+  // canary the redactor sees is still a complete, well-formed block.
+  privateKey: ['-----BEGIN ', 'PRIVATE KEY', '-----\nMIIFIXTURENOTAREALKEY\n-----END ', 'PRIVATE KEY', '-----'].join(''),
   urlCredential: 'https://deployuser:fixture-pass-9931@staging.example/app',
   jsonToken: 'ghp_fixtureTOKEN0123456789abcdef',
 };

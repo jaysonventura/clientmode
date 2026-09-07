@@ -1,0 +1,411 @@
+[
+  {
+    "name": "missing evidence identity",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "missing required result",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "MISSING_browser-checkout"
+    ]
+  },
+  {
+    "name": "failed result",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "FAILED_api-order"
+    ]
+  },
+  {
+    "name": "nonzero exit",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "FAILED_api-order"
+    ]
+  },
+  {
+    "name": "timeout",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "FAILED_api-order"
+    ]
+  },
+  {
+    "name": "skipped status",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "FAILED_api-order"
+    ]
+  },
+  {
+    "name": "not executed",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "FAILED_api-order"
+    ]
+  },
+  {
+    "name": "zero tests",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "TEST_COUNTS_api-order"
+    ]
+  },
+  {
+    "name": "reduced test discovery",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "TEST_COUNTS_api-order"
+    ]
+  },
+  {
+    "name": "skipped test",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "TEST_COUNTS_api-order"
+    ]
+  },
+  {
+    "name": "incomplete passing count",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "TEST_COUNTS_api-order"
+    ]
+  },
+  {
+    "name": "negative count",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "missing assertion",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "ASSERTIONS_api-order"
+    ]
+  },
+  {
+    "name": "duplicate assertion",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "ASSERTIONS_api-order"
+    ]
+  },
+  {
+    "name": "duplicate result",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "DUPLICATE_OR_UNKNOWN_RESULT"
+    ]
+  },
+  {
+    "name": "unknown result",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "DUPLICATE_OR_UNKNOWN_RESULT"
+    ]
+  },
+  {
+    "name": "changed check definition",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "PROVENANCE_api-order"
+    ]
+  },
+  {
+    "name": "missing observer",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "invalid log hash",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "changed source",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "IDENTITY_source_digest"
+    ]
+  },
+  {
+    "name": "changed artifact",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "IDENTITY_artifact_digest"
+    ]
+  },
+  {
+    "name": "changed environment",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "IDENTITY_environment_digest"
+    ]
+  },
+  {
+    "name": "changed policy",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "IDENTITY_policy_digest"
+    ]
+  },
+  {
+    "name": "wrong project",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "IDENTITY_project_id"
+    ]
+  },
+  {
+    "name": "wrong run",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "IDENTITY_run_id"
+    ]
+  },
+  {
+    "name": "wrong candidate",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "IDENTITY_candidate_id"
+    ]
+  },
+  {
+    "name": "expired attempt",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "STALE_ATTEMPT"
+    ]
+  },
+  {
+    "name": "requirement change",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "REQUIREMENTS_REVISION"
+    ]
+  },
+  {
+    "name": "issuer substitution",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "source changed during verification",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INTEGRITY_FAILED"
+    ]
+  },
+  {
+    "name": "blocking review finding",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "BLOCKING_FINDINGS"
+    ]
+  },
+  {
+    "name": "missing blocking finding field",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "future finish",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "EVIDENCE_TIME"
+    ]
+  },
+  {
+    "name": "invalid timestamp",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "finish before start",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "EVIDENCE_TIME"
+    ]
+  },
+  {
+    "name": "evidence before candidate",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "EVIDENCE_TIME"
+    ]
+  },
+  {
+    "name": "missing results",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "string count",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "unsupported evidence schema",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "fake PASS text instead of counts",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "date-only timestamps",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "expired evidence",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "EVIDENCE_TIME"
+    ]
+  },
+  {
+    "name": "advisory policy",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "ADVISORY_POLICY"
+    ]
+  },
+  {
+    "name": "empty policy",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "EMPTY_REQUIRED_POLICY",
+      "DUPLICATE_OR_UNKNOWN_RESULT"
+    ]
+  },
+  {
+    "name": "all optional policy",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "EMPTY_REQUIRED_POLICY"
+    ]
+  },
+  {
+    "name": "duplicate definition",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_CHECK_POLICY"
+    ]
+  },
+  {
+    "name": "zero-test behavioral policy",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_CHECK_POLICY",
+      "DUPLICATE_OR_UNKNOWN_RESULT"
+    ]
+  },
+  {
+    "name": "revoked key",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "ISSUER_REVOKED"
+    ]
+  },
+  {
+    "name": "unknown issuer",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "UNKNOWN_ISSUER"
+    ]
+  },
+  {
+    "name": "missing trusted attempt",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "MISSING_TRUSTED_CONTEXT"
+    ]
+  },
+  {
+    "name": "unapproved policy issuer",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "UNTRUSTED_ISSUER"
+    ]
+  },
+  {
+    "name": "wrong policy revision",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "REQUIREMENTS_REVISION"
+    ]
+  },
+  {
+    "name": "unsupported signature algorithm",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "UNSUPPORTED_ALGORITHM"
+    ]
+  },
+  {
+    "name": "malformed base64",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "MALFORMED_ENCODING"
+    ]
+  },
+  {
+    "name": "oversized envelope",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "PAYLOAD_LIMIT"
+    ]
+  },
+  {
+    "name": "payload altered after signing",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "signature replaced",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "INVALID_SIGNATURE"
+    ]
+  },
+  {
+    "name": "wrong candidate policy binding",
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "IDENTITY_policy_digest",
+      "POLICY_IDENTITY"
+    ]
+  }
+]

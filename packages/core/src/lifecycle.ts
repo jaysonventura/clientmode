@@ -35,8 +35,8 @@ export interface ControllerTransitionRequest extends TransitionRequest {
   bind?: { contract_id?: string | null; requirements_revision?: number; candidate_id?: string | null };
 }
 
-type GuardContext = { db: ControllerDatabase; run: Run; request: ControllerTransitionRequest };
-type Guard = (context: GuardContext) => boolean;
+export type GuardContext = { db: ControllerDatabase; run: Run; request: ControllerTransitionRequest };
+export type Guard = (context: GuardContext) => boolean;
 
 function toRun(row: Record<string, unknown>): Run {
   return {
@@ -71,6 +71,12 @@ const GUARDS: Record<string, Guard> = {
     const project = db.get('SELECT 1 AS ok FROM projects WHERE project_id = ?', run.project_id);
     const reserved = db.get("SELECT 1 AS ok FROM budget_reservations WHERE run_id = ? AND status = 'RESERVED'", run.run_id);
     return project !== undefined && reserved !== undefined;
+  },
+  candidate_sealed: ({ db, run, request }) => {
+    const candidate_id = request.bind?.candidate_id ?? run.candidate_id;
+    if (candidate_id === null || candidate_id === undefined) return false;
+    return db.get('SELECT 1 AS ok FROM candidates WHERE project_id = ? AND run_id = ? AND candidate_id = ?',
+      run.project_id, run.run_id, candidate_id) !== undefined;
   },
   pause_requested: ({ db, run }) => String(latestIntent(db, run.run_id)?.['action'] ?? '') === 'pause',
   material_blocker: ({ db, run }) => {

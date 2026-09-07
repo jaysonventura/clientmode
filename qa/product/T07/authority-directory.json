@@ -1,0 +1,8 @@
+{
+  "files": [
+    "verifier.sqlite",
+    "verifier.sqlite-shm",
+    "verifier.sqlite-wal",
+    "verifier_fixture.ed25519.key"
+  ]
+}

@@ -1,0 +1,8120 @@
+[
+  {
+    "trial_id": "holdout_hx_ui_cart_badge_1",
+    "spec_id": "hx_ui_cart_badge",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 225
+  },
+  {
+    "trial_id": "holdout_hx_ui_cart_badge_2",
+    "spec_id": "hx_ui_cart_badge",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 224
+  },
+  {
+    "trial_id": "holdout_hx_ui_cart_badge_3",
+    "spec_id": "hx_ui_cart_badge",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 242
+  },
+  {
+    "trial_id": "holdout_hx_ui_price_alignment_1",
+    "spec_id": "hx_ui_price_alignment",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 311
+  },
+  {
+    "trial_id": "holdout_hx_ui_price_alignment_2",
+    "spec_id": "hx_ui_price_alignment",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 329
+  },
+  {
+    "trial_id": "holdout_hx_ui_price_alignment_3",
+    "spec_id": "hx_ui_price_alignment",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 350
+  },
+  {
+    "trial_id": "holdout_hx_ui_empty_cart_1",
+    "spec_id": "hx_ui_empty_cart",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 326
+  },
+  {
+    "trial_id": "holdout_hx_ui_empty_cart_2",
+    "spec_id": "hx_ui_empty_cart",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 310
+  },
+  {
+    "trial_id": "holdout_hx_ui_empty_cart_3",
+    "spec_id": "hx_ui_empty_cart",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 294
+  },
+  {
+    "trial_id": "holdout_hx_ui_disabled_submit_1",
+    "spec_id": "hx_ui_disabled_submit",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 298
+  },
+  {
+    "trial_id": "holdout_hx_ui_disabled_submit_2",
+    "spec_id": "hx_ui_disabled_submit",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 315
+  },
+  {
+    "trial_id": "holdout_hx_ui_disabled_submit_3",
+    "spec_id": "hx_ui_disabled_submit",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 257
+  },
+  {
+    "trial_id": "holdout_hx_ui_error_banner_1",
+    "spec_id": "hx_ui_error_banner",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 204
+  },
+  {
+    "trial_id": "holdout_hx_ui_error_banner_2",
+    "spec_id": "hx_ui_error_banner",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 266
+  },
+  {
+    "trial_id": "holdout_hx_ui_error_banner_3",
+    "spec_id": "hx_ui_error_banner",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 182
+  },
+  {
+    "trial_id": "holdout_hx_ui_focus_ring_1",
+    "spec_id": "hx_ui_focus_ring",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 233
+  },
+  {
+    "trial_id": "holdout_hx_ui_focus_ring_2",
+    "spec_id": "hx_ui_focus_ring",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 227
+  },
+  {
+    "trial_id": "holdout_hx_ui_focus_ring_3",
+    "spec_id": "hx_ui_focus_ring",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 233
+  },
+  {
+    "trial_id": "holdout_hx_ui_small_viewport_1",
+    "spec_id": "hx_ui_small_viewport",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 220
+  },
+  {
+    "trial_id": "holdout_hx_ui_small_viewport_2",
+    "spec_id": "hx_ui_small_viewport",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 207
+  },
+  {
+    "trial_id": "holdout_hx_ui_small_viewport_3",
+    "spec_id": "hx_ui_small_viewport",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 191
+  },
+  {
+    "trial_id": "holdout_hx_ui_quantity_stepper_1",
+    "spec_id": "hx_ui_quantity_stepper",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 195
+  },
+  {
+    "trial_id": "holdout_hx_ui_quantity_stepper_2",
+    "spec_id": "hx_ui_quantity_stepper",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 189
+  },
+  {
+    "trial_id": "holdout_hx_ui_quantity_stepper_3",
+    "spec_id": "hx_ui_quantity_stepper",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 189
+  },
+  {
+    "trial_id": "holdout_hx_ui_currency_format_1",
+    "spec_id": "hx_ui_currency_format",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 139
+  },
+  {
+    "trial_id": "holdout_hx_ui_currency_format_2",
+    "spec_id": "hx_ui_currency_format",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 141
+  },
+  {
+    "trial_id": "holdout_hx_ui_currency_format_3",
+    "spec_id": "hx_ui_currency_format",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 139
+  },
+  {
+    "trial_id": "holdout_hx_ui_loading_state_1",
+    "spec_id": "hx_ui_loading_state",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 188
+  },
+  {
+    "trial_id": "holdout_hx_ui_loading_state_2",
+    "spec_id": "hx_ui_loading_state",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 187
+  },
+  {
+    "trial_id": "holdout_hx_ui_loading_state_3",
+    "spec_id": "hx_ui_loading_state",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 203
+  },
+  {
+    "trial_id": "holdout_hx_ui_long_product_name_1",
+    "spec_id": "hx_ui_long_product_name",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 194
+  },
+  {
+    "trial_id": "holdout_hx_ui_long_product_name_2",
+    "spec_id": "hx_ui_long_product_name",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 190
+  },
+  {
+    "trial_id": "holdout_hx_ui_long_product_name_3",
+    "spec_id": "hx_ui_long_product_name",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 188
+  },
+  {
+    "trial_id": "holdout_hx_ui_receipt_summary_1",
+    "spec_id": "hx_ui_receipt_summary",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 202
+  },
+  {
+    "trial_id": "holdout_hx_ui_receipt_summary_2",
+    "spec_id": "hx_ui_receipt_summary",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 266
+  },
+  {
+    "trial_id": "holdout_hx_ui_receipt_summary_3",
+    "spec_id": "hx_ui_receipt_summary",
+    "category": "ui",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 206
+  },
+  {
+    "trial_id": "holdout_hx_auth_session_scope_1",
+    "spec_id": "hx_auth_session_scope",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 137
+  },
+  {
+    "trial_id": "holdout_hx_auth_session_scope_2",
+    "spec_id": "hx_auth_session_scope",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 178
+  },
+  {
+    "trial_id": "holdout_hx_auth_session_scope_3",
+    "spec_id": "hx_auth_session_scope",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 151
+  },
+  {
+    "trial_id": "holdout_hx_auth_price_authority_1",
+    "spec_id": "hx_auth_price_authority",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 192
+  },
+  {
+    "trial_id": "holdout_hx_auth_price_authority_2",
+    "spec_id": "hx_auth_price_authority",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 198
+  },
+  {
+    "trial_id": "holdout_hx_auth_price_authority_3",
+    "spec_id": "hx_auth_price_authority",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 169
+  },
+  {
+    "trial_id": "holdout_hx_auth_replay_order_1",
+    "spec_id": "hx_auth_replay_order",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 203
+  },
+  {
+    "trial_id": "holdout_hx_auth_replay_order_2",
+    "spec_id": "hx_auth_replay_order",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 187
+  },
+  {
+    "trial_id": "holdout_hx_auth_replay_order_3",
+    "spec_id": "hx_auth_replay_order",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 178
+  },
+  {
+    "trial_id": "holdout_hx_data_quantity_bounds_1",
+    "spec_id": "hx_data_quantity_bounds",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 186
+  },
+  {
+    "trial_id": "holdout_hx_data_quantity_bounds_2",
+    "spec_id": "hx_data_quantity_bounds",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 186
+  },
+  {
+    "trial_id": "holdout_hx_data_quantity_bounds_3",
+    "spec_id": "hx_data_quantity_bounds",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 174
+  },
+  {
+    "trial_id": "holdout_hx_data_unknown_product_1",
+    "spec_id": "hx_data_unknown_product",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 137
+  },
+  {
+    "trial_id": "holdout_hx_data_unknown_product_2",
+    "spec_id": "hx_data_unknown_product",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 123
+  },
+  {
+    "trial_id": "holdout_hx_data_unknown_product_3",
+    "spec_id": "hx_data_unknown_product",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 124
+  },
+  {
+    "trial_id": "holdout_hx_data_total_integrity_1",
+    "spec_id": "hx_data_total_integrity",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 165
+  },
+  {
+    "trial_id": "holdout_hx_data_total_integrity_2",
+    "spec_id": "hx_data_total_integrity",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 168
+  },
+  {
+    "trial_id": "holdout_hx_data_total_integrity_3",
+    "spec_id": "hx_data_total_integrity",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 164
+  },
+  {
+    "trial_id": "holdout_hx_integration_timeout_1",
+    "spec_id": "hx_integration_timeout",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 165
+  },
+  {
+    "trial_id": "holdout_hx_integration_timeout_2",
+    "spec_id": "hx_integration_timeout",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 164
+  },
+  {
+    "trial_id": "holdout_hx_integration_timeout_3",
+    "spec_id": "hx_integration_timeout",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 170
+  },
+  {
+    "trial_id": "holdout_hx_integration_partial_write_1",
+    "spec_id": "hx_integration_partial_write",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 167
+  },
+  {
+    "trial_id": "holdout_hx_integration_partial_write_2",
+    "spec_id": "hx_integration_partial_write",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 170
+  },
+  {
+    "trial_id": "holdout_hx_integration_partial_write_3",
+    "spec_id": "hx_integration_partial_write",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 165
+  },
+  {
+    "trial_id": "holdout_hx_integration_retry_safety_1",
+    "spec_id": "hx_integration_retry_safety",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 124
+  },
+  {
+    "trial_id": "holdout_hx_integration_retry_safety_2",
+    "spec_id": "hx_integration_retry_safety",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 131
+  },
+  {
+    "trial_id": "holdout_hx_integration_retry_safety_3",
+    "spec_id": "hx_integration_retry_safety",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 131
+  },
+  {
+    "trial_id": "holdout_hx_data_currency_units_1",
+    "spec_id": "hx_data_currency_units",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 169
+  },
+  {
+    "trial_id": "holdout_hx_data_currency_units_2",
+    "spec_id": "hx_data_currency_units",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 165
+  },
+  {
+    "trial_id": "holdout_hx_data_currency_units_3",
+    "spec_id": "hx_data_currency_units",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 165
+  },
+  {
+    "trial_id": "holdout_hx_auth_role_separation_1",
+    "spec_id": "hx_auth_role_separation",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 166
+  },
+  {
+    "trial_id": "holdout_hx_auth_role_separation_2",
+    "spec_id": "hx_auth_role_separation",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 165
+  },
+  {
+    "trial_id": "holdout_hx_auth_role_separation_3",
+    "spec_id": "hx_auth_role_separation",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 165
+  },
+  {
+    "trial_id": "holdout_hx_data_audit_trail_1",
+    "spec_id": "hx_data_audit_trail",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 179
+  },
+  {
+    "trial_id": "holdout_hx_data_audit_trail_2",
+    "spec_id": "hx_data_audit_trail",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 168
+  },
+  {
+    "trial_id": "holdout_hx_data_audit_trail_3",
+    "spec_id": "hx_data_audit_trail",
+    "category": "auth_data_integration",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 164
+  },
+  {
+    "trial_id": "holdout_hx_lang_total_wrong_1",
+    "spec_id": "hx_lang_total_wrong",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 145
+  },
+  {
+    "trial_id": "holdout_hx_lang_total_wrong_2",
+    "spec_id": "hx_lang_total_wrong",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 142
+  },
+  {
+    "trial_id": "holdout_hx_lang_total_wrong_3",
+    "spec_id": "hx_lang_total_wrong",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 146
+  },
+  {
+    "trial_id": "holdout_hx_lang_no_negative_1",
+    "spec_id": "hx_lang_no_negative",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 163
+  },
+  {
+    "trial_id": "holdout_hx_lang_no_negative_2",
+    "spec_id": "hx_lang_no_negative",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 160
+  },
+  {
+    "trial_id": "holdout_hx_lang_no_negative_3",
+    "spec_id": "hx_lang_no_negative",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 162
+  },
+  {
+    "trial_id": "holdout_hx_lang_slow_checkout_1",
+    "spec_id": "hx_lang_slow_checkout",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [
+        "mobile-friendly"
+      ],
+      "taglish": [
+        "mobile-friendly"
+      ],
+      "equivalent": true
+    },
+    "wall_ms": 191
+  },
+  {
+    "trial_id": "holdout_hx_lang_slow_checkout_2",
+    "spec_id": "hx_lang_slow_checkout",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [
+        "mobile-friendly"
+      ],
+      "taglish": [
+        "mobile-friendly"
+      ],
+      "equivalent": true
+    },
+    "wall_ms": 188
+  },
+  {
+    "trial_id": "holdout_hx_lang_slow_checkout_3",
+    "spec_id": "hx_lang_slow_checkout",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [
+        "mobile-friendly"
+      ],
+      "taglish": [
+        "mobile-friendly"
+      ],
+      "equivalent": true
+    },
+    "wall_ms": 186
+  },
+  {
+    "trial_id": "holdout_hx_lang_button_hidden_1",
+    "spec_id": "hx_lang_button_hidden",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [
+        "mobile-friendly",
+        "ordering"
+      ],
+      "taglish": [
+        "mobile-friendly",
+        "ordering"
+      ],
+      "equivalent": true
+    },
+    "wall_ms": 188
+  },
+  {
+    "trial_id": "holdout_hx_lang_button_hidden_2",
+    "spec_id": "hx_lang_button_hidden",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [
+        "mobile-friendly",
+        "ordering"
+      ],
+      "taglish": [
+        "mobile-friendly",
+        "ordering"
+      ],
+      "equivalent": true
+    },
+    "wall_ms": 189
+  },
+  {
+    "trial_id": "holdout_hx_lang_button_hidden_3",
+    "spec_id": "hx_lang_button_hidden",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [
+        "mobile-friendly",
+        "ordering"
+      ],
+      "taglish": [
+        "mobile-friendly",
+        "ordering"
+      ],
+      "equivalent": true
+    },
+    "wall_ms": 186
+  },
+  {
+    "trial_id": "holdout_hx_lang_wrong_change_1",
+    "spec_id": "hx_lang_wrong_change",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 120
+  },
+  {
+    "trial_id": "holdout_hx_lang_wrong_change_2",
+    "spec_id": "hx_lang_wrong_change",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 120
+  },
+  {
+    "trial_id": "holdout_hx_lang_wrong_change_3",
+    "spec_id": "hx_lang_wrong_change",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 116
+  },
+  {
+    "trial_id": "holdout_hx_lang_double_order_1",
+    "spec_id": "hx_lang_double_order",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [
+        "ordering"
+      ],
+      "taglish": [
+        "ordering"
+      ],
+      "equivalent": true
+    },
+    "wall_ms": 160
+  },
+  {
+    "trial_id": "holdout_hx_lang_double_order_2",
+    "spec_id": "hx_lang_double_order",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [
+        "ordering"
+      ],
+      "taglish": [
+        "ordering"
+      ],
+      "equivalent": true
+    },
+    "wall_ms": 158
+  },
+  {
+    "trial_id": "holdout_hx_lang_double_order_3",
+    "spec_id": "hx_lang_double_order",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [
+        "ordering"
+      ],
+      "taglish": [
+        "ordering"
+      ],
+      "equivalent": true
+    },
+    "wall_ms": 159
+  },
+  {
+    "trial_id": "holdout_hx_lang_price_change_1",
+    "spec_id": "hx_lang_price_change",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 157
+  },
+  {
+    "trial_id": "holdout_hx_lang_price_change_2",
+    "spec_id": "hx_lang_price_change",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 155
+  },
+  {
+    "trial_id": "holdout_hx_lang_price_change_3",
+    "spec_id": "hx_lang_price_change",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 159
+  },
+  {
+    "trial_id": "holdout_hx_lang_receipt_missing_1",
+    "spec_id": "hx_lang_receipt_missing",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 187
+  },
+  {
+    "trial_id": "holdout_hx_lang_receipt_missing_2",
+    "spec_id": "hx_lang_receipt_missing",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 189
+  },
+  {
+    "trial_id": "holdout_hx_lang_receipt_missing_3",
+    "spec_id": "hx_lang_receipt_missing",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 189
+  },
+  {
+    "trial_id": "holdout_hx_lang_login_loop_1",
+    "spec_id": "hx_lang_login_loop",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 120
+  },
+  {
+    "trial_id": "holdout_hx_lang_login_loop_2",
+    "spec_id": "hx_lang_login_loop",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 120
+  },
+  {
+    "trial_id": "holdout_hx_lang_login_loop_3",
+    "spec_id": "hx_lang_login_loop",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 119
+  },
+  {
+    "trial_id": "holdout_hx_lang_stock_wrong_1",
+    "spec_id": "hx_lang_stock_wrong",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 157
+  },
+  {
+    "trial_id": "holdout_hx_lang_stock_wrong_2",
+    "spec_id": "hx_lang_stock_wrong",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 157
+  },
+  {
+    "trial_id": "holdout_hx_lang_stock_wrong_3",
+    "spec_id": "hx_lang_stock_wrong",
+    "category": "paired_language",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 157
+  },
+  {
+    "trial_id": "holdout_hx_lang_address_lost_1",
+    "spec_id": "hx_lang_address_lost",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 189
+  },
+  {
+    "trial_id": "holdout_hx_lang_address_lost_2",
+    "spec_id": "hx_lang_address_lost",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 186
+  },
+  {
+    "trial_id": "holdout_hx_lang_address_lost_3",
+    "spec_id": "hx_lang_address_lost",
+    "category": "paired_language",
+    "stack": "typescript",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "node",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 186
+  },
+  {
+    "trial_id": "holdout_hx_lang_units_confusing_1",
+    "spec_id": "hx_lang_units_confusing",
+    "category": "paired_language",
+    "stack": "swift",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 1382
+  },
+  {
+    "trial_id": "holdout_hx_lang_units_confusing_2",
+    "spec_id": "hx_lang_units_confusing",
+    "category": "paired_language",
+    "stack": "swift",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 1387
+  },
+  {
+    "trial_id": "holdout_hx_lang_units_confusing_3",
+    "spec_id": "hx_lang_units_confusing",
+    "category": "paired_language",
+    "stack": "swift",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": {
+      "english": [],
+      "taglish": [],
+      "equivalent": true
+    },
+    "wall_ms": 1401
+  },
+  {
+    "trial_id": "holdout_hx_backend_pricing_service_1",
+    "spec_id": "hx_backend_pricing_service",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 122
+  },
+  {
+    "trial_id": "holdout_hx_backend_pricing_service_2",
+    "spec_id": "hx_backend_pricing_service",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 125
+  },
+  {
+    "trial_id": "holdout_hx_backend_pricing_service_3",
+    "spec_id": "hx_backend_pricing_service",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 125
+  },
+  {
+    "trial_id": "holdout_hx_backend_rounding_1",
+    "spec_id": "hx_backend_rounding",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 167
+  },
+  {
+    "trial_id": "holdout_hx_backend_rounding_2",
+    "spec_id": "hx_backend_rounding",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 169
+  },
+  {
+    "trial_id": "holdout_hx_backend_rounding_3",
+    "spec_id": "hx_backend_rounding",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 167
+  },
+  {
+    "trial_id": "holdout_hx_backend_bulk_order_1",
+    "spec_id": "hx_backend_bulk_order",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 164
+  },
+  {
+    "trial_id": "holdout_hx_backend_bulk_order_2",
+    "spec_id": "hx_backend_bulk_order",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 160
+  },
+  {
+    "trial_id": "holdout_hx_backend_bulk_order_3",
+    "spec_id": "hx_backend_bulk_order",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 167
+  },
+  {
+    "trial_id": "holdout_hx_backend_zero_items_1",
+    "spec_id": "hx_backend_zero_items",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 166
+  },
+  {
+    "trial_id": "holdout_hx_backend_zero_items_2",
+    "spec_id": "hx_backend_zero_items",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 162
+  },
+  {
+    "trial_id": "holdout_hx_backend_zero_items_3",
+    "spec_id": "hx_backend_zero_items",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 161
+  },
+  {
+    "trial_id": "holdout_hx_native_pricing_binary_1",
+    "spec_id": "hx_native_pricing_binary",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 677
+  },
+  {
+    "trial_id": "holdout_hx_native_pricing_binary_2",
+    "spec_id": "hx_native_pricing_binary",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 685
+  },
+  {
+    "trial_id": "holdout_hx_native_pricing_binary_3",
+    "spec_id": "hx_native_pricing_binary",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 679
+  },
+  {
+    "trial_id": "holdout_hx_native_currency_units_1",
+    "spec_id": "hx_native_currency_units",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 1553
+  },
+  {
+    "trial_id": "holdout_hx_native_currency_units_2",
+    "spec_id": "hx_native_currency_units",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 1368
+  },
+  {
+    "trial_id": "holdout_hx_native_currency_units_3",
+    "spec_id": "hx_native_currency_units",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 1383
+  },
+  {
+    "trial_id": "holdout_hx_native_large_quantity_1",
+    "spec_id": "hx_native_large_quantity",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 1617
+  },
+  {
+    "trial_id": "holdout_hx_native_large_quantity_2",
+    "spec_id": "hx_native_large_quantity",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 1396
+  },
+  {
+    "trial_id": "holdout_hx_native_large_quantity_3",
+    "spec_id": "hx_native_large_quantity",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 1382
+  },
+  {
+    "trial_id": "holdout_hx_native_refuse_negative_1",
+    "spec_id": "hx_native_refuse_negative",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 1368
+  },
+  {
+    "trial_id": "holdout_hx_native_refuse_negative_2",
+    "spec_id": "hx_native_refuse_negative",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 1374
+  },
+  {
+    "trial_id": "holdout_hx_native_refuse_negative_3",
+    "spec_id": "hx_native_refuse_negative",
+    "category": "cross_stack",
+    "stack": "swift",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "swiftc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 1377
+  },
+  {
+    "trial_id": "holdout_hx_systems_parser_bounds_1",
+    "spec_id": "hx_systems_parser_bounds",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 668
+  },
+  {
+    "trial_id": "holdout_hx_systems_parser_bounds_2",
+    "spec_id": "hx_systems_parser_bounds",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 310
+  },
+  {
+    "trial_id": "holdout_hx_systems_parser_bounds_3",
+    "spec_id": "hx_systems_parser_bounds",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 328
+  },
+  {
+    "trial_id": "holdout_hx_systems_parser_total_1",
+    "spec_id": "hx_systems_parser_total",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 865
+  },
+  {
+    "trial_id": "holdout_hx_systems_parser_total_2",
+    "spec_id": "hx_systems_parser_total",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 622
+  },
+  {
+    "trial_id": "holdout_hx_systems_parser_total_3",
+    "spec_id": "hx_systems_parser_total",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 611
+  },
+  {
+    "trial_id": "holdout_hx_systems_parser_unknown_1",
+    "spec_id": "hx_systems_parser_unknown",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "semantic",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 841
+  },
+  {
+    "trial_id": "holdout_hx_systems_parser_unknown_2",
+    "spec_id": "hx_systems_parser_unknown",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "semantic",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 642
+  },
+  {
+    "trial_id": "holdout_hx_systems_parser_unknown_3",
+    "spec_id": "hx_systems_parser_unknown",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "semantic",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_ABSENT",
+        "severity": "high",
+        "detail": "no lower bound on quantity is enforced"
+      }
+    ],
+    "check_failures_seen": [
+      "semantic"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 606
+  },
+  {
+    "trial_id": "holdout_hx_polyglot_shared_total_1",
+    "spec_id": "hx_polyglot_shared_total",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "high",
+    "repeat": 1,
+    "injected_defect": "boundary",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 823
+  },
+  {
+    "trial_id": "holdout_hx_polyglot_shared_total_2",
+    "spec_id": "hx_polyglot_shared_total",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "high",
+    "repeat": 2,
+    "injected_defect": "boundary",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 601
+  },
+  {
+    "trial_id": "holdout_hx_polyglot_shared_total_3",
+    "spec_id": "hx_polyglot_shared_total",
+    "category": "cross_stack",
+    "stack": "rust",
+    "risk_tier": "high",
+    "repeat": 3,
+    "injected_defect": "boundary",
+    "toolchain": "rustc",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [
+      {
+        "finding_id": "LOWER_BOUND_AT_ZERO",
+        "severity": "high",
+        "detail": "the lower bound refuses negative quantities but accepts zero; the requirement is a minimum of one"
+      }
+    ],
+    "check_failures_seen": [],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 606
+  },
+  {
+    "trial_id": "holdout_hx_llm_grounded_total_1",
+    "spec_id": "hx_llm_grounded_total",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 118
+  },
+  {
+    "trial_id": "holdout_hx_llm_grounded_total_2",
+    "spec_id": "hx_llm_grounded_total",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 118
+  },
+  {
+    "trial_id": "holdout_hx_llm_grounded_total_3",
+    "spec_id": "hx_llm_grounded_total",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "none",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [],
+    "repair_cycles": 0,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 119
+  },
+  {
+    "trial_id": "holdout_hx_llm_refuse_unsupported_1",
+    "spec_id": "hx_llm_refuse_unsupported",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 1,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 155
+  },
+  {
+    "trial_id": "holdout_hx_llm_refuse_unsupported_2",
+    "spec_id": "hx_llm_refuse_unsupported",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 2,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 155
+  },
+  {
+    "trial_id": "holdout_hx_llm_refuse_unsupported_3",
+    "spec_id": "hx_llm_refuse_unsupported",
+    "category": "cross_stack",
+    "stack": "python",
+    "risk_tier": "moderate",
+    "repeat": 3,
+    "injected_defect": "unit",
+    "toolchain": "python3",
+    "outcome": "ACCEPTED",
+    "blocked_reason": null,
+    "claimed_ready": true,
+    "false_ready": false,
+    "reviewer_findings": [],
+    "findings_raised": [],
+    "check_failures_seen": [
+      "unit"
+    ],
+    "repair_cycles": 1,
+    "grader_results": [
+      {
+        "check_id": "unit",
+        "passed": true,
+        "observed": "11500"
+      },
+      {
+        "check_id": "semantic",
+        "passed": true,
+        "observed": "ERR"
+      }
+    ],
+    "audit_results": [
+      {
+        "case_id": "zero_quantity",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      },
+      {
+        "case_id": "unknown_product",
+        "passed": true,
+        "observed": "ERR",
+        "severity": "high"
+      }
+    ],
+    "escaped_defects": [],
+    "material_questions": [],
+    "continue_prompts": 0,
+    "paired_language": null,
+    "wall_ms": 155
+  }
+]

@@ -5,7 +5,7 @@
       {
         "name": "read-intent",
         "exit_code": 0,
-        "stdout": "deployment_id=dep_668a9241-b831-401c-8863-780b17e2edc6\nidempotency_key=deploy-t20\n",
+        "stdout": "deployment_id=dep_b6bc060c-9bf2-441f-88c9-d4528e23377b\nidempotency_key=deploy-t20\n",
         "stderr": "",
         "ran": true
       },
@@ -33,7 +33,7 @@
       {
         "name": "confirm-snapshot",
         "exit_code": 0,
-        "stdout": "snapshot present: /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-HdNbQt/synthetic.backup.sqlite\n",
+        "stdout": "snapshot present: /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-2UNY5h/synthetic.backup.sqlite\n",
         "stderr": "",
         "ran": true
       },
@@ -47,7 +47,7 @@
       {
         "name": "restore-and-verify",
         "exit_code": 0,
-        "stdout": "restored /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-HdNbQt/synthetic.sqlite\n",
+        "stdout": "restored /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-2UNY5h/synthetic.sqlite\n",
         "stderr": "",
         "ran": true
       }
@@ -75,7 +75,7 @@
       {
         "name": "record",
         "exit_code": 0,
-        "stdout": "recorded recovery decision for dep_668a9241-b831-401c-8863-780b17e2edc6\n",
+        "stdout": "recorded recovery decision for dep_b6bc060c-9bf2-441f-88c9-d4528e23377b\n",
         "stderr": "",
         "ran": true
       }

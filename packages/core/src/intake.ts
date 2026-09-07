@@ -55,7 +55,8 @@ const EXCLUSIONS: Array<[RegExp, string, string]> = [
 ];
 
 const INCLUSIONS: Array<[RegExp, string, string]> = [
-  [/\b(order|ordering|mag ?order|bumili|buy)\b/i, 'ordering', 'Customers can place an order.'],
+  // Singular and plural are the same request here too: "two orders" is an ordering brief.
+  [/\b(orders?|ordering|mag ?order|bumili|buy)\b/i, 'ordering', 'Customers can place an order.'],
   [/\b(cart|basket)\b/i, 'cart', 'Customers can add items to a cart and change quantities.'],
   [/\b(phone|mobile|cellphone|sa phone|android|iphone)\b/i, 'mobile-friendly', 'The experience works on a phone.'],
   // Singular and plural are the same request; grammar never changes the approved scope.

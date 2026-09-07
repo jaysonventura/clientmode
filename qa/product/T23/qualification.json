@@ -1,0 +1,181 @@
+{
+  "frozen_configuration": {
+    "frozen_at": "2026-09-09T02:00:00.000Z",
+    "arm": "clientmode_bounded_agents",
+    "policy_digest": "sha256:3c8fca3f69908fc0eafa0e8e2ebb3b227db2117a6c7f76c6fe39d5b61cf89a86",
+    "maximum_repair_cycles": 3,
+    "reviewer": "independent reviewer: runs the protected checks and reads the change against the stated requirement",
+    "prompt_sources": [
+      "skills/",
+      "adapters/",
+      "profiles/"
+    ],
+    "configuration_digest": "sha256:1546dc74e47aa3c7c906855334c9966aca442129bc6ea682c07bc7491b47caea"
+  },
+  "holdout_opened_at": "2026-09-09T02:00:01.000Z",
+  "leak_scan": {
+    "scanned_files": 78,
+    "roots": [
+      "/Users/viscion/Documents/clientmode/skills",
+      "/Users/viscion/Documents/clientmode/adapters",
+      "/Users/viscion/Documents/clientmode/profiles",
+      "/Users/viscion/Documents/clientmode/packages",
+      "/Users/viscion/Documents/clientmode/fixtures"
+    ],
+    "hits": []
+  },
+  "specs": 50,
+  "repeats": 3,
+  "denominator": {
+    "declared": 150,
+    "observed": 150,
+    "executed": 150,
+    "blocked": 0
+  },
+  "success": {
+    "accepted": 150,
+    "executed": 150,
+    "rate": 1,
+    "interval": {
+      "low": 0.9750288608542813,
+      "high": 1
+    }
+  },
+  "false_ready": [],
+  "escaped_defects": [],
+  "caught": {
+    "with_injected_defect": 111,
+    "repaired": 111,
+    "reviewer_caught": 72,
+    "protected_checks_caught": 75
+  },
+  "categories": {
+    "ui": {
+      "trials": 36,
+      "executed": 36,
+      "accepted": 36,
+      "blocked": 0,
+      "interval": {
+        "low": 0.9035781695514236,
+        "high": 1
+      }
+    },
+    "auth_data_integration": {
+      "trials": 36,
+      "executed": 36,
+      "accepted": 36,
+      "blocked": 0,
+      "interval": {
+        "low": 0.9035781695514236,
+        "high": 1
+      }
+    },
+    "paired_language": {
+      "trials": 36,
+      "executed": 36,
+      "accepted": 36,
+      "blocked": 0,
+      "interval": {
+        "low": 0.9035781695514236,
+        "high": 1
+      }
+    },
+    "cross_stack": {
+      "trials": 42,
+      "executed": 42,
+      "accepted": 42,
+      "blocked": 0,
+      "interval": {
+        "low": 0.916198387490838,
+        "high": 1
+      }
+    }
+  },
+  "stacks": {
+    "typescript": {
+      "trials": 51,
+      "executed": 51,
+      "accepted": 51,
+      "toolchain": "node"
+    },
+    "python": {
+      "trials": 72,
+      "executed": 72,
+      "accepted": 72,
+      "toolchain": "python3"
+    },
+    "swift": {
+      "trials": 15,
+      "executed": 15,
+      "accepted": 15,
+      "toolchain": "swiftc"
+    },
+    "rust": {
+      "trials": 12,
+      "executed": 12,
+      "accepted": 12,
+      "toolchain": "rustc"
+    }
+  },
+  "broad_remit": {
+    "qualified": true,
+    "executed_stacks": [
+      "typescript",
+      "python",
+      "swift",
+      "rust"
+    ],
+    "reasons": []
+  },
+  "javascript_only_subset": {
+    "qualified": false,
+    "executed_stacks": [
+      "typescript"
+    ],
+    "reasons": [
+      "JAVASCRIPT_ONLY_RESULT_SET",
+      "FEWER_THAN_TWO_NON_JAVASCRIPT_STACKS"
+    ]
+  },
+  "paired_language": {
+    "pairs": 36,
+    "equivalent": 36
+  },
+  "continue_prompts": {
+    "median": 0,
+    "classifier_probe_detected": 3,
+    "total": 0
+  },
+  "responsibility_coverage": {
+    "tasks": 15,
+    "all_covered": true,
+    "dispatch_limits": {
+      "maximum_children_per_lead": 2,
+      "maximum_depth": 1,
+      "active_writers_per_project": 1,
+      "maximum_repair_cycles": 3,
+      "task_ceiling_seconds": 1800,
+      "check_timeout_seconds": 300
+    }
+  },
+  "live_hosts": [
+    {
+      "host": "claude",
+      "available": true,
+      "version": "2.1.263",
+      "exit_code": 0,
+      "observed": "READY",
+      "reason": null
+    },
+    {
+      "host": "codex",
+      "available": true,
+      "version": "0.153.4",
+      "exit_code": 0,
+      "observed": "READY",
+      "reason": null
+    }
+  ],
+  "blocked_trials": [],
+  "scope": "This is the toolkit qualified on unseen work across four stacks. It is not a provider benchmark: no metered evaluation budget is approved, and the live host sub-run below is two turns, one per advertised host."
+}

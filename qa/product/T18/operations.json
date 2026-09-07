@@ -129,14 +129,14 @@
   "run_command": {
     "inside": true,
     "outside": {
-      "error": "REQUEST_FILE_OUTSIDE_AUTHORIZED_ROOT: /private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/elsewhere.txt"
+      "error": "REQUEST_FILE_OUTSIDE_AUTHORIZED_ROOT: /private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/elsewhere.txt"
     },
     "exit_code": 0,
     "run_created": true
   },
   "recovery": {
     "stored_tasks": 1000,
-    "elapsed_ms": 24,
+    "elapsed_ms": 25,
     "expired_leases": 1000,
     "revoked_attempts": 1000,
     "reference_machine": {
@@ -146,15 +146,15 @@
     }
   },
   "cancel": {
-    "acknowledged_in_ms": 20.845125,
+    "acknowledged_in_ms": 1.498041,
     "tree": {
       "terminated": true,
       "quarantined": false,
       "checked_after_ms": 0
     },
     "leases_revoked": 0,
-    "heartbeat_before_kill": 12,
-    "heartbeat_after_kill": 13,
+    "heartbeat_before_kill": 11,
+    "heartbeat_after_kill": 11,
     "forked_child_was_writing": true,
     "forked_child_stopped": true
   },
@@ -165,16 +165,16 @@
       "to": "0.2.0",
       "snapshot": {
         "taken_at": "2026-09-08T20:00:00.000Z",
-        "state_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/backups/state-0.1.0.sqlite",
-        "config_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/backups/config-0.1.0.json",
+        "state_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/backups/state-0.1.0.sqlite",
+        "config_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/backups/config-0.1.0.json",
         "from_version": "0.1.0"
       },
       "failed_at": 3,
       "state_restored": true,
       "reason": "migration 3 failed: power loss during the contract step"
     },
-    "state_digest_before": "251fb91cc3cc2d8f92f375ab8645982bb9b636ec5587fa673e941d8d5899cd80",
-    "state_digest_after_failure": "251fb91cc3cc2d8f92f375ab8645982bb9b636ec5587fa673e941d8d5899cd80",
+    "state_digest_before": "99a8c3c9c77b966764eea0a368a20ead9bd999815007e3ce689bee4237ecb9ee",
+    "state_digest_after_failure": "99a8c3c9c77b966764eea0a368a20ead9bd999815007e3ce689bee4237ecb9ee",
     "state_identical_after_failed_upgrade": true,
     "version_activated_after_failure": "0.1.0",
     "concurrent_edit": {
@@ -197,7 +197,7 @@
     },
     "rollback_reversible": {
       "rollback_safe": true,
-      "restores_from": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/backups2/state-0.1.0.sqlite"
+      "restores_from": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/backups2/state-0.1.0.sqlite"
     },
     "rollback_irreversible": {
       "rollback_safe": false,
@@ -211,26 +211,26 @@
   },
   "uninstall": {
     "removed": [
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/install/client-mode/.claude-plugin/plugin.json",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/install/client-mode/CLAUDE.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/install/client-mode/skills/debug/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/install/client-mode/skills/delivery/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/install/client-mode/skills/grounding/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/install/client-mode/skills/handoff/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/install/client-mode/skills/intake/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/install/client-mode/skills/review/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/install/client-mode/skills/ui-ux/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/install/client-mode/skills/verify/SKILL.md"
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/install/client-mode/.claude-plugin/plugin.json",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/install/client-mode/CLAUDE.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/install/client-mode/skills/debug/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/install/client-mode/skills/delivery/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/install/client-mode/skills/grounding/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/install/client-mode/skills/handoff/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/install/client-mode/skills/intake/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/install/client-mode/skills/review/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/install/client-mode/skills/ui-ux/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/install/client-mode/skills/verify/SKILL.md"
     ],
     "restored": [],
     "retained": [
       {
-        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/evidence",
+        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/evidence",
         "reason": "release manifest retention (retained until 2027-01-01T00:00:00.000Z)"
       }
     ],
     "project_work_untouched": [
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3GYNvq/work (1 file(s) left in place)"
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-R89gM6/work (1 file(s) left in place)"
     ],
     "brief_still_present": true
   },

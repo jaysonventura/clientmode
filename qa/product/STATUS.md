@@ -114,6 +114,7 @@ projects outside this repository. No metered API billing was configured.
 |---|---|---|---|---|
 | T21 | AT-021 | integration | PASS | `qa/product/T21/` |
 | T22 | AT-022 | benchmark | PASS | `qa/product/T22/` |
+| T23 | AT-023 | benchmark | PASS | `qa/product/T23/` |
 
 - 38 adversarial attacks executed against the real services; every one rejected, with the
   production reason recorded per attack in `qa/product/T21/attacks.json`
@@ -129,6 +130,12 @@ projects outside this repository. No metered API billing was configured.
   better than another and the claim linter refuses the sentences that would say otherwise
 - **the live provider pilot is blocked**: AT-022 requires an approved metered evaluation budget
   and none is configured. The arm is retained as blocked; no live comparison is reported
+- 150 holdout trials on 50 unseen specs, frozen configuration digest recorded before the holdout
+  was opened and a leak scan over 78 shipped files finding nothing: 150/150 verified success,
+  0 false-ready, 0 escaped defects, 36/36 paired English/Taglish briefs equivalent, both live
+  hosts answered. A JavaScript-only subset of the same trials is refused qualification
+- the holdout found two real defects: `interpret()` matched `order` but not `orders`, and the
+  reviewer's findings were reported from the last repair cycle only. Both fixed
 
 ## Explicitly not proven yet
 

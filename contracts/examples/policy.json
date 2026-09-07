@@ -1,0 +1,40 @@
+{
+  "kind": "policy",
+  "schema_version": 1,
+  "policy_id": "policy_01",
+  "project_id": "project_shop",
+  "policy_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+  "requirements_revision": 1,
+  "checks": [
+    {
+      "check_id": "api-order",
+      "definition_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "required": true,
+      "result_kind": "api",
+      "minimum_tests": 3,
+      "required_assertion_ids": [
+        "server-pricing",
+        "invalid-quantity",
+        "idempotency"
+      ],
+      "maximum_skipped": 0
+    },
+    {
+      "check_id": "browser-checkout",
+      "definition_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "required": true,
+      "result_kind": "browser",
+      "minimum_tests": 2,
+      "required_assertion_ids": [
+        "checkout",
+        "mobile-layout"
+      ],
+      "maximum_skipped": 0
+    }
+  ],
+  "maximum_age_seconds": 86400,
+  "trusted_issuer_ids": [
+    "verifier_fixture"
+  ],
+  "authority": "protected"
+}

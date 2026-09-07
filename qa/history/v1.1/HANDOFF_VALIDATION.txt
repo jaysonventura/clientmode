@@ -1,0 +1,47 @@
+# Handoff Validation — Edition 1.1
+
+**Prepared:** 7 September 2026.  
+**Scope:** Revised handoff documents, schemas, reference contracts and tests.  
+**Product status:** Client Mode is NOT built, installed, live-stack-tested or production-qualified by this report.
+
+## Fresh checks
+
+| Check | Observed result |
+|---|---|
+| Unchanged reference evidence/signature/state tests | 62 passed; 0 failed; 0 skipped |
+| Unchanged SQLite reference-schema/constraint tests | 12 passed |
+| New task-engineering-context schema tests | 14 passed |
+| TypeScript boundary contracts including EngineeringContext | Strict no-emit compilation passed |
+| JSON Schema | Draft2020-12 schema and 18 synthetic example instances validated with format checking |
+| Traceability | 42 functional + 15 non-functional requirements mapped to 24 tasks and 24 acceptance scenario groups |
+| Plan synchronization | Six numbered plans; their expected assertion dictionaries match the scenario contracts |
+| Open-ended AI scope checks | Non-enumerated language/framework/platform fields and six added scope requirements verified structurally |
+| OpenAPI design | 24 operations; local references, paths, operation IDs and auth/idempotency structure checked |
+| Package documents | Required files, local Markdown links, balanced code fences, unresolved-marker and private-key-material scans passed |
+
+These are **88 reference/schema tests**, not 88 live AI engineering tasks. No native simulator, model-serving service or browser journey was executed here.
+
+Reproduce from the extracted root:
+
+```bash
+node --test tests/reference.test.mjs
+python3 -m unittest discover -s tests -p 'test_*.py' -v
+tsc --noEmit --strict --target ES2022 --lib ES2022,DOM contracts/interfaces.ts
+python3 scripts/check_handoff.py
+```
+
+Python schema tests require `jsonschema`. The compiler/test tooling belongs to handoff validation; its language does not constrain the AI team's target stacks. Logs are in `qa/reference-tests.tap`, `qa/storage-tests.log`, `qa/engineering-context-tests.log`, `qa/typescript-check.log` and `qa/structure-check.json`.
+
+## What changed
+
+Edition 1.0 incorrectly limited the first AI delivery qualification to TypeScript/JavaScript web applications. Edition 1.1 separates the toolkit implementation from the AI engineering remit. It adds technology-agnostic requirements, task-specific specialist context, native/model/polyglot validation responsibilities, and broader qualification criteria without rewriting the toolkit in many languages.
+
+The six additional requirements are traced through existing tasks. Fourteen scenario groups gained cross-stack assertions. The EngineeringContext schema accepts arbitrary technology identifiers and rejects tested malformed provenance/gap declarations. A syntactically valid context is not proof its source pointers are authentic or that its environment is available. Actual source resolution, task routing, native execution, permissions and final acceptance remain product implementation requirements.
+
+The reference evaluator and database implementation files were not changed. Existing reference behavior was rerun rather than assumed to pass. Domain entities retain their existing versions; EngineeringContext is additive. The source-level ProviderContext interface gains a required engineering_context field, which downstream implementers must populate.
+
+## Explicitly not performed
+
+No authenticated Claude Code/Codex run, native plugin install, actual target-platform build, simulator/device interaction, LLM/model evaluation, full Client Mode implementation, protected-service isolation test, live benchmark, holdout qualification or production release was performed. Full OpenAPI tooling conformance is not claimed; its checks here are structural. No newly researched vendor claims were added.
+
+Every product acceptance scenario remains `NOT_EXECUTED_PRODUCT_TEST`. G0 validates the handoff; G1–G6 still require engineers to build and execute the system. “All stacks” is a required engineering remit and adaptation behavior, not a guarantee of omniscience or universal production certification.

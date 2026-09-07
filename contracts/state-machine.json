@@ -1,0 +1,350 @@
+{
+  "schema_version": 1,
+  "states": [
+    "RECEIVED",
+    "SCOPED",
+    "RUNNING",
+    "VERIFYING",
+    "NEEDS_REPAIR",
+    "READY_FOR_REVIEW",
+    "AWAITING_RELEASE_APPROVAL",
+    "DEPLOYING",
+    "RELEASED",
+    "BLOCKED",
+    "PAUSED",
+    "CANCELLED",
+    "FAILED",
+    "ROLLED_BACK"
+  ],
+  "transitions": [
+    {
+      "from": "RECEIVED",
+      "to": "SCOPED",
+      "actor": "controller",
+      "guard": "contract_valid"
+    },
+    {
+      "from": "SCOPED",
+      "to": "RUNNING",
+      "actor": "controller",
+      "guard": "authorized_and_budgeted"
+    },
+    {
+      "from": "RUNNING",
+      "to": "VERIFYING",
+      "actor": "controller",
+      "guard": "candidate_sealed"
+    },
+    {
+      "from": "VERIFYING",
+      "to": "NEEDS_REPAIR",
+      "actor": "verifier",
+      "guard": "evidence_rejected"
+    },
+    {
+      "from": "NEEDS_REPAIR",
+      "to": "RUNNING",
+      "actor": "controller",
+      "guard": "repair_budget_and_progress"
+    },
+    {
+      "from": "VERIFYING",
+      "to": "READY_FOR_REVIEW",
+      "actor": "verifier",
+      "guard": "current_authenticated_evidence"
+    },
+    {
+      "from": "READY_FOR_REVIEW",
+      "to": "RUNNING",
+      "actor": "controller",
+      "guard": "new_client_requirement_revision"
+    },
+    {
+      "from": "READY_FOR_REVIEW",
+      "to": "AWAITING_RELEASE_APPROVAL",
+      "actor": "release",
+      "guard": "release_checks_and_specialist_review"
+    },
+    {
+      "from": "AWAITING_RELEASE_APPROVAL",
+      "to": "DEPLOYING",
+      "actor": "release",
+      "guard": "current_scoped_approval_consumed"
+    },
+    {
+      "from": "DEPLOYING",
+      "to": "RELEASED",
+      "actor": "release",
+      "guard": "deployment_and_smoke_verified"
+    },
+    {
+      "from": "DEPLOYING",
+      "to": "ROLLED_BACK",
+      "actor": "release",
+      "guard": "authorized_recovery_verified"
+    },
+    {
+      "from": "RELEASED",
+      "to": "ROLLED_BACK",
+      "actor": "release",
+      "guard": "authorized_recovery_verified"
+    },
+    {
+      "from": "ROLLED_BACK",
+      "to": "RUNNING",
+      "actor": "controller",
+      "guard": "new_repair_run_authorized"
+    },
+    {
+      "from": "SCOPED",
+      "to": "PAUSED",
+      "actor": "controller",
+      "guard": "pause_requested"
+    },
+    {
+      "from": "SCOPED",
+      "to": "BLOCKED",
+      "actor": "controller",
+      "guard": "material_blocker"
+    },
+    {
+      "from": "SCOPED",
+      "to": "CANCELLED",
+      "actor": "controller",
+      "guard": "cancel_requested_and_leases_revoked"
+    },
+    {
+      "from": "RUNNING",
+      "to": "PAUSED",
+      "actor": "controller",
+      "guard": "pause_requested"
+    },
+    {
+      "from": "RUNNING",
+      "to": "BLOCKED",
+      "actor": "controller",
+      "guard": "material_blocker"
+    },
+    {
+      "from": "RUNNING",
+      "to": "CANCELLED",
+      "actor": "controller",
+      "guard": "cancel_requested_and_leases_revoked"
+    },
+    {
+      "from": "VERIFYING",
+      "to": "PAUSED",
+      "actor": "controller",
+      "guard": "pause_requested"
+    },
+    {
+      "from": "VERIFYING",
+      "to": "BLOCKED",
+      "actor": "controller",
+      "guard": "material_blocker"
+    },
+    {
+      "from": "VERIFYING",
+      "to": "CANCELLED",
+      "actor": "controller",
+      "guard": "cancel_requested_and_leases_revoked"
+    },
+    {
+      "from": "NEEDS_REPAIR",
+      "to": "PAUSED",
+      "actor": "controller",
+      "guard": "pause_requested"
+    },
+    {
+      "from": "NEEDS_REPAIR",
+      "to": "BLOCKED",
+      "actor": "controller",
+      "guard": "material_blocker"
+    },
+    {
+      "from": "NEEDS_REPAIR",
+      "to": "CANCELLED",
+      "actor": "controller",
+      "guard": "cancel_requested_and_leases_revoked"
+    },
+    {
+      "from": "READY_FOR_REVIEW",
+      "to": "PAUSED",
+      "actor": "controller",
+      "guard": "pause_requested"
+    },
+    {
+      "from": "READY_FOR_REVIEW",
+      "to": "BLOCKED",
+      "actor": "controller",
+      "guard": "material_blocker"
+    },
+    {
+      "from": "READY_FOR_REVIEW",
+      "to": "CANCELLED",
+      "actor": "controller",
+      "guard": "cancel_requested_and_leases_revoked"
+    },
+    {
+      "from": "AWAITING_RELEASE_APPROVAL",
+      "to": "PAUSED",
+      "actor": "controller",
+      "guard": "pause_requested"
+    },
+    {
+      "from": "AWAITING_RELEASE_APPROVAL",
+      "to": "BLOCKED",
+      "actor": "controller",
+      "guard": "material_blocker"
+    },
+    {
+      "from": "AWAITING_RELEASE_APPROVAL",
+      "to": "CANCELLED",
+      "actor": "controller",
+      "guard": "cancel_requested_and_leases_revoked"
+    },
+    {
+      "from": "PAUSED",
+      "to": "RUNNING",
+      "actor": "controller",
+      "guard": "reconciled_authorized_and_budgeted"
+    },
+    {
+      "from": "PAUSED",
+      "to": "CANCELLED",
+      "actor": "controller",
+      "guard": "cancel_requested_and_leases_revoked"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "RUNNING",
+      "actor": "controller",
+      "guard": "reconciled_authorized_and_budgeted"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "CANCELLED",
+      "actor": "controller",
+      "guard": "cancel_requested_and_leases_revoked"
+    },
+    {
+      "from": "RUNNING",
+      "to": "FAILED",
+      "actor": "controller",
+      "guard": "unrecoverable_failure_recorded"
+    },
+    {
+      "from": "VERIFYING",
+      "to": "FAILED",
+      "actor": "controller",
+      "guard": "unrecoverable_failure_recorded"
+    },
+    {
+      "from": "DEPLOYING",
+      "to": "FAILED",
+      "actor": "release",
+      "guard": "unrecoverable_failure_recorded"
+    },
+    {
+      "from": "RECEIVED",
+      "to": "BLOCKED",
+      "actor": "controller",
+      "guard": "material_blocker"
+    },
+    {
+      "from": "RECEIVED",
+      "to": "PAUSED",
+      "actor": "controller",
+      "guard": "pause_requested"
+    },
+    {
+      "from": "RECEIVED",
+      "to": "CANCELLED",
+      "actor": "controller",
+      "guard": "cancel_requested_and_leases_revoked"
+    },
+    {
+      "from": "RECEIVED",
+      "to": "FAILED",
+      "actor": "controller",
+      "guard": "unrecoverable_failure_recorded"
+    },
+    {
+      "from": "PAUSED",
+      "to": "RECEIVED",
+      "actor": "controller",
+      "guard": "precontract_input_resolved"
+    },
+    {
+      "from": "PAUSED",
+      "to": "SCOPED",
+      "actor": "controller",
+      "guard": "contract_reconciled_before_work"
+    },
+    {
+      "from": "PAUSED",
+      "to": "VERIFYING",
+      "actor": "controller",
+      "guard": "candidate_reconciled_for_reverification"
+    },
+    {
+      "from": "PAUSED",
+      "to": "READY_FOR_REVIEW",
+      "actor": "verifier",
+      "guard": "current_authenticated_evidence"
+    },
+    {
+      "from": "PAUSED",
+      "to": "AWAITING_RELEASE_APPROVAL",
+      "actor": "release",
+      "guard": "release_checks_and_specialist_review"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "RECEIVED",
+      "actor": "controller",
+      "guard": "precontract_input_resolved"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "SCOPED",
+      "actor": "controller",
+      "guard": "contract_reconciled_before_work"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "VERIFYING",
+      "actor": "controller",
+      "guard": "candidate_reconciled_for_reverification"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "READY_FOR_REVIEW",
+      "actor": "verifier",
+      "guard": "current_authenticated_evidence"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "AWAITING_RELEASE_APPROVAL",
+      "actor": "release",
+      "guard": "release_checks_and_specialist_review"
+    },
+    {
+      "from": "AWAITING_RELEASE_APPROVAL",
+      "to": "RUNNING",
+      "actor": "controller",
+      "guard": "new_client_requirement_revision"
+    }
+  ],
+  "rules": [
+    "Reject unlisted transitions.",
+    "Require expected state_version; increment atomically.",
+    "Worker cannot write authoritative state transitions.",
+    "DEPLOYING cancellation requires release reconciliation; never auto-pretend rollback.",
+    "A terminal state is not changed by reusing an expired worker result.",
+    "Precontract states carry contract_id null and revision 0; RUNNING requires a persisted contract and scope.",
+    "Resume targets come from controller-owned reconciled state, not a client or worker-selected guard.",
+    "New requirements during active work revoke affected leases and invalidate candidate/approval references atomically; no stale attempt can integrate.",
+    "A late message during DEPLOYING records new intent but does not pretend an external deployment was cancelled; release service reconciles first."
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "kind": "approval_request",
+  "schema_version": 1,
+  "approval_id": "approval_01",
+  "project_id": "project_shop",
+  "requested_by": "controller_01",
+  "state_version": 0,
+  "action": "deploy",
+  "candidate_id": "candidate_01",
+  "artifact_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+  "target_environment": "staging",
+  "policy_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+  "displayed_action_digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+  "description": "Deploy the verified synthetic candidate to the disposable staging environment.",
+  "status": "PENDING",
+  "expires_at": "2026-09-07T01:00:00Z",
+  "created_at": "2026-09-07T00:00:00Z"
+}

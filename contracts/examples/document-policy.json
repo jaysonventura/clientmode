@@ -1,0 +1,42 @@
+{
+  "kind": "document_policy",
+  "schema_version": 1,
+  "policy_id": "document-policy-1",
+  "project_id": "project_01",
+  "job_id": "dj1",
+  "instruction_revision": 1,
+  "authority": "protected",
+  "scope_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "policy_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "maximum_age_seconds": 3600,
+  "trusted_issuer_ids": [
+    "document-verifier-1"
+  ],
+  "checks": [
+    {
+      "check_id": "document-content",
+      "definition_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "required": true,
+      "result_kind": "tests",
+      "minimum_tests": 3,
+      "required_assertion_ids": [
+        "scope-coverage",
+        "source-citations",
+        "meaning-preserved"
+      ],
+      "maximum_skipped": 0
+    },
+    {
+      "check_id": "document-export",
+      "definition_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "required": true,
+      "result_kind": "tests",
+      "minimum_tests": 2,
+      "required_assertion_ids": [
+        "reopen",
+        "layout-review"
+      ],
+      "maximum_skipped": 0
+    }
+  ]
+}

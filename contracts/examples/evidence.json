@@ -1,0 +1,54 @@
+{
+  "kind": "evidence",
+  "schema_version": 1,
+  "evidence_id": "evidence_01",
+  "candidate_id": "candidate_01",
+  "project_id": "project_shop",
+  "run_id": "run_01",
+  "attempt_id": "attempt_01",
+  "source_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "artifact_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+  "requirements_revision": 1,
+  "policy_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+  "environment_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+  "issuer_id": "verifier_fixture",
+  "started_at": "2026-09-07T00:00:00Z",
+  "finished_at": "2026-09-07T00:01:00Z",
+  "integrity_passed": true,
+  "blocking_findings": [],
+  "results": [
+    {
+      "check_id": "api-order",
+      "definition_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status": "PASSED",
+      "executed": true,
+      "exit_code": 0,
+      "tests_total": 3,
+      "tests_passed": 3,
+      "tests_skipped": 0,
+      "assertion_ids": [
+        "server-pricing",
+        "invalid-quantity",
+        "idempotency"
+      ],
+      "observer_id": "external-probe-fixture",
+      "log_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+    },
+    {
+      "check_id": "browser-checkout",
+      "definition_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "status": "PASSED",
+      "executed": true,
+      "exit_code": 0,
+      "tests_total": 2,
+      "tests_passed": 2,
+      "tests_skipped": 0,
+      "assertion_ids": [
+        "checkout",
+        "mobile-layout"
+      ],
+      "observer_id": "external-probe-fixture",
+      "log_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+    }
+  ]
+}

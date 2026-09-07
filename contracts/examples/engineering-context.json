@@ -1,0 +1,78 @@
+{
+  "kind": "engineering_context",
+  "schema_version": 1,
+  "context_id": "context_fixture",
+  "project_id": "project_fixture",
+  "task_id": "task_fixture",
+  "source_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "requirements_revision": 1,
+  "components": [
+    {
+      "component_id": "ios",
+      "root_ref": "fixture_ios",
+      "domain": "native-mobile",
+      "languages": [
+        "Swift"
+      ],
+      "frameworks": [
+        "SwiftUI"
+      ],
+      "target_platforms": [
+        "iOS"
+      ],
+      "environment_ref": null,
+      "grounding_status": "NEEDS_GROUNDING",
+      "source_refs": [],
+      "required_check_ids": [
+        "ios-build",
+        "ios-ui-journey"
+      ],
+      "capability_gaps": [
+        "Target toolchain not probed in this synthetic example."
+      ]
+    },
+    {
+      "component_id": "api",
+      "root_ref": "fixture_api",
+      "domain": "backend",
+      "languages": [
+        "Go"
+      ],
+      "frameworks": [],
+      "target_platforms": [
+        "Linux"
+      ],
+      "environment_ref": null,
+      "grounding_status": "NEEDS_GROUNDING",
+      "source_refs": [],
+      "required_check_ids": [
+        "api-contract",
+        "api-auth-negative"
+      ],
+      "capability_gaps": []
+    },
+    {
+      "component_id": "model",
+      "root_ref": "fixture_model",
+      "domain": "llm-rag",
+      "languages": [
+        "Python"
+      ],
+      "frameworks": [],
+      "target_platforms": [
+        "model-serving-target"
+      ],
+      "environment_ref": null,
+      "grounding_status": "NEEDS_GROUNDING",
+      "source_refs": [],
+      "required_check_ids": [
+        "retrieval-holdout",
+        "injection-eval"
+      ],
+      "capability_gaps": [
+        "Authorized model/data environment not probed in this example."
+      ]
+    }
+  ],
+  "observed_at": "2026-09-07T00:00:00Z"
+}

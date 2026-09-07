@@ -1,0 +1,23 @@
+{
+  "kind": "task_attempt",
+  "schema_version": 1,
+  "task_id": "task_01",
+  "attempt_id": "attempt_01",
+  "run_id": "run_01",
+  "project_id": "project_shop",
+  "attempt_number": 1,
+  "role": "writer",
+  "parent_attempt_id": "lead_01",
+  "depth": 1,
+  "workspace_id": "workspace_01",
+  "base_source_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "allowed_write_paths": [
+    "src/",
+    "tests/developer/"
+  ],
+  "dependency_task_ids": [],
+  "lease_epoch": 1,
+  "deadline": "2026-09-07T00:30:00Z",
+  "provider_session_id": null,
+  "status": "QUEUED"
+}

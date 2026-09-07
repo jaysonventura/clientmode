@@ -1,0 +1,2112 @@
+{
+  "schema_version": 1,
+  "description": "Edition 1.3: master requirement -> task -> concrete unexecuted product scenario; research-derived changes are proposed implementation obligations.",
+  "requirements": [
+    {
+      "requirement_id": "FR-01",
+      "task_ids": [
+        "T13",
+        "T23"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-013",
+        "AT-023"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-02",
+      "task_ids": [
+        "T04",
+        "T13"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-004",
+        "AT-013"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-03",
+      "task_ids": [
+        "T01",
+        "T13"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-001",
+        "AT-013"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-04",
+      "task_ids": [
+        "T03",
+        "T13"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-003",
+        "AT-013"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-05",
+      "task_ids": [
+        "T09",
+        "T10",
+        "T11"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-009",
+        "AT-010",
+        "AT-011"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-06",
+      "task_ids": [
+        "T04",
+        "T10",
+        "T11",
+        "T12"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-004",
+        "AT-010",
+        "AT-011",
+        "AT-012"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-07",
+      "task_ids": [
+        "T03",
+        "T12"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-003",
+        "AT-012"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-08",
+      "task_ids": [
+        "T04",
+        "T10",
+        "T11",
+        "T12",
+        "T16"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-004",
+        "AT-010",
+        "AT-011",
+        "AT-012",
+        "AT-016"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-09",
+      "task_ids": [
+        "T06",
+        "T14",
+        "T23"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-006",
+        "AT-014",
+        "AT-023"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-10",
+      "task_ids": [
+        "T06",
+        "T14",
+        "T16",
+        "T23"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-006",
+        "AT-014",
+        "AT-016",
+        "AT-023"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-11",
+      "task_ids": [
+        "T05",
+        "T06"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-005",
+        "AT-006"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-12",
+      "task_ids": [
+        "T02",
+        "T16",
+        "T18"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-002",
+        "AT-016",
+        "AT-018"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-13",
+      "task_ids": [
+        "T03",
+        "T07"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-003",
+        "AT-007"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-14",
+      "task_ids": [
+        "T05",
+        "T07",
+        "T20",
+        "T21"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-005",
+        "AT-007",
+        "AT-020",
+        "AT-021"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-15",
+      "task_ids": [
+        "T07",
+        "T12"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-007",
+        "AT-012"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-16",
+      "task_ids": [
+        "T02",
+        "T07",
+        "T16",
+        "T23"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-002",
+        "AT-007",
+        "AT-016",
+        "AT-023"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-17",
+      "task_ids": [
+        "T04",
+        "T08"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-004",
+        "AT-008"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-18",
+      "task_ids": [
+        "T04",
+        "T12",
+        "T19",
+        "T22"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-004",
+        "AT-012",
+        "AT-019",
+        "AT-022"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-19",
+      "task_ids": [
+        "T15",
+        "T16",
+        "T19",
+        "T24"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-015",
+        "AT-016",
+        "AT-019",
+        "AT-024"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-20",
+      "task_ids": [
+        "T10",
+        "T11",
+        "T17"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-010",
+        "AT-011",
+        "AT-017"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-21",
+      "task_ids": [
+        "T09",
+        "T10",
+        "T11",
+        "T15"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-009",
+        "AT-010",
+        "AT-011",
+        "AT-015"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-22",
+      "task_ids": [
+        "T17",
+        "T18",
+        "T24"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-017",
+        "AT-018",
+        "AT-024"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-23",
+      "task_ids": [
+        "T09",
+        "T10",
+        "T11",
+        "T17",
+        "T18",
+        "T23",
+        "T24"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-009",
+        "AT-010",
+        "AT-011",
+        "AT-017",
+        "AT-018",
+        "AT-023",
+        "AT-024"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-24",
+      "task_ids": [
+        "T21",
+        "T22",
+        "T23",
+        "T24"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-021",
+        "AT-022",
+        "AT-023",
+        "AT-024"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-25",
+      "task_ids": [
+        "T08",
+        "T16",
+        "T20",
+        "T24"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-008",
+        "AT-016",
+        "AT-020",
+        "AT-024"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-26",
+      "task_ids": [
+        "T03",
+        "T05",
+        "T08",
+        "T19"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-003",
+        "AT-005",
+        "AT-008",
+        "AT-019"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-27",
+      "task_ids": [
+        "T04",
+        "T09"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-004",
+        "AT-009"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-28",
+      "task_ids": [
+        "T12",
+        "T13",
+        "T19"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-012",
+        "AT-013",
+        "AT-019"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-29",
+      "task_ids": [
+        "T13",
+        "T14",
+        "T16",
+        "T23"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-013",
+        "AT-014",
+        "AT-016",
+        "AT-023"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-30",
+      "task_ids": [
+        "T01",
+        "T18",
+        "T19",
+        "T20",
+        "T24"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-001",
+        "AT-018",
+        "AT-019",
+        "AT-020",
+        "AT-024"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-31",
+      "task_ids": [
+        "T04",
+        "T09",
+        "T10",
+        "T11",
+        "T12",
+        "T13",
+        "T17"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-004",
+        "AT-009",
+        "AT-010",
+        "AT-011",
+        "AT-012",
+        "AT-013",
+        "AT-017"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-32",
+      "task_ids": [
+        "T05",
+        "T07",
+        "T08",
+        "T20",
+        "T21"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-005",
+        "AT-007",
+        "AT-008",
+        "AT-020",
+        "AT-021"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-33",
+      "task_ids": [
+        "T06",
+        "T14",
+        "T16",
+        "T23"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-006",
+        "AT-014",
+        "AT-016",
+        "AT-023"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-34",
+      "task_ids": [
+        "T02",
+        "T07",
+        "T19",
+        "T21"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-002",
+        "AT-007",
+        "AT-019",
+        "AT-021"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-35",
+      "task_ids": [
+        "T14",
+        "T15"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-014",
+        "AT-015"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-36",
+      "task_ids": [
+        "T18",
+        "T20",
+        "T24"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-018",
+        "AT-020",
+        "AT-024"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-37",
+      "task_ids": [
+        "T03",
+        "T12",
+        "T13"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-003",
+        "AT-012",
+        "AT-013"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-38",
+      "task_ids": [
+        "T03",
+        "T12"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-003",
+        "AT-012"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-39",
+      "task_ids": [
+        "T09",
+        "T12",
+        "T13"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-009",
+        "AT-012",
+        "AT-013"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-40",
+      "task_ids": [
+        "T05",
+        "T06",
+        "T14",
+        "T16"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-005",
+        "AT-006",
+        "AT-014",
+        "AT-016"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-41",
+      "task_ids": [
+        "T01",
+        "T03",
+        "T07",
+        "T16"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-001",
+        "AT-003",
+        "AT-007",
+        "AT-016"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-42",
+      "task_ids": [
+        "T21",
+        "T22",
+        "T23",
+        "T24"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-021",
+        "AT-022",
+        "AT-023",
+        "AT-024"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-43",
+      "task_ids": [
+        "T04",
+        "T12",
+        "T14",
+        "T16",
+        "T23",
+        "T31"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-004",
+        "AT-012",
+        "AT-014",
+        "AT-016",
+        "AT-023",
+        "AT-031"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-44",
+      "task_ids": [
+        "T01",
+        "T02",
+        "T08",
+        "T13",
+        "T15",
+        "T16"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-001",
+        "AT-002",
+        "AT-008",
+        "AT-013",
+        "AT-015",
+        "AT-016"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-45",
+      "task_ids": [
+        "T02",
+        "T04",
+        "T12",
+        "T13",
+        "T15",
+        "T16",
+        "T21"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-002",
+        "AT-004",
+        "AT-012",
+        "AT-013",
+        "AT-015",
+        "AT-016",
+        "AT-021"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-46",
+      "task_ids": [
+        "T25",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-025",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-47",
+      "task_ids": [
+        "T30",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-030",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-48",
+      "task_ids": [
+        "T26",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-026",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-49",
+      "task_ids": [
+        "T28",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-028",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-50",
+      "task_ids": [
+        "T27",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-027",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-51",
+      "task_ids": [
+        "T28",
+        "T29",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-028",
+        "AT-029",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-52",
+      "task_ids": [
+        "T29",
+        "T32",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-029",
+        "AT-032",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-53",
+      "task_ids": [
+        "T27",
+        "T30",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-027",
+        "AT-030",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-54",
+      "task_ids": [
+        "T27",
+        "T29",
+        "T31",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-027",
+        "AT-029",
+        "AT-031",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-55",
+      "task_ids": [
+        "T25",
+        "T26",
+        "T30",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-025",
+        "AT-026",
+        "AT-030",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-56",
+      "task_ids": [
+        "T31",
+        "T32",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-031",
+        "AT-032",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-57",
+      "task_ids": [
+        "T31",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-031",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-58",
+      "task_ids": [
+        "T32",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-032",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-59",
+      "task_ids": [
+        "T31",
+        "T32",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-031",
+        "AT-032",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "FR-60",
+      "task_ids": [
+        "T30",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-030",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-01",
+      "task_ids": [
+        "T05",
+        "T06",
+        "T07",
+        "T16",
+        "T20",
+        "T21",
+        "T23"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-005",
+        "AT-006",
+        "AT-007",
+        "AT-016",
+        "AT-020",
+        "AT-021",
+        "AT-023"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-02",
+      "task_ids": [
+        "T05",
+        "T07",
+        "T08",
+        "T20",
+        "T21",
+        "T23"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-005",
+        "AT-007",
+        "AT-008",
+        "AT-020",
+        "AT-021",
+        "AT-023"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-03",
+      "task_ids": [
+        "T02",
+        "T08"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-002",
+        "AT-008"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-04",
+      "task_ids": [
+        "T15",
+        "T19"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-015",
+        "AT-019"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-05",
+      "task_ids": [
+        "T14",
+        "T15"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-014",
+        "AT-015"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-06",
+      "task_ids": [
+        "T02",
+        "T16",
+        "T18",
+        "T21"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-002",
+        "AT-016",
+        "AT-018",
+        "AT-021"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-07",
+      "task_ids": [
+        "T02",
+        "T18"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-002",
+        "AT-018"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-08",
+      "task_ids": [
+        "T13",
+        "T15",
+        "T16",
+        "T19",
+        "T22",
+        "T23"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-013",
+        "AT-015",
+        "AT-016",
+        "AT-019",
+        "AT-022",
+        "AT-023"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-09",
+      "task_ids": [
+        "T03",
+        "T04",
+        "T10",
+        "T11",
+        "T12"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-003",
+        "AT-004",
+        "AT-010",
+        "AT-011",
+        "AT-012"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-10",
+      "task_ids": [
+        "T05",
+        "T08",
+        "T19",
+        "T21"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-005",
+        "AT-008",
+        "AT-019",
+        "AT-021"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-11",
+      "task_ids": [
+        "T06",
+        "T14",
+        "T15",
+        "T23"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-006",
+        "AT-014",
+        "AT-015",
+        "AT-023"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-12",
+      "task_ids": [
+        "T17",
+        "T18",
+        "T20",
+        "T24"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-017",
+        "AT-018",
+        "AT-020",
+        "AT-024"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-13",
+      "task_ids": [
+        "T04",
+        "T09",
+        "T10",
+        "T11",
+        "T22"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-004",
+        "AT-009",
+        "AT-010",
+        "AT-011",
+        "AT-022"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-14",
+      "task_ids": [
+        "T04",
+        "T12",
+        "T19",
+        "T22",
+        "T23"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-004",
+        "AT-012",
+        "AT-019",
+        "AT-022",
+        "AT-023"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-15",
+      "task_ids": [
+        "T01",
+        "T24"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-001",
+        "AT-024"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-16",
+      "task_ids": [
+        "T01",
+        "T18",
+        "T21",
+        "T24"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-001",
+        "AT-018",
+        "AT-021",
+        "AT-024"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-17",
+      "task_ids": [
+        "T26",
+        "T27",
+        "T28",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-026",
+        "AT-027",
+        "AT-028",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-18",
+      "task_ids": [
+        "T25",
+        "T26",
+        "T30",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-025",
+        "AT-026",
+        "AT-030",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-19",
+      "task_ids": [
+        "T28",
+        "T29",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-028",
+        "AT-029",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    },
+    {
+      "requirement_id": "NFR-20",
+      "task_ids": [
+        "T30",
+        "T31",
+        "T32",
+        "T33"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-030",
+        "AT-031",
+        "AT-032",
+        "AT-033"
+      ],
+      "implementation_status": "NOT_BUILT",
+      "evidence_ids": []
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T01",
+      "title": "Contracts, repository bootstrap, and test harness",
+      "milestone": "M1",
+      "depends_on": [],
+      "requirement_ids": [
+        "FR-03",
+        "FR-30",
+        "NFR-15",
+        "FR-41",
+        "FR-44",
+        "NFR-16"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-001"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-01-foundation.md"
+    },
+    {
+      "id": "T02",
+      "title": "Durable lifecycle, transactions, leases, and outbox",
+      "milestone": "M1",
+      "depends_on": [
+        "T01"
+      ],
+      "requirement_ids": [
+        "FR-12",
+        "FR-16",
+        "FR-34",
+        "NFR-03",
+        "NFR-06",
+        "NFR-07",
+        "FR-44",
+        "FR-45"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-002"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-01-foundation.md"
+    },
+    {
+      "id": "T03",
+      "title": "Repository discovery, workspace ownership, and immutable candidates",
+      "milestone": "M1",
+      "depends_on": [
+        "T01",
+        "T02"
+      ],
+      "requirement_ids": [
+        "FR-04",
+        "FR-07",
+        "FR-13",
+        "FR-26",
+        "NFR-09",
+        "FR-37",
+        "FR-38",
+        "FR-41"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-003"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-01-foundation.md"
+    },
+    {
+      "id": "T04",
+      "title": "Policy routing, authority, budgets, and bounded repair",
+      "milestone": "M1",
+      "depends_on": [
+        "T01",
+        "T02",
+        "T03"
+      ],
+      "requirement_ids": [
+        "FR-02",
+        "FR-06",
+        "FR-08",
+        "FR-17",
+        "FR-18",
+        "FR-27",
+        "FR-31",
+        "NFR-09",
+        "NFR-13",
+        "NFR-14",
+        "FR-43",
+        "FR-45"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-004"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-01-foundation.md"
+    },
+    {
+      "id": "T05",
+      "title": "Protected check registry and untrusted execution sandbox",
+      "milestone": "M2",
+      "depends_on": [
+        "T01",
+        "T03",
+        "T04"
+      ],
+      "requirement_ids": [
+        "FR-11",
+        "FR-14",
+        "FR-26",
+        "FR-32",
+        "NFR-01",
+        "NFR-02",
+        "NFR-10",
+        "FR-40"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-005"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-02-protected-verification.md"
+    },
+    {
+      "id": "T06",
+      "title": "External browser/API probes and real qualification application",
+      "milestone": "M2",
+      "depends_on": [
+        "T03",
+        "T05"
+      ],
+      "requirement_ids": [
+        "FR-09",
+        "FR-10",
+        "FR-11",
+        "FR-33",
+        "NFR-01",
+        "NFR-11",
+        "FR-40"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-006"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-02-protected-verification.md"
+    },
+    {
+      "id": "T07",
+      "title": "Authenticated evidence and candidate-bound readiness",
+      "milestone": "M2",
+      "depends_on": [
+        "T01",
+        "T02",
+        "T05",
+        "T06"
+      ],
+      "requirement_ids": [
+        "FR-13",
+        "FR-14",
+        "FR-15",
+        "FR-16",
+        "FR-32",
+        "FR-34",
+        "NFR-01",
+        "NFR-02",
+        "FR-41"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-007"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-02-protected-verification.md"
+    },
+    {
+      "id": "T08",
+      "title": "Client authentication, scoped approvals, and release consumption",
+      "milestone": "M2",
+      "depends_on": [
+        "T02",
+        "T04",
+        "T07"
+      ],
+      "requirement_ids": [
+        "FR-17",
+        "FR-25",
+        "FR-26",
+        "FR-32",
+        "NFR-02",
+        "NFR-03",
+        "NFR-10",
+        "FR-44"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-008"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-02-protected-verification.md"
+    },
+    {
+      "id": "T09",
+      "title": "Capability detection and explicit authentication/billing modes",
+      "milestone": "M3",
+      "depends_on": [
+        "T01",
+        "T04"
+      ],
+      "requirement_ids": [
+        "FR-05",
+        "FR-21",
+        "FR-23",
+        "FR-27",
+        "FR-31",
+        "NFR-13",
+        "FR-39"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-009"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-03-provider-orchestration.md"
+    },
+    {
+      "id": "T10",
+      "title": "Claude official adapter and native entry integration",
+      "milestone": "M3",
+      "depends_on": [
+        "T04",
+        "T09"
+      ],
+      "requirement_ids": [
+        "FR-05",
+        "FR-06",
+        "FR-08",
+        "FR-20",
+        "FR-21",
+        "FR-23",
+        "FR-31",
+        "NFR-09",
+        "NFR-13"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-010"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-03-provider-orchestration.md"
+    },
+    {
+      "id": "T11",
+      "title": "Codex official adapter and native entry integration",
+      "milestone": "M3",
+      "depends_on": [
+        "T04",
+        "T09"
+      ],
+      "requirement_ids": [
+        "FR-05",
+        "FR-06",
+        "FR-08",
+        "FR-20",
+        "FR-21",
+        "FR-23",
+        "FR-31",
+        "NFR-09",
+        "NFR-13"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-011"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-03-provider-orchestration.md"
+    },
+    {
+      "id": "T12",
+      "title": "Delivery orchestration, review independence, and context packets",
+      "milestone": "M3",
+      "depends_on": [
+        "T02",
+        "T03",
+        "T04",
+        "T07",
+        "T10",
+        "T11"
+      ],
+      "requirement_ids": [
+        "FR-06",
+        "FR-07",
+        "FR-08",
+        "FR-15",
+        "FR-18",
+        "FR-28",
+        "FR-31",
+        "NFR-09",
+        "NFR-14",
+        "FR-37",
+        "FR-38",
+        "FR-39",
+        "FR-43",
+        "FR-45"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-012"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-03-provider-orchestration.md"
+    },
+    {
+      "id": "T13",
+      "title": "Ordinary-language intake and AI-maintained project memory",
+      "milestone": "M4",
+      "depends_on": [
+        "T01",
+        "T02",
+        "T09",
+        "T12"
+      ],
+      "requirement_ids": [
+        "FR-01",
+        "FR-02",
+        "FR-03",
+        "FR-04",
+        "FR-28",
+        "FR-29",
+        "FR-31",
+        "NFR-08",
+        "FR-37",
+        "FR-39",
+        "FR-44",
+        "FR-45"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-013"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-04-client-and-ui-ux.md"
+    },
+    {
+      "id": "T14",
+      "title": "Design workflow, assets, accessibility, and independent UX review",
+      "milestone": "M4",
+      "depends_on": [
+        "T06",
+        "T13"
+      ],
+      "requirement_ids": [
+        "FR-09",
+        "FR-10",
+        "FR-29",
+        "FR-33",
+        "FR-35",
+        "NFR-05",
+        "NFR-11",
+        "FR-40",
+        "FR-43"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-014"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-04-client-and-ui-ux.md"
+    },
+    {
+      "id": "T15",
+      "title": "Quiet client console, local API, event replay, and accessibility",
+      "milestone": "M4",
+      "depends_on": [
+        "T02",
+        "T08",
+        "T13",
+        "T14"
+      ],
+      "requirement_ids": [
+        "FR-19",
+        "FR-21",
+        "FR-35",
+        "NFR-04",
+        "NFR-05",
+        "NFR-08",
+        "NFR-11",
+        "FR-44",
+        "FR-45"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-015"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-04-client-and-ui-ux.md"
+    },
+    {
+      "id": "T16",
+      "title": "Complete delivery loop, preview handoff, feedback, and resumption",
+      "milestone": "M4",
+      "depends_on": [
+        "T07",
+        "T08",
+        "T12",
+        "T13",
+        "T14",
+        "T15"
+      ],
+      "requirement_ids": [
+        "FR-08",
+        "FR-10",
+        "FR-12",
+        "FR-16",
+        "FR-19",
+        "FR-25",
+        "FR-29",
+        "FR-33",
+        "NFR-01",
+        "NFR-06",
+        "NFR-08",
+        "FR-40",
+        "FR-41",
+        "FR-43",
+        "FR-44",
+        "FR-45"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-016"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-04-client-and-ui-ux.md"
+    },
+    {
+      "id": "T17",
+      "title": "Dual native plugin distributions and safe installation",
+      "milestone": "M5",
+      "depends_on": [
+        "T09",
+        "T10",
+        "T11",
+        "T12",
+        "T13",
+        "T14",
+        "T16"
+      ],
+      "requirement_ids": [
+        "FR-20",
+        "FR-22",
+        "FR-23",
+        "FR-31",
+        "NFR-12"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-017"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-05-distribution-and-operations.md"
+    },
+    {
+      "id": "T18",
+      "title": "CLI launcher, versioned upgrades, migrations, and recovery",
+      "milestone": "M5",
+      "depends_on": [
+        "T02",
+        "T08",
+        "T15",
+        "T17"
+      ],
+      "requirement_ids": [
+        "FR-12",
+        "FR-22",
+        "FR-23",
+        "FR-30",
+        "FR-36",
+        "NFR-06",
+        "NFR-07",
+        "NFR-12",
+        "NFR-16"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-018"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-05-distribution-and-operations.md"
+    },
+    {
+      "id": "T19",
+      "title": "Audit, metrics, redaction, retention, and operator health",
+      "milestone": "M5",
+      "depends_on": [
+        "T02",
+        "T04",
+        "T07",
+        "T15"
+      ],
+      "requirement_ids": [
+        "FR-18",
+        "FR-19",
+        "FR-26",
+        "FR-28",
+        "FR-30",
+        "FR-34",
+        "NFR-04",
+        "NFR-08",
+        "NFR-10",
+        "NFR-14"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-019"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-05-distribution-and-operations.md"
+    },
+    {
+      "id": "T20",
+      "title": "Protected CI, deployment reconciliation, and operational runbooks",
+      "milestone": "M5",
+      "depends_on": [
+        "T05",
+        "T07",
+        "T08",
+        "T18",
+        "T19"
+      ],
+      "requirement_ids": [
+        "FR-14",
+        "FR-25",
+        "FR-30",
+        "FR-32",
+        "FR-36",
+        "NFR-01",
+        "NFR-02",
+        "NFR-12"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-020"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-05-distribution-and-operations.md"
+    },
+    {
+      "id": "T21",
+      "title": "Adversarial proof and failure-injection qualification",
+      "milestone": "M6",
+      "depends_on": [
+        "T07",
+        "T08",
+        "T12",
+        "T16",
+        "T18",
+        "T20"
+      ],
+      "requirement_ids": [
+        "FR-14",
+        "FR-24",
+        "FR-32",
+        "FR-34",
+        "NFR-01",
+        "NFR-02",
+        "NFR-06",
+        "NFR-10",
+        "FR-42",
+        "FR-45",
+        "NFR-16"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-021"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-06-qualification-and-release.md"
+    },
+    {
+      "id": "T22",
+      "title": "Comparable baseline benchmark and complete cost accounting",
+      "milestone": "M6",
+      "depends_on": [
+        "T16",
+        "T19",
+        "T21"
+      ],
+      "requirement_ids": [
+        "FR-18",
+        "FR-24",
+        "NFR-08",
+        "NFR-13",
+        "NFR-14",
+        "FR-42"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-022"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-06-qualification-and-release.md"
+    },
+    {
+      "id": "T23",
+      "title": "Unseen holdouts, live host qualification, and client acceptance",
+      "milestone": "M6",
+      "depends_on": [
+        "T17",
+        "T20",
+        "T21",
+        "T22"
+      ],
+      "requirement_ids": [
+        "FR-01",
+        "FR-09",
+        "FR-10",
+        "FR-16",
+        "FR-23",
+        "FR-24",
+        "FR-29",
+        "FR-33",
+        "NFR-01",
+        "NFR-02",
+        "NFR-08",
+        "NFR-11",
+        "NFR-14",
+        "FR-42",
+        "FR-43"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-023"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-06-qualification-and-release.md"
+    },
+    {
+      "id": "T24",
+      "title": "Software release-path rehearsal and base operational signoff",
+      "milestone": "M6",
+      "depends_on": [
+        "T18",
+        "T19",
+        "T20",
+        "T21",
+        "T22",
+        "T23"
+      ],
+      "requirement_ids": [
+        "FR-19",
+        "FR-22",
+        "FR-23",
+        "FR-24",
+        "FR-25",
+        "FR-30",
+        "FR-36",
+        "NFR-12",
+        "NFR-15",
+        "FR-42",
+        "NFR-16"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-024"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-06-qualification-and-release.md"
+    },
+    {
+      "id": "T25",
+      "title": "Safe document ingestion and immutable source versions",
+      "milestone": "M7",
+      "depends_on": [
+        "T01",
+        "T02",
+        "T05",
+        "T15"
+      ],
+      "requirement_ids": [
+        "FR-46",
+        "FR-55",
+        "NFR-18"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-025"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-07-document-intelligence.md"
+    },
+    {
+      "id": "T26",
+      "title": "Extraction, visual inventory and version-specific references",
+      "milestone": "M7",
+      "depends_on": [
+        "T25",
+        "T09",
+        "T10"
+      ],
+      "requirement_ids": [
+        "FR-48",
+        "FR-55",
+        "NFR-17",
+        "NFR-18"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-026"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-07-document-intelligence.md"
+    },
+    {
+      "id": "T27",
+      "title": "Cross-document reasoning, questions and source-change invalidation",
+      "milestone": "M7",
+      "depends_on": [
+        "T26",
+        "T13"
+      ],
+      "requirement_ids": [
+        "FR-50",
+        "FR-53",
+        "FR-54",
+        "NFR-17"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-027"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-07-document-intelligence.md"
+    },
+    {
+      "id": "T28",
+      "title": "Full-workbook computation and safe spreadsheet edits",
+      "milestone": "M7",
+      "depends_on": [
+        "T26"
+      ],
+      "requirement_ids": [
+        "FR-49",
+        "FR-51",
+        "NFR-17",
+        "NFR-19"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-028"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-07-document-intelligence.md"
+    },
+    {
+      "id": "T29",
+      "title": "Document editing, technical writing and verified exports",
+      "milestone": "M7",
+      "depends_on": [
+        "T27",
+        "T28",
+        "T06",
+        "T08"
+      ],
+      "requirement_ids": [
+        "FR-51",
+        "FR-52",
+        "FR-54",
+        "NFR-19"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-029"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-07-document-intelligence.md"
+    },
+    {
+      "id": "T30",
+      "title": "Quiet document-job UI, durable lifecycle and mixed-work recovery",
+      "milestone": "M7",
+      "depends_on": [
+        "T29",
+        "T15",
+        "T16",
+        "T17"
+      ],
+      "requirement_ids": [
+        "FR-47",
+        "FR-53",
+        "FR-55",
+        "FR-60",
+        "NFR-18",
+        "NFR-20"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-030"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-07-document-intelligence.md"
+    },
+    {
+      "id": "T31",
+      "title": "Risk-based company responsibility and evidence-based discovery",
+      "milestone": "M8",
+      "depends_on": [
+        "T12",
+        "T13",
+        "T14"
+      ],
+      "requirement_ids": [
+        "FR-43",
+        "FR-54",
+        "FR-56",
+        "FR-57",
+        "FR-59",
+        "NFR-20"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-031"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-08-company-service-and-ship.md"
+    },
+    {
+      "id": "T32",
+      "title": "On-demand support, incident learning and product feedback",
+      "milestone": "M8",
+      "depends_on": [
+        "T19",
+        "T20",
+        "T31"
+      ],
+      "requirement_ids": [
+        "FR-52",
+        "FR-56",
+        "FR-58",
+        "FR-59",
+        "NFR-20"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-032"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-08-company-service-and-ship.md"
+    },
+    {
+      "id": "T33",
+      "title": "Document and company-workflow qualification and complete release",
+      "milestone": "M8",
+      "depends_on": [
+        "T24",
+        "T30",
+        "T31",
+        "T32"
+      ],
+      "requirement_ids": [
+        "FR-46",
+        "FR-47",
+        "FR-48",
+        "FR-49",
+        "FR-50",
+        "FR-51",
+        "FR-52",
+        "FR-53",
+        "FR-54",
+        "FR-55",
+        "FR-56",
+        "FR-57",
+        "FR-58",
+        "FR-59",
+        "FR-60",
+        "NFR-17",
+        "NFR-18",
+        "NFR-19",
+        "NFR-20"
+      ],
+      "acceptance_scenario_ids": [
+        "AT-033"
+      ],
+      "plan_path": "docs/superpowers/plans/2026-09-07-08-company-service-and-ship.md"
+    }
+  ]
+}

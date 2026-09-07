@@ -1,0 +1,19 @@
+test_blocked_without_reason_is_rejected (test_engineering_context.EngineeringContextContractTests.test_blocked_without_reason_is_rejected) ... ok
+test_context_cannot_claim_ready_through_extra_field (test_engineering_context.EngineeringContextContractTests.test_context_cannot_claim_ready_through_extra_field) ... ok
+test_data_config_component_need_not_invent_a_language (test_engineering_context.EngineeringContextContractTests.test_data_config_component_need_not_invent_a_language) ... ok
+test_empty_components_is_rejected (test_engineering_context.EngineeringContextContractTests.test_empty_components_is_rejected) ... ok
+test_empty_required_checks_is_rejected (test_engineering_context.EngineeringContextContractTests.test_empty_required_checks_is_rejected) ... ok
+test_empty_target_platforms_is_rejected (test_engineering_context.EngineeringContextContractTests.test_empty_target_platforms_is_rejected) ... ok
+test_grounded_with_pointer_is_structurally_valid_not_proven (test_engineering_context.EngineeringContextContractTests.test_grounded_with_pointer_is_structurally_valid_not_proven) ... ok
+test_grounded_without_provenance_is_rejected (test_engineering_context.EngineeringContextContractTests.test_grounded_without_provenance_is_rejected) ... ok
+test_invalid_requirement_revision_is_rejected (test_engineering_context.EngineeringContextContractTests.test_invalid_requirement_revision_is_rejected) ... ok
+test_missing_environment_can_be_recorded_without_readiness (test_engineering_context.EngineeringContextContractTests.test_missing_environment_can_be_recorded_without_readiness) ... ok
+test_model_only_context_does_not_require_web_ui (test_engineering_context.EngineeringContextContractTests.test_model_only_context_does_not_require_web_ui) ... ok
+test_no_javascript_component_is_required (test_engineering_context.EngineeringContextContractTests.test_no_javascript_component_is_required) ... ok
+test_polyglot_context_accepts_swift_go_python (test_engineering_context.EngineeringContextContractTests.test_polyglot_context_accepts_swift_go_python) ... ok
+test_unfamiliar_language_is_not_whitelisted_out (test_engineering_context.EngineeringContextContractTests.test_unfamiliar_language_is_not_whitelisted_out) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.080s
+
+OK

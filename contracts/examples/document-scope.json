@@ -1,0 +1,26 @@
+{
+  "kind": "document_scope",
+  "schema_version": 1,
+  "scope_id": "scope1",
+  "job_id": "dj1",
+  "project_id": "project_01",
+  "scope_mode": "entire_inputs",
+  "source_version_ids": [
+    "dv1"
+  ],
+  "scope_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "inventory_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "units": [
+    {
+      "unit_id": "page1",
+      "version_id": "dv1",
+      "locator": {
+        "type": "page",
+        "page_number": 1
+      },
+      "visual_required": true,
+      "numeric_required": false
+    }
+  ],
+  "created_at": "2026-09-07T00:00:00Z"
+}

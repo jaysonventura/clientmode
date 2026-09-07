@@ -1,0 +1,82 @@
+{
+  "scope": "HANDOFF_REFERENCE_ONLY",
+  "handoff_edition": "1.2",
+  "observed_at": "2026-09-07T07:33:56.663408+00:00",
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "schema_dependency",
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "-c",
+        "import jsonschema; print(jsonschema.__file__)"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "qa/current/schema_dependency.log"
+    },
+    {
+      "check": "reference",
+      "argv": [
+        "node",
+        "--test",
+        "tests/reference.test.mjs"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "qa/current/reference.log"
+    },
+    {
+      "check": "python",
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "qa/current/python.log"
+    },
+    {
+      "check": "structure",
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/check_handoff.py"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "qa/current/structure.log"
+    },
+    {
+      "check": "typescript",
+      "argv": [
+        "tsc",
+        "--noEmit",
+        "--strict",
+        "--target",
+        "ES2022",
+        "--lib",
+        "ES2022,DOM",
+        "contracts/interfaces.ts"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "qa/current/typescript.log"
+    }
+  ],
+  "not_executed": [
+    "Full OpenAPI validator tooling (not installed in preparation environment)",
+    "Any live Client Mode runtime/API endpoint",
+    "Claude/Codex host or SDK qualification",
+    "OS/CI authority enforcement",
+    "Native/device/browser or model workload qualification",
+    "Cost/savings benchmark",
+    "Client acceptance or production deployment"
+  ]
+}

@@ -1,0 +1,44 @@
+# Handoff Validation — Edition 1.2
+
+**Date:** 7 September 2026 · **Scope:** The engineering handoff and executable design references.
+
+**Product status:** Client Mode is not built, installed, live-provider-tested or production-qualified by this report. G0 document/reference checks do not satisfy G1–G6.
+
+## Fresh selected checks
+
+| Check | Observed result | What it establishes |
+|---|---|---|
+| Node reference tests | 67 passed; zero failed or skipped | Narrow evidence/signature/state predicates, including new malformed-input regressions |
+| Python tests | 52 passed | Reference SQL, engineering-context schemas, new contract/API-design regressions and missing-validator fail-closed behavior |
+| Combined test count | 119 passed | Only the reference/contract checks above, not 119 product end-to-end tests |
+| JSON Schema | 22 synthetic examples validated | Draft2020-12 schema and selected example/negative-input consistency |
+| Requirements traceability | 45 functional + 16 non-functional requirements; 24 tasks; 24 scenario groups | IDs, task mappings, matching plan assertions and acyclic dependency ordering |
+| API design | 27 operations structurally checked | Local references, paths, selected auth/idempotency and request shapes; not full conformance |
+| TypeScript boundary definitions | Strict no-emit compile passed | Type consistency of the shared reference interface file |
+| Documents | Required documents, local links, code fences and unresolved-marker scan passed | Structural handoff consistency, not proof of every design decision |
+
+## Reproduce
+
+From the extracted root:
+
+```bash
+python3 scripts/validate_all.py
+```
+
+This command requires Node.js, Python 3.9+, the jsonschema package and tsc. It does not install dependencies, call an AI provider or touch a client project. Missing required tools/checks return nonzero. Successful structural validation does not erase separately listed unperformed checks.
+
+The actual commands, timestamps, exit codes and logs are in [current validation](current/validation.json). The combined runner retains logs for all checks even when one fails. It rewrites `qa/current/`; verify distributed archive checksums **before** rerunning it. The package SHA256SUMS identifies the distributed snapshot, not later locally regenerated logs.
+
+The baseline and failure-first regression work is described in [the review report](REVIEW_REPORT.md). Historical input records remain under `qa/history/v1.1/` and are not the current results.
+
+## Explicitly not performed
+
+No Client Mode application, real HTTP endpoint, authenticated Claude Code/Codex session, native plugin installation, protected OS/CI service, browser/mobile/device/GPU workload, live-provider benchmark, hidden-task qualification, real-user usability session, client acceptance or production deployment was executed. No full OpenAPI validator was available; checks were structural and selected regression checks only.
+
+No claim is made that the tested reference can itself stop hostile code, protect same-user secrets, authorize clients, construct real builds, establish model accuracy or guarantee cost savings. Signed synthetic evidence does not prove an application passed tests.
+
+All 24 product acceptance scenario groups remain `NOT_EXECUTED_PRODUCT_TEST`. Engineers must implement them and run the release/qualification program on real candidates.
+
+## Packaging
+
+The final packager regenerates SHA256SUMS after the selected checks and verifies ZIP CRCs, entry safety, exact membership and every content checksum. See the separately delivered archive verification record for the exact final ZIP digest and observed packaging result. Checksums establish identity/integrity, not production qualification or an external code audit.

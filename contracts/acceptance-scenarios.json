@@ -1,0 +1,1270 @@
+{
+  "schema_version": 1,
+  "description": "Concrete product acceptance scenarios to implement and execute. Reference/schema tests do not execute these scenarios; all status fields remain NOT_EXECUTED_PRODUCT_TEST.",
+  "scenarios": [
+    {
+      "id": "AT-001",
+      "task_id": "T01",
+      "requirement_ids": [
+        "FR-03",
+        "FR-30",
+        "NFR-15",
+        "FR-41",
+        "FR-44",
+        "NFR-16"
+      ],
+      "mode": "unit",
+      "given": "Use the supplied synthetic JSON fixtures, not client data. Prepare a temporary directory and current maintained Node LTS. Confirm exact dependency versions before locking. Preserve handoff files.",
+      "when": [
+        "Validate every example against the matching domain schema.",
+        "Delete candidate.artifact_digest, introduce an unknown field, and submit a negative requirements revision.",
+        "Invoke a scenario ID that was never registered.",
+        "Validate EngineeringContext with Swift/Go/Python components and an unfamiliar non-JS language; reject GROUNDED without source refs and BLOCKED without a gap.",
+        "Validate the v1.2 conditional schemas and API input/error semantics. Add the supplied schema/SQL regression cases to the product suite. G0 validation dependencies must fail closed; API/tooling conformance must be run in the engineering environment. Preserve explicit task-local versus full-release test scope."
+      ],
+      "then": {
+        "valid_examples_accepted": true,
+        "malformed_candidates_rejected": 3,
+        "unknown_scenario_rejected": true,
+        "open_ended_engineering_context_accepted": true,
+        "unsupported_grounding_claim_rejected": true,
+        "conditional_contracts_reject_inconsistent_entities": true,
+        "required_validator_absence_fails_closed": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-002",
+      "task_id": "T02",
+      "requirement_ids": [
+        "FR-12",
+        "FR-16",
+        "FR-34",
+        "NFR-03",
+        "NFR-06",
+        "NFR-07",
+        "FR-44",
+        "FR-45"
+      ],
+      "mode": "integration",
+      "given": "Use an actual temporary SQLite file, two connections, a fixed test clock, and the supplied state-machine definition. No in-memory-only mock may establish crash durability.",
+      "when": [
+        "Create a run twice with the same request/idempotency key, then reuse that key with changed input.",
+        "Race two transitions with expected state version 1 and kill/restart the process after acknowledged transaction commit.",
+        "Expire a lease, reassign it with an incremented epoch, and deliver the old worker result.",
+        "Implement precontract BLOCKED/PAUSED/CANCELLED persistence, project/run/attempt composite foreign keys, one visible question, and atomic answer/message/event/outbox writes. Record resume phase in controller-owned state and revalidate guards; revoke affected leases in the same transaction as a material revision. See DELIVERY_PROTOCOL sections 1\u20133."
+      ],
+      "then": {
+        "created_run_count": 1,
+        "changed_payload_conflict": true,
+        "race_winner_count": 1,
+        "acknowledged_run_survived_restart": true,
+        "expired_result_rejected": true,
+        "precontract_pause_block_cancel_persist": true,
+        "cross_run_usage_budget_and_candidate_rejected": true,
+        "late_revision_fences_stale_attempt": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-003",
+      "task_id": "T03",
+      "requirement_ids": [
+        "FR-04",
+        "FR-07",
+        "FR-13",
+        "FR-26",
+        "NFR-09",
+        "FR-37",
+        "FR-38",
+        "FR-41"
+      ],
+      "mode": "integration",
+      "given": "Create a Git fixture with tracked modifications, a relevant untracked source file, paths containing spaces/Unicode, and a second private directory outside the authorized root.",
+      "when": [
+        "Onboard without resetting/stashing/cleaning the original checkout; discover actual dependency scripts.",
+        "Seal two manifests with different traversal order, then change the untracked source bytes and seal again.",
+        "Attempt an escaping symlink and overlapping writer lease, then integrate an allowed disjoint change.",
+        "Onboard a Swift + Go + Python fixture and a C# fixture without changing languages; discover component boundaries, manifests, versions and native checks. Mutate a .swift or model configuration file and reseal the candidate."
+      ],
+      "then": {
+        "original_changes_preserved": true,
+        "order_independent_digest": true,
+        "untracked_edit_changes_digest": true,
+        "path_escape_rejected": true,
+        "overlapping_writer_rejected": true,
+        "polyglot_components_preserved": true,
+        "non_js_source_edit_changes_digest": true,
+        "no_typescript_intake_whitelist": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-004",
+      "task_id": "T04",
+      "requirement_ids": [
+        "FR-02",
+        "FR-06",
+        "FR-08",
+        "FR-17",
+        "FR-18",
+        "FR-27",
+        "FR-31",
+        "NFR-09",
+        "NFR-13",
+        "NFR-14",
+        "FR-43",
+        "FR-45"
+      ],
+      "mode": "unit",
+      "given": "Use a deterministic fake provider with observable calls, a protected test budget, and a virtual clock. Do not perform metered model calls for policy unit tests.",
+      "when": [
+        "Request three children and a child-of-child; attempt two writers in one project.",
+        "Record a usage event twice, exhaust reservation, and return the same failure twice without a changed diagnostic.",
+        "Request API billing or a new MCP capability without a scoped approval, including a request embedded in repository text.",
+        "Assign relevant company responsibilities to task/attempt IDs without launching one process per title. A new scope rechecks existing authorization and budget; a role name, client answer or model-generated recommendation cannot expand authority."
+      ],
+      "then": {
+        "maximum_active_children": 2,
+        "recursive_child_rejected": true,
+        "duplicate_usage_counted_once": true,
+        "new_calls_after_budget_stop": 0,
+        "nonprogress_stopped": true,
+        "unapproved_billing_or_tool_change_rejected": true,
+        "responsibility_plan_not_agent_headcount": true,
+        "new_scope_rechecks_authority_and_budget": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-005",
+      "task_id": "T05",
+      "requirement_ids": [
+        "FR-11",
+        "FR-14",
+        "FR-26",
+        "FR-32",
+        "NFR-01",
+        "NFR-02",
+        "NFR-10",
+        "FR-40"
+      ],
+      "mode": "integration",
+      "given": "Use a Linux isolated acceptance service with separate principals, a disposable runtime, a secret canary outside the worker, and a controller-owned approved command registry.",
+      "when": [
+        "Request a known check ID then an unknown ID and a worker-supplied arbitrary argv.",
+        "Execute a malicious fixture attempting host-home/secret/signing-key/socket access and another that hangs/forks or floods output.",
+        "Run an exit-zero process with a missing/malformed test report and a changed parser version.",
+        "Request a native check without its required environment and a model evaluation without authorized model/data access; they must remain unverified, not execute a substitute web test."
+      ],
+      "then": {
+        "unknown_check_rejected": true,
+        "arbitrary_command_rejected": true,
+        "secret_and_socket_access_denied": true,
+        "timeout_tree_terminated_or_quarantined": true,
+        "malformed_report_unverified": true,
+        "missing_target_environment_not_passed": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-006",
+      "task_id": "T06",
+      "requirement_ids": [
+        "FR-09",
+        "FR-10",
+        "FR-11",
+        "FR-33",
+        "NFR-01",
+        "NFR-11",
+        "FR-40"
+      ],
+      "mode": "integration",
+      "given": "Build the disposable real shop specified in QUALIFICATION.md with persistent synthetic data and server-side prices. Install locked browser binaries. Probes run outside candidate authority.",
+      "when": [
+        "Complete guest checkout with 2 rice at5500 and1 soap at2500; restart API and inspect persisted order.",
+        "Send negative quantity, quantity100, unknown product and attacker-selected price; retry same idempotency key.",
+        "Run mobile/desktop/keyboard journeys, remove label or hide submit, and introduce horizontal overflow.",
+        "In the qualification matrix, run a real non-JS service check, native app interaction and model evaluation using their target tooling; inject a platform defect and an ungrounded model answer and require rejection."
+      ],
+      "then": {
+        "total_centavos": 13500,
+        "persisted_orders_after_retry": 1,
+        "invalid_requests_rejected": true,
+        "guest_checkout_completed": true,
+        "ui_mutations_detected": true,
+        "external_probe_results_not_candidate_writable": true,
+        "target_native_checks_executed": true,
+        "native_and_model_defects_rejected": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-007",
+      "task_id": "T07",
+      "requirement_ids": [
+        "FR-13",
+        "FR-14",
+        "FR-15",
+        "FR-16",
+        "FR-32",
+        "FR-34",
+        "NFR-01",
+        "NFR-02",
+        "FR-41"
+      ],
+      "mode": "integration",
+      "given": "Use ephemeral test keys in separate verifier authority and immutable candidate artifacts. Port the reference rules into the product after runtime schema validation. Never deploy the reference as the whole verifier.",
+      "when": [
+        "Verify clean candidate, then alter source/artifact/policy/revision/environment or replay old attempt evidence.",
+        "Tamper signed payload, use an untrusted/revoked key, duplicate a result, skip or remove tests, and submit fake PASS text.",
+        "Ask an implementation token to write ready state or sign arbitrary JSON.",
+        "Submit evidence for the web component only against a contract also requiring native and model components; then alter a model revision or native binary in the composite manifest."
+      ],
+      "then": {
+        "clean_candidate_verified": true,
+        "stale_or_forged_evidence_rejected": true,
+        "missing_or_skipped_checks_rejected": true,
+        "worker_ready_write_denied": true,
+        "worker_signing_denied": true,
+        "partial_polyglot_evidence_rejected": true,
+        "changed_native_or_model_artifact_invalidates_evidence": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-008",
+      "task_id": "T08",
+      "requirement_ids": [
+        "FR-17",
+        "FR-25",
+        "FR-26",
+        "FR-32",
+        "NFR-02",
+        "NFR-03",
+        "NFR-10",
+        "FR-44"
+      ],
+      "mode": "integration",
+      "given": "Use a local authenticated client session, separate worker token, fixed clock, and mock deployment destination that records calls. No production credentials.",
+      "when": [
+        "Attempt approval from a worker, invalid origin, and stale/absent CSRF token.",
+        "Approve exact candidate/environment once; replay, expire or substitute artifact before deployment.",
+        "Crash after deployment request, then reconcile destination before retry; simulate failed smoke and an authorized rollback.",
+        "Keep ClientAnswer and ApprovalDecision in separate endpoints and service methods. Bind a question answer to authenticated client, run/project, question revision and idempotency key. A business answer must never create a release/spending grant."
+      ],
+      "then": {
+        "worker_and_cross_origin_approval_denied": true,
+        "replayed_or_wrong_artifact_approval_denied": true,
+        "deployment_side_effect_count": 1,
+        "failed_smoke_not_released": true,
+        "rollback_requires_and_records_authority": true,
+        "question_answer_never_grants_release_authority": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-009",
+      "task_id": "T09",
+      "requirement_ids": [
+        "FR-05",
+        "FR-21",
+        "FR-23",
+        "FR-27",
+        "FR-31",
+        "NFR-13",
+        "FR-39"
+      ],
+      "mode": "integration",
+      "given": "Provide process fixtures for missing tools, known supported versions, unknown schema changes, expired account and unavailable browser. Separate observed probes from configured flags.",
+      "when": [
+        "Run doctor on absent and supported fixtures; distinguish configured from observed capability.",
+        "Deny account access and API spending; attempt a silently substituted provider.",
+        "Advertise unsupported browser/MCP/goal mode and run the required disposable probe.",
+        "Probe task-specific native/model prerequisites rather than inferring them from Node availability; distinguish configured from tested environment and authorized from unavailable resource."
+      ],
+      "then": {
+        "unknown_capability_not_enabled": true,
+        "configured_not_reported_as_tested": true,
+        "billing_fallback_denied": true,
+        "browser_gap_explicit": true,
+        "unsupported_mcp_disabled": true,
+        "toolkit_runtime_not_target_capability": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-010",
+      "task_id": "T10",
+      "requirement_ids": [
+        "FR-05",
+        "FR-06",
+        "FR-08",
+        "FR-20",
+        "FR-21",
+        "FR-23",
+        "FR-31",
+        "NFR-09",
+        "NFR-13"
+      ],
+      "mode": "live_provider",
+      "given": "First use recorded protocol fixtures. Then an explicitly authorized installed Claude account/SDK environment and disposable project for live tests. Credentials remain out of candidate execution.",
+      "when": [
+        "Start, receive tool-result/claim/usage events, pause/cancel, and resume a supported session.",
+        "Use available native goal/subagent features with effective permission tests and no recursive orchestration.",
+        "Fresh-session load generated native instructions and run a small real task without repeated continue prompts."
+      ],
+      "then": {
+        "protocol_events_normalized": true,
+        "native_instructions_preserved": true,
+        "fresh_session_load_observed": true,
+        "worker_permission_escape_denied": true,
+        "live_resume_verified": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-011",
+      "task_id": "T11",
+      "requirement_ids": [
+        "FR-05",
+        "FR-06",
+        "FR-08",
+        "FR-20",
+        "FR-21",
+        "FR-23",
+        "FR-31",
+        "NFR-09",
+        "NFR-13"
+      ],
+      "mode": "live_provider",
+      "given": "Use protocol fixtures plus an explicitly authorized installed Codex environment. Select SDK for task threads or a documented stable App Server interface when interactive auth/approval needs it; record exact transport.",
+      "when": [
+        "Start/resume/cancel and normalize real session/thread/usage/error events without raw private state assumptions.",
+        "Fresh-session load shared skills via native Codex packaging and test inherited effective permissions.",
+        "Execute browser E2E through the configured test runner; prevent a terminal-only session claiming built-in browser vision."
+      ],
+      "then": {
+        "protocol_events_normalized": true,
+        "fresh_session_load_observed": true,
+        "inherited_permissions_tested": true,
+        "browser_surface_truthful": true,
+        "unapproved_provider_fallback_denied": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-012",
+      "task_id": "T12",
+      "requirement_ids": [
+        "FR-06",
+        "FR-07",
+        "FR-08",
+        "FR-15",
+        "FR-18",
+        "FR-28",
+        "FR-31",
+        "NFR-09",
+        "NFR-14",
+        "FR-37",
+        "FR-38",
+        "FR-39",
+        "FR-43",
+        "FR-45"
+      ],
+      "mode": "integration",
+      "given": "Use a controlled multi-module task with one shared API contract, disjoint optional edits, a planted defect, a long unrelated log, and a malicious instruction embedded in source.",
+      "when": [
+        "Let the router choose single versus bounded child work; introduce overlapping edits and out-of-order results.",
+        "Give reviewer contract/diff/relevant evidence, excluding author success narrative and unrelated chat; require a reproducible defect.",
+        "Trigger repeated failure and context recovery; ensure cancellation prevents late integration.",
+        "Dispatch a Kotlin task and an unfamiliar-stack task with task-specific source/version context; require native implementation/review routing without JS conversion, blanket expertise claims or a client-authored skill.",
+        "Maintain the responsibility coverage map and dispatch scoped execution roles. Fence obsolete task attempts when client instructions change the contract; reject their late claims/patches even after a provider cancellation acknowledgement. Coordinator-produced messages cannot be marked as human-origin input."
+      ],
+      "then": {
+        "single_integration_owner": true,
+        "overlap_and_stale_result_rejected": true,
+        "review_finding_has_reproduction": true,
+        "untrusted_instructions_not_authority": true,
+        "no_recursive_delegation": true,
+        "stack_specific_grounding_required": true,
+        "unfamiliar_stack_research_not_rejection": true,
+        "toolkit_stack_not_forced_on_client": true,
+        "relevant_company_responsibilities_assigned": true,
+        "manager_title_cannot_elevate_permissions": true,
+        "stale_worker_after_new_client_message_rejected": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-013",
+      "task_id": "T13",
+      "requirement_ids": [
+        "FR-01",
+        "FR-02",
+        "FR-03",
+        "FR-04",
+        "FR-28",
+        "FR-29",
+        "FR-31",
+        "NFR-08",
+        "FR-37",
+        "FR-39",
+        "FR-44",
+        "FR-45"
+      ],
+      "mode": "integration",
+      "given": "Use equivalent English/rough-English/Taglish shop briefs, screenshot references with provenance, and an ambiguous payment/stock rule. No client authored Markdown.",
+      "when": [
+        "Create equivalent requirement contracts preserving no-account/no-online-payment exclusions.",
+        "Ask exactly the material unresolved business question, but choose reversible technical details internally.",
+        "Record client feedback and reopen session with source-linked project facts; attempt cross-project memory retrieval.",
+        "Interpret rough-English requests for native iOS, Python model service and Java backend, preserving target and business intent; keep missing technical facts as AI investigation work.",
+        "Implement ClientInteractionService with run messages and question answers before a candidate exists. Serve one material question at a time and continue independent safe work. Validate UTF-8 text/Markdown/JSON references, cap size and render inert text. Follow DELIVERY_PROTOCOL for supersession, immutable provenance, and atomic contract revision."
+      ],
+      "then": {
+        "excluded_business_rules_preserved": true,
+        "technical_question_count": 0,
+        "material_ambiguity_not_invented": true,
+        "feedback_revision_incremented": true,
+        "cross_project_memory_denied": true,
+        "client_stack_intent_preserved": true,
+        "no_client_stack_skill_homework": true,
+        "material_question_before_candidate_answerable": true,
+        "answer_replay_is_idempotent": true,
+        "stale_or_cross_project_answer_rejected": true,
+        "utf8_text_reference_ingested_inertly": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-014",
+      "task_id": "T14",
+      "requirement_ids": [
+        "FR-09",
+        "FR-10",
+        "FR-29",
+        "FR-33",
+        "FR-35",
+        "NFR-05",
+        "NFR-11",
+        "FR-40",
+        "FR-43"
+      ],
+      "mode": "integration",
+      "given": "Use a reference screenshot or choose a coherent original direction for the disposable shop. Provide narrow viewport, long labels, empty state, API error and reduced-motion fixtures.",
+      "when": [
+        "Create a shared typography/spacing/color/component system and implement real navigation and forms.",
+        "Inspect actual screenshots and keyboard/touch-equivalent interactions at declared viewports, 200%zoom and error/loading/empty states.",
+        "Give feedback \"too crowded\" and check hierarchy improves without changing checkout rules; document real asset licenses.",
+        "Use native mobile UX and platform accessibility/lifecycle scenarios for a requested native application; do not return a responsive webpage as the native deliverable.",
+        "Record UX journeys/design decisions and actual platform-specific UI observations; these may share a worker for small tasks, but significant designs receive an independent scoped review. No invented user-research or satisfaction record."
+      ],
+      "then": {
+        "design_system_applied": true,
+        "primary_journey_operable": true,
+        "error_empty_loading_states_present": true,
+        "feedback_preserves_business_rules": true,
+        "asset_provenance_recorded": true,
+        "human_taste_not_auto_claimed": true,
+        "native_ux_not_replaced_by_web": true,
+        "ui_and_ux_responsibilities_have_observed_outputs": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-015",
+      "task_id": "T15",
+      "requirement_ids": [
+        "FR-19",
+        "FR-21",
+        "FR-35",
+        "NFR-04",
+        "NFR-05",
+        "NFR-08",
+        "NFR-11",
+        "FR-44",
+        "FR-45"
+      ],
+      "mode": "integration",
+      "given": "Start the loopback controller and React client with authenticated test session. Use long-running fake provider and disconnected/reconnected event stream. No paid model call needed for console tests.",
+      "when": [
+        "Submit an ordinary request and attach reference; keep input/cancel controls responsive while jobs run.",
+        "Stream internal steps and one material blocker; inspect normal client-visible message list and optional diagnostic drawer.",
+        "Reconnect SSE from a known event sequence, verify ordering and test invalid origin/worker approval attempt.",
+        "Implement GET questions, POST answer, and POST active message from the OpenAPI contract. Distinguish answer requests from permission/release cards. New input stays responsive during model work; render untrusted text as text and reject cross-origin/model-origin decisions."
+      ],
+      "then": {
+        "routine_narrative_messages": 0,
+        "material_blocker_visible": true,
+        "cancel_control_responsive": true,
+        "event_replay_no_gaps_or_duplicates": true,
+        "keyboard_primary_actions_operable": true,
+        "cross_origin_mutations_denied": true,
+        "answer_and_active_message_flow_without_candidate": true,
+        "one_open_question_visible_per_run": true,
+        "text_reference_html_is_not_executed": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-016",
+      "task_id": "T16",
+      "requirement_ids": [
+        "FR-08",
+        "FR-10",
+        "FR-12",
+        "FR-16",
+        "FR-19",
+        "FR-25",
+        "FR-29",
+        "FR-33",
+        "NFR-01",
+        "NFR-06",
+        "NFR-08",
+        "FR-40",
+        "FR-41",
+        "FR-43",
+        "FR-44",
+        "FR-45"
+      ],
+      "mode": "live_provider",
+      "given": "Use a qualified provider against the disposable shop, a protected runner, actual browser, and controller console. No production deployment. This is an end-to-end live qualification gate.",
+      "when": [
+        "Submit rough-English brief once; run design\u2192build\u2192real tests\u2192review\u2192repair\u2192final acceptance with no manual engineering prompts.",
+        "Interrupt during work and resume from durable state; submit simple design feedback after first verified preview.",
+        "Remove required integration credentials and test honest blocked status rather than a mock labeled live.",
+        "Complete cross-stack delivery with component-level and integrated evidence; withhold one required native/model check and ensure the entire requested scope is not marked ready while independent safe work can continue.",
+        "Exercise precontract questions, new instructions while running/verifying, and feedback after preview. Restore the correct phase after interruption, invalidate obsolete candidates and approvals, and keep satisfaction exclusively client-authored."
+      ],
+      "then": {
+        "routine_continue_prompts": 0,
+        "preview_bound_to_verified_candidate": true,
+        "feedback_new_candidate_verified": true,
+        "resume_without_repeating_brief": true,
+        "missing_integration_not_reported_live": true,
+        "cross_stack_integrated_verification_required": true,
+        "affected_gap_visible_without_blanket_stop": true,
+        "client_feedback_not_self_certified": true,
+        "new_requirement_during_verify_invalidates_ready": true,
+        "recovery_returns_to_correct_phase": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-017",
+      "task_id": "T17",
+      "requirement_ids": [
+        "FR-20",
+        "FR-22",
+        "FR-23",
+        "FR-31",
+        "NFR-12"
+      ],
+      "mode": "live_provider",
+      "given": "Build from one source tree with eight original skills. Use installed/cached paths containing spaces/Unicode and existing unrelated global/project configuration.",
+      "when": [
+        "Generate separate self-contained Claude and Codex distributions with validated native manifests.",
+        "Dry-run install, approve it, load in fresh sessions, and verify effective discovery/permissions.",
+        "Uninstall and compare unrelated configuration/files with original bytes."
+      ],
+      "then": {
+        "both_distributions_self_contained": true,
+        "native_formats_validated": true,
+        "fresh_sessions_load_both": true,
+        "unrelated_configuration_preserved": true,
+        "uninstall_restores_owned_changes": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-018",
+      "task_id": "T18",
+      "requirement_ids": [
+        "FR-12",
+        "FR-22",
+        "FR-23",
+        "FR-30",
+        "FR-36",
+        "NFR-06",
+        "NFR-07",
+        "NFR-12",
+        "NFR-16"
+      ],
+      "mode": "integration",
+      "given": "Use releaseA/B local fixtures,1000durable tasks, a clean install and a concurrent user configuration edit. Include database migration failure and power-loss simulation.",
+      "when": [
+        "Run the specified cm command surface, then upgrade with backup and injected failure.",
+        "Restore compatible state/binary or declare irreversible migration instead of unsafe rollback.",
+        "Resume1000tasks and cancel a controlled process tree; verify unowned files untouched.",
+        "Ship a one-command validation/doctor outcome that reports missing requirements as blocked/nonzero; do not convert absent tooling or mock-only execution into observed compatibility."
+      ],
+      "then": {
+        "commands_match_operations_contract": true,
+        "failed_upgrade_preserves_state": true,
+        "concurrent_user_edit_not_overwritten": true,
+        "recovery_1000_tasks_within_30s": true,
+        "cancel_ack_within_1s": true,
+        "owned_tree_stopped_within_10s_or_quarantined": true,
+        "unavailable_validation_dependency_not_green": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-019",
+      "task_id": "T19",
+      "requirement_ids": [
+        "FR-18",
+        "FR-19",
+        "FR-26",
+        "FR-28",
+        "FR-30",
+        "FR-34",
+        "NFR-04",
+        "NFR-08",
+        "NFR-10",
+        "NFR-14"
+      ],
+      "mode": "integration",
+      "given": "Seed synthetic secret canaries, two projects, usage gaps/duplicates, old logs/screenshots and a retained release manifest. Use fake clock for retention.",
+      "when": [
+        "Emit worker/tool/provider errors containing secrets and attempt cross-project log/context retrieval.",
+        "Exercise30/90/365-day retention rules, legal/organization locks, export/deletion and telemetry default.",
+        "Report metrics for failures/retries/cache/unknown costs, stale leases, invalid attestations and queue health."
+      ],
+      "then": {
+        "secret_canaries_redacted": true,
+        "cross_project_read_denied": true,
+        "retention_policy_enforced": true,
+        "telemetry_default_off": true,
+        "unknown_usage_not_zero": true,
+        "failed_attempt_cost_included": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-020",
+      "task_id": "T20",
+      "requirement_ids": [
+        "FR-14",
+        "FR-25",
+        "FR-30",
+        "FR-32",
+        "FR-36",
+        "NFR-01",
+        "NFR-02",
+        "NFR-12"
+      ],
+      "mode": "integration",
+      "given": "Use separate CI/service authority, non-production deploy target and synthetic database. No secret-bearing workflow executes untrusted pull-request code.",
+      "when": [
+        "Attempt candidate change to workflow/policy/test parser and attempt fake green check context.",
+        "Promote the exact verified artifact; simulate deployment timeout and reconcile without duplicate deployment.",
+        "Rehearse migration backup/restore or roll-forward and failed smoke recovery; execute runbooks from fresh operator session."
+      ],
+      "then": {
+        "candidate_cannot_replace_protected_policy": true,
+        "verified_artifact_promoted_unchanged": true,
+        "deployment_reconciled_after_timeout": true,
+        "migration_recovery_rehearsed": true,
+        "runbooks_executed": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-021",
+      "task_id": "T21",
+      "requirement_ids": [
+        "FR-14",
+        "FR-24",
+        "FR-32",
+        "FR-34",
+        "NFR-01",
+        "NFR-02",
+        "NFR-06",
+        "NFR-10",
+        "FR-42",
+        "FR-45",
+        "NFR-16"
+      ],
+      "mode": "integration",
+      "given": "Run public mutation fixtures plus separately protected QA-authored variants. Record original successful candidate and mutation IDs; never give hidden expected results to workers.",
+      "when": [
+        "Inject forged/stale/skipped/zero evidence, evaluator tampering, path/network escape and cross-project leakage.",
+        "Kill workers/controllers at dispatch/integration/signing/deployment boundaries, replay jobs/approvals and exhaust budget.",
+        "Inject wrong pricing/authorization/idempotency/UI error while all ordinary unit tests remain green.",
+        "Plant a native source mutation, wrong dependency-version API, an evaluator-bypassing model answer and stale retrieval/model revision; require the responsible protected checks to reject each applicable candidate.",
+        "Reproduce every v1.2 schema/storage/state negative case against the real services. Inject an instruction during verification/deployment, stale answer, and late worker result. Check actual external side effects before any rollback claim."
+      ],
+      "then": {
+        "every_mandatory_public_attack_rejected": true,
+        "no_unauthorized_external_effects": true,
+        "late_worker_results_quarantined": true,
+        "semantic_defects_rejected_despite_green_unit_tests": true,
+        "cross_stack_false_ready_mutations_rejected": true,
+        "contract_sql_api_invariants_regression": true,
+        "late_instruction_cannot_silently_reverse_deploy": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-022",
+      "task_id": "T22",
+      "requirement_ids": [
+        "FR-18",
+        "FR-24",
+        "NFR-08",
+        "NFR-13",
+        "NFR-14",
+        "FR-42"
+      ],
+      "mode": "benchmark",
+      "given": "Use20pilot task specs,3repeats perA/B/C per advertised provider, fixed repository snapshots, random order and an approved metered evaluation budget. Trial tooling tests use small synthetic observations first.",
+      "when": [
+        "Run synthetic aggregation with failures,duplicate usage and unknown cost to establish denominators.",
+        "Execute approved pilot comparing native single, ClientMode single, ClientMode bounded agents with same external grader/budgets.",
+        "Report accepted outcomes,cost,time,client questions and uncertainty including failed/blocked runs.",
+        "Balance predeclared task-family trials across web/non-JS backend, native, systems, LLM, polyglot and unfamiliar stacks; include failed/missing-environment runs in separate declared end-to-end reporting and all incurred costs."
+      ],
+      "then": {
+        "failures_retained_in_denominator": true,
+        "unknown_cost_explicit": true,
+        "all_worker_usage_accounted_or_flagged": true,
+        "comparison_protocol_followed": true,
+        "unsupported_superiority_claims_absent": true,
+        "per_engineering_family_results_retained": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-023",
+      "task_id": "T23",
+      "requirement_ids": [
+        "FR-01",
+        "FR-09",
+        "FR-10",
+        "FR-16",
+        "FR-23",
+        "FR-24",
+        "FR-29",
+        "FR-33",
+        "NFR-01",
+        "NFR-02",
+        "NFR-08",
+        "NFR-11",
+        "NFR-14",
+        "FR-42",
+        "FR-43"
+      ],
+      "mode": "benchmark",
+      "given": "Independent QA prepares50unseen task specs\u00d73repeats for150trials per advertised provider/configuration. Use supported OS/browser matrix and an explicit approved budget.",
+      "when": [
+        "Freeze selected configuration before holdout; include>=10UI,>=10auth/data/integration and>=10rough-English/Taglish briefs.",
+        "Run all required gates and compute exact success/false-ready counts, category results, paired language outcomes and uncertainty.",
+        "Have independent UX/client review actual previews and test feedback without technical project management.",
+        "Run live unseen non-JS, native/mobile, systems and LLM/polyglot tasks on appropriate authorized environments; a JavaScript-only result set must fail broad-remit qualification.",
+        "Measure responsibility coverage and unnecessary managerial chatter alongside cross-stack outcomes. A task does not need every role, but every risk-relevant responsibility needs a genuine output or scoped applicability decision."
+      ],
+      "then": {
+        "holdout_not_used_for_prompt_tuning": true,
+        "verified_success_at_least_90pct": true,
+        "observed_false_ready_count": 0,
+        "critical_high_escaped_defects": 0,
+        "unnecessary_client_continue_prompts_median": 0,
+        "supported_hosts_live_tested": true,
+        "js_only_qualification_rejected": true,
+        "cross_stack_holdouts_executed": true,
+        "company_responsibility_coverage_observed_without_swarms": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-024",
+      "task_id": "T24",
+      "requirement_ids": [
+        "FR-19",
+        "FR-22",
+        "FR-23",
+        "FR-24",
+        "FR-25",
+        "FR-30",
+        "FR-36",
+        "NFR-12",
+        "NFR-15",
+        "FR-42",
+        "NFR-16"
+      ],
+      "mode": "manual_review",
+      "given": "Use frozen release artifacts, verified checksums, signed qualification decision, fresh-machine installer test, tested rollback and one approved low-risk pilot project.",
+      "when": [
+        "Install from distributed archive,launch quiet console,load both adapters and complete a new supported client request.",
+        "Verify T01\u2013T24 requirement traceability,dependency/asset inventory,license notices,qualification evidence and operational readiness.",
+        "Perform staged rollout and rollback exercise; deliver short client instructions plus truthful support/limits.",
+        "Publish separate AI remit, toolkit-host support and observed task-environment qualification; reject marketing that turns a green shop fixture into universal mastery.",
+        "Exercise the four separate signoff paths for the bounded software pilot; full product signoffs close at T33. Publish exact tested versions/platforms plus residual limitations; do not infer all-stack competence or client acceptance from package tests.",
+        "Treat this as the base software release rehearsal only; full edition 1.3 also requires T25\u2013T33 and G7/G8."
+      ],
+      "then": {
+        "fresh_install_and_rollback_passed": true,
+        "artifact_inventory_complete": true,
+        "both_adapters_qualified": true,
+        "production_publication_requires_approval": true,
+        "client_not_required_to_manage_markdown_or_agents": true,
+        "remit_separate_from_measured_qualification": true,
+        "toolkit_app_client_and_release_signoffs_separate": true,
+        "base_software_requirements_have_evidence_or_explicit_no_go": true
+      },
+      "evidence_required": [
+        "actual operation outputs",
+        "candidate/version/environment identity where applicable",
+        "failure artifacts as well as passes",
+        "Target technology/environment and relevant component identity; no inferred cross-platform pass."
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-025",
+      "task_id": "T25",
+      "requirement_ids": [
+        "FR-46",
+        "FR-55",
+        "NFR-18"
+      ],
+      "mode": "integration",
+      "given": "A disposable project, all seven approved format families, a mismatched MIME file, a safe macro-canary OOXML, path/size/ratio canaries, and a second unauthorized project.",
+      "when": [
+        "Upload/register valid files through the actual authenticated API and verify immutable bytes/metadata.",
+        "Attempt macro/remote-template activation, forged type, cross-project version binding and oversized expansion in restricted workers.",
+        "Interrupt parsing and retry the same idempotency key; verify one source identity and bounded cleanup."
+      ],
+      "then": {
+        "valid_files_stored_with_exact_digest": true,
+        "upload_not_misreported_as_analyzed": true,
+        "macro_and_network_canaries_not_executed": true,
+        "size_and_expansion_limits_enforced": true,
+        "cross_project_access_denied": true,
+        "retry_preserves_one_source_identity": true
+      },
+      "evidence_required": [
+        "actual boundary/API/process results and negative case evidence",
+        "project/job/request/source/output and tool-version identity",
+        "real format/target environment observations; never metadata-only substitution",
+        "retained logs, source citations and declared review scope"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-026",
+      "task_id": "T26",
+      "requirement_ids": [
+        "FR-48",
+        "FR-55",
+        "NFR-17",
+        "NFR-18"
+      ],
+      "mode": "integration",
+      "given": "Synthetic PDF with native text and one scanned page; DOCX with body/table/header/footnote/revision; XLSX with hidden sheet and 1,501 rows; PPTX with chart; image with unclear small text.",
+      "when": [
+        "Build actual complete inventories before model selection; extract text and relevant visual artifacts using qualified tools.",
+        "Seek known clauses in notes, page two, a hidden sheet and row 1,501; validate every cited locator against immutable content.",
+        "Disable OCR/rendering for a required unit and request full review; verify partial status and explicit limitations."
+      ],
+      "then": {
+        "all_required_units_inventoried": true,
+        "hidden_and_late_rows_not_dropped": true,
+        "citations_resolve_to_exact_source_version": true,
+        "relevant_visuals_actually_inspected": true,
+        "unreadable_units_reported": true,
+        "truncation_cannot_become_complete": true
+      },
+      "evidence_required": [
+        "actual boundary/API/process results and negative case evidence",
+        "project/job/request/source/output and tool-version identity",
+        "real format/target environment observations; never metadata-only substitution",
+        "retained logs, source citations and declared review scope"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-027",
+      "task_id": "T27",
+      "requirement_ids": [
+        "FR-50",
+        "FR-53",
+        "FR-54",
+        "NFR-17"
+      ],
+      "mode": "integration",
+      "given": "PDF says cancellation is allowed within 24 hours; DOCX says 48 hours; a price workbook differs from both. A subsequent upload changes one material rule. Source content includes an instruction to ignore access controls.",
+      "when": [
+        "Run DocumentService.analyze against the scope and retain two precise citations for a conflict.",
+        "Ask the authentic client one material question; apply the answer only to its job/revision and record derived software requirements when requested.",
+        "Change source bytes, revoke access, and replay the old answer/result; verify dependency invalidation and deny stale or cross-project reads."
+      ],
+      "then": {
+        "conflicts_have_both_source_locations": true,
+        "facts_and_suggestions_distinguished": true,
+        "client_answer_not_invented": true,
+        "changed_sources_invalidate_derived_results": true,
+        "access_revocation_applies_to_cache": true,
+        "document_text_cannot_grant_authority": true
+      },
+      "evidence_required": [
+        "actual boundary/API/process results and negative case evidence",
+        "project/job/request/source/output and tool-version identity",
+        "real format/target environment observations; never metadata-only substitution",
+        "retained logs, source citations and declared review scope"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-028",
+      "task_id": "T28",
+      "requirement_ids": [
+        "FR-49",
+        "FR-51",
+        "NFR-17",
+        "NFR-19"
+      ],
+      "mode": "integration",
+      "given": "A synthetic workbook has 1,500 line items at 100 centavos and row 1,501 at 250 centavos: total 150250. Include a hidden adjustment sheet, stale cached total, unsupported function, blocked external link, zero-prefixed ID and CSV formula-injection canary.",
+      "when": [
+        "Inventory and compute every requested row and dependency; compare actual engine output to independently calculated known expectations.",
+        "Edit an input and recalculate using a qualified engine; reopen and inspect formulas, types and named ranges.",
+        "Run unsupported/external-dependency cases and export untrusted CSV text without executing formulas."
+      ],
+      "then": {
+        "row_1501_affects_checked_total": true,
+        "cached_values_not_called_recalculated": true,
+        "hidden_dependencies_included": true,
+        "missing_calculation_engine_blocks_numeric_ready": true,
+        "unsupported_formulas_reported": true,
+        "identifiers_and_money_rounding_preserved": true,
+        "csv_canary_not_executed": true
+      },
+      "evidence_required": [
+        "actual boundary/API/process results and negative case evidence",
+        "project/job/request/source/output and tool-version identity",
+        "real format/target environment observations; never metadata-only substitution",
+        "retained logs, source citations and declared review scope"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-029",
+      "task_id": "T29",
+      "requirement_ids": [
+        "FR-51",
+        "FR-52",
+        "FR-54",
+        "NFR-19"
+      ],
+      "mode": "integration",
+      "given": "A draft DOCX with a cancellation rule, tables, comments and special fonts; XLSX formulas; a PPTX chart; a generated PDF; and API documentation for a disposable service whose documented parameter differs from its implementation.",
+      "when": [
+        "Improve wording without changing cancellation meaning and produce new editable bytes without altering originals.",
+        "Execute actual API snippets, update incorrect docs from verified implementation, reopen outputs and render changed/high-risk pages.",
+        "Inject clipped text, missing table content, flattened editable chart, altered rule and forged worker QA; verify rejection or explicit narrower fidelity before delivery."
+      ],
+      "then": {
+        "original_bytes_unchanged": true,
+        "requested_editable_outputs_reopen": true,
+        "business_meaning_preserved": true,
+        "api_examples_executed_against_target_version": true,
+        "rendered_layout_failures_caught": true,
+        "worker_cannot_forge_document_ready": true,
+        "artifact_download_matches_verified_digest": true
+      },
+      "evidence_required": [
+        "actual boundary/API/process results and negative case evidence",
+        "project/job/request/source/output and tool-version identity",
+        "real format/target environment observations; never metadata-only substitution",
+        "retained logs, source citations and declared review scope"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-030",
+      "task_id": "T30",
+      "requirement_ids": [
+        "FR-47",
+        "FR-53",
+        "FR-55",
+        "FR-60",
+        "NFR-18",
+        "NFR-20"
+      ],
+      "mode": "integration",
+      "given": "An empty client project with no Git repo, a document-only request, create-from-brief request, a real quote-edit question, simultaneous software/document requests near their shared budget limit, and a restart during export.",
+      "when": [
+        "Use real console/API routes to upload, analyze, answer and download; confirm no software run or deployment prompt is manufactured.",
+        "Send changed direction mid-job, pause/cancel/restart and reconcile leases/results/questions without losing the user request.",
+        "Start competing job types and reject any double-spend/duplicate side effect; examine default quiet UI and required partial-result notice."
+      ],
+      "then": {
+        "document_only_needs_no_git_or_software_run": true,
+        "create_without_input_documents_works": true,
+        "questions_and_feedback_survive_restart": true,
+        "stale_attempts_cannot_deliver": true,
+        "software_and_document_budget_shared": true,
+        "no_routine_role_reports": true,
+        "partial_limitations_still_visible": true,
+        "replayed_download_cannot_cross_projects": true
+      },
+      "evidence_required": [
+        "actual boundary/API/process results and negative case evidence",
+        "project/job/request/source/output and tool-version identity",
+        "real format/target environment observations; never metadata-only substitution",
+        "retained logs, source citations and declared review scope"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-031",
+      "task_id": "T31",
+      "requirement_ids": [
+        "FR-43",
+        "FR-54",
+        "FR-56",
+        "FR-57",
+        "FR-59",
+        "NFR-20"
+      ],
+      "mode": "integration",
+      "given": "Three comparable client requests: a small button wording change, a multi-stack document-derived booking feature, and a payment/auth change. No real user study exists; a vendor quote asks for an unapproved paid service.",
+      "when": [
+        "Route the required responsibilities and evidence gates without spawning every department.",
+        "Produce bounded outcome briefs linked to real requests/sources, label assumptions and stop fake user-research claims.",
+        "Challenge a risk downgrade, an invented business signoff, a role-based privilege escalation and purchase without authorization."
+      ],
+      "then": {
+        "small_task_does_not_spawn_company_swarm": true,
+        "substantive_task_has_owner_and_review_outputs": true,
+        "high_risk_gates_cannot_be_lowered_by_writer": true,
+        "research_claims_have_actual_provenance": true,
+        "client_not_given_management_homework": true,
+        "role_titles_do_not_grant_authority": true,
+        "unapproved_purchase_or_legal_signoff_rejected": true
+      },
+      "evidence_required": [
+        "actual boundary/API/process results and negative case evidence",
+        "project/job/request/source/output and tool-version identity",
+        "real format/target environment observations; never metadata-only substitution",
+        "retained logs, source citations and declared review scope"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-032",
+      "task_id": "T32",
+      "requirement_ids": [
+        "FR-52",
+        "FR-56",
+        "FR-58",
+        "FR-59",
+        "NFR-20"
+      ],
+      "mode": "integration",
+      "given": "A released disposable application has a client-reported calculation failure and a documentation question; monitoring is not configured. Include a duplicate report and an attempted unauthorized outbound customer email.",
+      "when": [
+        "Create ServiceCase from real request, reproduce and link an authorized regression/repair or document job; preserve evidence and history.",
+        "Resolve after actual checks, update the versioned knowledge/runbook and record a factual incident timeline when warranted.",
+        "Stop the controller and verify no claim of continued coverage; deny outbound communication and fake client satisfaction without appropriate authority."
+      ],
+      "then": {
+        "case_links_real_client_request_and_work": true,
+        "resolution_requires_actual_evidence": true,
+        "regression_and_documentation_updated": true,
+        "duplicate_reports_preserve_history": true,
+        "no_fake_24x7_or_sla_claim": true,
+        "outbound_actions_require_authorization": true,
+        "client_satisfaction_not_written_by_agent": true
+      },
+      "evidence_required": [
+        "actual boundary/API/process results and negative case evidence",
+        "project/job/request/source/output and tool-version identity",
+        "real format/target environment observations; never metadata-only substitution",
+        "retained logs, source citations and declared review scope"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    },
+    {
+      "id": "AT-033",
+      "task_id": "T33",
+      "requirement_ids": [
+        "FR-46",
+        "FR-47",
+        "FR-48",
+        "FR-49",
+        "FR-50",
+        "FR-51",
+        "FR-52",
+        "FR-53",
+        "FR-54",
+        "FR-55",
+        "FR-56",
+        "FR-57",
+        "FR-58",
+        "FR-59",
+        "FR-60",
+        "NFR-17",
+        "NFR-18",
+        "NFR-19",
+        "NFR-20"
+      ],
+      "mode": "qualification",
+      "given": "Fresh installed Client Mode, both real provider adapters, approved evaluation budget, independently controlled known-answer/held-out documents, previous cross-stack results, and no production secrets in workers.",
+      "when": [
+        "Run document fixtures and approved repeated A/B/C comparison; blind semantic/layout graders to variant where practical.",
+        "Exercise client upload\u2192analysis\u2192question\u2192edit\u2192checked artifact\u2192build-from-approved-rules\u2192feedback\u2192support case with real UI and target software tests.",
+        "Run fresh-install and upgrade/restore scenarios including new document state; require G1\u2013G8, distinct client signoff and exact artifact release authorization."
+      ],
+      "then": {
+        "real_document_formats_and_exports_qualified": true,
+        "known_numeric_and_citation_defects_caught": true,
+        "partial_or_forged_results_never_full_ready": true,
+        "all_33_task_gates_have_evidence_or_no_go": true,
+        "cross_stack_qualification_not_replaced_by_docs": true,
+        "comparison_counts_all_attempts_and_costs": true,
+        "new_document_state_survives_upgrade_restore": true,
+        "client_acceptance_distinct_from_technical_ready": true,
+        "only_verified_authorized_artifacts_released": true
+      },
+      "evidence_required": [
+        "actual boundary/API/process results and negative case evidence",
+        "project/job/request/source/output and tool-version identity",
+        "real format/target environment observations; never metadata-only substitution",
+        "retained logs, source citations and declared review scope"
+      ],
+      "status": "NOT_EXECUTED_PRODUCT_TEST"
+    }
+  ]
+}

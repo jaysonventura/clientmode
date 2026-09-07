@@ -1,0 +1,20 @@
+{
+  "kind": "client_question",
+  "schema_version": 1,
+  "question_id": "question_01",
+  "project_id": "project_01",
+  "run_id": "run_01",
+  "requirements_revision": 0,
+  "state_version": 0,
+  "prompt": "Should customers pay when booking or at the appointment?",
+  "recommendation": "At the appointment, because online payment was not requested.",
+  "blocking_task_ids": [
+    "task_checkout"
+  ],
+  "source_request_ids": [
+    "request_01"
+  ],
+  "status": "OPEN",
+  "created_at": "2026-09-07T00:00:00Z",
+  "updated_at": "2026-09-07T00:00:00Z"
+}

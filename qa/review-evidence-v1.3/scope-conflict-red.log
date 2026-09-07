@@ -1,0 +1,76 @@
+test_document_answer_requires_client (test_document_contracts.DocumentAPI.test_document_answer_requires_client) ... ok
+test_document_job_create_route (test_document_contracts.DocumentAPI.test_document_job_create_route) ... ok
+test_document_result_not_writable_by_worker (test_document_contracts.DocumentAPI.test_document_result_not_writable_by_worker) ... ok
+test_version_download_is_separate_from_metadata (test_document_contracts.DocumentAPI.test_version_download_is_separate_from_metadata) ... ok
+test_analyze_requires_inputs (test_document_contracts.DocumentContracts.test_analyze_requires_inputs) ... ok
+test_citation_requires_content_version (test_document_contracts.DocumentContracts.test_citation_requires_content_version) ... ok
+test_conflict_requires_both_locations (test_document_contracts.DocumentContracts.test_conflict_requires_both_locations) ... FAIL
+test_coverage_finding_cannot_be_silently_complete (test_document_contracts.DocumentContracts.test_coverage_finding_cannot_be_silently_complete) ... ok
+test_create_allows_no_input_file (test_document_contracts.DocumentContracts.test_create_allows_no_input_file) ... ok
+test_create_scope_can_be_generated_not_fake_source (test_document_contracts.DocumentContracts.test_create_scope_can_be_generated_not_fake_source) ... FAIL
+test_document_answer_requires_exact_question (test_document_contracts.DocumentContracts.test_document_answer_requires_exact_question) ... ok
+test_document_entities_have_examples (test_document_contracts.DocumentContracts.test_document_entities_have_examples) ... ok
+test_document_question_is_not_software_run_bound (test_document_contracts.DocumentContracts.test_document_question_is_not_software_run_bound) ... ok
+test_duplicate_conflict_citations_rejected (test_document_contracts.DocumentContracts.test_duplicate_conflict_citations_rejected) ... FAIL
+test_duplicate_document_inputs_rejected (test_document_contracts.DocumentContracts.test_duplicate_document_inputs_rejected) ... ok
+test_excel_citation_is_sheet_and_cell_specific (test_document_contracts.DocumentContracts.test_excel_citation_is_sheet_and_cell_specific) ... ok
+test_generated_scope_rejects_claimed_source_units (test_document_contracts.DocumentContracts.test_generated_scope_rejects_claimed_source_units) ... ok
+test_image_limit_is_not_relaxed (test_document_contracts.DocumentContracts.test_image_limit_is_not_relaxed) ... ok
+test_ingested_version_requires_scan_pass (test_document_contracts.DocumentContracts.test_ingested_version_requires_scan_pass) ... ok
+test_job_has_no_self_approval_field (test_document_contracts.DocumentContracts.test_job_has_no_self_approval_field) ... ok
+test_job_revision_is_positive (test_document_contracts.DocumentContracts.test_job_revision_is_positive) ... ok
+test_macro_upload_is_not_whitelisted (test_document_contracts.DocumentContracts.test_macro_upload_is_not_whitelisted) ... ok
+test_observation_requires_source (test_document_contracts.DocumentContracts.test_observation_requires_source) ... ok
+test_office_file_limit (test_document_contracts.DocumentContracts.test_office_file_limit) ... ok
+test_output_artifacts_required (test_document_contracts.DocumentContracts.test_output_artifacts_required) ... ok
+test_pdf_citation_page_is_positive (test_document_contracts.DocumentContracts.test_pdf_citation_page_is_positive) ... ok
+test_processing_job_does_not_require_software_run (test_document_contracts.DocumentContracts.test_processing_job_does_not_require_software_run) ... ok
+test_ready_document_requires_protected_result_reference (test_document_contracts.DocumentContracts.test_ready_document_requires_protected_result_reference) ... ok
+test_recalculation_unknown_not_recast_as_verified (test_document_contracts.DocumentContracts.test_recalculation_unknown_not_recast_as_verified) ... ok
+test_scope_cannot_be_empty_for_source_analysis (test_document_contracts.DocumentContracts.test_scope_cannot_be_empty_for_source_analysis) ... ok
+test_scope_carries_an_explicit_visibility_boundary (test_document_contracts.DocumentContracts.test_scope_carries_an_explicit_visibility_boundary) ... ok
+test_scope_digest_required (test_document_contracts.DocumentContracts.test_scope_digest_required) ... ok
+test_service_case_not_a_fake_sla (test_document_contracts.DocumentContracts.test_service_case_not_a_fake_sla) ... ok
+test_source_scope_still_needs_source_versions (test_document_contracts.DocumentContracts.test_source_scope_still_needs_source_versions) ... ok
+test_source_version_cannot_be_empty (test_document_contracts.DocumentContracts.test_source_version_cannot_be_empty) ... ok
+test_suggestion_may_be_explicitly_unsourced (test_document_contracts.DocumentContracts.test_suggestion_may_be_explicitly_unsourced) ... ok
+test_supported_upload_formats (test_document_contracts.DocumentContracts.test_supported_upload_formats) ... ok
+test_answer_cannot_reference_wrong_job (test_document_contracts.DocumentStorage.test_answer_cannot_reference_wrong_job) ... ok
+test_cross_project_source_binding_denied (test_document_contracts.DocumentStorage.test_cross_project_source_binding_denied) ... ok
+test_document_job_can_be_persisted_without_git_run (test_document_contracts.DocumentStorage.test_document_job_can_be_persisted_without_git_run) ... ok
+test_document_source_version_is_immutable (test_document_contracts.DocumentStorage.test_document_source_version_is_immutable) ... ok
+test_duplicate_source_binding_rejected (test_document_contracts.DocumentStorage.test_duplicate_source_binding_rejected) ... ok
+test_question_only_one_open_per_job (test_document_contracts.DocumentStorage.test_question_only_one_open_per_job) ... ok
+test_ready_requires_result (test_document_contracts.DocumentStorage.test_ready_requires_result) ... ok
+
+======================================================================
+FAIL: test_conflict_requires_both_locations (test_document_contracts.DocumentContracts.test_conflict_requires_both_locations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 44, in test_conflict_requires_both_locations
+    x=ex('document-finding');x['classification']='conflict';self.assertFalse(V.is_valid(x))
+                                                            ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_create_scope_can_be_generated_not_fake_source (test_document_contracts.DocumentContracts.test_create_scope_can_be_generated_not_fake_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 48, in test_create_scope_can_be_generated_not_fake_source
+    x=ex('document-scope');x.update(scope_mode='generated_output',source_version_ids=[],units=[]);self.assertTrue(V.is_valid(x))
+                                                                                                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_duplicate_conflict_citations_rejected (test_document_contracts.DocumentContracts.test_duplicate_conflict_citations_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 46, in test_duplicate_conflict_citations_rejected
+    x=ex('document-finding');x.update(classification='conflict',citations=[x['citations'][0]]*2);self.assertFalse(V.is_valid(x))
+                                                                                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 44 tests in 0.377s
+
+FAILED (failures=3)

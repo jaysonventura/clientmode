@@ -1,0 +1,508 @@
+TAP version 13
+# Subtest: synthetic authentic current complete evidence is verified for scope only
+ok 1 - synthetic authentic current complete evidence is verified for scope only
+  ---
+  duration_ms: 2.417084
+  type: 'test'
+  ...
+# Subtest: reject missing evidence identity, even when signed by fixture issuer
+ok 2 - reject missing evidence identity, even when signed by fixture issuer
+  ---
+  duration_ms: 0.702522
+  type: 'test'
+  ...
+# Subtest: reject missing required result, even when signed by fixture issuer
+ok 3 - reject missing required result, even when signed by fixture issuer
+  ---
+  duration_ms: 0.616995
+  type: 'test'
+  ...
+# Subtest: reject failed result, even when signed by fixture issuer
+ok 4 - reject failed result, even when signed by fixture issuer
+  ---
+  duration_ms: 0.503586
+  type: 'test'
+  ...
+# Subtest: reject nonzero exit, even when signed by fixture issuer
+ok 5 - reject nonzero exit, even when signed by fixture issuer
+  ---
+  duration_ms: 0.83603
+  type: 'test'
+  ...
+# Subtest: reject timeout, even when signed by fixture issuer
+ok 6 - reject timeout, even when signed by fixture issuer
+  ---
+  duration_ms: 0.580541
+  type: 'test'
+  ...
+# Subtest: reject skipped status, even when signed by fixture issuer
+ok 7 - reject skipped status, even when signed by fixture issuer
+  ---
+  duration_ms: 0.601001
+  type: 'test'
+  ...
+# Subtest: reject not executed, even when signed by fixture issuer
+ok 8 - reject not executed, even when signed by fixture issuer
+  ---
+  duration_ms: 0.553851
+  type: 'test'
+  ...
+# Subtest: reject zero tests, even when signed by fixture issuer
+ok 9 - reject zero tests, even when signed by fixture issuer
+  ---
+  duration_ms: 1.676676
+  type: 'test'
+  ...
+# Subtest: reject reduced test discovery, even when signed by fixture issuer
+ok 10 - reject reduced test discovery, even when signed by fixture issuer
+  ---
+  duration_ms: 0.784423
+  type: 'test'
+  ...
+# Subtest: reject skipped test, even when signed by fixture issuer
+ok 11 - reject skipped test, even when signed by fixture issuer
+  ---
+  duration_ms: 0.501464
+  type: 'test'
+  ...
+# Subtest: reject incomplete passing count, even when signed by fixture issuer
+ok 12 - reject incomplete passing count, even when signed by fixture issuer
+  ---
+  duration_ms: 0.534403
+  type: 'test'
+  ...
+# Subtest: reject negative count, even when signed by fixture issuer
+ok 13 - reject negative count, even when signed by fixture issuer
+  ---
+  duration_ms: 0.499841
+  type: 'test'
+  ...
+# Subtest: reject missing assertion, even when signed by fixture issuer
+ok 14 - reject missing assertion, even when signed by fixture issuer
+  ---
+  duration_ms: 0.42528
+  type: 'test'
+  ...
+# Subtest: reject duplicate assertion, even when signed by fixture issuer
+ok 15 - reject duplicate assertion, even when signed by fixture issuer
+  ---
+  duration_ms: 0.409477
+  type: 'test'
+  ...
+# Subtest: reject duplicate result, even when signed by fixture issuer
+ok 16 - reject duplicate result, even when signed by fixture issuer
+  ---
+  duration_ms: 0.481564
+  type: 'test'
+  ...
+# Subtest: reject unknown result, even when signed by fixture issuer
+ok 17 - reject unknown result, even when signed by fixture issuer
+  ---
+  duration_ms: 0.514262
+  type: 'test'
+  ...
+# Subtest: reject changed check definition, even when signed by fixture issuer
+ok 18 - reject changed check definition, even when signed by fixture issuer
+  ---
+  duration_ms: 0.453162
+  type: 'test'
+  ...
+# Subtest: reject missing observer, even when signed by fixture issuer
+ok 19 - reject missing observer, even when signed by fixture issuer
+  ---
+  duration_ms: 0.523266
+  type: 'test'
+  ...
+# Subtest: reject invalid log hash, even when signed by fixture issuer
+ok 20 - reject invalid log hash, even when signed by fixture issuer
+  ---
+  duration_ms: 0.467793
+  type: 'test'
+  ...
+# Subtest: reject changed source, even when signed by fixture issuer
+ok 21 - reject changed source, even when signed by fixture issuer
+  ---
+  duration_ms: 0.395537
+  type: 'test'
+  ...
+# Subtest: reject changed artifact, even when signed by fixture issuer
+ok 22 - reject changed artifact, even when signed by fixture issuer
+  ---
+  duration_ms: 0.491458
+  type: 'test'
+  ...
+# Subtest: reject changed environment, even when signed by fixture issuer
+ok 23 - reject changed environment, even when signed by fixture issuer
+  ---
+  duration_ms: 0.410198
+  type: 'test'
+  ...
+# Subtest: reject changed policy, even when signed by fixture issuer
+ok 24 - reject changed policy, even when signed by fixture issuer
+  ---
+  duration_ms: 0.474924
+  type: 'test'
+  ...
+# Subtest: reject wrong project, even when signed by fixture issuer
+ok 25 - reject wrong project, even when signed by fixture issuer
+  ---
+  duration_ms: 0.421845
+  type: 'test'
+  ...
+# Subtest: reject wrong run, even when signed by fixture issuer
+ok 26 - reject wrong run, even when signed by fixture issuer
+  ---
+  duration_ms: 0.589284
+  type: 'test'
+  ...
+# Subtest: reject wrong candidate, even when signed by fixture issuer
+ok 27 - reject wrong candidate, even when signed by fixture issuer
+  ---
+  duration_ms: 0.776752
+  type: 'test'
+  ...
+# Subtest: reject expired attempt, even when signed by fixture issuer
+ok 28 - reject expired attempt, even when signed by fixture issuer
+  ---
+  duration_ms: 0.426042
+  type: 'test'
+  ...
+# Subtest: reject requirement change, even when signed by fixture issuer
+ok 29 - reject requirement change, even when signed by fixture issuer
+  ---
+  duration_ms: 0.550686
+  type: 'test'
+  ...
+# Subtest: reject issuer substitution, even when signed by fixture issuer
+ok 30 - reject issuer substitution, even when signed by fixture issuer
+  ---
+  duration_ms: 0.67485
+  type: 'test'
+  ...
+# Subtest: reject source changed during verification, even when signed by fixture issuer
+ok 31 - reject source changed during verification, even when signed by fixture issuer
+  ---
+  duration_ms: 0.563556
+  type: 'test'
+  ...
+# Subtest: reject blocking review finding, even when signed by fixture issuer
+ok 32 - reject blocking review finding, even when signed by fixture issuer
+  ---
+  duration_ms: 0.70151
+  type: 'test'
+  ...
+# Subtest: reject missing blocking finding field, even when signed by fixture issuer
+ok 33 - reject missing blocking finding field, even when signed by fixture issuer
+  ---
+  duration_ms: 0.575433
+  type: 'test'
+  ...
+# Subtest: reject future finish, even when signed by fixture issuer
+ok 34 - reject future finish, even when signed by fixture issuer
+  ---
+  duration_ms: 0.540912
+  type: 'test'
+  ...
+# Subtest: reject invalid timestamp, even when signed by fixture issuer
+ok 35 - reject invalid timestamp, even when signed by fixture issuer
+  ---
+  duration_ms: 0.420914
+  type: 'test'
+  ...
+# Subtest: reject finish before start, even when signed by fixture issuer
+ok 36 - reject finish before start, even when signed by fixture issuer
+  ---
+  duration_ms: 0.477799
+  type: 'test'
+  ...
+# Subtest: reject evidence before candidate, even when signed by fixture issuer
+ok 37 - reject evidence before candidate, even when signed by fixture issuer
+  ---
+  duration_ms: 0.420674
+  type: 'test'
+  ...
+# Subtest: reject missing results, even when signed by fixture issuer
+ok 38 - reject missing results, even when signed by fixture issuer
+  ---
+  duration_ms: 0.582754
+  type: 'test'
+  ...
+# Subtest: reject string count, even when signed by fixture issuer
+ok 39 - reject string count, even when signed by fixture issuer
+  ---
+  duration_ms: 0.669112
+  type: 'test'
+  ...
+# Subtest: reject unsupported evidence schema, even when signed by fixture issuer
+ok 40 - reject unsupported evidence schema, even when signed by fixture issuer
+  ---
+  duration_ms: 0.780307
+  type: 'test'
+  ...
+# Subtest: reject expired evidence
+ok 41 - reject expired evidence
+  ---
+  duration_ms: 0.442126
+  type: 'test'
+  ...
+# Subtest: reject advisory policy
+ok 42 - reject advisory policy
+  ---
+  duration_ms: 0.266134
+  type: 'test'
+  ...
+# Subtest: reject empty policy
+ok 43 - reject empty policy
+  ---
+  duration_ms: 0.743372
+  type: 'test'
+  ...
+# Subtest: reject all optional policy
+ok 44 - reject all optional policy
+  ---
+  duration_ms: 1.217665
+  type: 'test'
+  ...
+# Subtest: reject duplicate definition
+ok 45 - reject duplicate definition
+  ---
+  duration_ms: 0.389628
+  type: 'test'
+  ...
+# Subtest: reject zero-test behavioral policy
+ok 46 - reject zero-test behavioral policy
+  ---
+  duration_ms: 0.387725
+  type: 'test'
+  ...
+# Subtest: reject revoked key
+ok 47 - reject revoked key
+  ---
+  duration_ms: 0.199586
+  type: 'test'
+  ...
+# Subtest: reject unknown issuer
+ok 48 - reject unknown issuer
+  ---
+  duration_ms: 0.180568
+  type: 'test'
+  ...
+# Subtest: reject missing trusted attempt
+ok 49 - reject missing trusted attempt
+  ---
+  duration_ms: 0.225234
+  type: 'test'
+  ...
+# Subtest: reject unapproved policy issuer
+ok 50 - reject unapproved policy issuer
+  ---
+  duration_ms: 0.190553
+  type: 'test'
+  ...
+# Subtest: reject wrong policy revision
+ok 51 - reject wrong policy revision
+  ---
+  duration_ms: 0.329238
+  type: 'test'
+  ...
+# Subtest: reject unsupported signature algorithm
+ok 52 - reject unsupported signature algorithm
+  ---
+  duration_ms: 0.179997
+  type: 'test'
+  ...
+# Subtest: reject malformed base64
+ok 53 - reject malformed base64
+  ---
+  duration_ms: 0.216931
+  type: 'test'
+  ...
+# Subtest: reject oversized envelope
+ok 54 - reject oversized envelope
+  ---
+  duration_ms: 0.434634
+  type: 'test'
+  ...
+# Subtest: reject payload altered after signing
+ok 55 - reject payload altered after signing
+  ---
+  duration_ms: 0.430328
+  type: 'test'
+  ...
+# Subtest: reject signature replaced
+ok 56 - reject signature replaced
+  ---
+  duration_ms: 0.443137
+  type: 'test'
+  ...
+# Subtest: missing and malformed top-level inputs fail closed
+ok 57 - missing and malformed top-level inputs fail closed
+  ---
+  duration_ms: 0.365111
+  type: 'test'
+  ...
+# Subtest: trusted verifier can transition with current evidence and state version
+ok 58 - trusted verifier can transition with current evidence and state version
+  ---
+  duration_ms: 0.164665
+  type: 'test'
+  ...
+# Subtest: worker role cannot assign ready state
+ok 59 - worker role cannot assign ready state
+  ---
+  duration_ms: 0.07436
+  type: 'test'
+  ...
+# Subtest: stale state version cannot transition
+ok 60 - stale state version cannot transition
+  ---
+  duration_ms: 0.054691
+  type: 'test'
+  ...
+# Subtest: missing trusted evidence guard cannot transition
+ok 61 - missing trusted evidence guard cannot transition
+  ---
+  duration_ms: 0.06111
+  type: 'test'
+  ...
+# Subtest: unlisted transition cannot occur
+ok 62 - unlisted transition cannot occur
+  ---
+  duration_ms: 0.05351
+  type: 'test'
+  ...
+# Subtest: malformed transition requests fail closed without throwing
+not ok 63 - malformed transition requests fail closed without throwing
+  ---
+  duration_ms: 0.30376
+  type: 'test'
+  location: '/mnt/data/audit-v1.2/client-mode-engineering-handoff/tests/reference.test.mjs:100:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot destructure property 'from' of 'object null' as it is null."
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    canTransition (file:///mnt/data/audit-v1.2/client-mode-engineering-handoff/reference/acceptance.mjs:110:41)
+    TestContext.<anonymous> (file:///mnt/data/audit-v1.2/client-mode-engineering-handoff/tests/reference.test.mjs:101:63)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: inherited guard values cannot grant a transition
+not ok 64 - inherited guard values cannot grant a transition
+  ---
+  duration_ms: 0.82955
+  type: 'test'
+  location: '/mnt/data/audit-v1.2/client-mode-engineering-handoff/tests/reference.test.mjs:103:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///mnt/data/audit-v1.2/client-mode-engineering-handoff/tests/reference.test.mjs:104:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: intake blocker and cancellation have lifecycle transitions
+not ok 65 - intake blocker and cancellation have lifecycle transitions
+  ---
+  duration_ms: 0.509785
+  type: 'test'
+  location: '/mnt/data/audit-v1.2/client-mode-engineering-handoff/tests/reference.test.mjs:106:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///mnt/data/audit-v1.2/client-mode-engineering-handoff/tests/reference.test.mjs:108:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: precontract resume can return to intake, not unauthorized engineering
+not ok 66 - precontract resume can return to intake, not unauthorized engineering
+  ---
+  duration_ms: 0.345592
+  type: 'test'
+  location: '/mnt/data/audit-v1.2/client-mode-engineering-handoff/tests/reference.test.mjs:111:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///mnt/data/audit-v1.2/client-mode-engineering-handoff/tests/reference.test.mjs:112:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: signed evidence with date-only timestamps is unverified
+not ok 67 - signed evidence with date-only timestamps is unverified
+  ---
+  duration_ms: 0.792545
+  type: 'test'
+  location: '/mnt/data/audit-v1.2/client-mode-engineering-handoff/tests/reference.test.mjs:114:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'VERIFIED_FOR_SCOPE'
+    - 'UNVERIFIED'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'UNVERIFIED'
+  actual: 'VERIFIED_FOR_SCOPE'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///mnt/data/audit-v1.2/client-mode-engineering-handoff/tests/reference.test.mjs:116:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..67
+# tests 67
+# suites 0
+# pass 62
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 129.878048

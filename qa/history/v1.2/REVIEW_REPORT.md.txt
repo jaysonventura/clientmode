@@ -1,0 +1,50 @@
+# Handoff Audit — Findings, Corrections and Remaining Proof
+
+**Edition:** 1.2 · **Date:** 7 September 2026
+
+## Verdict
+
+The corrected package is suitable to commission implementation of the documented Client Mode product. It supplies the product contract, six build workstreams, concrete task interfaces and acceptance scenarios, protected-verification design, operations, and separate delivery signoffs. This is a design/document/reference-code audit, not a certification that the application exists or can guarantee every future client outcome.
+
+## Review boundary
+
+Source: `Client_Mode_Engineer_Handoff_All_Stacks_v1.1.zip` (SHA-256 `73549e9a0602b75c7c6f5cde1473ffdb5d66f25f5cf24cfda3eeafbc412a2491`). The archive was inspected and extracted into a separate work directory; the original was preserved. Review covered the master requirements, all numbered plan/scenario mappings, entry instructions, schemas/types/API design, SQL consistency, reference verdict/lifecycle logic, and security/operations/qualification instructions. Selected official provider documents were refreshed. No external independent engineer, live provider session or target application was used in this review.
+
+The original reference suites reproduced 62 Node and 26 Python passes. Those checks did not cover several inconsistencies below. New regression cases exposed the problems before fixes; the corrected suites are recorded separately in the current validation report. Existing green tests were not treated as proof of completeness.
+
+## Findings and disposition
+
+| Finding | Correction | Proof and remaining obligation |
+|---|---|---|
+| Material business questions had no complete durable answer contract before a candidate existed. | Added ClientQuestion/ClientAnswer records, authenticated question/answer API design, SQL references and one-open-question rule. | Schema/API/SQL checks plus T02/T08/T13/T15 assertions; actual authentication and transaction implementation remain required. |
+| Active client direction could be confused with candidate-only feedback. | Added RunMessage and message endpoint; specified revisioning, attempt fencing and release reconciliation. | Schema/API checks and updated T12/T13/T16/T21 scenarios; live cancellation/race proof remains required. |
+| Unscoped runs could not represent a blocked/paused/cancelled intake consistently. | Aligned run schema, SQL and transition rules; prevented running without a contract. | New schema/SQL/transition regression cases pass; actual service must derive guards from protected state. |
+| Some database relationships could connect an attempt, candidate or usage to the wrong run. | Strengthened composite uniqueness and foreign keys, including explicit precontract project association. | Negative SQL insert tests pass; real migrations/concurrent service transactions still require tests. |
+| Prose required stronger approval and test policy than the schema enforced. | Rejected zero-test behavioral checks, all-optional policies and contradictory approval/grant shapes. | New negative schema tests pass; policy quality and authorization cannot be established by schema alone. |
+| Read-only workers and child parent/depth fields lacked matching shape invariants. | Added conditional schema rules. | Negative schema tests pass; OS/provider effective restrictions must still be observed. |
+| Text attachments were promised but the contract accepted images only. | Added bounded inert plain text/Markdown/JSON handling, aligned API design and operations. | Schema/API checks pass; renderer/XSS/upload-isolation implementation remains required. |
+| Reference transition input could throw on null or accept inherited guard properties. | Validated request shape and required own guard properties. | Five new Node regression cases, including timestamp controls, pass; reference guards are not caller authentication. |
+| Reference timestamps accepted date-only input. | Required timezone-bearing date-time shape before parsing. | Negative reference tests pass; production also validates the full boundary schema. |
+| Missing jsonschema was reported as skipped while the handoff check returned success. | Changed the required dependency path to fail closed; added validate_all.py. | A subprocess regression with site packages disabled proves nonzero return. |
+| Complete company responsibilities were discussed but not concrete handoff obligations. | Added responsibility/trigger/output/authority table and FR-43; preserved selective staffing and one lead. | Requirements and task/scenario coverage; real role effectiveness belongs in agent evaluation. |
+| Native continuation could be mistaken for complete autonomy or durable proof. | Documented capability probes, actor provenance, workflow limitations and protected verdict ownership. | Official documentation recheck only; live compatibility remains G3. |
+| Build source identity, final artifacts and signing transformations needed explicit ordering. | Specified snapshot→controlled build→artifact manifest→candidate→verification, with transformed-byte release checks. | T03/T05/T07/T20 implementation contract; no real native signing was run. |
+| Technical readiness, client happiness and release authority could be conflated. | Added four separate signoffs and a shipping checklist. | Requirements and document coverage; none of the live signoffs is pre-awarded. |
+| An inline reference pointed at a nonexistent acceptance-tests file. | Replaced it with the actual acceptance-scenarios contract and checked local links. | Structural checker passes. |
+
+“Corrected” above means corrected in the guide, design contracts or executable reference, as specified. It does not mean the corresponding production service has been implemented.
+
+## What engineers must prove, not merely read
+
+1. Fresh Claude and Codex installation/loading plus their real authorized transports, context, limits and tool access.
+2. End-to-end ordinary-language delivery with real execution and UI/target-platform checks, including a client question and changed requirement.
+3. A malicious candidate cannot alter protected policy, steal authority or forge readiness; CI/service enforcement is observed, not inferred from folders.
+4. Representative multi-stack held-out tasks and A/B/C comparisons meet predeclared quality/cost criteria; missing hardware/model environments are explicit.
+5. Installer, update/migration, backup restore, cancellation/recovery, deployment and rollback work on the published environment matrix.
+6. The actual client accepts the intended product, and the actual released artifact receives scoped authorization and post-release checks.
+
+The final product must satisfy [Release acceptance](../docs/RELEASE_ACCEPTANCE.md). No universal model expertise, defect-free software, unlimited autonomous execution or cost saving is guaranteed.
+
+## Validation limitation
+
+Full OpenAPI validator tooling was not installed in the preparation environment. One attempt to obtain it failed because the package endpoint was unreachable. API validation here is structural (references, paths, parameters, auth/idempotency shape and selected regression assertions), not full OpenAPI conformance or implemented endpoint testing. T01/T15 must run full contract tooling and service conformance checks in their development environment. The failure was not concealed as a completed check.

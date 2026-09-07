@@ -1,0 +1,54 @@
+{
+  "kind": "document_evidence",
+  "schema_version": 1,
+  "evidence_id": "document-evidence-1",
+  "project_id": "project_01",
+  "job_id": "dj1",
+  "attempt_id": "document-attempt-1",
+  "instruction_revision": 1,
+  "issuer_id": "document-verifier-1",
+  "scope_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "source_manifest_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "output_manifest_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "policy_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "pipeline_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "results": [
+    {
+      "check_id": "document-content",
+      "definition_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status": "PASSED",
+      "executed": true,
+      "exit_code": 0,
+      "tests_total": 3,
+      "tests_passed": 3,
+      "tests_skipped": 0,
+      "assertion_ids": [
+        "scope-coverage",
+        "source-citations",
+        "meaning-preserved"
+      ],
+      "observer_id": "synthetic-document-observer",
+      "log_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+    },
+    {
+      "check_id": "document-export",
+      "definition_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "status": "PASSED",
+      "executed": true,
+      "exit_code": 0,
+      "tests_total": 2,
+      "tests_passed": 2,
+      "tests_skipped": 0,
+      "assertion_ids": [
+        "reopen",
+        "layout-review"
+      ],
+      "observer_id": "synthetic-document-observer",
+      "log_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+    }
+  ],
+  "integrity_passed": true,
+  "blocking_findings": [],
+  "started_at": "2026-09-07T00:00:00Z",
+  "finished_at": "2026-09-07T00:00:01Z"
+}

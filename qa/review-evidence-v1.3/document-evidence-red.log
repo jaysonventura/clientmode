@@ -1,0 +1,206 @@
+test_document_answer_requires_client (test_document_contracts.DocumentAPI.test_document_answer_requires_client) ... ok
+test_document_job_create_route (test_document_contracts.DocumentAPI.test_document_job_create_route) ... ok
+test_document_result_not_writable_by_worker (test_document_contracts.DocumentAPI.test_document_result_not_writable_by_worker) ... ok
+test_version_download_is_separate_from_metadata (test_document_contracts.DocumentAPI.test_version_download_is_separate_from_metadata) ... ok
+test_analyze_requires_inputs (test_document_contracts.DocumentContracts.test_analyze_requires_inputs) ... ok
+test_citation_requires_content_version (test_document_contracts.DocumentContracts.test_citation_requires_content_version) ... ok
+test_conflict_requires_both_locations (test_document_contracts.DocumentContracts.test_conflict_requires_both_locations) ... ok
+test_coverage_finding_cannot_be_silently_complete (test_document_contracts.DocumentContracts.test_coverage_finding_cannot_be_silently_complete) ... ok
+test_create_allows_no_input_file (test_document_contracts.DocumentContracts.test_create_allows_no_input_file) ... ok
+test_create_scope_can_be_generated_not_fake_source (test_document_contracts.DocumentContracts.test_create_scope_can_be_generated_not_fake_source) ... ok
+test_document_answer_requires_exact_question (test_document_contracts.DocumentContracts.test_document_answer_requires_exact_question) ... ok
+test_document_entities_have_examples (test_document_contracts.DocumentContracts.test_document_entities_have_examples) ... ok
+test_document_evidence_binds_output_bytes (test_document_contracts.DocumentContracts.test_document_evidence_binds_output_bytes) ... ERROR
+test_document_evidence_binds_source_scope (test_document_contracts.DocumentContracts.test_document_evidence_binds_source_scope) ... ERROR
+test_document_evidence_does_not_need_software_candidate (test_document_contracts.DocumentContracts.test_document_evidence_does_not_need_software_candidate) ... ERROR
+test_document_evidence_requires_attempt_identity (test_document_contracts.DocumentContracts.test_document_evidence_requires_attempt_identity) ... ERROR
+test_document_policy_has_positive_freshness (test_document_contracts.DocumentContracts.test_document_policy_has_positive_freshness) ... ERROR
+test_document_policy_must_have_required_checks (test_document_contracts.DocumentContracts.test_document_policy_must_have_required_checks) ... ERROR
+test_document_policy_requires_protected_authority (test_document_contracts.DocumentContracts.test_document_policy_requires_protected_authority) ... ERROR
+test_document_question_is_not_software_run_bound (test_document_contracts.DocumentContracts.test_document_question_is_not_software_run_bound) ... ok
+test_duplicate_conflict_citations_rejected (test_document_contracts.DocumentContracts.test_duplicate_conflict_citations_rejected) ... ok
+test_duplicate_document_inputs_rejected (test_document_contracts.DocumentContracts.test_duplicate_document_inputs_rejected) ... ok
+test_excel_citation_is_sheet_and_cell_specific (test_document_contracts.DocumentContracts.test_excel_citation_is_sheet_and_cell_specific) ... ok
+test_generated_scope_rejects_claimed_source_units (test_document_contracts.DocumentContracts.test_generated_scope_rejects_claimed_source_units) ... ok
+test_image_limit_is_not_relaxed (test_document_contracts.DocumentContracts.test_image_limit_is_not_relaxed) ... ok
+test_ingested_version_requires_scan_pass (test_document_contracts.DocumentContracts.test_ingested_version_requires_scan_pass) ... ok
+test_job_has_no_self_approval_field (test_document_contracts.DocumentContracts.test_job_has_no_self_approval_field) ... ok
+test_job_revision_is_positive (test_document_contracts.DocumentContracts.test_job_revision_is_positive) ... ok
+test_macro_upload_is_not_whitelisted (test_document_contracts.DocumentContracts.test_macro_upload_is_not_whitelisted) ... ok
+test_observation_requires_source (test_document_contracts.DocumentContracts.test_observation_requires_source) ... ok
+test_office_file_limit (test_document_contracts.DocumentContracts.test_office_file_limit) ... ok
+test_output_artifacts_required (test_document_contracts.DocumentContracts.test_output_artifacts_required) ... ok
+test_pdf_citation_page_is_positive (test_document_contracts.DocumentContracts.test_pdf_citation_page_is_positive) ... ok
+test_processing_job_does_not_require_software_run (test_document_contracts.DocumentContracts.test_processing_job_does_not_require_software_run) ... ok
+test_ready_document_requires_protected_result_reference (test_document_contracts.DocumentContracts.test_ready_document_requires_protected_result_reference) ... ok
+test_recalculation_unknown_not_recast_as_verified (test_document_contracts.DocumentContracts.test_recalculation_unknown_not_recast_as_verified) ... ok
+test_same_page_conflict_can_distinguish_actual_excerpts (test_document_contracts.DocumentContracts.test_same_page_conflict_can_distinguish_actual_excerpts) ... FAIL
+test_scope_cannot_be_empty_for_source_analysis (test_document_contracts.DocumentContracts.test_scope_cannot_be_empty_for_source_analysis) ... ok
+test_scope_carries_an_explicit_visibility_boundary (test_document_contracts.DocumentContracts.test_scope_carries_an_explicit_visibility_boundary) ... ok
+test_scope_digest_required (test_document_contracts.DocumentContracts.test_scope_digest_required) ... ok
+test_service_case_not_a_fake_sla (test_document_contracts.DocumentContracts.test_service_case_not_a_fake_sla) ... ok
+test_source_scope_still_needs_source_versions (test_document_contracts.DocumentContracts.test_source_scope_still_needs_source_versions) ... ok
+test_source_version_cannot_be_empty (test_document_contracts.DocumentContracts.test_source_version_cannot_be_empty) ... ok
+test_suggestion_may_be_explicitly_unsourced (test_document_contracts.DocumentContracts.test_suggestion_may_be_explicitly_unsourced) ... ok
+test_supported_upload_formats (test_document_contracts.DocumentContracts.test_supported_upload_formats) ... ok
+test_answer_cannot_reference_wrong_job (test_document_contracts.DocumentStorage.test_answer_cannot_reference_wrong_job) ... ok
+test_cross_project_source_binding_denied (test_document_contracts.DocumentStorage.test_cross_project_source_binding_denied) ... ok
+test_document_job_can_be_persisted_without_git_run (test_document_contracts.DocumentStorage.test_document_job_can_be_persisted_without_git_run) ... ok
+test_document_source_version_is_immutable (test_document_contracts.DocumentStorage.test_document_source_version_is_immutable) ... ok
+test_duplicate_source_binding_rejected (test_document_contracts.DocumentStorage.test_duplicate_source_binding_rejected) ... ok
+test_question_only_one_open_per_job (test_document_contracts.DocumentStorage.test_question_only_one_open_per_job) ... ok
+test_ready_requires_result (test_document_contracts.DocumentStorage.test_ready_requires_result) ... ok
+
+======================================================================
+ERROR: test_document_evidence_binds_output_bytes (test_document_contracts.DocumentContracts.test_document_evidence_binds_output_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 62, in test_document_evidence_binds_output_bytes
+    x=ex('document-evidence');del x['output_manifest_digest'];self.assertFalse(V.is_valid(x))
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 12, in ex
+    def ex(name): return json.loads((ROOT/'contracts/examples'/f'{name}.json').read_text())
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 548, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 539, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/data/client-mode-engineering-handoff-v1.3/contracts/examples/document-evidence.json'
+
+======================================================================
+ERROR: test_document_evidence_binds_source_scope (test_document_contracts.DocumentContracts.test_document_evidence_binds_source_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 60, in test_document_evidence_binds_source_scope
+    x=ex('document-evidence');del x['scope_digest'];self.assertFalse(V.is_valid(x))
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 12, in ex
+    def ex(name): return json.loads((ROOT/'contracts/examples'/f'{name}.json').read_text())
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 548, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 539, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/data/client-mode-engineering-handoff-v1.3/contracts/examples/document-evidence.json'
+
+======================================================================
+ERROR: test_document_evidence_does_not_need_software_candidate (test_document_contracts.DocumentContracts.test_document_evidence_does_not_need_software_candidate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 58, in test_document_evidence_does_not_need_software_candidate
+    x=ex('document-evidence');self.assertNotIn('candidate_id',x);self.assertTrue(V.is_valid(x))
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 12, in ex
+    def ex(name): return json.loads((ROOT/'contracts/examples'/f'{name}.json').read_text())
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 548, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 539, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/data/client-mode-engineering-handoff-v1.3/contracts/examples/document-evidence.json'
+
+======================================================================
+ERROR: test_document_evidence_requires_attempt_identity (test_document_contracts.DocumentContracts.test_document_evidence_requires_attempt_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 72, in test_document_evidence_requires_attempt_identity
+    x=ex('document-evidence');del x['attempt_id'];self.assertFalse(V.is_valid(x))
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 12, in ex
+    def ex(name): return json.loads((ROOT/'contracts/examples'/f'{name}.json').read_text())
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 548, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 539, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/data/client-mode-engineering-handoff-v1.3/contracts/examples/document-evidence.json'
+
+======================================================================
+ERROR: test_document_policy_has_positive_freshness (test_document_contracts.DocumentContracts.test_document_policy_has_positive_freshness)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 70, in test_document_policy_has_positive_freshness
+    x=ex('document-policy');x['maximum_age_seconds']=0;self.assertFalse(V.is_valid(x))
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 12, in ex
+    def ex(name): return json.loads((ROOT/'contracts/examples'/f'{name}.json').read_text())
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 548, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 539, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/data/client-mode-engineering-handoff-v1.3/contracts/examples/document-policy.json'
+
+======================================================================
+ERROR: test_document_policy_must_have_required_checks (test_document_contracts.DocumentContracts.test_document_policy_must_have_required_checks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 66, in test_document_policy_must_have_required_checks
+    x=ex('document-policy')
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 12, in ex
+    def ex(name): return json.loads((ROOT/'contracts/examples'/f'{name}.json').read_text())
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 548, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 539, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/data/client-mode-engineering-handoff-v1.3/contracts/examples/document-policy.json'
+
+======================================================================
+ERROR: test_document_policy_requires_protected_authority (test_document_contracts.DocumentContracts.test_document_policy_requires_protected_authority)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 64, in test_document_policy_requires_protected_authority
+    x=ex('document-policy');x['authority']='worker';self.assertFalse(V.is_valid(x))
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 12, in ex
+    def ex(name): return json.loads((ROOT/'contracts/examples'/f'{name}.json').read_text())
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 548, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 539, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/data/client-mode-engineering-handoff-v1.3/contracts/examples/document-policy.json'
+
+======================================================================
+FAIL: test_same_page_conflict_can_distinguish_actual_excerpts (test_document_contracts.DocumentContracts.test_same_page_conflict_can_distinguish_actual_excerpts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/client-mode-engineering-handoff-v1.3/tests/test_document_contracts.py", line 56, in test_same_page_conflict_can_distinguish_actual_excerpts
+    x.update(classification='conflict',citations=[a,b]);self.assertTrue(V.is_valid(x))
+                                                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 52 tests in 0.424s
+
+FAILED (failures=1, errors=7)

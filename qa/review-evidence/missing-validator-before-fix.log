@@ -1,0 +1,40 @@
+test_active_message_does_not_require_candidate (test_review_regressions.APIReviewTests.test_active_message_does_not_require_candidate) ... ok
+test_client_answer_route_is_not_a_worker_privilege (test_review_regressions.APIReviewTests.test_client_answer_route_is_not_a_worker_privilege) ... ok
+test_structured_question_route (test_review_regressions.APIReviewTests.test_structured_question_route) ... ok
+test_validation_status_matches_operations_document (test_review_regressions.APIReviewTests.test_validation_status_matches_operations_document) ... ok
+test_budget_cannot_attach_another_runs_attempt (test_review_regressions.DatabaseReviewTests.test_budget_cannot_attach_another_runs_attempt) ... ok
+test_precontract_block_and_cancel_are_persistable (test_review_regressions.DatabaseReviewTests.test_precontract_block_and_cancel_are_persistable) ... ok
+test_ready_requires_candidate (test_review_regressions.DatabaseReviewTests.test_ready_requires_candidate) ... ok
+test_run_cannot_point_to_another_runs_candidate (test_review_regressions.DatabaseReviewTests.test_run_cannot_point_to_another_runs_candidate) ... ok
+test_unscoped_run_cannot_reference_missing_project (test_review_regressions.DatabaseReviewTests.test_unscoped_run_cannot_reference_missing_project) ... ok
+test_usage_cannot_attach_another_runs_attempt (test_review_regressions.DatabaseReviewTests.test_usage_cannot_attach_another_runs_attempt) ... ok
+test_all_optional_policy_rejected (test_review_regressions.SchemaReviewTests.test_all_optional_policy_rejected) ... ok
+test_approve_decision_requires_grant (test_review_regressions.SchemaReviewTests.test_approve_decision_requires_grant) ... ok
+test_child_requires_parent (test_review_regressions.SchemaReviewTests.test_child_requires_parent) ... ok
+test_denial_cannot_contain_grant (test_review_regressions.SchemaReviewTests.test_denial_cannot_contain_grant) ... ok
+test_deploy_approval_requires_candidate_and_artifact (test_review_regressions.SchemaReviewTests.test_deploy_approval_requires_candidate_and_artifact) ... ok
+test_precontract_blocked_is_representable (test_review_regressions.SchemaReviewTests.test_precontract_blocked_is_representable) ... ok
+test_readonly_reviewer_has_no_write_scope (test_review_regressions.SchemaReviewTests.test_readonly_reviewer_has_no_write_scope) ... ok
+test_ready_run_requires_candidate (test_review_regressions.SchemaReviewTests.test_ready_run_requires_candidate) ... ok
+test_root_cannot_claim_parent (test_review_regressions.SchemaReviewTests.test_root_cannot_claim_parent) ... ok
+test_running_run_requires_contract (test_review_regressions.SchemaReviewTests.test_running_run_requires_contract) ... ok
+test_scoped_contract_requires_positive_revision (test_review_regressions.SchemaReviewTests.test_scoped_contract_requires_positive_revision) ... ok
+test_spend_approval_requires_positive_limit (test_review_regressions.SchemaReviewTests.test_spend_approval_requires_positive_limit) ... ok
+test_text_requirements_attachment_supported (test_review_regressions.SchemaReviewTests.test_text_requirements_attachment_supported) ... ok
+test_text_requirements_size_limit (test_review_regressions.SchemaReviewTests.test_text_requirements_size_limit) ... ok
+test_zero_test_behavioral_policy_rejected (test_review_regressions.SchemaReviewTests.test_zero_test_behavioral_policy_rejected) ... ok
+test_missing_schema_dependency_cannot_report_pass (test_review_regressions.ValidationDependencyTests.test_missing_schema_dependency_cannot_report_pass) ... FAIL
+
+======================================================================
+FAIL: test_missing_schema_dependency_cannot_report_pass (test_review_regressions.ValidationDependencyTests.test_missing_schema_dependency_cannot_report_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/audit-v1.2/client-mode-engineering-handoff/tests/test_review_regressions.py", line 129, in test_missing_schema_dependency_cannot_report_pass
+    self.assertNotEqual(result.returncode,0)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.272s
+
+FAILED (failures=1)

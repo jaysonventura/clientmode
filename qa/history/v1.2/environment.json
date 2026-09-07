@@ -1,0 +1,9 @@
+{
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "python": "3.13.5",
+  "node": "v22.16.0",
+  "typescript": "Version 5.8.3",
+  "sqlite": "3.46.1",
+  "jsonschema": "4.26.0",
+  "scope": "Preparation environment only; not client support matrix"
+}

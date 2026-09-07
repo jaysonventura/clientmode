@@ -1,0 +1,13 @@
+{
+  "kind": "audit_event",
+  "schema_version": 1,
+  "event_id": "event_01",
+  "run_id": "run_01",
+  "sequence": 1,
+  "actor_id": "controller",
+  "event_type": "request_received",
+  "payload": {
+    "request_id": "request_01"
+  },
+  "occurred_at": "2026-09-07T00:00:00Z"
+}

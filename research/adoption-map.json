@@ -1,0 +1,129 @@
+{
+  "edition": "1.3",
+  "status": "PROPOSED_DESIGN_NOT_EMPIRICAL_PROOF",
+  "mappings": [
+    {
+      "mechanism": "customer-outcomes",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S16"
+      ],
+      "requirement_ids": [
+        "FR-56",
+        "FR-57"
+      ],
+      "task_ids": [
+        "T31"
+      ]
+    },
+    {
+      "mechanism": "review-and-writing",
+      "source_ids": [
+        "S03",
+        "S04",
+        "S17"
+      ],
+      "requirement_ids": [
+        "FR-51",
+        "FR-52",
+        "FR-54"
+      ],
+      "task_ids": [
+        "T29",
+        "T31"
+      ]
+    },
+    {
+      "mechanism": "secure-design",
+      "source_ids": [
+        "S05"
+      ],
+      "requirement_ids": [
+        "FR-46",
+        "FR-55",
+        "NFR-18"
+      ],
+      "task_ids": [
+        "T25"
+      ]
+    },
+    {
+      "mechanism": "accessibility",
+      "source_ids": [
+        "S06",
+        "S16"
+      ],
+      "requirement_ids": [
+        "NFR-19"
+      ],
+      "task_ids": [
+        "T29",
+        "T30"
+      ]
+    },
+    {
+      "mechanism": "reliability-and-support",
+      "source_ids": [
+        "S07",
+        "S08",
+        "S09"
+      ],
+      "requirement_ids": [
+        "FR-58",
+        "FR-59",
+        "NFR-20"
+      ],
+      "task_ids": [
+        "T32"
+      ]
+    },
+    {
+      "mechanism": "file-capability-boundaries",
+      "source_ids": [
+        "S10",
+        "S11",
+        "S13",
+        "S18",
+        "S19",
+        "S20"
+      ],
+      "requirement_ids": [
+        "FR-48",
+        "FR-49",
+        "FR-55"
+      ],
+      "task_ids": [
+        "T26",
+        "T28",
+        "T29"
+      ]
+    },
+    {
+      "mechanism": "measured-qualification",
+      "source_ids": [
+        "S12"
+      ],
+      "requirement_ids": [
+        "FR-60"
+      ],
+      "task_ids": [
+        "T33"
+      ]
+    },
+    {
+      "mechanism": "native-procedures",
+      "source_ids": [
+        "S14",
+        "S15"
+      ],
+      "requirement_ids": [
+        "FR-54",
+        "FR-55"
+      ],
+      "task_ids": [
+        "T31"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "kind": "capability_report",
+  "schema_version": 1,
+  "report_id": "capability_fixture_01",
+  "provider": "mock",
+  "host_surface": "mock",
+  "host_version": "fixture-only",
+  "sdk_version": null,
+  "os": "fixture",
+  "billing_mode": "unknown",
+  "capabilities": [
+    {
+      "name": "protected-verifier",
+      "documented": false,
+      "configured": false,
+      "observed_working": false,
+      "evidence_refs": [],
+      "limitation": "Synthetic contract example. No live provider has been tested."
+    }
+  ],
+  "observed_at": "2026-09-07T00:00:00Z"
+}

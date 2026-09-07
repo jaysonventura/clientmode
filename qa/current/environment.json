@@ -1,0 +1,10 @@
+{
+  "observed_at": "2026-09-07T07:58:38.389053+00:00",
+  "node": "v22.16.0",
+  "typescript": "Version 5.8.3",
+  "python": "3.13.5",
+  "sqlite": "3.46.1",
+  "jsonschema": "4.26.0",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "scope": "reference-validation environment, not promised deployment target"
+}

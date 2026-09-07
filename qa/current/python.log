@@ -1,0 +1,65 @@
+test_document_contracts (unittest.loader._FailedTest.test_document_contracts) ... ERROR
+test_engineering_context (unittest.loader._FailedTest.test_engineering_context) ... ERROR
+test_review_regressions (unittest.loader._FailedTest.test_review_regressions) ... ERROR
+test_additional_authority_schemas_parse (test_storage.StorageReferenceTests.test_additional_authority_schemas_parse) ... ok
+test_commit_survives_reopen (test_storage.StorageReferenceTests.test_commit_survives_reopen) ... ok
+test_compare_and_swap_has_one_winner (test_storage.StorageReferenceTests.test_compare_and_swap_has_one_winner) ... ok
+test_contract_revision_requires_real_contract (test_storage.StorageReferenceTests.test_contract_revision_requires_real_contract) ... ok
+test_cross_project_candidate_rejected (test_storage.StorageReferenceTests.test_cross_project_candidate_rejected) ... ok
+test_duplicate_idempotency_key_is_rejected (test_storage.StorageReferenceTests.test_duplicate_idempotency_key_is_rejected) ... ok
+test_invalid_state_is_rejected (test_storage.StorageReferenceTests.test_invalid_state_is_rejected) ... ok
+test_outbox_idempotency_constraint (test_storage.StorageReferenceTests.test_outbox_idempotency_constraint) ... ok
+test_running_requires_linked_contract (test_storage.StorageReferenceTests.test_running_requires_linked_contract) ... ok
+test_sequence_duplicate_rejected (test_storage.StorageReferenceTests.test_sequence_duplicate_rejected) ... ok
+test_transaction_rolls_back_state_and_event (test_storage.StorageReferenceTests.test_transaction_rolls_back_state_and_event) ... ok
+test_unscoped_received_request_can_be_acknowledged (test_storage.StorageReferenceTests.test_unscoped_received_request_can_be_acknowledged) ... ok
+
+======================================================================
+ERROR: test_document_contracts (unittest.loader._FailedTest.test_document_contracts)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_document_contracts
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/viscion/Documents/clientmode/tests/test_document_contracts.py", line 5, in <module>
+    from jsonschema import Draft202012Validator, FormatChecker
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_engineering_context (unittest.loader._FailedTest.test_engineering_context)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_engineering_context
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/viscion/Documents/clientmode/tests/test_engineering_context.py", line 10, in <module>
+    import jsonschema
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_review_regressions (unittest.loader._FailedTest.test_review_regressions)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_review_regressions
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/viscion/Documents/clientmode/tests/test_review_regressions.py", line 9, in <module>
+    from jsonschema import Draft202012Validator, FormatChecker
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.099s
+
+FAILED (errors=3)

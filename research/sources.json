@@ -1,0 +1,206 @@
+{
+  "research_date": "2026-09-07",
+  "source_policy": "First-party company/provider and selected maintained-tool documentation; no community agent product dependency. Published process is evidence of a mechanism, not a guarantee of Client Mode outcomes.",
+  "sources": [
+    {
+      "id": "S01",
+      "publisher": "Amazon / AWS",
+      "title": "The Secrets to AWS Product Management",
+      "url": "https://aws.amazon.com/executive-insights/content/product-management-at-amazon/",
+      "date_notes": "Undated page; retrieved 2026-09-07",
+      "supported_claim": "Customer-backward problem definition, product ownership, iteration and outcome metrics.",
+      "client_mode_inference": "Use a short internal outcome brief; do not mandate press releases, company meetings or guessed market proof.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S02",
+      "publisher": "GitLab",
+      "title": "Product Development Flow",
+      "url": "https://handbook.gitlab.com/handbook/product-development/how-we-work/product-development-flow/",
+      "date_notes": "Living handbook; retrieved 2026-09-07",
+      "supported_claim": "Cross-functional flow through validation, implementation, review and verification.",
+      "client_mode_inference": "Treat completion as accountable outcomes; do not copy every label or meeting.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S03",
+      "publisher": "GitLab",
+      "title": "Documentation workflows",
+      "url": "https://docs.gitlab.com/development/documentation/workflow/",
+      "date_notes": "Living documentation; retrieved 2026-09-07",
+      "supported_claim": "Technical writers collaborate on documentation, UI text and release communications.",
+      "client_mode_inference": "Documentation is part of delivery; test commands and keep implementation/version provenance.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S04",
+      "publisher": "Google",
+      "title": "What to look for in a code review",
+      "url": "https://google.github.io/eng-practices/review/reviewer/looking-for.html",
+      "date_notes": "Undated engineering guidance; retrieved 2026-09-07",
+      "supported_claim": "Review design, function, tests, maintainability and documentation; declare review boundaries.",
+      "client_mode_inference": "Require concrete findings and scope, not approval by job title or agent consensus.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S05",
+      "publisher": "Microsoft",
+      "title": "Secure by Design / SDL",
+      "url": "https://www.microsoft.com/en-us/securityengineering/sdl/practices/secure-by-design",
+      "date_notes": "Living guidance; retrieved 2026-09-07",
+      "supported_claim": "Identify assets, data flows and trust boundaries; track threat mitigations and test them.",
+      "client_mode_inference": "Treat parsers, documents and tool output as attack surfaces; risk-tiered checks from design onward.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S06",
+      "publisher": "Microsoft",
+      "title": "Fluent 2 accessibility",
+      "url": "https://fluent2.microsoft.design/accessibility",
+      "date_notes": "Living design documentation; retrieved 2026-09-07",
+      "supported_claim": "Accessibility is a design and implementation concern.",
+      "client_mode_inference": "Apply platform-appropriate accessibility and real interaction checks, not only visual polish.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S07",
+      "publisher": "Google",
+      "title": "Example Error Budget Policy",
+      "url": "https://sre.google/workbook/error-budget-policy/",
+      "date_notes": "Example policy dated 2018-02-19; retrieved 2026-09-07",
+      "supported_claim": "Reliability objectives and error budgets can govern feature release versus repair priority.",
+      "client_mode_inference": "Define proportionate operational indicators and stop rules; this is an example, not our required numerical SLA.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S08",
+      "publisher": "Google",
+      "title": "Postmortem Culture: Learning from Failure",
+      "url": "https://sre.google/sre-book/postmortem-culture/",
+      "date_notes": "SRE book chapter; retrieved 2026-09-07",
+      "supported_claim": "Use incident analysis and preventive follow-up to improve reliability.",
+      "client_mode_inference": "Link incidents to regressions, accountable actions and maintained runbooks.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S09",
+      "publisher": "GitLab",
+      "title": "Support Engineer Responsibilities",
+      "url": "https://handbook.gitlab.com/handbook/support/support-engineer-responsibilities/",
+      "date_notes": "Living handbook; retrieved 2026-09-07",
+      "supported_claim": "Support connects customer problems to debugging, product issues and documentation improvements.",
+      "client_mode_inference": "Add on-demand support triage; do not promise a staffed 24/7 service or publish externally without authorization.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S10",
+      "publisher": "Anthropic",
+      "title": "Agent Skills overview",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview",
+      "date_notes": "Living platform documentation; retrieved 2026-09-07",
+      "supported_claim": "Prebuilt document skills are available on named platform surfaces; Claude Code custom skills are distinct.",
+      "client_mode_inference": "Probe exact runtime; use original local document procedures or an approved official API integration. No automatic subscription/API equivalence.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S11",
+      "publisher": "OpenAI",
+      "title": "File inputs",
+      "url": "https://developers.openai.com/api/docs/guides/file-inputs",
+      "date_notes": "Living API guide; retrieved 2026-09-07",
+      "supported_claim": "PDF processing includes text/page images; non-PDF input is text-only; spreadsheet augmentation samples up to 1,000 rows per sheet.",
+      "client_mode_inference": "Full workbook/visual analysis needs another tested processing path and explicit coverage; API inputs are not a complete Codex CLI document editor.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S12",
+      "publisher": "OpenAI",
+      "title": "Evaluation best practices",
+      "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+      "date_notes": "Living API guide; retrieved 2026-09-07",
+      "supported_claim": "Evaluate task-specific outcomes systematically rather than relying on subjective success impressions.",
+      "client_mode_inference": "Use held-out, repeated tasks including document extraction, conflict handling and false-completion attacks.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S13",
+      "publisher": "Microsoft",
+      "title": "Welcome to the Open XML SDK for Office",
+      "url": "https://learn.microsoft.com/en-us/office/open-xml/open-xml-sdk",
+      "date_notes": "Living reference; retrieved 2026-09-07",
+      "supported_claim": "Official libraries support programmatic work with Office Open XML document structures.",
+      "client_mode_inference": "Structural file editing is a building block, not proof of layout fidelity or spreadsheet recalculation.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S14",
+      "publisher": "OpenAI",
+      "title": "Build skills",
+      "url": "https://learn.chatgpt.com/docs/build-skills",
+      "date_notes": "Living documentation; retrieved 2026-09-07",
+      "supported_claim": "Reusable skills package task instructions/resources.",
+      "client_mode_inference": "Original local workflows can be distributed; benchmark triggering and do not equate a skill description with capability.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S15",
+      "publisher": "Anthropic",
+      "title": "Create plugins",
+      "url": "https://code.claude.com/docs/en/plugins",
+      "date_notes": "Living documentation; retrieved 2026-09-07",
+      "supported_claim": "Official plugin packaging supports reusable Claude Code extensions.",
+      "client_mode_inference": "Package shared procedures with host-specific adapters; this is not a verified Client Mode installation.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S16",
+      "publisher": "GitLab",
+      "title": "Product Designer Workflow",
+      "url": "https://handbook.gitlab.com/handbook/upstream-studios/product-design/workflow/",
+      "date_notes": "Living handbook; retrieved 2026-09-07",
+      "supported_claim": "Product designers work with UX researchers, PMs and technical writers.",
+      "client_mode_inference": "Keep research evidence, design decisions and product copy aligned; do not invent user interviews.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S17",
+      "publisher": "Google",
+      "title": "The standard of code review",
+      "url": "https://google.github.io/eng-practices/review/reviewer/standard.html",
+      "date_notes": "Undated engineering guidance; retrieved 2026-09-07",
+      "supported_claim": "Balance improved code health with forward progress; distinguish nonblocking polish from required corrections.",
+      "client_mode_inference": "Stop endless aesthetic review loops while retaining mandatory correctness/security gates.",
+      "access": "Retrieved public HTML via web; not private/internal access."
+    },
+    {
+      "id": "S18",
+      "publisher": "openpyxl maintainers",
+      "title": "Formula handling",
+      "url": "https://openpyxl.readthedocs.io/en/stable/simple_formulae.html",
+      "date_notes": "Living first-party documentation; retrieved 2026-09-07",
+      "supported_claim": "Workbook library does not evaluate formulas.",
+      "client_mode_inference": "Use a qualified calculation engine; schema/read success cannot establish numerical validity.",
+      "access": "Public page inspected; no runtime executed"
+    },
+    {
+      "id": "S19",
+      "publisher": "python-docx maintainers",
+      "title": "Working with documents",
+      "url": "https://python-docx.readthedocs.io/en/latest/user/documents.html",
+      "date_notes": "Living first-party documentation; retrieved 2026-09-07",
+      "supported_claim": "Opening/saving and document edits are supported, with feature limits.",
+      "client_mode_inference": "Preserve original files and qualify declared edit features.",
+      "access": "Public page inspected; no runtime executed"
+    },
+    {
+      "id": "S20",
+      "publisher": "The Document Foundation",
+      "title": "LibreOffice command-line parameters",
+      "url": "https://help.libreoffice.org/latest/en-US/text/shared/guide/start_parameters.html",
+      "date_notes": "Living first-party documentation; retrieved 2026-09-07",
+      "supported_claim": "Headless operation and command-line conversion are documented.",
+      "client_mode_inference": "Use isolated processes/profiles and observe security/fidelity; headless is not a sandbox.",
+      "access": "Public page inspected; no runtime executed"
+    }
+  ]
+}

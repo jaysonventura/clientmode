@@ -1,0 +1,16 @@
+{
+  "kind": "approval",
+  "schema_version": 1,
+  "approval_id": "approval_01",
+  "project_id": "project_shop",
+  "actor_id": "client_01",
+  "action": "deploy",
+  "candidate_id": "candidate_01",
+  "artifact_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+  "target_environment": "staging-fixture",
+  "policy_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+  "expires_at": "2026-09-07T01:00:00Z",
+  "nonce": "nonce_fixture_01",
+  "maximum_spend_usd": null,
+  "consumed": false
+}

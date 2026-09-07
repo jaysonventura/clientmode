@@ -1,0 +1,11 @@
+{
+  "kind": "document_answer",
+  "schema_version": 1,
+  "answer_id": "da1",
+  "question_id": "dq1",
+  "job_id": "dj1",
+  "project_id": "project_01",
+  "request_id": "request_02",
+  "actor_id": "client_01",
+  "created_at": "2026-09-07T00:00:00Z"
+}

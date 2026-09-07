@@ -70,11 +70,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-gBvrV6/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-QWO2va/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-gBvrV6/cm-sandbox-wWpSDC",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-gBvrV6/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-QWO2va/cm-sandbox-eZWJzP",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-QWO2va/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",

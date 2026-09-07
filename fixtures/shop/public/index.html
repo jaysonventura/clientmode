@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sari-sari Shop</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body data-defect="__DEFECT__">
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <h1>Sari-sari Shop</h1>
+  <p class="tagline">Order without an account. Pay when you receive.</p>
+</header>
+
+<main id="main">
+  <section aria-labelledby="products-heading">
+    <h2 id="products-heading">Products</h2>
+    <p id="catalog-status" role="status">Loading products…</p>
+    <ul id="catalog" class="catalog"></ul>
+  </section>
+
+  <section aria-labelledby="cart-heading">
+    <h2 id="cart-heading">Your cart</h2>
+    <p id="cart-empty">Your cart is empty. Add a product to start.</p>
+    <table id="cart-table" hidden>
+      <caption class="visually-hidden">Items in your cart</caption>
+      <thead><tr><th scope="col">Product</th><th scope="col">Quantity</th><th scope="col">Subtotal</th><th scope="col">Remove</th></tr></thead>
+      <tbody id="cart-body"></tbody>
+      <tfoot><tr><th scope="row" colspan="2">Total</th><td id="cart-total" data-testid="cart-total">₱0.00</td><td></td></tr></tfoot>
+    </table>
+  </section>
+
+  <section aria-labelledby="checkout-heading">
+    <h2 id="checkout-heading">Checkout</h2>
+    <form id="checkout-form" novalidate>
+      <div class="field">
+        <label for="customer-name" id="name-label">Your name</label>
+        <input id="customer-name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="customer-mobile" id="mobile-label">Mobile number</label>
+        <input id="customer-mobile" name="mobile" type="tel" inputmode="tel" autocomplete="tel"
+               aria-describedby="mobile-hint" required>
+        <p id="mobile-hint" class="hint">Example: 09171234567</p>
+      </div>
+      <p id="form-error" class="error" role="alert" hidden></p>
+      <button id="place-order" type="submit">Place order</button>
+    </form>
+    <p id="confirmation" class="confirmation" role="status" hidden></p>
+  </section>
+</main>
+
+<script type="module" src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+{
+  "api": {
+    "probes": [
+      {
+        "name": "catalog",
+        "status": 200,
+        "error": null
+      },
+      {
+        "name": "valid_order",
+        "status": 201,
+        "error": null
+      },
+      {
+        "name": "replayed_order",
+        "status": 200,
+        "error": null
+      },
+      {
+        "name": "negative_quantity",
+        "status": 422,
+        "error": "INVALID_ORDER"
+      },
+      {
+        "name": "quantity_above_maximum",
+        "status": 422,
+        "error": "INVALID_ORDER"
+      },
+      {
+        "name": "unknown_product",
+        "status": 422,
+        "error": "INVALID_ORDER"
+      },
+      {
+        "name": "attacker_price",
+        "status": 201,
+        "error": null
+      },
+      {
+        "name": "empty_cart",
+        "status": 422,
+        "error": "INVALID_ORDER"
+      },
+      {
+        "name": "bad_mobile",
+        "status": 422,
+        "error": "INVALID_ORDER"
+      }
+    ],
+    "total_centavos": 13500,
+    "attacker_supplied_price_total": 5500,
+    "replayed_status": 200,
+    "all_persisted_orders": 2,
+    "orders_for_retried_key": 1,
+    "persisted_order_total": 13500
+  },
+  "browser": {
+    "browser_version": "153.0.8010.12",
+    "journey": {
+      "completed": true,
+      "displayed_total": "₱135.00",
+      "confirmation_text": "Order order_mtrfu6lp_l2ztxd received. Total ₱135.00. We will contact +639000000001.",
+      "submit_operable": true,
+      "steps": [
+        "loaded catalog",
+        "added 2 rice and 1 soap",
+        "filled customer details",
+        "submitted the order"
+      ],
+      "diagnostics": {
+        "console_errors": [],
+        "page_errors": [],
+        "failed_requests": []
+      }
+    },
+    "accessibility": {
+      "tool": "axe-core",
+      "tool_version": "4.11.0",
+      "violations": [],
+      "serious_or_critical": 0,
+      "scope": [
+        "Automated rule subset only; it does not establish WCAG 2.2 AA conformance.",
+        "Manual keyboard and assistive-technology review of key flows is still required."
+      ]
+    },
+    "keyboard": {
+      "reached": [
+        "a:Skip to content",
+        "[add-rice]",
+        "[add-soap]",
+        "#customer-name",
+        "#customer-mobile",
+        "#place-order"
+      ],
+      "submit_reachable": true,
+      "focus_visible": true,
+      "unnamed_controls": []
+    },
+    "responsive": {
+      "caveat": "CSS-pixel viewport simulation in a desktop browser build. Not evidence of iPhone or Android hardware behaviour.",
+      "layouts": [
+        {
+          "viewport": {
+            "width": 360,
+            "height": 780,
+            "label": "small-phone"
+          },
+          "scroll_width": 360,
+          "client_width": 360,
+          "horizontal_overflow": false,
+          "overflowing_selectors": [],
+          "screenshot_artifact_id": "sha256:5e3e258d50f0708275423daee09b21be787bf4e4c9f09303de0bce0694569c8d",
+          "browser_version": "153.0.8010.12",
+          "device_scale_factor": 1
+        },
+        {
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "label": "phone"
+          },
+          "scroll_width": 390,
+          "client_width": 390,
+          "horizontal_overflow": false,
+          "overflowing_selectors": [],
+          "screenshot_artifact_id": "sha256:2a75887f71c8525a88014952d86905af76d0df94192bfb8b75aae63f90595956",
+          "browser_version": "153.0.8010.12",
+          "device_scale_factor": 1
+        },
+        {
+          "viewport": {
+            "width": 768,
+            "height": 1024,
+            "label": "tablet"
+          },
+          "scroll_width": 768,
+          "client_width": 768,
+          "horizontal_overflow": false,
+          "overflowing_selectors": [],
+          "screenshot_artifact_id": "sha256:791ff292946f3ca861da530c0e1dacbb14cd3cbb7ed2b0f5e32d049b4d464c27",
+          "browser_version": "153.0.8010.12",
+          "device_scale_factor": 1
+        },
+        {
+          "viewport": {
+            "width": 1440,
+            "height": 900,
+            "label": "desktop"
+          },
+          "scroll_width": 1440,
+          "client_width": 1440,
+          "horizontal_overflow": false,
+          "overflowing_selectors": [],
+          "screenshot_artifact_id": "sha256:c8473fb648402c892568de8ab260f80e68409403bdff145fd0f74118dcc408f7",
+          "browser_version": "153.0.8010.12",
+          "device_scale_factor": 1
+        }
+      ],
+      "text_scaling": [
+        {
+          "factor": 1.5,
+          "horizontal_overflow": false
+        },
+        {
+          "factor": 2,
+          "horizontal_overflow": false
+        }
+      ]
+    }
+  },
+  "ui_mutations": {
+    "overflow": {
+      "caught": true,
+      "layouts": [
+        {
+          "width": 360,
+          "scroll_width": 864,
+          "client_width": 360,
+          "overflow": true,
+          "offenders": [
+            "li",
+            ".product-name",
+            ".product-price",
+            "button"
+          ]
+        },
+        {
+          "width": 390,
+          "scroll_width": 864,
+          "client_width": 390,
+          "overflow": true,
+          "offenders": [
+            "li",
+            ".product-name",
+            ".product-price",
+            "button"
+          ]
+        },
+        {
+          "width": 768,
+          "scroll_width": 864,
+          "client_width": 768,
+          "overflow": true,
+          "offenders": [
+            "li",
+            ".product-name",
+            ".product-price",
+            "button"
+          ]
+        },
+        {
+          "width": 1440,
+          "scroll_width": 1440,
+          "client_width": 1440,
+          "overflow": false,
+          "offenders": []
+        }
+      ]
+    },
+    "hidden_submit": {
+      "caught": true,
+      "submit_operable": false,
+      "steps": [
+        "loaded catalog",
+        "added 2 rice and 1 soap",
+        "filled customer details",
+        "submit control was not operable"
+      ]
+    },
+    "missing_label": {
+      "caught": true,
+      "unnamed_controls": [
+        "#quantity-rice"
+      ],
+      "violations": [
+        "label"
+      ]
+    },
+    "negative_quantity_accepted_by_defective_server": {
+      "caught": true,
+      "status": 201
+    }
+  },
+  "probe_authority": {
+    "candidate_pass_json_present": true,
+    "candidate_pass_json_used_as_evidence": false,
+    "forgery_exit_code": 1,
+    "forgery_stderr": "node:fs:2425\n    return binding.writeFileUtf8(\n                   ^\n\nError: EPERM: operation not permitted, open '/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t06-Io3INo/probe-artifacts/forged.json'\n    at Object.writeFileSync (node:fs:2425:20)\n    at [eval]:1:15\n    at runScriptInThisContext",
+    "forged_file_created": false,
+    "probe_artifact_count": 10,
+    "probe_artifact_store": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t06-Io3INo/probe-artifacts"
+  },
+  "native_and_model": {
+    "swift": {
+      "compiler": "Apple Swift version 6.3.1 (swiftlang-6.3.1.1.2 clang-2100.0.123.102)",
+      "target_triple": "arm64-apple-macosx26.0"
+    },
+    "native_good_responses": [
+      "TOTAL 13500",
+      "ERROR invalid_item"
+    ],
+    "native_defect_responses": [
+      "TOTAL 135"
+    ],
+    "python_service": {
+      "runtime": "python3.14",
+      "total_centavos": 13500,
+      "rejects_over_maximum": 422
+    },
+    "grounded_eval": {
+      "answer_id": "answer_grounded",
+      "corpus_revision": "fixture-v1",
+      "total_claims": 2,
+      "grounded_claims": 2,
+      "verdicts": [
+        {
+          "claim_id": "price",
+          "grounded": true,
+          "reason": "SUPPORTED",
+          "missing_terms": []
+        },
+        {
+          "claim_id": "delivery",
+          "grounded": true,
+          "reason": "SUPPORTED",
+          "missing_terms": []
+        }
+      ],
+      "passed": true,
+      "scope": "Deterministic grounding check over a fixed synthetic corpus. Not a general model capability claim."
+    },
+    "ungrounded_eval": {
+      "answer_id": "answer_ungrounded",
+      "corpus_revision": "fixture-v1",
+      "total_claims": 2,
+      "grounded_claims": 0,
+      "verdicts": [
+        {
+          "claim_id": "refund",
+          "grounded": false,
+          "reason": "TERMS_ABSENT_FROM_CITATION",
+          "missing_terms": [
+            "thirty days"
+          ]
+        },
+        {
+          "claim_id": "fee",
+          "grounded": false,
+          "reason": "TERMS_ABSENT_FROM_CITATION",
+          "missing_terms": [
+            "100 centavos"
+          ]
+        }
+      ],
+      "passed": false,
+      "scope": "Deterministic grounding check over a fixed synthetic corpus. Not a general model capability claim."
+    },
+    "ios_simulators_available": 38,
+    "ios_example": "iPhone 17 Pro"
+  },
+  "composite": {
+    "requirements": [
+      {
+        "component_id": "shop-web",
+        "target": "web",
+        "required_tools": [
+          "node"
+        ],
+        "evidence_must_be": "Real browser journeys at the declared viewports with console and network observation.",
+        "available": true,
+        "missing": [],
+        "detail": "All named tools resolve on this host."
+      },
+      {
+        "component_id": "pricing-native",
+        "target": "native-macos",
+        "required_tools": [
+          "swiftc"
+        ],
+        "evidence_must_be": "Execution of the compiled macOS binary and observation of its real behaviour.",
+        "available": true,
+        "missing": [],
+        "detail": "All named tools resolve on this host."
+      },
+      {
+        "component_id": "pricing-service",
+        "target": "service",
+        "required_tools": [],
+        "evidence_must_be": "Requests against the running service, including failure and authorization paths.",
+        "available": true,
+        "missing": [],
+        "detail": "All named tools resolve on this host."
+      },
+      {
+        "component_id": "retrieval-model",
+        "target": "model",
+        "required_tools": [],
+        "evidence_must_be": "A scored evaluation over a fixed dataset with grounded-answer checks. No web substitute.",
+        "available": true,
+        "missing": [],
+        "detail": "All named tools resolve on this host."
+      },
+      {
+        "component_id": "shop-ios",
+        "target": "native-ios",
+        "required_tools": [
+          "xcrun",
+          "swiftc"
+        ],
+        "evidence_must_be": "Interaction with the built app on an iOS simulator or device. A browser screenshot is not this.",
+        "available": true,
+        "missing": [],
+        "detail": "38 iOS simulator device(s) available, for example iPhone 17 Pro."
+      }
+    ],
+    "composite": {
+      "verdict": "UNVERIFIED",
+      "covered_components": [
+        "shop-web",
+        "pricing-native",
+        "pricing-service",
+        "retrieval-model"
+      ],
+      "blocked_components": [],
+      "substituted_components": [
+        "shop-ios"
+      ],
+      "failed_components": [],
+      "manifest_digest": "sha256:1fd3396da431005c9b70a6b6790def9a25713d09f87838b4e89d0e846ea21fb3",
+      "reasons": [
+        "TARGET_SUBSTITUTION:shop-ios:web!=native-ios"
+      ]
+    },
+    "substitution_refused": true
+  }
+}

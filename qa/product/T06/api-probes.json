@@ -1,0 +1,145 @@
+[
+  {
+    "name": "catalog",
+    "status": 200,
+    "body": {
+      "products": [
+        {
+          "product_id": "rice",
+          "name": "Rice 1kg",
+          "price_centavos": 5500
+        },
+        {
+          "product_id": "soap",
+          "name": "Bath soap",
+          "price_centavos": 2500
+        }
+      ]
+    }
+  },
+  {
+    "name": "valid_order",
+    "status": 201,
+    "body": {
+      "order": {
+        "order_id": "order_mtrfu5wv_a1b3w2",
+        "customer_name": "Ana Dela Cruz",
+        "customer_mobile": "+639000000001",
+        "total_centavos": 13500,
+        "items": [
+          {
+            "product_id": "rice",
+            "quantity": 2,
+            "unit_price_centavos": 5500
+          },
+          {
+            "product_id": "soap",
+            "quantity": 1,
+            "unit_price_centavos": 2500
+          }
+        ],
+        "created_at": "2026-09-07T16:11:26.191Z"
+      },
+      "replayed": false
+    }
+  },
+  {
+    "name": "replayed_order",
+    "status": 200,
+    "body": {
+      "order": {
+        "order_id": "order_mtrfu5wv_a1b3w2",
+        "idempotency_key": "probe-order-1",
+        "customer_name": "Ana Dela Cruz",
+        "customer_mobile": "+639000000001",
+        "total_centavos": 13500,
+        "items_json": "[{\"product_id\":\"rice\",\"quantity\":2,\"unit_price_centavos\":5500},{\"product_id\":\"soap\",\"quantity\":1,\"unit_price_centavos\":2500}]",
+        "created_at": "2026-09-07T16:11:26.191Z",
+        "items": [
+          {
+            "product_id": "rice",
+            "quantity": 2,
+            "unit_price_centavos": 5500
+          },
+          {
+            "product_id": "soap",
+            "quantity": 1,
+            "unit_price_centavos": 2500
+          }
+        ]
+      },
+      "replayed": true
+    }
+  },
+  {
+    "name": "negative_quantity",
+    "status": 422,
+    "body": {
+      "error": "INVALID_ORDER",
+      "details": [
+        "QUANTITY_TOO_LOW:0"
+      ]
+    }
+  },
+  {
+    "name": "quantity_above_maximum",
+    "status": 422,
+    "body": {
+      "error": "INVALID_ORDER",
+      "details": [
+        "QUANTITY_ABOVE_MAXIMUM:0"
+      ]
+    }
+  },
+  {
+    "name": "unknown_product",
+    "status": 422,
+    "body": {
+      "error": "INVALID_ORDER",
+      "details": [
+        "UNKNOWN_PRODUCT:0"
+      ]
+    }
+  },
+  {
+    "name": "attacker_price",
+    "status": 201,
+    "body": {
+      "order": {
+        "order_id": "order_mtrfu5x4_xjr8n1",
+        "customer_name": "Ana Dela Cruz",
+        "customer_mobile": "+639000000001",
+        "total_centavos": 5500,
+        "items": [
+          {
+            "product_id": "rice",
+            "quantity": 1,
+            "unit_price_centavos": 5500
+          }
+        ],
+        "created_at": "2026-09-07T16:11:26.200Z"
+      },
+      "replayed": false
+    }
+  },
+  {
+    "name": "empty_cart",
+    "status": 422,
+    "body": {
+      "error": "INVALID_ORDER",
+      "details": [
+        "EMPTY_CART"
+      ]
+    }
+  },
+  {
+    "name": "bad_mobile",
+    "status": 422,
+    "body": {
+      "error": "INVALID_ORDER",
+      "details": [
+        "MOBILE_INVALID"
+      ]
+    }
+  }
+]

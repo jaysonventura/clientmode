@@ -1,0 +1,78 @@
+{
+  "profile_id": "web-typescript",
+  "profile_version": 1,
+  "description": "One discovery and check recipe for a TypeScript or JavaScript web project. A profile is a reusable recipe, not a list of the languages intake will accept.",
+  "detects": {
+    "any_of": [{ "file": "package.json" }, { "file": "tsconfig.json" }]
+  },
+  "checks": [
+    {
+      "check_id": "web-unit",
+      "required": true,
+      "result_kind": "tests",
+      "minimum_tests": 1,
+      "maximum_skipped": 0,
+      "discover": { "npm_script": "test" },
+      "parser_id": "tap13",
+      "timeout_seconds": 300,
+      "environment_profile_id": "local-node",
+      "network_profile_id": "deny"
+    },
+    {
+      "check_id": "web-typecheck",
+      "required": true,
+      "result_kind": "process",
+      "minimum_tests": 0,
+      "maximum_skipped": 0,
+      "discover": { "npm_script": "typecheck" },
+      "parser_id": "process_exit",
+      "timeout_seconds": 300,
+      "environment_profile_id": "local-node",
+      "network_profile_id": "deny"
+    },
+    {
+      "check_id": "web-api-journey",
+      "required": true,
+      "result_kind": "api",
+      "minimum_tests": 8,
+      "maximum_skipped": 0,
+      "probe": "packages/browser/src/journeys.ts#apiProbes",
+      "parser_id": "json_report",
+      "timeout_seconds": 300,
+      "environment_profile_id": "local-node",
+      "network_profile_id": "loopback"
+    },
+    {
+      "check_id": "web-browser-journey",
+      "required": true,
+      "result_kind": "browser",
+      "minimum_tests": 1,
+      "maximum_skipped": 0,
+      "probe": "packages/browser/src/journeys.ts#guestCheckoutJourney",
+      "parser_id": "json_report",
+      "timeout_seconds": 300,
+      "environment_profile_id": "local-node",
+      "network_profile_id": "loopback",
+      "viewports_css_px": [360, 390, 768, 1440],
+      "notes": "Viewport simulation is not device behaviour. Physical device claims need device tests."
+    },
+    {
+      "check_id": "web-accessibility",
+      "required": true,
+      "result_kind": "browser",
+      "minimum_tests": 1,
+      "maximum_skipped": 0,
+      "probe": "packages/browser/src/accessibility.ts#runAxe",
+      "parser_id": "json_report",
+      "timeout_seconds": 300,
+      "environment_profile_id": "local-node",
+      "network_profile_id": "loopback",
+      "notes": "Automated rule subset. Manual keyboard and assistive-technology review remains in scope."
+    }
+  ],
+  "integration_labels": {
+    "mocked": "No external system was contacted.",
+    "sandbox_tested": "An external sandbox or staging endpoint was contacted.",
+    "production_tested": "A production endpoint was contacted under explicit authorization."
+  }
+}

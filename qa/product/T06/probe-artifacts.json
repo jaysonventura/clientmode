@@ -1,0 +1,52 @@
+[
+  {
+    "artifact_id": "sha256:0b9d61cafed2411dc0026e21f78698a86840e1a26e2a23eda64c7584230fb047",
+    "media_type": "image/png",
+    "byte_length": 54067
+  },
+  {
+    "artifact_id": "sha256:5e3e258d50f0708275423daee09b21be787bf4e4c9f09303de0bce0694569c8d",
+    "media_type": "image/png",
+    "byte_length": 40829
+  },
+  {
+    "artifact_id": "sha256:2a75887f71c8525a88014952d86905af76d0df94192bfb8b75aae63f90595956",
+    "media_type": "image/png",
+    "byte_length": 40947
+  },
+  {
+    "artifact_id": "sha256:791ff292946f3ca861da530c0e1dacbb14cd3cbb7ed2b0f5e32d049b4d464c27",
+    "media_type": "image/png",
+    "byte_length": 44054
+  },
+  {
+    "artifact_id": "sha256:c8473fb648402c892568de8ab260f80e68409403bdff145fd0f74118dcc408f7",
+    "media_type": "image/png",
+    "byte_length": 46854
+  },
+  {
+    "artifact_id": "sha256:d90f0c083d30117fa39128b13b8d3110ffaa491eeaa438a08e5fa53c6ab79828",
+    "media_type": "image/png",
+    "byte_length": 42094
+  },
+  {
+    "artifact_id": "sha256:dac08c0990a61b60ec3097b89e5f72d0adf83612830fae835874354f17e75853",
+    "media_type": "image/png",
+    "byte_length": 41854
+  },
+  {
+    "artifact_id": "sha256:b840fc10c16f2bc8c1e5122a7f0504e7fd6cc87be81c15901ebf82773ca1a263",
+    "media_type": "image/png",
+    "byte_length": 44514
+  },
+  {
+    "artifact_id": "sha256:bb5f0c526a373ede6a039bf5f0fbfe8573b47a8741fa0f5240c29ed9e88c802b",
+    "media_type": "image/png",
+    "byte_length": 46854
+  },
+  {
+    "artifact_id": "sha256:cfff73a3daa8ff52c1f4b4705c1b0848743977198540063e95cc1926029d49cc",
+    "media_type": "image/png",
+    "byte_length": 57680
+  }
+]

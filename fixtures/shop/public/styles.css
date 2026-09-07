@@ -1,0 +1,98 @@
+:root {
+  color-scheme: light dark;
+  --ink: #16181d;
+  --muted: #5b6472;
+  --line: #d8dde5;
+  --accent: #1f5f4b;
+  --error: #9b2226;
+  --space: 1rem;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 var(--space) 3rem;
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+  max-width: 60rem;
+  margin-inline: auto;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+}
+.skip:focus {
+  position: static;
+  display: inline-block;
+  padding: 0.5rem;
+}
+
+header { padding-block: 1.5rem 0.5rem; }
+h1 { font-size: clamp(1.5rem, 4vw, 2rem); margin: 0; }
+.tagline { color: var(--muted); margin: 0.25rem 0 0; }
+h2 { font-size: 1.15rem; margin-block: 2rem 0.75rem; }
+
+.catalog {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+}
+
+.catalog li {
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  padding: var(--space);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.product-name { font-weight: 600; }
+.product-price { color: var(--muted); }
+
+button {
+  font: inherit;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+button.secondary { background: transparent; color: var(--accent); }
+button:focus-visible, input:focus-visible, a:focus-visible {
+  outline: 3px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--line); }
+td:last-child, th:last-child { text-align: right; }
+
+input[type="number"] { width: 5rem; min-height: 44px; font: inherit; padding: 0.25rem 0.5rem; }
+input[type="text"], input[type="tel"] { width: 100%; min-height: 44px; font: inherit; padding: 0.5rem; border: 1px solid var(--line); border-radius: 0.4rem; }
+
+.field { margin-bottom: var(--space); max-width: 24rem; }
+label { display: block; font-weight: 600; margin-bottom: 0.25rem; }
+.hint { color: var(--muted); font-size: 0.875rem; margin: 0.25rem 0 0; }
+.error { color: var(--error); font-weight: 600; }
+.confirmation { border: 1px solid var(--accent); border-radius: 0.5rem; padding: var(--space); }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* Injectable public mutation: a fixed width wider than a small phone viewport. */
+body[data-defect="overflow"] .catalog { grid-template-columns: repeat(3, 26rem); }
+/* Injectable public mutation: the submit control is present but not operable. */
+body[data-defect="hidden-submit"] #place-order { display: none; }

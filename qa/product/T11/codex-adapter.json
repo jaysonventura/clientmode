@@ -11,7 +11,7 @@
     "usage": {
       "kind": "usage_event",
       "schema_version": 1,
-      "usage_event_id": "usage_1c02f315-412f-4deb-bf74-fce2ef635858",
+      "usage_event_id": "usage_c5da2d8b-645b-4dae-bed2-41f12b2994ed",
       "provider_event_id": "turn:attempt_t11:19023:7",
       "run_id": "run_t11",
       "attempt_id": "attempt_t11",
@@ -123,7 +123,7 @@
   },
   "fresh_session": {
     "exit_code": 0,
-    "thread_id": "01a07d0f-a19f-7601-85f7-bc0604f21404",
+    "thread_id": "01a07d26-fdc9-7a50-989d-fa76d4e1a192",
     "claims": [
       "CLIENT_MODE_INSTRUCTIONS_LOADED"
     ],
@@ -131,17 +131,17 @@
       {
         "kind": "usage_event",
         "schema_version": 1,
-        "usage_event_id": "usage_64549d75-ba4f-4b11-aca6-3bf351e07413",
-        "provider_event_id": "turn:attempt_t11_fresh:19164:10",
+        "usage_event_id": "usage_7c39f8ca-72e5-443e-ab0c-baec5573d706",
+        "provider_event_id": "turn:attempt_t11_fresh:20021:52",
         "run_id": "run_t11",
         "attempt_id": "attempt_t11_fresh",
         "provider": "codex",
         "billing_mode": "native_account",
-        "input_tokens": 19164,
-        "output_tokens": 10,
-        "cache_read_tokens": 15488,
+        "input_tokens": 20021,
+        "output_tokens": 52,
+        "cache_read_tokens": 12160,
         "cache_write_tokens": 0,
-        "reasoning_tokens": 0,
+        "reasoning_tokens": 40,
         "cost_usd": null,
         "coverage": "partial",
         "occurred_at": "2026-09-08T13:00:00.000Z"
@@ -161,8 +161,8 @@
     ],
     "exit_code": 0,
     "claims": [
-      "I’ll check whether the current permissions allow creating the file.\n",
-      "CANNOT_WRITE — the current directory is read-only, and permission escalation is disabled."
+      "I’ll check whether the current directory permits creating the file.",
+      "CANNOT_WRITE — the filesystem sandbox is read-only, and permission escalation is disabled."
     ],
     "file_created": false,
     "verified_by": "filesystem check after the turn, not the session transcript"

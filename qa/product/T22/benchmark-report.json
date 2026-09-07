@@ -1,0 +1,858 @@
+{
+  "declared": {
+    "specs": 20,
+    "arms": 3,
+    "repeats": 3,
+    "seed": 20260909,
+    "families": [
+      "web",
+      "non_js_backend",
+      "native",
+      "systems",
+      "llm",
+      "polyglot",
+      "unfamiliar_stack"
+    ]
+  },
+  "denominator": {
+    "expected": 180,
+    "observed": 180,
+    "complete": true,
+    "missing": 0
+  },
+  "arms": [
+    {
+      "arm": "native_single",
+      "trials": 60,
+      "accepted": 36,
+      "rejected": 12,
+      "failed": 0,
+      "blocked": 12,
+      "false_ready": 12,
+      "accepted_rate": 0.6,
+      "accepted_rate_interval": {
+        "low": 0.47365824394206846,
+        "high": 0.7143069699623449
+      },
+      "median_client_questions": 0,
+      "median_wall_ms": 397,
+      "cost": {
+        "known_microusd": 59376,
+        "unknown_events": 21,
+        "reserved_for_unknown_microusd": 1050000,
+        "total_including_unknown_microusd": 1109376,
+        "duplicate_events_flagged": [
+          "usage_trial_web_checkout_total_native_single_1_1",
+          "usage_trial_systems_crash_recovery_native_single_3_1",
+          "usage_trial_backend_idempotency_native_single_1_1",
+          "usage_trial_llm_citation_integrity_native_single_3_1",
+          "usage_trial_polyglot_shared_contract_native_single_1_1",
+          "usage_trial_systems_crash_recovery_native_single_1_1",
+          "usage_trial_unfamiliar_rust_parser_native_single_3_1"
+        ],
+        "coverage": "partial"
+      }
+    },
+    {
+      "arm": "clientmode_single",
+      "trials": 60,
+      "accepted": 39,
+      "rejected": 9,
+      "failed": 0,
+      "blocked": 12,
+      "false_ready": 9,
+      "accepted_rate": 0.65,
+      "accepted_rate_interval": {
+        "low": 0.5236238380947751,
+        "high": 0.7583239827618451
+      },
+      "median_client_questions": 0,
+      "median_wall_ms": 421,
+      "cost": {
+        "known_microusd": 124461,
+        "unknown_events": 17,
+        "reserved_for_unknown_microusd": 850000,
+        "total_including_unknown_microusd": 974461,
+        "duplicate_events_flagged": [
+          "usage_trial_unfamiliar_rust_parser_clientmode_single_3_1",
+          "usage_trial_native_pricing_total_clientmode_single_2_1",
+          "usage_trial_native_currency_units_clientmode_single_2_1"
+        ],
+        "coverage": "partial"
+      }
+    },
+    {
+      "arm": "clientmode_bounded_agents",
+      "trials": 60,
+      "accepted": 48,
+      "rejected": 0,
+      "failed": 0,
+      "blocked": 12,
+      "false_ready": 0,
+      "accepted_rate": 0.8,
+      "accepted_rate_interval": {
+        "low": 0.6821795390818299,
+        "high": 0.8817161026314104
+      },
+      "median_client_questions": 0,
+      "median_wall_ms": 441.5,
+      "cost": {
+        "known_microusd": 136260,
+        "unknown_events": 18,
+        "reserved_for_unknown_microusd": 900000,
+        "total_including_unknown_microusd": 1036260,
+        "duplicate_events_flagged": [
+          "usage_trial_backend_idempotency_clientmode_bounded_agents_3_1"
+        ],
+        "coverage": "partial"
+      }
+    }
+  ],
+  "families": [
+    {
+      "family": "web",
+      "arm": "native_single",
+      "trials": 12,
+      "accepted": 6,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.2537781703934222,
+        "high": 0.7462218296065778
+      }
+    },
+    {
+      "family": "web",
+      "arm": "clientmode_single",
+      "trials": 12,
+      "accepted": 6,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.2537781703934222,
+        "high": 0.7462218296065778
+      }
+    },
+    {
+      "family": "web",
+      "arm": "clientmode_bounded_agents",
+      "trials": 12,
+      "accepted": 12,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.7574992425007574,
+        "high": 0.9999999999999998
+      }
+    },
+    {
+      "family": "non_js_backend",
+      "arm": "native_single",
+      "trials": 9,
+      "accepted": 9,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.7008472464490406,
+        "high": 1
+      }
+    },
+    {
+      "family": "non_js_backend",
+      "arm": "clientmode_single",
+      "trials": 9,
+      "accepted": 9,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.7008472464490406,
+        "high": 1
+      }
+    },
+    {
+      "family": "non_js_backend",
+      "arm": "clientmode_bounded_agents",
+      "trials": 9,
+      "accepted": 9,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.7008472464490406,
+        "high": 1
+      }
+    },
+    {
+      "family": "native",
+      "arm": "native_single",
+      "trials": 9,
+      "accepted": 6,
+      "blocked": 3,
+      "accepted_rate_interval": {
+        "low": 0.35419734749908977,
+        "high": 0.8794184013172571
+      }
+    },
+    {
+      "family": "native",
+      "arm": "clientmode_single",
+      "trials": 9,
+      "accepted": 6,
+      "blocked": 3,
+      "accepted_rate_interval": {
+        "low": 0.35419734749908977,
+        "high": 0.8794184013172571
+      }
+    },
+    {
+      "family": "native",
+      "arm": "clientmode_bounded_agents",
+      "trials": 9,
+      "accepted": 6,
+      "blocked": 3,
+      "accepted_rate_interval": {
+        "low": 0.35419734749908977,
+        "high": 0.8794184013172571
+      }
+    },
+    {
+      "family": "systems",
+      "arm": "native_single",
+      "trials": 9,
+      "accepted": 6,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.35419734749908977,
+        "high": 0.8794184013172571
+      }
+    },
+    {
+      "family": "systems",
+      "arm": "clientmode_single",
+      "trials": 9,
+      "accepted": 9,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.7008472464490406,
+        "high": 1
+      }
+    },
+    {
+      "family": "systems",
+      "arm": "clientmode_bounded_agents",
+      "trials": 9,
+      "accepted": 9,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.7008472464490406,
+        "high": 1
+      }
+    },
+    {
+      "family": "llm",
+      "arm": "native_single",
+      "trials": 6,
+      "accepted": 6,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.6096569663469354,
+        "high": 1
+      }
+    },
+    {
+      "family": "llm",
+      "arm": "clientmode_single",
+      "trials": 6,
+      "accepted": 6,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.6096569663469354,
+        "high": 1
+      }
+    },
+    {
+      "family": "llm",
+      "arm": "clientmode_bounded_agents",
+      "trials": 6,
+      "accepted": 6,
+      "blocked": 0,
+      "accepted_rate_interval": {
+        "low": 0.6096569663469354,
+        "high": 1
+      }
+    },
+    {
+      "family": "polyglot",
+      "arm": "native_single",
+      "trials": 6,
+      "accepted": 0,
+      "blocked": 3,
+      "accepted_rate_interval": {
+        "low": 0,
+        "high": 0.3903430336530645
+      }
+    },
+    {
+      "family": "polyglot",
+      "arm": "clientmode_single",
+      "trials": 6,
+      "accepted": 0,
+      "blocked": 3,
+      "accepted_rate_interval": {
+        "low": 0,
+        "high": 0.3903430336530645
+      }
+    },
+    {
+      "family": "polyglot",
+      "arm": "clientmode_bounded_agents",
+      "trials": 6,
+      "accepted": 3,
+      "blocked": 3,
+      "accepted_rate_interval": {
+        "low": 0.1876128068994087,
+        "high": 0.8123871931005913
+      }
+    },
+    {
+      "family": "unfamiliar_stack",
+      "arm": "native_single",
+      "trials": 9,
+      "accepted": 3,
+      "blocked": 6,
+      "accepted_rate_interval": {
+        "low": 0.12058159868274292,
+        "high": 0.6458026525009103
+      }
+    },
+    {
+      "family": "unfamiliar_stack",
+      "arm": "clientmode_single",
+      "trials": 9,
+      "accepted": 3,
+      "blocked": 6,
+      "accepted_rate_interval": {
+        "low": 0.12058159868274292,
+        "high": 0.6458026525009103
+      }
+    },
+    {
+      "family": "unfamiliar_stack",
+      "arm": "clientmode_bounded_agents",
+      "trials": 9,
+      "accepted": 3,
+      "blocked": 6,
+      "accepted_rate_interval": {
+        "low": 0.12058159868274292,
+        "high": 0.6458026525009103
+      }
+    }
+  ],
+  "cost": {
+    "known_microusd": 320097,
+    "unknown_events": 56,
+    "reserved_for_unknown_microusd": 2800000,
+    "total_including_unknown_microusd": 3120097,
+    "duplicate_events_flagged": [
+      "usage_trial_unfamiliar_rust_parser_clientmode_single_3_1",
+      "usage_trial_web_checkout_total_native_single_1_1",
+      "usage_trial_backend_idempotency_clientmode_bounded_agents_3_1",
+      "usage_trial_systems_crash_recovery_native_single_3_1",
+      "usage_trial_backend_idempotency_native_single_1_1",
+      "usage_trial_llm_citation_integrity_native_single_3_1",
+      "usage_trial_native_pricing_total_clientmode_single_2_1",
+      "usage_trial_polyglot_shared_contract_native_single_1_1",
+      "usage_trial_systems_crash_recovery_native_single_1_1",
+      "usage_trial_native_currency_units_clientmode_single_2_1",
+      "usage_trial_unfamiliar_rust_parser_native_single_3_1"
+    ],
+    "coverage": "partial"
+  },
+  "usage_accounting": {
+    "accounted": 255,
+    "flagged": [
+      {
+        "event_id": "usage_trial_polyglot_build_matrix_native_single_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_backend_quantity_bounds_clientmode_single_2_3",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_systems_crash_recovery_clientmode_bounded_agents_1_3",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_native_ios_layout_native_single_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_rust_parser_clientmode_single_3_1",
+        "reason": "DUPLICATE_USAGE_EVENT"
+      },
+      {
+        "event_id": "usage_trial_web_checkout_total_native_single_1_1",
+        "reason": "DUPLICATE_USAGE_EVENT"
+      },
+      {
+        "event_id": "usage_trial_backend_idempotency_clientmode_bounded_agents_3_1",
+        "reason": "DUPLICATE_USAGE_EVENT"
+      },
+      {
+        "event_id": "usage_trial_systems_process_group_native_single_1_2",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_go_worker_native_single_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_native_ios_layout_clientmode_bounded_agents_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_systems_crash_recovery_native_single_3_1",
+        "reason": "DUPLICATE_USAGE_EVENT"
+      },
+      {
+        "event_id": "usage_trial_native_currency_units_clientmode_bounded_agents_1_3",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_go_worker_clientmode_single_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_native_pricing_total_native_single_2_2",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_backend_authorisation_clientmode_bounded_agents_2_3",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_native_ios_layout_native_single_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_go_worker_clientmode_bounded_agents_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_go_worker_native_single_2_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_polyglot_build_matrix_clientmode_bounded_agents_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_backend_idempotency_native_single_1_1",
+        "reason": "DUPLICATE_USAGE_EVENT"
+      },
+      {
+        "event_id": "usage_trial_polyglot_build_matrix_clientmode_single_2_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_web_error_state_native_single_2_2",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_native_currency_units_clientmode_bounded_agents_2_3",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_native_ios_layout_clientmode_bounded_agents_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_polyglot_build_matrix_clientmode_bounded_agents_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_go_worker_native_single_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_go_worker_clientmode_single_2_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_kotlin_service_clientmode_single_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_systems_process_group_native_single_3_2",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_kotlin_service_clientmode_bounded_agents_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_go_worker_clientmode_bounded_agents_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_llm_citation_integrity_native_single_3_1",
+        "reason": "DUPLICATE_USAGE_EVENT"
+      },
+      {
+        "event_id": "usage_trial_native_ios_layout_clientmode_single_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_backend_quantity_bounds_clientmode_single_1_3",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_systems_crash_recovery_clientmode_bounded_agents_2_3",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_kotlin_service_native_single_2_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_polyglot_build_matrix_native_single_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_native_pricing_total_clientmode_single_2_1",
+        "reason": "DUPLICATE_USAGE_EVENT"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_kotlin_service_clientmode_bounded_agents_2_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_native_ios_layout_native_single_2_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_llm_citation_integrity_clientmode_single_1_3",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_polyglot_shared_contract_native_single_1_1",
+        "reason": "DUPLICATE_USAGE_EVENT"
+      },
+      {
+        "event_id": "usage_trial_systems_process_group_clientmode_single_3_3",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_native_ios_layout_clientmode_bounded_agents_2_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_native_ios_layout_clientmode_single_2_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_rust_parser_native_single_1_2",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_go_worker_clientmode_bounded_agents_2_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_backend_quantity_bounds_native_single_3_2",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_systems_crash_recovery_native_single_1_1",
+        "reason": "DUPLICATE_USAGE_EVENT"
+      },
+      {
+        "event_id": "usage_trial_polyglot_build_matrix_clientmode_bounded_agents_2_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_systems_process_group_native_single_2_2",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_kotlin_service_clientmode_single_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_kotlin_service_clientmode_bounded_agents_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_polyglot_build_matrix_clientmode_single_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_native_currency_units_clientmode_single_2_1",
+        "reason": "DUPLICATE_USAGE_EVENT"
+      },
+      {
+        "event_id": "usage_trial_native_ios_layout_clientmode_single_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_kotlin_service_native_single_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_web_checkout_total_clientmode_single_2_3",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_kotlin_service_native_single_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_go_worker_clientmode_single_3_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_polyglot_build_matrix_clientmode_single_1_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_systems_lease_fencing_native_single_2_2",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_rust_parser_native_single_3_2",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_rust_parser_native_single_3_1",
+        "reason": "DUPLICATE_USAGE_EVENT"
+      },
+      {
+        "event_id": "usage_trial_native_currency_units_clientmode_bounded_agents_3_3",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_unfamiliar_kotlin_service_clientmode_single_2_probe",
+        "reason": "UNKNOWN_COST"
+      },
+      {
+        "event_id": "usage_trial_polyglot_build_matrix_native_single_2_probe",
+        "reason": "UNKNOWN_COST"
+      }
+    ]
+  },
+  "protocol": {
+    "followed": true,
+    "seed": 20260909,
+    "checks": [
+      {
+        "check": "declared_denominator",
+        "passed": true,
+        "detail": "180 trials recorded, 180 declared (20 specs x 3 arms x 3 repeats)"
+      },
+      {
+        "check": "repeats_per_cell",
+        "passed": true,
+        "detail": "every spec/arm cell has 3 repeats"
+      },
+      {
+        "check": "fixed_repository_snapshots",
+        "passed": true,
+        "detail": "every spec ran every arm against one frozen snapshot"
+      },
+      {
+        "check": "same_external_grader",
+        "passed": true,
+        "detail": "graders observed: protected_verification_authority"
+      },
+      {
+        "check": "same_budget_policy",
+        "passed": true,
+        "detail": "budget policies observed: 1"
+      },
+      {
+        "check": "randomised_interleaved_order",
+        "passed": true,
+        "detail": "order indices unique: true; arms present in the first half: 3/3"
+      },
+      {
+        "check": "predeclared_families_balanced",
+        "passed": true,
+        "detail": "all 7 predeclared families ran"
+      },
+      {
+        "check": "blocked_runs_declared",
+        "passed": true,
+        "detail": "36 blocked trials, each with a recorded reason"
+      }
+    ]
+  },
+  "claims": {
+    "verdicts": [
+      {
+        "claim_id": "R1",
+        "supported": true,
+        "reasons": [
+          "not a comparative claim"
+        ]
+      },
+      {
+        "claim_id": "R2",
+        "supported": true,
+        "reasons": [
+          "not a comparative claim"
+        ]
+      },
+      {
+        "claim_id": "R3",
+        "supported": true,
+        "reasons": [
+          "not a comparative claim"
+        ]
+      },
+      {
+        "claim_id": "R4",
+        "supported": true,
+        "reasons": [
+          "not a comparative claim"
+        ]
+      },
+      {
+        "claim_id": "R5",
+        "supported": true,
+        "reasons": [
+          "not a comparative claim"
+        ]
+      }
+    ],
+    "unsupported": []
+  },
+  "rejected_claims": {
+    "verdicts": [
+      {
+        "claim_id": "X1",
+        "supported": false,
+        "reasons": [
+          "SAMPLE_INCOMPLETE",
+          "BLOCKED_TRIALS_IN_SAMPLE",
+          "CONFIDENCE_INTERVALS_OVERLAP",
+          "COST_COVERAGE_PARTIAL",
+          "SIMULATED_ARM_NOT_A_LIVE_RESULT"
+        ]
+      },
+      {
+        "claim_id": "X2",
+        "supported": false,
+        "reasons": [
+          "SAMPLE_INCOMPLETE",
+          "BLOCKED_TRIALS_IN_SAMPLE",
+          "CONFIDENCE_INTERVALS_OVERLAP",
+          "COST_COVERAGE_PARTIAL",
+          "SIMULATED_ARM_NOT_A_LIVE_RESULT"
+        ]
+      },
+      {
+        "claim_id": "X3",
+        "supported": false,
+        "reasons": [
+          "COMPARATIVE_WITHOUT_NAMED_ARMS",
+          "SAMPLE_INCOMPLETE"
+        ]
+      }
+    ],
+    "unsupported": [
+      {
+        "claim_id": "X1",
+        "supported": false,
+        "reasons": [
+          "SAMPLE_INCOMPLETE",
+          "BLOCKED_TRIALS_IN_SAMPLE",
+          "CONFIDENCE_INTERVALS_OVERLAP",
+          "COST_COVERAGE_PARTIAL",
+          "SIMULATED_ARM_NOT_A_LIVE_RESULT"
+        ]
+      },
+      {
+        "claim_id": "X2",
+        "supported": false,
+        "reasons": [
+          "SAMPLE_INCOMPLETE",
+          "BLOCKED_TRIALS_IN_SAMPLE",
+          "CONFIDENCE_INTERVALS_OVERLAP",
+          "COST_COVERAGE_PARTIAL",
+          "SIMULATED_ARM_NOT_A_LIVE_RESULT"
+        ]
+      },
+      {
+        "claim_id": "X3",
+        "supported": false,
+        "reasons": [
+          "COMPARATIVE_WITHOUT_NAMED_ARMS",
+          "SAMPLE_INCOMPLETE"
+        ]
+      }
+    ]
+  },
+  "live_provider_pilot": {
+    "status": "blocked",
+    "reason": "NO_APPROVED_METERED_EVALUATION_BUDGET",
+    "detail": "AT-022 requires an approved metered evaluation budget for the live provider pilot. None is configured, so no live pilot was executed and no live comparison is reported. The blocked arm is retained here rather than dropped from the design.",
+    "trials_executed": 0
+  },
+  "worker": "deterministic simulated worker; the arms differ only in what the worker runs before claiming the work is ready",
+  "tooling_checks": {
+    "failed_and_blocked_kept_in_denominator": true,
+    "unknown_cost_not_zero": true,
+    "duplicate_usage_flagged": true,
+    "orphan_usage_flagged": true,
+    "interval_wider_than_point": true
+  },
+  "synthetic": {
+    "cost": {
+      "known_microusd": 1500,
+      "unknown_events": 1,
+      "reserved_for_unknown_microusd": 50000,
+      "total_including_unknown_microusd": 51500,
+      "duplicate_events_flagged": [
+        "e1"
+      ],
+      "coverage": "partial"
+    },
+    "usage": {
+      "accounted": 1,
+      "flagged": [
+        {
+          "event_id": "e2",
+          "reason": "UNKNOWN_COST"
+        },
+        {
+          "event_id": "e1",
+          "reason": "DUPLICATE_USAGE_EVENT"
+        },
+        {
+          "event_id": "e3",
+          "reason": "UNKNOWN_ATTEMPT"
+        }
+      ]
+    },
+    "arm": {
+      "arm": "native_single",
+      "trials": 3,
+      "accepted": 1,
+      "rejected": 0,
+      "failed": 1,
+      "blocked": 1,
+      "false_ready": 1,
+      "accepted_rate": 0.3333333333333333,
+      "accepted_rate_interval": {
+        "low": 0.061490315276160515,
+        "high": 0.7923450448735121
+      },
+      "median_client_questions": 0,
+      "median_wall_ms": 10,
+      "cost": {
+        "known_microusd": 1500,
+        "unknown_events": 1,
+        "reserved_for_unknown_microusd": 50000,
+        "total_including_unknown_microusd": 51500,
+        "duplicate_events_flagged": [
+          "e1"
+        ],
+        "coverage": "partial"
+      }
+    }
+  }
+}

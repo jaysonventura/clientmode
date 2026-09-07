@@ -113,6 +113,7 @@ projects outside this repository. No metered API billing was configured.
 | Task | Gate | Mode | Status | Evidence |
 |---|---|---|---|---|
 | T21 | AT-021 | integration | PASS | `qa/product/T21/` |
+| T22 | AT-022 | benchmark | PASS | `qa/product/T22/` |
 
 - 38 adversarial attacks executed against the real services; every one rejected, with the
   production reason recorded per attack in `qa/product/T21/attacks.json`
@@ -122,6 +123,12 @@ projects outside this repository. No metered API billing was configured.
   before the gate went red
 - these are the **public** mutation fixtures from `docs/QUALIFICATION.md` section 3, which are
   engineering regressions, not held-out proof; the unseen holdout belongs to AT-023
+- 180 pilot trials executed (20 predeclared specs x 3 arms x 3 repeats) in a seeded interleaved
+  order against frozen snapshots, each a real verification through the protected authority:
+  accepted rates 0.600 / 0.650 / 0.800 with **overlapping** 95% intervals, so no arm is claimed
+  better than another and the claim linter refuses the sentences that would say otherwise
+- **the live provider pilot is blocked**: AT-022 requires an approved metered evaluation budget
+  and none is configured. The arm is retained as blocked; no live comparison is reported
 
 ## Explicitly not proven yet
 

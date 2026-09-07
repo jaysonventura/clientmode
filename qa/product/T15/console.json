@@ -1,0 +1,191 @@
+{
+  "replay": {
+    "total": 17,
+    "from_sequence_5": 12,
+    "continuity_all": {
+      "contiguous": true,
+      "duplicates": [],
+      "gaps": []
+    },
+    "continuity_resume": {
+      "contiguous": true,
+      "duplicates": [],
+      "gaps": []
+    },
+    "duplicates_before_resume_point": 0,
+    "first_sequence_after_resume": 6
+  },
+  "quiet": {
+    "recorded": 17,
+    "narrated": 2,
+    "routine_narrated": 0,
+    "narrated_kinds": [
+      "question_asked",
+      "security_denial"
+    ],
+    "drawer_lines": 17
+  },
+  "console": {
+    "status": "RECEIVED",
+    "visible_messages": [
+      "A question needs your answer: question_t15",
+      "Blocked: the delivery API credential is missing, so that integration is unverified"
+    ],
+    "blocker_visible": true,
+    "question_prompt_contains_markup_as_text": true,
+    "script_executed": false,
+    "injected_img_elements": 0,
+    "page_errors": [],
+    "controller_calls": [
+      {
+        "method": "POST",
+        "path": "/v1/session",
+        "status": 201
+      },
+      {
+        "method": "GET",
+        "path": "/v1/runs/run_e79aaf1b-6525-49f1-b23d-6546726be23d/events",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/v1/runs/run_e79aaf1b-6525-49f1-b23d-6546726be23d/questions",
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/v1/questions/question_t15/answer",
+        "status": 201
+      },
+      {
+        "method": "GET",
+        "path": "/v1/runs/run_e79aaf1b-6525-49f1-b23d-6546726be23d/events",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/v1/runs/run_e79aaf1b-6525-49f1-b23d-6546726be23d/questions",
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/v1/runs/run_e79aaf1b-6525-49f1-b23d-6546726be23d/cancel",
+        "status": 200
+      }
+    ]
+  },
+  "questions": {
+    "rendered": 1,
+    "api": {
+      "questions": [
+        {
+          "kind": "client_question",
+          "schema_version": 1,
+          "question_id": "question_t15",
+          "project_id": "project_t15",
+          "run_id": "run_e79aaf1b-6525-49f1-b23d-6546726be23d",
+          "requirements_revision": 0,
+          "state_version": 1,
+          "prompt": "Should we record a deposit before delivery? Reference from your file: <img src=x onerror=\"window.__executed=true\"><b>bold</b>",
+          "recommendation": "Start with payment on delivery only.",
+          "blocking_task_ids": [
+            "task_checkout"
+          ],
+          "source_request_ids": [
+            "request_t15"
+          ],
+          "status": "OPEN",
+          "created_at": "2026-09-08T17:00:15.000Z",
+          "updated_at": "2026-09-08T17:00:15.000Z"
+        }
+      ],
+      "queued": 1
+    },
+    "second_question_status": "SUPERSEDED"
+  },
+  "accessibility": {
+    "keyboard": {
+      "reached": [
+        "#answer-input",
+        "[send-answer]",
+        "#message-input",
+        "[send-message]",
+        "[cancel]",
+        "[drawer-toggle]"
+      ],
+      "submit_reachable": true,
+      "focus_visible": true,
+      "unnamed_controls": []
+    },
+    "axe": {
+      "tool": "axe-core",
+      "tool_version": "4.11.0",
+      "violations": [],
+      "serious_or_critical": 0,
+      "scope": [
+        "Automated rule subset only; it does not establish WCAG 2.2 AA conformance.",
+        "Manual keyboard and assistive-technology review of key flows is still required."
+      ]
+    }
+  },
+  "answer_and_message": {
+    "candidate_before": null,
+    "contract_before": null,
+    "answers_recorded": 1,
+    "message_status": 201,
+    "messages_recorded": 1
+  },
+  "cross_origin": {
+    "foreign_origin": 403,
+    "missing_csrf": 403,
+    "worker_token": 403
+  },
+  "cancel": {
+    "elapsed_ms": 220,
+    "intents": [
+      {
+        "action": "cancel",
+        "leases_revoked": 1
+      }
+    ],
+    "status_after": "CANCELLED",
+    "input_still_editable": true,
+    "controller_calls": [
+      {
+        "method": "POST",
+        "path": "/v1/session",
+        "status": 201
+      },
+      {
+        "method": "GET",
+        "path": "/v1/runs/run_e79aaf1b-6525-49f1-b23d-6546726be23d/events",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/v1/runs/run_e79aaf1b-6525-49f1-b23d-6546726be23d/questions",
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/v1/questions/question_t15/answer",
+        "status": 201
+      },
+      {
+        "method": "GET",
+        "path": "/v1/runs/run_e79aaf1b-6525-49f1-b23d-6546726be23d/events",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/v1/runs/run_e79aaf1b-6525-49f1-b23d-6546726be23d/questions",
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/v1/runs/run_e79aaf1b-6525-49f1-b23d-6546726be23d/cancel",
+        "status": 200
+      }
+    ]
+  }
+}

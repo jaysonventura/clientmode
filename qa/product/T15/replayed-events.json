@@ -1,0 +1,87 @@
+[
+  {
+    "sequence": 1,
+    "kind": "request_received",
+    "client_text": null
+  },
+  {
+    "sequence": 2,
+    "kind": "job_admitted",
+    "client_text": null
+  },
+  {
+    "sequence": 3,
+    "kind": "job_revoked",
+    "client_text": null
+  },
+  {
+    "sequence": 4,
+    "kind": "candidate_sealed",
+    "client_text": null
+  },
+  {
+    "sequence": 5,
+    "kind": "verification_requested",
+    "client_text": null
+  },
+  {
+    "sequence": 6,
+    "kind": "attempt_fenced",
+    "client_text": null
+  },
+  {
+    "sequence": 7,
+    "kind": "responsibility_assigned",
+    "client_text": null
+  },
+  {
+    "sequence": 8,
+    "kind": "contract_revised",
+    "client_text": null
+  },
+  {
+    "sequence": 9,
+    "kind": "message_received",
+    "client_text": null
+  },
+  {
+    "sequence": 10,
+    "kind": "request_received",
+    "client_text": null
+  },
+  {
+    "sequence": 11,
+    "kind": "evidence_rejected",
+    "client_text": null
+  },
+  {
+    "sequence": 12,
+    "kind": "deployment_intent",
+    "client_text": null
+  },
+  {
+    "sequence": 13,
+    "kind": "deployment_observed",
+    "client_text": null
+  },
+  {
+    "sequence": 14,
+    "kind": "approval_recorded",
+    "client_text": null
+  },
+  {
+    "sequence": 15,
+    "kind": "question_asked",
+    "client_text": "A question needs your answer: question_t15"
+  },
+  {
+    "sequence": 16,
+    "kind": "question_asked",
+    "client_text": null
+  },
+  {
+    "sequence": 17,
+    "kind": "security_denial",
+    "client_text": "Blocked: the delivery API credential is missing, so that integration is unverified"
+  }
+]

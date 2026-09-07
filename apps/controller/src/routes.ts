@@ -24,8 +24,8 @@ export type RouteContext = {
   service: LifecycleService;
   session: Session;
   request_id: string;
-  idempotency_key?: string;
-  if_match?: number;
+  idempotency_key?: string | undefined;
+  if_match?: number | undefined;
 };
 
 /** GET /v1/runs/{run_id}/questions — one open question is visible at a time. */

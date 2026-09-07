@@ -1,0 +1,73 @@
+/* Console design tokens. One scale, one rhythm, one set of colour roles. */
+:root {
+  color-scheme: light dark;
+  --ink: #14161a;
+  --muted: #5c6473;
+  --line: #d9dee6;
+  --accent: #1f4f8f;
+  --warn: #8a5300;
+  --error: #9b2226;
+  --space: 1rem;
+  --radius: 0.45rem;
+  --font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0 auto;
+  padding: 0 var(--space) 3rem;
+  max-width: 56rem;
+  font: var(--font);
+  color: var(--ink);
+}
+
+h1 { font-size: 1.5rem; margin-block: 1.5rem 0.25rem; }
+h2 { font-size: 1.1rem; margin-block: 1.75rem 0.5rem; }
+p { margin-block: 0.25rem 0.75rem; }
+.muted { color: var(--muted); }
+
+button {
+  font: inherit;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+button.secondary { background: transparent; color: var(--accent); }
+button[disabled] { opacity: 0.55; cursor: not-allowed; }
+
+textarea, input[type="text"] {
+  font: inherit;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+label { display: block; font-weight: 600; margin-bottom: 0.25rem; }
+
+button:focus-visible, textarea:focus-visible, input:focus-visible, summary:focus-visible {
+  outline: 3px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+.card { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space); margin-bottom: var(--space); }
+.card.question { border-color: var(--warn); }
+.card.blocker { border-color: var(--error); }
+
+ul.messages { list-style: none; margin: 0; padding: 0; }
+ul.messages li { border-bottom: 1px solid var(--line); padding: 0.5rem 0; }
+
+details.drawer summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+details.drawer pre { overflow-x: auto; background: #f5f6f8; padding: var(--space); border-radius: var(--radius); }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}

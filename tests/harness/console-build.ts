@@ -1,0 +1,35 @@
+/** Bundle the console for a test run.
+ *
+ * The console under test is the real React application from `apps/console`, bundled with
+ * esbuild and served by the real controller. Nothing here is a stand-in for it.
+ */
+import { build } from 'esbuild';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
+import { ROOT } from './evidence.js';
+
+export async function buildConsole(outdir: string, boot: Record<string, unknown>): Promise<string> {
+  mkdirSync(outdir, { recursive: true });
+  await build({
+    entryPoints: [path.join(ROOT, 'apps/console/src/app/App.tsx')],
+    bundle: true, format: 'esm', target: 'es2022', platform: 'browser',
+    outfile: path.join(outdir, 'app.js'),
+    jsx: 'automatic', loader: { '.css': 'css' }, logLevel: 'silent',
+  });
+  writeFileSync(path.join(outdir, 'index.html'), `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client Mode</title>
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div id="root"></div>
+<script type="application/json" id="boot">${JSON.stringify(boot).replace(/</g, '\\u003c')}</script>
+<script type="module" src="/app.js"></script>
+</body>
+</html>
+`);
+  return outdir;
+}

@@ -92,6 +92,11 @@ export function createShop() {
   return createServer(async (request, response) => {
     const url = (request.url ?? '/').split('?')[0];
     try {
+      if (request.method === 'GET' && url === '/api/products' && DEFECT === 'api-error') {
+        // Injectable public mutation: the catalog request fails, so the error state is real.
+        send(response, 503, { error: 'CATALOG_UNAVAILABLE' });
+        return;
+      }
       if (request.method === 'GET' && url === '/api/products') {
         send(response, 200, { products: PRODUCTS.map(({ stock: _stock, ...rest }) => rest) });
         return;

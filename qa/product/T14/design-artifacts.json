@@ -1,0 +1,22 @@
+[
+  {
+    "artifact_id": "sha256:b1c800156d0aca3512eb8b6dd20b3084ed711dee1abb218489079476f5a94d25",
+    "media_type": "image/png",
+    "byte_length": 42943
+  },
+  {
+    "artifact_id": "sha256:35f0f3893437ad88173e1add6f6eb98265154528fb0732c21454071472cd046a",
+    "media_type": "image/png",
+    "byte_length": 43060
+  },
+  {
+    "artifact_id": "sha256:2c8ddd281f3526e0f3c8347bc00a768bc674472f3910a8622ccef76c61732d1c",
+    "media_type": "image/png",
+    "byte_length": 46231
+  },
+  {
+    "artifact_id": "sha256:0a1a19c2079851ab04d46cc9094d113175967e9b78956b8617549644b475b933",
+    "media_type": "image/png",
+    "byte_length": 48881
+  }
+]

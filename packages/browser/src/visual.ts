@@ -84,3 +84,77 @@ export async function observeTextScaling(page: Page, factor: number): Promise<{ 
   }, factor);
   return { factor, horizontal_overflow: overflow };
 }
+
+export type DesignTokenObservation = {
+  present_custom_properties: string[];
+  missing_custom_properties: string[];
+  consistency: Array<{ rule_id: string; selector: string; property: string; values: string[]; satisfied: boolean }>;
+  applied: boolean;
+};
+
+/** The design system is checked where it actually takes effect: the computed styles of the
+ * rendered page. A token declared in a stylesheet but overridden everywhere is not applied. */
+export async function observeDesignTokens(page: Page, contract: {
+  required_custom_properties: string[];
+  consistency_rules: Array<{ rule_id: string; selector: string; property: string; minimum_px?: number; single_value?: boolean }>;
+}): Promise<DesignTokenObservation> {
+  const measured = await page.evaluate(input => {
+    const root = window.getComputedStyle(document.documentElement);
+    const present: string[] = [];
+    const missing: string[] = [];
+    for (const name of input.required) {
+      (root.getPropertyValue(name).trim() === '' ? missing : present).push(name);
+    }
+    const consistency = input.rules.map(rule => {
+      const values = Array.from(document.querySelectorAll<HTMLElement>(rule.selector))
+        .map(element => window.getComputedStyle(element).getPropertyValue(rule.property).trim())
+        .filter(value => value !== '');
+      return { rule_id: rule.rule_id, selector: rule.selector, property: rule.property, values: [...new Set(values)] };
+    });
+    return { present, missing, consistency };
+  }, { required: contract.required_custom_properties, rules: contract.consistency_rules });
+
+  const consistency = measured.consistency.map(entry => {
+    const rule = contract.consistency_rules.find(candidate => candidate.rule_id === entry.rule_id)!;
+    const satisfied = entry.values.length > 0 && (
+      rule.single_value === true
+        ? entry.values.length === 1
+        : rule.minimum_px === undefined
+          ? true
+          : entry.values.every(value => Number.parseFloat(value) >= rule.minimum_px!)
+    );
+    return { ...entry, satisfied };
+  });
+  return {
+    present_custom_properties: measured.present,
+    missing_custom_properties: measured.missing,
+    consistency,
+    applied: measured.missing.length === 0 && consistency.every(entry => entry.satisfied),
+  };
+}
+
+/** Visual hierarchy, measured rather than judged: the ratio between a section heading and body
+ * text, and the breathing room around the primary action. Improvement is comparative — this
+ * says nothing about whether the result is attractive. */
+export async function observeHierarchy(page: Page): Promise<{ heading_to_body_ratio: number; primary_action_spacing_px: number; card_padding_px: number }> {
+  // No helper function is declared inside the page callback: the bundler that runs this file
+  // rewrites named function expressions with a helper that does not exist in the browser, and
+  // the page would fail with `__name is not defined`.
+  return page.evaluate(() => {
+    const body = Number.parseFloat(window.getComputedStyle(document.body).fontSize) || 16;
+    const heading = document.querySelector('h2');
+    const action = document.querySelector('#place-order');
+    const card = document.querySelector('.catalog li');
+    const headingSize = heading === null ? 0 : Number.parseFloat(window.getComputedStyle(heading).fontSize) || 0;
+    const actionStyle = action === null ? null : window.getComputedStyle(action);
+    const actionParent = action === null ? null : window.getComputedStyle(action.parentElement ?? action);
+    const cardStyle = card === null ? null : window.getComputedStyle(card);
+    return {
+      heading_to_body_ratio: headingSize / body,
+      primary_action_spacing_px: actionStyle === null || actionParent === null
+        ? 0
+        : (Number.parseFloat(actionParent.marginBottom) || 0) + (Number.parseFloat(actionStyle.paddingTop) || 0),
+      card_padding_px: cardStyle === null ? 0 : Number.parseFloat(cardStyle.paddingTop) || 0,
+    };
+  });
+}

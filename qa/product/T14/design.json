@@ -1,0 +1,236 @@
+{
+  "design_system": {
+    "tokens": {
+      "present_custom_properties": [
+        "--ink",
+        "--muted",
+        "--line",
+        "--accent",
+        "--error",
+        "--space"
+      ],
+      "missing_custom_properties": [],
+      "consistency": [
+        {
+          "rule_id": "touch-target",
+          "selector": "button",
+          "property": "min-height",
+          "values": [
+            "44px"
+          ],
+          "satisfied": true
+        },
+        {
+          "rule_id": "one-type-scale",
+          "selector": "body",
+          "property": "font-family",
+          "values": [
+            "system-ui, -apple-system, \"Segoe UI\", sans-serif"
+          ],
+          "satisfied": true
+        },
+        {
+          "rule_id": "shared-control-shape",
+          "selector": "button",
+          "property": "border-radius",
+          "values": [
+            "6.4px"
+          ],
+          "satisfied": true
+        }
+      ],
+      "applied": true
+    },
+    "hierarchy": {
+      "heading_to_body_ratio": 1.15,
+      "primary_action_spacing_px": 8,
+      "card_padding_px": 16
+    }
+  },
+  "journey": {
+    "keyboard": {
+      "reached": [
+        "a:Skip to content",
+        "[add-rice]",
+        "[add-soap]",
+        "#customer-name",
+        "#customer-mobile",
+        "#place-order"
+      ],
+      "submit_reachable": true,
+      "focus_visible": true,
+      "unnamed_controls": []
+    },
+    "layouts": [
+      {
+        "width": 360,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "overflow": false
+      },
+      {
+        "width": 768,
+        "overflow": false
+      },
+      {
+        "width": 1440,
+        "overflow": false
+      }
+    ],
+    "zoom": [
+      {
+        "percentage": 100,
+        "scroll_width": 390,
+        "client_width": 390,
+        "horizontal_overflow": false
+      },
+      {
+        "percentage": 200,
+        "scroll_width": 390,
+        "client_width": 390,
+        "horizontal_overflow": false
+      }
+    ],
+    "motion": {
+      "animated_when_allowed": true,
+      "still_when_reduced": true,
+      "durations": {
+        "no_preference": [
+          "0.16s",
+          "0s",
+          "0.24s"
+        ],
+        "reduce": [
+          "0s"
+        ]
+      }
+    },
+    "axe": {
+      "tool": "axe-core",
+      "tool_version": "4.11.0",
+      "violations": [],
+      "serious_or_critical": 0,
+      "scope": [
+        "Automated rule subset only; it does not establish WCAG 2.2 AA conformance.",
+        "Manual keyboard and assistive-technology review of key flows is still required."
+      ]
+    }
+  },
+  "states": {
+    "empty": {
+      "text": "Your cart is empty. Add a product to start.",
+      "visible": true
+    },
+    "error": {
+      "text": "Products could not be loaded (HTTP 503). Please try again.",
+      "visible": true,
+      "live_region_role": "status"
+    },
+    "loading": {
+      "evidence": "the same status region announces \"Loading products…\" before the request resolves",
+      "role": "status"
+    }
+  },
+  "feedback": {
+    "crowded": {
+      "heading_to_body_ratio": 1,
+      "primary_action_spacing_px": 8,
+      "card_padding_px": 2.4
+    },
+    "improved": {
+      "heading_to_body_ratio": 1.15,
+      "primary_action_spacing_px": 8,
+      "card_padding_px": 16
+    },
+    "heading_ratio_improved": true,
+    "card_padding_improved": true,
+    "checkout_rules_before": "attacker_price:201|bad_mobile:422|catalog:200|empty_cart:422|negative_quantity:422|quantity_above_maximum:422|unknown_product:422",
+    "checkout_rules_after": "attacker_price:201|bad_mobile:422|catalog:200|empty_cart:422|negative_quantity:422|quantity_above_maximum:422|unknown_product:422"
+  },
+  "assets": {
+    "record_bytes": 757,
+    "external_stylesheet_requests": [],
+    "declares_no_bundled_font": true
+  },
+  "not_established": {
+    "by_automation": [
+      "WCAG 2.2 AA conformance",
+      "usability for assistive-technology users",
+      "the quality of the visual design",
+      "client satisfaction"
+    ],
+    "contract_agrees": [
+      "conformance to WCAG 2.2 AA",
+      "usability for assistive-technology users",
+      "quality of the visual design",
+      "client satisfaction"
+    ],
+    "manual_review_required": [
+      "keyboard walkthrough of each primary journey",
+      "screen-reader pass on the checkout flow"
+    ],
+    "axe_scope": [
+      "Automated rule subset only; it does not establish WCAG 2.2 AA conformance.",
+      "Manual keyboard and assistive-technology review of key flows is still required."
+    ],
+    "satisfaction_record": null
+  },
+  "native_target": {
+    "requirements": [
+      {
+        "component_id": "shop-web",
+        "target": "web",
+        "required_tools": [
+          "node"
+        ],
+        "evidence_must_be": "Real browser journeys at the declared viewports with console and network observation.",
+        "available": true,
+        "missing": [],
+        "detail": "All named tools resolve on this host."
+      },
+      {
+        "component_id": "shop-ios",
+        "target": "native-ios",
+        "required_tools": [
+          "xcrun",
+          "swiftc"
+        ],
+        "evidence_must_be": "Interaction with the built app on an iOS simulator or device. A browser screenshot is not this.",
+        "available": true,
+        "missing": [],
+        "detail": "38 iOS simulator device(s) available, for example iPhone 17 Pro."
+      }
+    ],
+    "composite": {
+      "verdict": "UNVERIFIED",
+      "covered_components": [
+        "shop-web"
+      ],
+      "blocked_components": [],
+      "substituted_components": [
+        "shop-ios"
+      ],
+      "failed_components": [],
+      "manifest_digest": "sha256:eb7ab05948717a8213defd829881d679248e75118dcbf7bf134f796792111461",
+      "reasons": [
+        "TARGET_SUBSTITUTION:shop-ios:web!=native-ios"
+      ]
+    }
+  },
+  "responsibility_outputs": {
+    "design": {
+      "artifact_count": 4,
+      "tokens_observed": 6
+    },
+    "quality": {
+      "axe_violations": 0,
+      "keyboard_stops": 6
+    },
+    "accessibility": {
+      "zoom_levels_checked": 2,
+      "reduced_motion_checked": true
+    }
+  }
+}

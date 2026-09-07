@@ -96,3 +96,15 @@ label { display: block; font-weight: 600; margin-bottom: 0.25rem; }
 body[data-defect="overflow"] .catalog { grid-template-columns: repeat(3, 26rem); }
 /* Injectable public mutation: the submit control is present but not operable. */
 body[data-defect="hidden-submit"] #place-order { display: none; }
+
+/* Motion is opt-in: anything that moves collapses when the viewer asks for less. */
+@media (prefers-reduced-motion: no-preference) {
+  .confirmation { transition: opacity 240ms ease; }
+  button { transition: background-color 160ms ease; }
+}
+
+/* Injectable public mutation: hierarchy collapsed into an undifferentiated wall. */
+body[data-defect="crowded"] h2 { font-size: 1rem; margin-block: 0.25rem; }
+body[data-defect="crowded"] .catalog { gap: 0.15rem; }
+body[data-defect="crowded"] .catalog li { padding: 0.15rem; gap: 0.1rem; }
+body[data-defect="crowded"] .field { margin-bottom: 0.15rem; }

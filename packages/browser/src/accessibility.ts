@@ -112,3 +112,50 @@ export async function observeKeyboard(page: Page, submitSelector: string, maximu
 
   return { reached, submit_reachable, focus_visible, unnamed_controls: unnamed };
 }
+
+/** Reduced motion is observed by emulating the preference and reading the computed durations,
+ * not by looking for the media query in a stylesheet. */
+export async function observeReducedMotion(page: Page): Promise<{ animated_when_allowed: boolean; still_when_reduced: boolean; durations: Record<string, string[]> }> {
+  const read = async (): Promise<string[]> => page.evaluate(() =>
+    Array.from(document.querySelectorAll<HTMLElement>('button, .confirmation'))
+      .flatMap(element => {
+        const style = window.getComputedStyle(element);
+        return [style.transitionDuration, style.animationDuration];
+      })
+      .filter(value => value !== ''));
+
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  const allowed = await read();
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const reduced = await read();
+  await page.emulateMedia({ reducedMotion: null });
+
+  const moving = (values: string[]): boolean => values.some(value => Number.parseFloat(value) > 0);
+  return {
+    animated_when_allowed: moving(allowed),
+    still_when_reduced: !moving(reduced),
+    durations: { no_preference: [...new Set(allowed)], reduce: [...new Set(reduced)] },
+  };
+}
+
+/** Zoom is applied for real and the layout re-measured, because a page that fits at 100% often
+ * does not at 200%. */
+export async function observeZoom(page: Page, percentage: number): Promise<{ percentage: number; horizontal_overflow: boolean; scroll_width: number; client_width: number }> {
+  const measured = await page.evaluate(zoom => {
+    const root = document.documentElement;
+    const original = root.style.zoom;
+    root.style.zoom = String(zoom / 100);
+    const result = { scroll_width: root.scrollWidth, client_width: root.clientWidth };
+    root.style.zoom = original;
+    return result;
+  }, percentage);
+  return { percentage, ...measured, horizontal_overflow: measured.scroll_width > measured.client_width + 1 };
+}
+
+/** What an automated pass does not establish. Carried with the result so it cannot be dropped. */
+export const NOT_ESTABLISHED_BY_AUTOMATION = [
+  'WCAG 2.2 AA conformance',
+  'usability for assistive-technology users',
+  'the quality of the visual design',
+  'client satisfaction',
+] as const;

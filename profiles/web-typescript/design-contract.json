@@ -1,0 +1,46 @@
+{
+  "profile_id": "web-typescript",
+  "contract_version": 1,
+  "description": "What a delivered web UI must actually demonstrate. Every item here is observed in a rendered page; none of it is a claim about taste.",
+  "tokens": {
+    "required_custom_properties": ["--ink", "--muted", "--line", "--accent", "--error", "--space"],
+    "consistency_rules": [
+      { "rule_id": "touch-target", "selector": "button", "property": "min-height", "minimum_px": 44 },
+      { "rule_id": "one-type-scale", "selector": "body", "property": "font-family", "single_value": true },
+      { "rule_id": "shared-control-shape", "selector": "button", "property": "border-radius", "single_value": true }
+    ]
+  },
+  "required_states": [
+    { "state": "loading", "evidence": "a status region is present while the catalog request is in flight" },
+    { "state": "empty", "evidence": "an empty cart says so in words rather than showing an empty table" },
+    { "state": "error", "evidence": "a failed catalog request produces a visible, readable message with a next action" }
+  ],
+  "viewports_css_px": [360, 390, 768, 1440],
+  "zoom_levels": [100, 200],
+  "motion": {
+    "respect_prefers_reduced_motion": true,
+    "evidence": "computed animation and transition durations collapse under the reduced-motion media query"
+  },
+  "accessibility": {
+    "target": "WCAG 2.2 AA",
+    "automated_tool": "axe-core",
+    "explicitly_not_established_by_automation": [
+      "conformance to WCAG 2.2 AA",
+      "usability for assistive-technology users",
+      "quality of the visual design",
+      "client satisfaction"
+    ],
+    "manual_review_required": [
+      "keyboard walkthrough of each primary journey",
+      "screen-reader pass on the checkout flow"
+    ]
+  },
+  "assets": {
+    "policy": "Every image, icon and font must have a recorded source and licence. A competitor's logo or an unlicensed asset is not used.",
+    "generation_requires": ["an available tool", "allowed data transfer", "approved cost"]
+  },
+  "native_targets": {
+    "rule": "A responsive web page is never delivered as a native application. A native target is observed on its own platform.",
+    "enforced_by": "packages/verification-targets/src/composite.ts"
+  }
+}

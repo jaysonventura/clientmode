@@ -22,13 +22,13 @@
       "verdict": "VERIFIED_FOR_SCOPE",
       "reasons": [],
       "candidate_id": "candidate_t16_a",
-      "evidence_id": "evidence_ver_b871af31-14d3-4a15-81d9-5f946b1505ab"
+      "evidence_id": "evidence_ver_f9a0449b-6fe8-47fa-8b09-16ab08e3eeab"
     },
     "bound": {
       "bound": true,
-      "preview_url": "http://127.0.0.1:65370",
+      "preview_url": "http://127.0.0.1:49674",
       "candidate_id": "candidate_t16_a",
-      "evidence_id": "evidence_ver_b871af31-14d3-4a15-81d9-5f946b1505ab"
+      "evidence_id": "evidence_ver_f9a0449b-6fe8-47fa-8b09-16ab08e3eeab"
     },
     "unverified_refused": {
       "bound": false,
@@ -59,7 +59,7 @@
     },
     "client_feedback": {
       "recorded": true,
-      "feedback_id": "feedback_ac4e2114-fdf9-4a9d-a955-b6267ac9dd81",
+      "feedback_id": "feedback_72631b65-84aa-4468-b9ec-181d96087eec",
       "satisfaction": "needs_changes"
     }
   },
@@ -82,10 +82,10 @@
       "verdict": "VERIFIED_FOR_SCOPE",
       "reasons": [],
       "candidate_id": "candidate_t16_b",
-      "evidence_id": "evidence_ver_93e7e083-4021-4644-b28a-21f6c8c10588"
+      "evidence_id": "evidence_ver_814e5ee8-0cec-4d1f-8d05-5da7e6d24421"
     },
-    "first_evidence_id": "evidence_ver_b871af31-14d3-4a15-81d9-5f946b1505ab",
-    "second_evidence_id": "evidence_ver_93e7e083-4021-4644-b28a-21f6c8c10588"
+    "first_evidence_id": "evidence_ver_f9a0449b-6fe8-47fa-8b09-16ab08e3eeab",
+    "second_evidence_id": "evidence_ver_814e5ee8-0cec-4d1f-8d05-5da7e6d24421"
   },
   "cross_stack": {
     "composite_verdict": {
@@ -136,7 +136,7 @@
     "shop_api": {
       "configured": true,
       "label": "sandbox_tested",
-      "evidence": "live requests against http://127.0.0.1:65370"
+      "evidence": "live requests against http://127.0.0.1:49674"
     }
   },
   "resume": {

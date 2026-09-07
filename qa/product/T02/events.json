@@ -1,104 +1,104 @@
 [
   {
-    "run_id": "run_22dcdcb3-08cc-40fb-a090-d415fc358d2d",
+    "run_id": "run_1f2cb3e1-cde7-4763-98f9-fe280a34f0b9",
+    "sequence": 1,
+    "kind": "request_received",
+    "created_at": "2026-09-07T12:00:15.000Z"
+  },
+  {
+    "run_id": "run_4f523044-5d6c-4cce-9f64-14acfb0955d7",
     "sequence": 1,
     "kind": "request_received",
     "created_at": "2026-09-07T13:00:00.000Z"
   },
   {
-    "run_id": "run_370de4c4-bfec-4f65-a6cc-c9ec7a4371dd",
+    "run_id": "run_ca755300-6978-47e8-91ee-a9f9b889145a",
     "sequence": 1,
     "kind": "request_received",
     "created_at": "2026-09-07T12:00:01.000Z"
   },
   {
-    "run_id": "run_370de4c4-bfec-4f65-a6cc-c9ec7a4371dd",
+    "run_id": "run_ca755300-6978-47e8-91ee-a9f9b889145a",
     "sequence": 2,
     "kind": "budget_paused",
     "created_at": "2026-09-07T12:00:03.000Z"
   },
   {
-    "run_id": "run_370de4c4-bfec-4f65-a6cc-c9ec7a4371dd",
+    "run_id": "run_ca755300-6978-47e8-91ee-a9f9b889145a",
     "sequence": 3,
     "kind": "readiness_changed",
     "created_at": "2026-09-07T12:00:04.000Z"
   },
   {
-    "run_id": "run_370de4c4-bfec-4f65-a6cc-c9ec7a4371dd",
+    "run_id": "run_ca755300-6978-47e8-91ee-a9f9b889145a",
     "sequence": 4,
     "kind": "attempt_fenced",
     "created_at": "2026-09-08T00:00:00.000Z"
   },
   {
-    "run_id": "run_370de4c4-bfec-4f65-a6cc-c9ec7a4371dd",
+    "run_id": "run_ca755300-6978-47e8-91ee-a9f9b889145a",
     "sequence": 5,
     "kind": "attempt_fenced",
     "created_at": "2026-09-07T12:00:19.000Z"
   },
   {
-    "run_id": "run_370de4c4-bfec-4f65-a6cc-c9ec7a4371dd",
+    "run_id": "run_ca755300-6978-47e8-91ee-a9f9b889145a",
     "sequence": 6,
     "kind": "contract_revised",
     "created_at": "2026-09-07T12:00:19.000Z"
   },
   {
-    "run_id": "run_806289dc-1fc2-4c0a-8352-c4afdd6bd17f",
+    "run_id": "run_f3a6efaf-498c-401c-83e4-7a38c96dac59",
     "sequence": 1,
     "kind": "request_received",
     "created_at": "2026-09-07T12:00:06.000Z"
   },
   {
-    "run_id": "run_806289dc-1fc2-4c0a-8352-c4afdd6bd17f",
+    "run_id": "run_f3a6efaf-498c-401c-83e4-7a38c96dac59",
     "sequence": 2,
     "kind": "budget_paused",
     "created_at": "2026-09-07T12:00:07.000Z"
   },
   {
-    "run_id": "run_806289dc-1fc2-4c0a-8352-c4afdd6bd17f",
+    "run_id": "run_f3a6efaf-498c-401c-83e4-7a38c96dac59",
     "sequence": 3,
     "kind": "readiness_changed",
     "created_at": "2026-09-07T12:00:08.000Z"
   },
   {
-    "run_id": "run_806289dc-1fc2-4c0a-8352-c4afdd6bd17f",
+    "run_id": "run_f3a6efaf-498c-401c-83e4-7a38c96dac59",
     "sequence": 4,
     "kind": "budget_paused",
     "created_at": "2026-09-07T12:00:09.000Z"
   },
   {
-    "run_id": "run_806289dc-1fc2-4c0a-8352-c4afdd6bd17f",
+    "run_id": "run_f3a6efaf-498c-401c-83e4-7a38c96dac59",
     "sequence": 5,
     "kind": "readiness_changed",
     "created_at": "2026-09-07T12:00:10.000Z"
   },
   {
-    "run_id": "run_806289dc-1fc2-4c0a-8352-c4afdd6bd17f",
+    "run_id": "run_f3a6efaf-498c-401c-83e4-7a38c96dac59",
     "sequence": 6,
     "kind": "budget_paused",
     "created_at": "2026-09-07T12:00:11.000Z"
   },
   {
-    "run_id": "run_806289dc-1fc2-4c0a-8352-c4afdd6bd17f",
+    "run_id": "run_f3a6efaf-498c-401c-83e4-7a38c96dac59",
     "sequence": 7,
     "kind": "readiness_changed",
     "created_at": "2026-09-07T12:00:12.000Z"
   },
   {
-    "run_id": "run_806289dc-1fc2-4c0a-8352-c4afdd6bd17f",
+    "run_id": "run_f3a6efaf-498c-401c-83e4-7a38c96dac59",
     "sequence": 8,
     "kind": "job_revoked",
     "created_at": "2026-09-07T12:00:13.000Z"
   },
   {
-    "run_id": "run_806289dc-1fc2-4c0a-8352-c4afdd6bd17f",
+    "run_id": "run_f3a6efaf-498c-401c-83e4-7a38c96dac59",
     "sequence": 9,
     "kind": "readiness_changed",
     "created_at": "2026-09-07T12:00:14.000Z"
-  },
-  {
-    "run_id": "run_ee89bdb9-5e0e-4da3-8fb1-7f593eadb260",
-    "sequence": 1,
-    "kind": "request_received",
-    "created_at": "2026-09-07T12:00:15.000Z"
   }
 ]

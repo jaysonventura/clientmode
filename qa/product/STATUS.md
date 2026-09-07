@@ -108,6 +108,21 @@ projects outside this repository. No metered API billing was configured.
   rewrite the CI workflow all refused with EPERM, and its planted policy and `pass.json` never
   consulted
 
+## Milestone M6 — qualification and release: IN PROGRESS
+
+| Task | Gate | Mode | Status | Evidence |
+|---|---|---|---|---|
+| T21 | AT-021 | integration | PASS | `qa/product/T21/` |
+
+- 38 adversarial attacks executed against the real services; every one rejected, with the
+  production reason recorded per attack in `qa/product/T21/attacks.json`
+- three controls proved redundant rather than single-point: approval replay (consume +
+  UNIQUE index), late worker results (attempt status + lease epoch + lease activity) and
+  referential integrity (connection pragma + schema file). Each needed every layer removed
+  before the gate went red
+- these are the **public** mutation fixtures from `docs/QUALIFICATION.md` section 3, which are
+  engineering regressions, not held-out proof; the unseen holdout belongs to AT-023
+
 ## Explicitly not proven yet
 
 - Provider integration is proved on **one machine at one version each**. That is not a

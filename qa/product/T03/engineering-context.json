@@ -4,7 +4,7 @@
   "context_id": "ctx_t03",
   "project_id": "project_t03_polyglot",
   "task_id": "task_polyglot",
-  "source_digest": "sha256:1d945ef5121760c62af1a67d2c7a4dc772dadafbac7782c192c037ff74565c5b",
+  "source_digest": "sha256:7ce19976b0b886ab24c132d9735131a89337f170c25ad011993177e552c70e38",
   "requirements_revision": 1,
   "components": [
     {

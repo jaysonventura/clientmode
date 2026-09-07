@@ -1,0 +1,170 @@
+{
+  "normalisation": {
+    "session_id": "01a07cc0-b442-77d0-b58e-fd7ce57bd30a",
+    "claims": [
+      "PROBE_OK"
+    ],
+    "ignored": 4,
+    "unrecognised": [
+      "thread.forked"
+    ],
+    "usage": {
+      "kind": "usage_event",
+      "schema_version": 1,
+      "usage_event_id": "usage_ee51d3ff-15db-4ba1-a828-677e838ede45",
+      "provider_event_id": "turn:attempt_t11:19023:7",
+      "run_id": "run_t11",
+      "attempt_id": "attempt_t11",
+      "provider": "codex",
+      "billing_mode": "native_account",
+      "input_tokens": 19023,
+      "output_tokens": 7,
+      "cache_read_tokens": 12160,
+      "cache_write_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "coverage": "complete",
+      "occurred_at": "2026-09-08T13:00:00.000Z"
+    },
+    "usage_schema": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  "live_availability": {
+    "available": true,
+    "executable": "codex",
+    "version": "0.153.4"
+  },
+  "browser_surface": {
+    "transport": "exec_json",
+    "facts": {
+      "transport": "exec_json",
+      "interactive_approvals": false,
+      "built_in_browser_vision": false,
+      "browser_evidence_source": "controller-owned Playwright probes in packages/browser"
+    },
+    "capability": {
+      "name": "browser_vision",
+      "documented": false,
+      "configured": false,
+      "observed_working": false,
+      "evidence_refs": [
+        "transport:exec_json"
+      ],
+      "limitation": "This exec_json transport has no browser of its own; browser evidence comes from controller-owned Playwright probes in packages/browser."
+    },
+    "app_server_facts": {
+      "transport": "app_server",
+      "interactive_approvals": true,
+      "built_in_browser_vision": false,
+      "browser_evidence_source": "controller-owned Playwright probes in packages/browser"
+    }
+  },
+  "fallback_and_escape": {
+    "admissions": {
+      "codex_unavailable": {
+        "admitted": false,
+        "reason": "CAPABILITY_NOT_OBSERVED",
+        "detail": [
+          "host_version"
+        ]
+      },
+      "codex_browser_vision": {
+        "admitted": false,
+        "reason": "CAPABILITY_NOT_OBSERVED",
+        "detail": [
+          "browser_vision"
+        ]
+      },
+      "codex_no_account": {
+        "admitted": false,
+        "reason": "BLOCKED_ACCESS",
+        "detail": [
+          "provider account is not accessible; no automatic API or provider fallback"
+        ]
+      }
+    },
+    "escapes": [
+      {
+        "flag": "--allow-dangerously-skip-permissions",
+        "refused": true
+      },
+      {
+        "flag": "--dangerously-skip-permissions",
+        "refused": true
+      },
+      {
+        "flag": "--dangerously-bypass-approvals-and-sandbox",
+        "refused": true
+      },
+      {
+        "flag": "--dangerously-bypass-hook-trust",
+        "refused": true
+      },
+      {
+        "flag": "--yolo",
+        "refused": true
+      }
+    ],
+    "bypass_refused": {
+      "ok": false,
+      "code": "PermissionEscapeError",
+      "message": "PERMISSION_ESCAPE_REFUSED: --dangerously-bypass-approvals-and-sandbox"
+    },
+    "argv": [
+      "exec",
+      "--json",
+      "--sandbox",
+      "read-only",
+      "--skip-git-repo-check",
+      "x"
+    ]
+  },
+  "fresh_session": {
+    "exit_code": 0,
+    "thread_id": "01a07cd8-c2a5-7dd2-be86-72a310159c82",
+    "claims": [
+      "CLIENT_MODE_INSTRUCTIONS_LOADED"
+    ],
+    "usage": [
+      {
+        "kind": "usage_event",
+        "schema_version": 1,
+        "usage_event_id": "usage_ac64467e-03cc-4cdb-8bc9-359783e5fd06",
+        "provider_event_id": "turn:attempt_t11_fresh:19164:10",
+        "run_id": "run_t11",
+        "attempt_id": "attempt_t11_fresh",
+        "provider": "codex",
+        "billing_mode": "native_account",
+        "input_tokens": 19164,
+        "output_tokens": 10,
+        "cache_read_tokens": 12160,
+        "cache_write_tokens": 0,
+        "reasoning_tokens": 0,
+        "cost_usd": 0,
+        "coverage": "complete",
+        "occurred_at": "2026-09-08T13:00:00.000Z"
+      }
+    ],
+    "instructions_unchanged": true
+  },
+  "inherited_permissions": {
+    "sandbox": "read-only",
+    "argv": [
+      "exec",
+      "--json",
+      "--sandbox",
+      "read-only",
+      "--skip-git-repo-check",
+      "<probe>"
+    ],
+    "exit_code": 0,
+    "claims": [
+      "I’ll check whether the current permissions allow creating the file.\n",
+      "CANNOT_WRITE — the current directory is in a read-only sandbox, so I cannot create `permission-probe.txt`."
+    ],
+    "file_created": false,
+    "verified_by": "filesystem check after the turn, not the session transcript"
+  }
+}

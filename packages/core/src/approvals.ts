@@ -143,5 +143,9 @@ export class ApprovalAuthority {
       }));
   }
 
+  /** The release service operates on this same authority database: consuming a grant and
+   * recording a deployment belong to the release principal, not to the controller. */
+  raw(): DatabaseSync { return this.#db; }
+
   close(): void { this.#db.close(); }
 }

@@ -1,0 +1,20 @@
+[
+  {
+    "method": "lookup",
+    "idempotency_key": "deploy-staging-1",
+    "artifact_digest": "",
+    "target_environment": ""
+  },
+  {
+    "method": "promote",
+    "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "target_environment": "staging",
+    "idempotency_key": "deploy-staging-1"
+  },
+  {
+    "method": "promote",
+    "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "target_environment": "staging",
+    "idempotency_key": "deploy-staging-1:rollback"
+  }
+]

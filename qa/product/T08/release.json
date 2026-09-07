@@ -1,0 +1,244 @@
+{
+  "authentication": {
+    "cookie_header": "cm_session=sxNIcZyYZPzyFwmF5sQHLL6H49cS-HXe; HttpOnly; SameSite=Strict; Path=/; Max-Age=900",
+    "cookie_notes": [
+      "Secure is intentionally absent: the controller listens on loopback HTTP and a Secure cookie would never be sent.",
+      "Protection is HttpOnly + SameSite=Strict + origin check + per-session CSRF token + 900s TTL.",
+      "This is a single-user local controller, not a public multi-tenant service."
+    ],
+    "attempts": {
+      "worker_token": {
+        "authenticated": false,
+        "status": 403,
+        "reason": "WORKER_TOKEN_CANNOT_ACT_AS_CLIENT"
+      },
+      "cross_origin": {
+        "authenticated": false,
+        "status": 403,
+        "reason": "ORIGIN_NOT_ALLOWED"
+      },
+      "missing_csrf": {
+        "authenticated": false,
+        "status": 403,
+        "reason": "CSRF_TOKEN_INVALID"
+      },
+      "stale_csrf": {
+        "authenticated": false,
+        "status": 403,
+        "reason": "CSRF_TOKEN_INVALID"
+      },
+      "no_session": {
+        "authenticated": false,
+        "status": 401,
+        "reason": "NO_SESSION"
+      },
+      "valid": {
+        "authenticated": true,
+        "session": {
+          "session_id": "sxNIcZyYZPzyFwmF5sQHLL6H49cS-HXe",
+          "actor": "client",
+          "actor_id": "owner_1",
+          "csrf_token": "I7rfVbSSNuiUTdiyW59tPBUXI_BvNciz",
+          "expires_at": "2026-09-08T10:15:00.000Z",
+          "origin": "http://127.0.0.1:7788"
+        }
+      }
+    },
+    "worker_decision": {
+      "ok": false,
+      "code": "ACTOR_CANNOT_APPROVE",
+      "message": "worker cannot decide an approval request"
+    }
+  },
+  "release": {
+    "wrong_artifact": {
+      "started": false,
+      "reasons": [
+        "ARTIFACT_MISMATCH"
+      ]
+    },
+    "wrong_environment": {
+      "started": false,
+      "reasons": [
+        "ENVIRONMENT_NOT_APPROVED"
+      ]
+    },
+    "expired_grant": {
+      "valid": false,
+      "reasons": [
+        "APPROVAL_EXPIRED"
+      ]
+    },
+    "calls_before_first_deploy": 0,
+    "crash": {
+      "ok": false,
+      "code": "SIMULATED_CRASH_AFTER_INTENT",
+      "message": "SIMULATED_CRASH_AFTER_INTENT: dep_56fd156d-15e0-4807-a392-0ca89033bbf4"
+    },
+    "interrupted_row": {
+      "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+      "status": "DEPLOYING",
+      "provider_operation_id": null
+    },
+    "reconciliation": {
+      "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+      "destination_state": "ABSENT",
+      "action": "SAFE_TO_RETRY",
+      "status": "DEPLOYING"
+    },
+    "retried": {
+      "started": true,
+      "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+      "operation_id": "op_1",
+      "replayed": false
+    },
+    "replayed": {
+      "started": true,
+      "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+      "operation_id": "op_1",
+      "replayed": true
+    },
+    "second_use_of_same_grant": {
+      "started": false,
+      "reasons": [
+        "ALREADY_CONSUMED"
+      ]
+    },
+    "destination_calls": [
+      {
+        "method": "lookup",
+        "idempotency_key": "deploy-staging-1",
+        "artifact_digest": "",
+        "target_environment": ""
+      },
+      {
+        "method": "promote",
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "target_environment": "staging",
+        "idempotency_key": "deploy-staging-1"
+      },
+      {
+        "method": "promote",
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "target_environment": "staging",
+        "idempotency_key": "deploy-staging-1:rollback"
+      }
+    ],
+    "promote_count": 1
+  },
+  "smoke": {
+    "failing": {
+      "deployment": {
+        "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+        "status": "FAILED",
+        "provider_operation_id": "op_1",
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "target_environment": "staging",
+        "idempotency_key": "deploy-staging-1"
+      },
+      "results": [
+        {
+          "probe_id": "homepage",
+          "passed": true,
+          "detail": "HTTP 200",
+          "observed_at": "2026-09-08T10:00:01.000Z"
+        },
+        {
+          "probe_id": "checkout",
+          "passed": false,
+          "detail": "HTTP 500 from /api/orders",
+          "observed_at": "2026-09-08T10:00:02.000Z"
+        }
+      ],
+      "released": false,
+      "blocking": [
+        "checkout:HTTP 500 from /api/orders"
+      ]
+    },
+    "empty": {
+      "deployment": {
+        "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+        "status": "FAILED",
+        "provider_operation_id": "op_1",
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "target_environment": "staging",
+        "idempotency_key": "deploy-staging-1"
+      },
+      "results": [],
+      "released": false,
+      "blocking": [
+        "NO_SMOKE_PROBES"
+      ]
+    },
+    "passing": {
+      "deployment": {
+        "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+        "status": "RELEASED",
+        "provider_operation_id": "op_1",
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "target_environment": "staging",
+        "idempotency_key": "deploy-staging-1"
+      },
+      "results": [
+        {
+          "probe_id": "homepage",
+          "passed": true,
+          "detail": "HTTP 200",
+          "observed_at": "2026-09-08T10:00:05.000Z"
+        }
+      ],
+      "released": true,
+      "blocking": []
+    }
+  },
+  "rollback": {
+    "unauthorised": {
+      "rolled_back": false,
+      "reasons": [
+        "APPROVAL_ACTION_NOT_ROLLBACK"
+      ]
+    },
+    "blocked_by_migration": {
+      "rolled_back": false,
+      "reasons": [
+        "IRREVERSIBLE_STEP_BLOCKS_ROLLBACK",
+        "0007_drop_legacy_orders_column"
+      ]
+    },
+    "authorised": {
+      "rolled_back": true,
+      "deployment": {
+        "deployment_id": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+        "status": "ROLLED_BACK",
+        "provider_operation_id": "op_1",
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "target_environment": "staging",
+        "idempotency_key": "deploy-staging-1"
+      },
+      "authorized_by": "release_owner_1",
+      "operation_id": "op_2"
+    },
+    "audit": [
+      {
+        "actor_id": "release_owner_1",
+        "operation": "rollback",
+        "target_ref": "dep_56fd156d-15e0-4807-a392-0ca89033bbf4",
+        "decision": "allow"
+      }
+    ]
+  },
+  "question_answer": {
+    "question_status_after_answer": {
+      "status": "ANSWERED"
+    },
+    "answer_id": "ans_82fb7c56-61dd-47a6-87c6-8acc0b3f833e",
+    "answer_actor": "owner_1",
+    "worker_answer": {
+      "ok": false,
+      "code": "ACTOR_CANNOT_ANSWER",
+      "message": "worker cannot answer for the client"
+    },
+    "approvals_in_release_store": 2,
+    "answer_recorded_as_client_request": true
+  }
+}

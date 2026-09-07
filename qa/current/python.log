@@ -109,6 +109,6 @@ test_transaction_rolls_back_state_and_event (test_storage.StorageReferenceTests.
 test_unscoped_received_request_can_be_acknowledged (test_storage.StorageReferenceTests.test_unscoped_received_request_can_be_acknowledged) ... ok
 
 ----------------------------------------------------------------------
-Ran 109 tests in 0.710s
+Ran 109 tests in 0.678s
 
 OK

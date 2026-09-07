@@ -70,11 +70,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-emBDHk/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-nXNMs8/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-emBDHk/cm-sandbox-SrQSy6",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-emBDHk/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-nXNMs8/cm-sandbox-pm1tPX",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-nXNMs8/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",
@@ -92,8 +92,8 @@
     ],
     "process_tree_terminated": true,
     "quarantined": false,
-    "heartbeat_bytes_at_kill": 36,
-    "heartbeat_bytes_500ms_later": 36,
+    "heartbeat_bytes_at_kill": 35,
+    "heartbeat_bytes_500ms_later": 35,
     "forked_child_stopped_writing": true
   },
   "reports": {

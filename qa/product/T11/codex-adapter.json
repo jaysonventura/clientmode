@@ -11,7 +11,7 @@
     "usage": {
       "kind": "usage_event",
       "schema_version": 1,
-      "usage_event_id": "usage_34ca468d-574c-4d2b-b79b-8384c074fa0f",
+      "usage_event_id": "usage_13e18c8c-5da7-45be-9194-042700d931d3",
       "provider_event_id": "turn:attempt_t11:19023:7",
       "run_id": "run_t11",
       "attempt_id": "attempt_t11",
@@ -123,7 +123,7 @@
   },
   "fresh_session": {
     "exit_code": 0,
-    "thread_id": "01a07e24-5e25-7733-ae1c-ee10b6985917",
+    "thread_id": "01a07e26-5b0e-7d93-88c6-25fad7ade0ea",
     "claims": [
       "CLIENT_MODE_INSTRUCTIONS_LOADED"
     ],
@@ -131,7 +131,7 @@
       {
         "kind": "usage_event",
         "schema_version": 1,
-        "usage_event_id": "usage_f93abde8-db81-4dd9-8e18-98286806a8bb",
+        "usage_event_id": "usage_eb4a7c92-f27d-4d5d-b108-8178bd9e3e18",
         "provider_event_id": "turn:attempt_t11_fresh:19167:10",
         "run_id": "run_t11",
         "attempt_id": "attempt_t11_fresh",
@@ -161,8 +161,8 @@
     ],
     "exit_code": 0,
     "claims": [
-      "I’ll check whether the current workspace permissions allow creating the file.\n",
-      "CANNOT_WRITE — the filesystem is read-only, and permission escalation is disabled."
+      "I’ll check whether the workspace permissions allow creating the file.\n",
+      "CANNOT_WRITE — the filesystem sandbox is read-only, so I cannot create permission-probe.txt."
     ],
     "file_created": false,
     "verified_by": "filesystem check after the turn, not the session transcript"

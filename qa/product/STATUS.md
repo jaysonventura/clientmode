@@ -7,9 +7,14 @@ Reproduce everything:
 
 ```bash
 npm install
-npm run typecheck && npm run test:tasks && npm run test:reference
-.venv/bin/python scripts/validate_all.py     # handoff package checks
+./scripts/verify-local.sh    # typecheck, all 33 gates, reference tests, handoff validation
 ```
+
+**Status: all 33 gates green.** 33 tasks, 33 acceptance gates, 8 milestones. Every gate has a
+test file, an executor that exercises the real services, retained JSON artifacts and a
+red-evidence write-up recording the mutations that turn it red. What green does not cover is in
+[Explicitly not proven yet](#explicitly-not-proven-yet), and it is worth reading before the
+table.
 
 ## Milestone M1 — deterministic core: COMPLETE
 
@@ -214,24 +219,39 @@ confirm the gates now go red. Two narrow gaps remain open and are named in the m
 
 ## Explicitly not proven yet
 
-- Provider integration is proved on **one machine at one version each**. That is not a
-  compatibility matrix; T23 owns that. The SDK and App Server transports are described and
-  reported `configured` at most, never observed.
-- No console, installer, document pipeline, qualification or live release path exists
-  (M4–M8, T13–T33). The release path is exercised against a mock destination only.
-- Execution isolation is a macOS Seatbelt sandbox under the **same OS user** as the
-  coordinator. It is a kernel boundary, not the separate principal or container the handoff
-  requires for release; `isolation.limitations` says so in every evidence record. T20 owns it.
-- 38 iOS simulators are present on this host but no iOS app was built or driven. The composite
-  evaluator refuses a browser observation offered for a native component, so that scope stays
-  UNVERIFIED rather than quietly covered.
-- Automated accessibility checking covers a rule subset. It does not establish WCAG 2.2 AA
+All 33 gates are green. These are the things that green does **not** cover, stated so nobody has
+to infer them from what is missing.
+
+- **One machine, one OS.** Everything here was observed on macOS 25.5.0 / darwin-arm64 with
+  Node 22.17.0. Windows and Linux were not observed. This is not a compatibility matrix.
+- **No live provider comparison.** AT-022's pilot arms use a deterministic simulated worker and
+  say so wherever their numbers appear. No metered evaluation budget is approved, so the live
+  A/B/C pilot is reported blocked, not estimated. The live host runs are small and declared:
+  a handful of real turns on the existing native account.
+- **Nothing was deployed.** The release path is rehearsed against a mock destination. No public
+  deployment, no paid service, no production action.
+- **Execution isolation is a macOS Seatbelt sandbox under the same OS user** as the coordinator.
+  It is a kernel boundary, and every evidence record says in `isolation.limitations` that it is
+  not the separate principal or container a production release needs. The same is true of the
+  approval and verifier stores: separate databases and schemas, same OS principal.
+- **No iOS or Android run.** 38 iOS simulators are present on this host; no app was built or
+  driven on one. The composite evaluator refuses a browser observation offered for a native
+  component, so that scope stays UNVERIFIED rather than quietly covered. Go and Kotlin are not
+  installed and their holdout specs are reported blocked.
+- **No OCR and no office suite.** Text inside an image and the text on a scanned page are
+  reported as unestablished. Layout fidelity beyond the structural and render checks in AT-029
+  and AT-033 is not qualified. Legacy DOC/XLS/PPT, password-protected and macro-enabled files are
+  refused rather than supported.
+- **Automated accessibility checking covers a rule subset.** It does not establish WCAG 2.2 AA
   conformance; manual keyboard and assistive-technology review of key flows is outstanding.
-- Budget figures are fixture microdollars. Cap enforcement is `pre_dispatch_reservation`
-  with `in_flight_overrun_possible: true`; it is not a hard spend guarantee.
-- The approval store is a separate database with a separate schema, but it currently lives
-  under the same OS principal. That is a deployment convenience, not the isolation the
-  handoff requires; T20 owns the real separation.
+- **Budget figures are fixture microdollars.** Cap enforcement is `pre_dispatch_reservation` with
+  `in_flight_overrun_possible: true`. A request already in flight can overshoot its estimate.
+- **The holdout is first-party.** AT-023's 150 trials qualify this pipeline on work the frozen
+  configuration had never seen. A success rate of 1.000 on a corpus this repository authored is
+  not a claim about arbitrary real-world work.
+- **Two coverage gaps remain open**, both named in `MUTATION-MATRIX.md`: the unknown-cost
+  reserve's contribution to AT-019's failed/succeeded split is not asserted, and
+  `ContextStore.current` has no gate of its own.
 
 ## Environment findings
 

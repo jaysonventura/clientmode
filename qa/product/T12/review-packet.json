@@ -1,0 +1,25 @@
+{
+  "contract_id": "contract_t12",
+  "requirements_revision": 1,
+  "requirement_ids": [
+    "checkout-guest",
+    "no-payment"
+  ],
+  "diff": [
+    {
+      "path": "api/orders.py",
+      "added": 3,
+      "removed": 1,
+      "hunks": [
+        "@@ def total"
+      ]
+    }
+  ],
+  "evidence_refs": [
+    "evidence_t12"
+  ],
+  "excluded": [
+    "author_success_narrative:80B",
+    "unrelated_log:50000B"
+  ]
+}

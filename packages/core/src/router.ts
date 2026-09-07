@@ -217,3 +217,107 @@ export class Router {
     });
   }
 }
+
+/** Exactly one attempt integrates a run. Parallel writers may exist on disjoint scope, but the
+ * combined snapshot is sealed by one owner, and the claim is registered before any work lands. */
+export type IntegrationOwnership = { run_id: string; integrator_attempt_id: string; claimed_at: string };
+
+export class DeliveryOrchestrator {
+  readonly #db: ControllerDatabase;
+  readonly #now: () => string;
+
+  constructor(input: { db: ControllerDatabase; clock?: () => string }) {
+    this.#db = input.db;
+    this.#now = input.clock ?? (() => new Date().toISOString());
+  }
+
+  /** First claim wins; a second attempt asking to integrate the same run is refused. */
+  claimIntegration(run_id: string, attempt_id: string): { owned: boolean; owner: string } {
+    return this.#db.transaction(() => {
+      const existing = this.#db.get("SELECT attempt_id FROM responsibility_assignments WHERE run_id = ? AND responsibility = 'integration' LIMIT 1", run_id);
+      if (existing !== undefined) {
+        const owner = String(existing['attempt_id']);
+        return { owned: owner === attempt_id, owner };
+      }
+      this.#db.run(`INSERT INTO responsibility_assignments (assignment_id, project_id, run_id, task_id, attempt_id,
+        responsibility, risk_tier, review_required, created_at)
+        SELECT ?, project_id, run_id, task_id, ?, 'integration', 'high', 1, ? FROM task_attempts WHERE attempt_id = ?`,
+        `asg_int_${attempt_id}`, attempt_id, this.#now(), attempt_id);
+      return { owned: true, owner: attempt_id };
+    });
+  }
+
+  integrationOwner(run_id: string): string | null {
+    const row = this.#db.get("SELECT attempt_id FROM responsibility_assignments WHERE run_id = ? AND responsibility = 'integration' LIMIT 1", run_id);
+    return row === undefined ? null : String(row['attempt_id']);
+  }
+}
+
+/** What a reviewer is given. The author's success narrative and unrelated conversation are
+ * deliberately absent: a reviewer reads the contract, the diff and the evidence. */
+export type ReviewPacket = {
+  contract_id: string;
+  requirements_revision: number;
+  requirement_ids: string[];
+  diff: Array<{ path: string; added: number; removed: number; hunks: string[] }>;
+  evidence_refs: string[];
+  excluded: string[];
+};
+
+export type ReviewFinding = {
+  finding_id: string;
+  severity: 'blocking' | 'major' | 'minor';
+  scope: string;
+  statement: string;
+  /** Without a reproduction a finding is an opinion, and it cannot block. */
+  reproduction: { steps: string[]; observed: string; expected: string } | null;
+};
+
+export function buildReviewPacket(input: {
+  contract_id: string; requirements_revision: number; requirement_ids: string[];
+  diff: ReviewPacket['diff']; evidence_refs: string[];
+  author_narrative?: string; unrelated_log?: string;
+}): ReviewPacket {
+  const excluded: string[] = [];
+  if (input.author_narrative !== undefined) excluded.push(`author_success_narrative:${Buffer.byteLength(input.author_narrative)}B`);
+  if (input.unrelated_log !== undefined) excluded.push(`unrelated_log:${Buffer.byteLength(input.unrelated_log)}B`);
+  return {
+    contract_id: input.contract_id, requirements_revision: input.requirements_revision,
+    requirement_ids: input.requirement_ids, diff: input.diff, evidence_refs: input.evidence_refs, excluded,
+  };
+}
+
+/** A finding blocks only when it can be reproduced. */
+export function admissibleFindings(findings: ReviewFinding[]): { blocking: ReviewFinding[]; rejected: Array<{ finding_id: string; reason: string }> } {
+  const blocking: ReviewFinding[] = [];
+  const rejected: Array<{ finding_id: string; reason: string }> = [];
+  for (const finding of findings) {
+    if (finding.severity !== 'blocking') continue;
+    if (finding.reproduction === null || finding.reproduction.steps.length === 0) {
+      rejected.push({ finding_id: finding.finding_id, reason: 'BLOCKING_FINDING_WITHOUT_REPRODUCTION' });
+      continue;
+    }
+    blocking.push(finding);
+  }
+  return { blocking, rejected };
+}
+
+/** Text found in a repository, a tool result or a model message can request anything it likes.
+ * It is recorded as data and it changes no authority. */
+export type UntrustedInstruction = { source: string; text: string };
+
+export function classifyUntrustedInstruction(instruction: UntrustedInstruction): {
+  source: string; recorded: true; grants_authority: false; requested_actions: string[];
+} {
+  const requested: string[] = [];
+  const patterns: Array<[RegExp, string]> = [
+    // "skipping verification" and "skip the checks" are the same request; match the stem.
+    [/\bskip\w*\b[^.\n]*\b(verification|verify|checks?|tests?|gates?)\b/i, 'skip_verification'],
+    [/deploy|release|production/i, 'deploy'],
+    [/api key|credential|secret|token/i, 'read_secrets'],
+    [/bypass|--dangerously|disable .*sandbox/i, 'bypass_sandbox'],
+    [/approve|authoriz/i, 'self_approve'],
+  ];
+  for (const [pattern, action] of patterns) if (pattern.test(instruction.text)) requested.push(action);
+  return { source: instruction.source, recorded: true, grants_authority: false, requested_actions: requested };
+}

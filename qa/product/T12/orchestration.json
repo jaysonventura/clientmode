@@ -1,0 +1,344 @@
+{
+  "delegation": {
+    "admissions": [
+      {
+        "attempt_id": "child_1",
+        "outcome": {
+          "admitted": true,
+          "reservation_id": "res_0cb17097-36a9-4d64-9d84-924a575ef0bd"
+        }
+      },
+      {
+        "attempt_id": "child_2",
+        "outcome": {
+          "admitted": true,
+          "reservation_id": "res_6d9191f1-3a90-42d8-a5b1-4b1eb6a75d9b"
+        }
+      },
+      {
+        "attempt_id": "child_3",
+        "outcome": {
+          "admitted": false,
+          "reason": "CHILD_LIMIT"
+        }
+      }
+    ],
+    "grandchild": {
+      "admitted": false,
+      "reason": "RECURSIVE_CHILD_REJECTED"
+    },
+    "first_claim": {
+      "owned": true,
+      "owner": "lead"
+    },
+    "second_claim": {
+      "owned": false,
+      "owner": "lead"
+    },
+    "owner": "lead"
+  },
+  "ownership": {
+    "lease_epoch": 1,
+    "overlapping": {
+      "ok": false,
+      "code": "WRITER_LEASE_CONFLICT",
+      "message": "project project_t12 already has an active writer"
+    },
+    "in_scope": {
+      "accepted": true
+    },
+    "out_of_order": {
+      "accepted": false,
+      "reason": "STALE_LEASE_EPOCH"
+    },
+    "out_of_scope": {
+      "accepted": false,
+      "reason": "PATH_NOT_OWNED"
+    },
+    "note": "The second writer was refused by the one-active-writer-per-project index before the path-overlap check was reached; both rules are enforced and the first one to fire is recorded."
+  },
+  "review": {
+    "packet": {
+      "contract_id": "contract_t12",
+      "requirements_revision": 1,
+      "requirement_ids": [
+        "checkout-guest",
+        "no-payment"
+      ],
+      "diff": [
+        {
+          "path": "api/orders.py",
+          "added": 3,
+          "removed": 1,
+          "hunks": [
+            "@@ def total"
+          ]
+        }
+      ],
+      "evidence_refs": [
+        "evidence_t12"
+      ],
+      "excluded": [
+        "author_success_narrative:80B",
+        "unrelated_log:50000B"
+      ]
+    },
+    "admissible": {
+      "blocking": [
+        {
+          "finding_id": "f1",
+          "severity": "blocking",
+          "scope": "api/orders.py",
+          "statement": "total() accepts a negative quantity",
+          "reproduction": {
+            "steps": [
+              "POST /orders with quantity -1"
+            ],
+            "observed": "201 created",
+            "expected": "422 rejected"
+          }
+        }
+      ],
+      "rejected": [
+        {
+          "finding_id": "f2",
+          "reason": "BLOCKING_FINDING_WITHOUT_REPRODUCTION"
+        }
+      ]
+    }
+  },
+  "untrusted_instruction": {
+    "classification": {
+      "source": "api/orders.py",
+      "recorded": true,
+      "grants_authority": false,
+      "requested_actions": [
+        "skip_verification",
+        "deploy",
+        "read_secrets",
+        "self_approve"
+      ]
+    },
+    "effects": {
+      "billing": {
+        "allowed": false,
+        "reason": "NO_MATCHING_SCOPED_APPROVAL"
+      },
+      "capability": {
+        "enabled": false,
+        "reason": "CAPABILITY_NOT_APPROVED"
+      },
+      "self_approval": {
+        "ok": false,
+        "code": "ACTOR_CANNOT_APPROVE",
+        "message": "worker cannot decide an approval request"
+      }
+    }
+  },
+  "grounding": {
+    "ungrounded": {
+      "grounded": false,
+      "component_id": "mobile",
+      "reasons": [
+        "NO_SOURCE_REFERENCES",
+        "UNSUPPORTED_EXPERTISE_CLAIM"
+      ],
+      "next_actions": [
+        "Read mobile/build.gradle.kts, mobile/Order.kt before proposing a change.",
+        "Replace the expertise claim with the sources it came from."
+      ]
+    },
+    "documentation_only": {
+      "grounded": false,
+      "component_id": "mobile",
+      "reasons": [
+        "NO_REPOSITORY_GROUNDING",
+        "REFERENCES_WITHOUT_VERSION"
+      ],
+      "next_actions": [
+        "Documentation alone is not grounding; read the project's own manifests and sources.",
+        "Record the installed version each reference was read for."
+      ]
+    },
+    "grounded": {
+      "grounded": true,
+      "component_id": "mobile",
+      "references": [
+        {
+          "kind": "installed_manifest",
+          "ref": "mobile/build.gradle.kts",
+          "version": "8.7",
+          "observed_at": "2026-09-08T14:00:15.000Z"
+        },
+        {
+          "kind": "first_party_documentation",
+          "ref": "https://kotlinlang.org/docs/",
+          "version": "2.0",
+          "observed_at": "2026-09-08T14:00:16.000Z"
+        }
+      ]
+    },
+    "conversion": {
+      "grounded": false,
+      "component_id": "api",
+      "reasons": [
+        "TOOLKIT_STACK_CONVERSION_REFUSED"
+      ],
+      "next_actions": [
+        "Implement in Python; a migration needs separate authorization."
+      ]
+    },
+    "routes": {
+      "kotlin": {
+        "component_id": "mobile",
+        "implementation_languages": [
+          "Kotlin"
+        ],
+        "review_languages": [
+          "Kotlin"
+        ],
+        "disposition": "route_native",
+        "research_plan": []
+      },
+      "unfamiliar": {
+        "component_id": "dsl-tool",
+        "implementation_languages": [
+          "FixtureLang"
+        ],
+        "review_languages": [
+          "FixtureLang"
+        ],
+        "disposition": "research_then_route",
+        "research_plan": [
+          "Read tools/report.fixturelang and the first-party FixtureLang documentation for the installed version before implementing."
+        ]
+      },
+      "blocked": {
+        "component_id": "ios",
+        "implementation_languages": [
+          "Swift"
+        ],
+        "review_languages": [
+          "Swift"
+        ],
+        "disposition": "blocked_by_environment",
+        "research_plan": [
+          "Report the gap and continue safe work elsewhere: No signing identity available"
+        ]
+      }
+    },
+    "conversion_detected": true,
+    "reviewer_matches_implementation": true
+  },
+  "responsibilities": {
+    "assignments": [
+      {
+        "assignment_id": "asg_f0b807d8-7487-4c85-8004-11bc95d7c35d",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "architecture",
+        "risk_tier": "high",
+        "review_required": true
+      },
+      {
+        "assignment_id": "asg_0d7930f4-4c30-40ab-bb01-fc641a793140",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "product",
+        "risk_tier": "high",
+        "review_required": false
+      },
+      {
+        "assignment_id": "asg_0459ec42-5298-4c53-85ea-ef087721556b",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "delivery",
+        "risk_tier": "high",
+        "review_required": false
+      },
+      {
+        "assignment_id": "asg_59e60e64-4457-4fcc-a3c5-45c12053ab7f",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "design",
+        "risk_tier": "high",
+        "review_required": false
+      },
+      {
+        "assignment_id": "asg_5124b0dc-f4ce-4f89-8883-433c2dec4b70",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "engineering",
+        "risk_tier": "high",
+        "review_required": false
+      },
+      {
+        "assignment_id": "asg_b14be0be-9964-4ca1-808d-3cb083ac1624",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "quality",
+        "risk_tier": "high",
+        "review_required": true
+      },
+      {
+        "assignment_id": "asg_3875bcd5-9016-42d2-bb6f-85b2c85f664a",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "security",
+        "risk_tier": "high",
+        "review_required": true
+      },
+      {
+        "assignment_id": "asg_3a58c6c8-3604-459d-a351-866bfa8579ee",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "reliability",
+        "risk_tier": "high",
+        "review_required": true
+      },
+      {
+        "assignment_id": "asg_6e1d5529-21ce-4de1-b2b6-67ac9cb9c10f",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "documentation",
+        "risk_tier": "high",
+        "review_required": false
+      }
+    ],
+    "title_escalation": {
+      "release_manager_deploy": {
+        "allowed": false,
+        "reason": "NO_MATCHING_SCOPED_APPROVAL"
+      },
+      "cto_self_approval": {
+        "ok": false,
+        "code": "ACTOR_CANNOT_APPROVE",
+        "message": "worker cannot decide an approval request"
+      },
+      "processes_started": 0
+    }
+  },
+  "late_work": {
+    "message_id": "msg_b9b485b0-d118-4090-ac85-139cdfc8651a",
+    "applied_revision": null,
+    "before_message": {
+      "accepted": true
+    },
+    "fenced": [
+      "child_1",
+      "child_2",
+      "child_3",
+      "grandchild",
+      "lead"
+    ],
+    "provider_cancellation": {
+      "acknowledged": true,
+      "requires_reconciliation": true
+    },
+    "late_claim": {
+      "accepted": false,
+      "reason": "ATTEMPT_REVOKED"
+    },
+    "coordinator_text_marked_human": false
+  }
+}

@@ -50,10 +50,31 @@ What these gates actually executed, rather than modelled:
 - one deployment side effect across a crash, a reconciliation and two replays, counted at a
   destination that records every call
 
+## Milestone M3 — provider integration: COMPLETE
+
+| Task | Gate | Mode | Status | Evidence |
+|---|---|---|---|---|
+| T09 | AT-009 | integration | PASS | `qa/product/T09/` |
+| T10 | AT-010 | live_provider | PASS | `qa/product/T10/` |
+| T11 | AT-011 | live_provider | PASS | `qa/product/T11/` |
+| T12 | AT-012 | integration | PASS | `qa/product/T12/` |
+
+Both provider gates ran **live** against the hosts installed on this machine — Claude Code
+2.1.263 and codex-cli 0.153.4 — on the existing authorized native account, in throwaway
+projects outside this repository. No metered API billing was configured.
+
+- a fresh Claude session loaded the generated `CLAUDE.md` and returned its marker; a resumed
+  session recovered a codeword stored in the previous turn under the same session id
+- a fresh Codex session loaded the generated `AGENTS.md`; asked to write a file under
+  `--sandbox read-only` it refused, and the filesystem confirms nothing was created
+- argv for both adapters comes from each host's own `--help` on this machine, and every
+  permission-escape flag is refused before a process is spawned
+
 ## Explicitly not proven yet
 
-- No provider is integrated. `tests/harness/fake-provider.ts` is an offline mock protocol
-  adapter and satisfies no live-provider gate (M3/T09–T11).
+- Provider integration is proved on **one machine at one version each**. That is not a
+  compatibility matrix; T23 owns that. The SDK and App Server transports are described and
+  reported `configured` at most, never observed.
 - No console, installer, document pipeline, qualification or live release path exists
   (M4–M8, T13–T33). The release path is exercised against a mock destination only.
 - Execution isolation is a macOS Seatbelt sandbox under the **same OS user** as the

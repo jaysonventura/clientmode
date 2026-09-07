@@ -1,0 +1,95 @@
+{
+  "ungrounded": {
+    "grounded": false,
+    "component_id": "mobile",
+    "reasons": [
+      "NO_SOURCE_REFERENCES",
+      "UNSUPPORTED_EXPERTISE_CLAIM"
+    ],
+    "next_actions": [
+      "Read mobile/build.gradle.kts, mobile/Order.kt before proposing a change.",
+      "Replace the expertise claim with the sources it came from."
+    ]
+  },
+  "documentation_only": {
+    "grounded": false,
+    "component_id": "mobile",
+    "reasons": [
+      "NO_REPOSITORY_GROUNDING",
+      "REFERENCES_WITHOUT_VERSION"
+    ],
+    "next_actions": [
+      "Documentation alone is not grounding; read the project's own manifests and sources.",
+      "Record the installed version each reference was read for."
+    ]
+  },
+  "grounded": {
+    "grounded": true,
+    "component_id": "mobile",
+    "references": [
+      {
+        "kind": "installed_manifest",
+        "ref": "mobile/build.gradle.kts",
+        "version": "8.7",
+        "observed_at": "2026-09-08T14:00:15.000Z"
+      },
+      {
+        "kind": "first_party_documentation",
+        "ref": "https://kotlinlang.org/docs/",
+        "version": "2.0",
+        "observed_at": "2026-09-08T14:00:16.000Z"
+      }
+    ]
+  },
+  "conversion": {
+    "grounded": false,
+    "component_id": "api",
+    "reasons": [
+      "TOOLKIT_STACK_CONVERSION_REFUSED"
+    ],
+    "next_actions": [
+      "Implement in Python; a migration needs separate authorization."
+    ]
+  },
+  "routes": {
+    "kotlin": {
+      "component_id": "mobile",
+      "implementation_languages": [
+        "Kotlin"
+      ],
+      "review_languages": [
+        "Kotlin"
+      ],
+      "disposition": "route_native",
+      "research_plan": []
+    },
+    "unfamiliar": {
+      "component_id": "dsl-tool",
+      "implementation_languages": [
+        "FixtureLang"
+      ],
+      "review_languages": [
+        "FixtureLang"
+      ],
+      "disposition": "research_then_route",
+      "research_plan": [
+        "Read tools/report.fixturelang and the first-party FixtureLang documentation for the installed version before implementing."
+      ]
+    },
+    "blocked": {
+      "component_id": "ios",
+      "implementation_languages": [
+        "Swift"
+      ],
+      "review_languages": [
+        "Swift"
+      ],
+      "disposition": "blocked_by_environment",
+      "research_plan": [
+        "Report the gap and continue safe work elsewhere: No signing identity available"
+      ]
+    }
+  },
+  "conversion_detected": true,
+  "reviewer_matches_implementation": true
+}

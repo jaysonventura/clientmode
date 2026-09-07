@@ -11,7 +11,7 @@
     "usage": {
       "kind": "usage_event",
       "schema_version": 1,
-      "usage_event_id": "usage_ee51d3ff-15db-4ba1-a828-677e838ede45",
+      "usage_event_id": "usage_45d7d6e1-4d81-4de8-aa46-b29ae4906eb9",
       "provider_event_id": "turn:attempt_t11:19023:7",
       "run_id": "run_t11",
       "attempt_id": "attempt_t11",
@@ -22,8 +22,8 @@
       "cache_read_tokens": 12160,
       "cache_write_tokens": 0,
       "reasoning_tokens": 0,
-      "cost_usd": 0,
-      "coverage": "complete",
+      "cost_usd": null,
+      "coverage": "partial",
       "occurred_at": "2026-09-08T13:00:00.000Z"
     },
     "usage_schema": {
@@ -123,7 +123,7 @@
   },
   "fresh_session": {
     "exit_code": 0,
-    "thread_id": "01a07cd8-c2a5-7dd2-be86-72a310159c82",
+    "thread_id": "01a07cdd-89d1-7260-8952-0661af76563d",
     "claims": [
       "CLIENT_MODE_INSTRUCTIONS_LOADED"
     ],
@@ -131,7 +131,7 @@
       {
         "kind": "usage_event",
         "schema_version": 1,
-        "usage_event_id": "usage_ac64467e-03cc-4cdb-8bc9-359783e5fd06",
+        "usage_event_id": "usage_e67deed9-aa1e-4576-8426-d0d1c184592a",
         "provider_event_id": "turn:attempt_t11_fresh:19164:10",
         "run_id": "run_t11",
         "attempt_id": "attempt_t11_fresh",
@@ -142,8 +142,8 @@
         "cache_read_tokens": 12160,
         "cache_write_tokens": 0,
         "reasoning_tokens": 0,
-        "cost_usd": 0,
-        "coverage": "complete",
+        "cost_usd": null,
+        "coverage": "partial",
         "occurred_at": "2026-09-08T13:00:00.000Z"
       }
     ],
@@ -161,8 +161,8 @@
     ],
     "exit_code": 0,
     "claims": [
-      "I’ll check whether the current permissions allow creating the file.\n",
-      "CANNOT_WRITE — the current directory is in a read-only sandbox, so I cannot create `permission-probe.txt`."
+      "I’ll attempt to create the file in the current directory.",
+      "CANNOT_WRITE — the filesystem is read-only; creating `permission-probe.txt` failed with “operation not permitted.”"
     ],
     "file_created": false,
     "verified_by": "filesystem check after the turn, not the session transcript"

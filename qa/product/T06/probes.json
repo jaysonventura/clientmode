@@ -59,7 +59,7 @@
     "journey": {
       "completed": true,
       "displayed_total": "₱135.00",
-      "confirmation_text": "Order order_mtrh7yv8_a3c0k3 received. Total ₱135.00. We will contact +639000000001.",
+      "confirmation_text": "Order order_mtri3o7c_j6jy6u received. Total ₱135.00. We will contact +639000000001.",
       "submit_operable": true,
       "steps": [
         "loaded catalog",
@@ -245,10 +245,10 @@
     "candidate_pass_json_present": true,
     "candidate_pass_json_used_as_evidence": false,
     "forgery_exit_code": 1,
-    "forgery_stderr": "node:fs:2425\n    return binding.writeFileUtf8(\n                   ^\n\nError: EPERM: operation not permitted, open '/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t06-2MJnIN/probe-artifacts/forged.json'\n    at Object.writeFileSync (node:fs:2425:20)\n    at [eval]:1:15\n    at runScriptInThisContext",
+    "forgery_stderr": "node:fs:2425\n    return binding.writeFileUtf8(\n                   ^\n\nError: EPERM: operation not permitted, open '/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t06-KlaaGU/probe-artifacts/forged.json'\n    at Object.writeFileSync (node:fs:2425:20)\n    at [eval]:1:15\n    at runScriptInThisContext",
     "forged_file_created": false,
     "probe_artifact_count": 10,
-    "probe_artifact_store": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t06-2MJnIN/probe-artifacts"
+    "probe_artifact_store": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t06-KlaaGU/probe-artifacts"
   },
   "native_and_model": {
     "swift": {
@@ -386,7 +386,7 @@
         "shop-ios"
       ],
       "failed_components": [],
-      "manifest_digest": "sha256:0e237f7b491bb865c9eec93abbbf201e14fbe2bb1ac14c1443112dcc8507605d",
+      "manifest_digest": "sha256:d44d54d6dd67432dfe068417834671d91b313718c1620083e4e41130c8de971f",
       "reasons": [
         "TARGET_SUBSTITUTION:shop-ios:web!=native-ios"
       ]

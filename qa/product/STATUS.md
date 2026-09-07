@@ -190,6 +190,28 @@ confirm the gates now go red. Two narrow gaps remain open and are named in the m
 - 26 mutations executed across the six gates; two needed a second layer removed before the
   gate went red, and both pairs are recorded
 
+## Milestone M8 — company service and ship: COMPLETE
+
+| Task | Gate | Mode | Status | Evidence |
+|---|---|---|---|---|
+| T31 | AT-031 | integration | PASS | `qa/product/T31/` |
+| T32 | AT-032 | integration | PASS | `qa/product/T32/` |
+| T33 | AT-033 | qualification | PASS | `qa/product/T33/` |
+
+- a button wording change engages two responsibilities and one worker; a refund-and-permissions
+  change engages seven, four of them requiring review. The risk tier has three independent
+  inputs and a writer cannot lower it
+- support cases start from the client's actual words and resolve only on evidence that was
+  produced: the defect reproduced against the running fixture, the fix observed, a regression
+  linked and the runbook revised. Monitoring is not configured, and the coverage statement says
+  so; 24/7 and SLA language is refused
+- **all 33 gates swept: 33 evidenced, 0 no-go.** Each has a test file, an executor, retained
+  JSON artifacts and a red-evidence write-up
+- document state survives a schema upgrade and the restore that undoes it; the job is READY
+  before, during and after
+- the job is technically READY and the client records `needs_changes` on the same work. Neither
+  changes the other, which is the whole point of four separate signoffs
+
 ## Explicitly not proven yet
 
 - Provider integration is proved on **one machine at one version each**. That is not a

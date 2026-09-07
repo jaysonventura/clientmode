@@ -1,0 +1,180 @@
+{
+  "case": {
+    "kind": "service_case",
+    "schema_version": 1,
+    "case_id": "case_6a61ff99-3311-49d1-be26-c38b5d663ac8",
+    "project_id": "project_t32",
+    "request_id": "request_t32_report",
+    "severity": "high",
+    "status": "RESOLVED",
+    "coverage_mode": "on_demand",
+    "related_run_id": "run_93b876c9-d0e8-465f-9ee2-4ac1d13686f0",
+    "related_deployment_id": null,
+    "created_at": "2026-09-09T13:00:02.000Z",
+    "summary": "Reported: the total for two rice is wrong.",
+    "links": [
+      {
+        "kind": "software_run",
+        "run_id": "run_93b876c9-d0e8-465f-9ee2-4ac1d13686f0"
+      },
+      {
+        "kind": "document_job",
+        "job_id": "djob_0d741eee-a039-4b56-b44c-0785e827b240"
+      },
+      {
+        "kind": "regression_test",
+        "test_ref": "tests/tasks/T06.test.ts#negative_quantity",
+        "added_at": "2026-09-09T13:00:00.000Z"
+      },
+      {
+        "kind": "runbook",
+        "path": "runbook.md",
+        "revision": 2
+      }
+    ],
+    "history": [
+      {
+        "at": "2026-09-09T13:00:02.000Z",
+        "event": "opened",
+        "detail": "Reported: the total for two rice is wrong."
+      },
+      {
+        "at": "2026-09-09T13:00:03.000Z",
+        "event": "status:INVESTIGATING",
+        "detail": "reproduced against the running application"
+      },
+      {
+        "at": "2026-09-09T13:00:04.000Z",
+        "event": "linked:software_run",
+        "detail": "the client request that opened the case"
+      },
+      {
+        "at": "2026-09-09T13:00:08.000Z",
+        "event": "linked:document_job",
+        "detail": "the documentation question raised in the same report"
+      },
+      {
+        "at": "2026-09-09T13:00:10.000Z",
+        "event": "duplicate_report",
+        "detail": "request_t32_duplicate: reported a second time by the same client"
+      },
+      {
+        "at": "2026-09-09T13:00:11.000Z",
+        "event": "linked:regression_test",
+        "detail": "a regression that fails without the fix"
+      },
+      {
+        "at": "2026-09-09T13:00:12.000Z",
+        "event": "linked:runbook",
+        "detail": "runbook updated from what was observed"
+      },
+      {
+        "at": "2026-09-09T13:00:13.000Z",
+        "event": "status:RESOLVED",
+        "detail": "verified by status:422"
+      }
+    ]
+  },
+  "opened_without_request": {
+    "ok": false,
+    "code": "CASE_NEEDS_A_REAL_CLIENT_REQUEST",
+    "message": "CASE_NEEDS_A_REAL_CLIENT_REQUEST: request_that_never_arrived"
+  },
+  "reproduction": {
+    "attempted": true,
+    "reproduced": true,
+    "observed": "POST /api/orders with quantity -1 returned 201",
+    "expected": "POST /api/orders with quantity -1 returns 422",
+    "evidence_ref": "qa/product/T32/support-case.json#reproduction"
+  },
+  "probe_status": 201,
+  "probe_body": {
+    "order": {
+      "order_id": "order_mtruv310_cl1dpn",
+      "customer_name": "Ana Dela Cruz",
+      "customer_mobile": "+639000000001",
+      "total_centavos": -5500,
+      "items": [
+        {
+          "product_id": "rice",
+          "quantity": -1,
+          "unit_price_centavos": 5500
+        }
+      ],
+      "created_at": "2026-09-07T23:12:03.348Z"
+    },
+    "replayed": false
+  },
+  "after_fix_status": 422,
+  "duplicate": {
+    "duplicate_of": "case_6a61ff99-3311-49d1-be26-c38b5d663ac8",
+    "history_length": 5,
+    "timeline_before": 4,
+    "case_rows": 1
+  },
+  "resolution": {
+    "premature": {
+      "resolved": false,
+      "reasons": [
+        "NO_VERIFICATION_EVIDENCE",
+        "NO_REGRESSION_TEST",
+        "DOCUMENTATION_NOT_UPDATED"
+      ]
+    },
+    "resolved": {
+      "resolved": true,
+      "case_id": "case_6a61ff99-3311-49d1-be26-c38b5d663ac8",
+      "evidence_ref": "status:422"
+    },
+    "not_reproduced": {
+      "resolved": false,
+      "reasons": [
+        "NOT_REPRODUCED"
+      ]
+    }
+  },
+  "timeline": [
+    {
+      "at": "2026-09-09T13:00:02.000Z",
+      "event": "opened",
+      "detail": "Reported: the total for two rice is wrong."
+    },
+    {
+      "at": "2026-09-09T13:00:03.000Z",
+      "event": "status:INVESTIGATING",
+      "detail": "reproduced against the running application"
+    },
+    {
+      "at": "2026-09-09T13:00:04.000Z",
+      "event": "linked:software_run",
+      "detail": "the client request that opened the case"
+    },
+    {
+      "at": "2026-09-09T13:00:08.000Z",
+      "event": "linked:document_job",
+      "detail": "the documentation question raised in the same report"
+    },
+    {
+      "at": "2026-09-09T13:00:10.000Z",
+      "event": "duplicate_report",
+      "detail": "request_t32_duplicate: reported a second time by the same client"
+    },
+    {
+      "at": "2026-09-09T13:00:11.000Z",
+      "event": "linked:regression_test",
+      "detail": "a regression that fails without the fix"
+    },
+    {
+      "at": "2026-09-09T13:00:12.000Z",
+      "event": "linked:runbook",
+      "detail": "runbook updated from what was observed"
+    },
+    {
+      "at": "2026-09-09T13:00:13.000Z",
+      "event": "status:RESOLVED",
+      "detail": "verified by status:422"
+    }
+  ],
+  "timeline_before_stop": 8,
+  "runbook": "# Failed calculation\n\nRevision 2. Check the quantity lower bound in the order API.\n"
+}

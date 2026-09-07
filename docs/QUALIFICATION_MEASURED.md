@@ -13,6 +13,8 @@ this page was not measured.
 | Chromium (Playwright) | 153 |
 | claude | 2.1.263 |
 | codex | 0.153.4 |
+| pdftotext (poppler) | 26.03.0 |
+| Ghostscript | 10.05.1 |
 
 ## Task families observed
 
@@ -25,6 +27,13 @@ this page was not measured.
 | Model and retrieval evaluation | AT-016, AT-021 |
 | Polyglot components | AT-003, AT-012 |
 | Ordinary-language and mixed-language briefs | AT-013, AT-023 |
+| PDF, DOCX, XLSX, PPTX, CSV/TSV, PNG and text ingestion | AT-025, AT-033 |
+| Document inventory, extraction and citation resolution | AT-026, AT-033 |
+| Cross-document conflict reporting and source invalidation | AT-027 |
+| Spreadsheet recalculation in integer minor units | AT-028, AT-033 |
+| Document editing, export, reopening and render inspection | AT-029, AT-033 |
+| Document jobs, quiet client experience and the shared budget | AT-030 |
+| Company responsibilities, support cases and closure | AT-031, AT-032, AT-033 |
 
 150 unseen holdout trials across four toolchains, 150 verified, 0 false-ready, 0 high-severity
 escaped defects. 180 pilot trials with overlapping confidence intervals between arms, so no arm
@@ -40,6 +49,12 @@ is reported as better than another.
   a mock destination.
 - Real-user research and WCAG conformance: not observed. Automated accessibility checks cover a
   rule subset only.
+- OCR: not observed. No OCR engine is installed, so text inside an image and the text on a
+  scanned page are reported as unestablished rather than read.
+- An office suite: not observed. LibreOffice is not installed, so layout fidelity beyond the
+  structural and render checks described above is not qualified.
+- Legacy DOC, XLS and PPT, password-protected files and macro-enabled documents: refused, not
+  supported.
 
 ## Residual limitations
 

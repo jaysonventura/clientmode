@@ -1,0 +1,183 @@
+{
+  "plans": [
+    {
+      "label": "button_wording",
+      "risk": {
+        "tier": "low",
+        "reasons": [
+          "SINGLE_SURFACE_REVERSIBLE_CHANGE"
+        ]
+      },
+      "plan": {
+        "tier": "low",
+        "reasons": [
+          "SINGLE_SURFACE_REVERSIBLE_CHANGE"
+        ],
+        "engaged": [
+          "engineering",
+          "quality"
+        ],
+        "scoped_out": [
+          {
+            "responsibility": "architecture",
+            "rationale": "architecture is not engaged for low-risk work touching copy"
+          },
+          {
+            "responsibility": "product",
+            "rationale": "product is not engaged for low-risk work touching copy"
+          },
+          {
+            "responsibility": "delivery",
+            "rationale": "delivery is not engaged for low-risk work touching copy"
+          },
+          {
+            "responsibility": "design",
+            "rationale": "design is not engaged for low-risk work touching copy"
+          },
+          {
+            "responsibility": "security",
+            "rationale": "security is not engaged for low-risk work touching copy"
+          },
+          {
+            "responsibility": "reliability",
+            "rationale": "reliability is not engaged for low-risk work touching copy"
+          },
+          {
+            "responsibility": "documentation",
+            "rationale": "documentation is not engaged for low-risk work touching copy"
+          }
+        ],
+        "implied_workers": 1
+      }
+    },
+    {
+      "label": "booking_feature",
+      "risk": {
+        "tier": "moderate",
+        "reasons": [
+          "MULTIPLE_STACKS_OR_DATA_SURFACE"
+        ]
+      },
+      "plan": {
+        "tier": "moderate",
+        "reasons": [
+          "MULTIPLE_STACKS_OR_DATA_SURFACE"
+        ],
+        "engaged": [
+          "engineering",
+          "quality",
+          "design",
+          "documentation"
+        ],
+        "scoped_out": [
+          {
+            "responsibility": "architecture",
+            "rationale": "architecture is not engaged for moderate-risk work touching ui, data, integration, documents"
+          },
+          {
+            "responsibility": "product",
+            "rationale": "product is not engaged for moderate-risk work touching ui, data, integration, documents"
+          },
+          {
+            "responsibility": "delivery",
+            "rationale": "delivery is not engaged for moderate-risk work touching ui, data, integration, documents"
+          },
+          {
+            "responsibility": "security",
+            "rationale": "security is not engaged for moderate-risk work touching ui, data, integration, documents"
+          },
+          {
+            "responsibility": "reliability",
+            "rationale": "reliability is not engaged for moderate-risk work touching ui, data, integration, documents"
+          }
+        ],
+        "implied_workers": 2
+      }
+    },
+    {
+      "label": "payment_auth",
+      "risk": {
+        "tier": "high",
+        "reasons": [
+          "HIGH_RISK_SURFACE",
+          "AFFECTS_MONEY",
+          "AFFECTS_ACCESS",
+          "NOT_REVERSIBLE"
+        ]
+      },
+      "plan": {
+        "tier": "high",
+        "reasons": [
+          "HIGH_RISK_SURFACE",
+          "AFFECTS_MONEY",
+          "AFFECTS_ACCESS",
+          "NOT_REVERSIBLE"
+        ],
+        "engaged": [
+          "architecture",
+          "engineering",
+          "quality",
+          "security",
+          "reliability",
+          "product",
+          "documentation"
+        ],
+        "scoped_out": [
+          {
+            "responsibility": "delivery",
+            "rationale": "delivery is not engaged for high-risk work touching payments, auth"
+          },
+          {
+            "responsibility": "design",
+            "rationale": "design is not engaged for high-risk work touching payments, auth"
+          }
+        ],
+        "implied_workers": 2
+      }
+    }
+  ],
+  "assignments": [
+    {
+      "label": "button_wording",
+      "count": 2,
+      "review_required": []
+    },
+    {
+      "label": "booking_feature",
+      "count": 4,
+      "review_required": [
+        "quality"
+      ]
+    },
+    {
+      "label": "payment_auth",
+      "count": 7,
+      "review_required": [
+        "architecture",
+        "quality",
+        "security",
+        "reliability"
+      ]
+    }
+  ],
+  "coverage": {
+    "covered": true,
+    "uncovered": [],
+    "fan_out": {
+      "maximum_children_per_lead": 2,
+      "maximum_depth": 1,
+      "within_limits": true
+    },
+    "risk_relevant": [
+      "quality"
+    ]
+  },
+  "dispatch_limits": {
+    "maximum_children_per_lead": 2,
+    "maximum_depth": 1,
+    "active_writers_per_project": 1,
+    "maximum_repair_cycles": 3,
+    "task_ceiling_seconds": 1800,
+    "check_timeout_seconds": 300
+  }
+}

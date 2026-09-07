@@ -1,0 +1,115 @@
+{
+  "brief": {
+    "request_id": "request_t31_booking",
+    "summary": "Booking rules taken from the supplied terms.",
+    "claims": [
+      {
+        "claim_id": "c1",
+        "classification": "observed",
+        "statement": "The supplied terms allow cancellation within 24 hours.",
+        "provenance": [
+          {
+            "kind": "document_citation",
+            "version_id": "ver_382e8ec4-5fa8-49ae-b9f3-5cc312f13fb8",
+            "content_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
+            "locator_summary": "page 2"
+          }
+        ]
+      },
+      {
+        "claim_id": "c2",
+        "classification": "assumption",
+        "statement": "Bookings are made in Philippine pesos unless the client says otherwise.",
+        "provenance": []
+      },
+      {
+        "claim_id": "c3",
+        "classification": "proposal",
+        "statement": "Consider showing the cancellation window on the confirmation screen.",
+        "provenance": []
+      }
+    ],
+    "assumptions": [
+      "Bookings are made in Philippine pesos unless the client says otherwise."
+    ],
+    "client_decisions": [
+      "Which cancellation window should apply, 24 or 48 hours?"
+    ]
+  },
+  "refusals": {
+    "invented_research": {
+      "ok": false,
+      "code": "USER_RESEARCH_CLAIM_WITHOUT_A_STUDY",
+      "message": "USER_RESEARCH_CLAIM_WITHOUT_A_STUDY: c4"
+    },
+    "dressed_up_research": {
+      "ok": false,
+      "code": "USER_RESEARCH_CLAIM_WITHOUT_A_STUDY",
+      "message": "USER_RESEARCH_CLAIM_WITHOUT_A_STUDY: c5"
+    },
+    "unsourced_fact": {
+      "ok": false,
+      "code": "OBSERVED_CLAIM_WITHOUT_PROVENANCE",
+      "message": "OBSERVED_CLAIM_WITHOUT_PROVENANCE: c6"
+    }
+  },
+  "client_decisions": {
+    "acceptable": [
+      "Which cancellation window should apply, 24 or 48 hours?",
+      "Should a refund need a supervisor?",
+      "Which of these two previews do you prefer?"
+    ],
+    "homework": [
+      "Please write a markdown file describing the agents you want us to use",
+      "Approve the implementation plan before we start",
+      "Pick a library or framework for the booking service"
+    ]
+  },
+  "authority": {
+    "downgrade": {
+      "allowed": false,
+      "reason": "RISK_TIER_IS_SET_BY_THE_WORK_NOT_BY_A_WRITER"
+    },
+    "role_escalation": {
+      "allowed": false,
+      "reason": "ROLE_IS_NOT_AUTHORITY"
+    },
+    "invented_signoff": {
+      "allowed": false,
+      "reason": "BUSINESS_SIGNOFF_IS_CLIENT_AUTHORED_ONLY"
+    },
+    "client_signoff": {
+      "allowed": true,
+      "reason": "AUTHENTICATED_CLIENT"
+    },
+    "worker_decision": {
+      "ok": false,
+      "code": "ACTOR_CANNOT_APPROVE",
+      "message": "worker cannot decide an approval request"
+    },
+    "purchase": {
+      "allowed": false,
+      "reason": "PURCHASE_REQUIRES_AN_APPROVED_BUDGET"
+    },
+    "legal": {
+      "allowed": false,
+      "reason": "LEGAL_SIGNOFF_IS_NOT_AN_ENGINEERING_ACTION"
+    },
+    "approved_purchase": {
+      "allowed": true,
+      "reason": "APPROVAL_GRANTED_BY:release_owner"
+    },
+    "api_spend": {
+      "authorized": false,
+      "reason": "NO_MATCHING_SCOPED_APPROVAL"
+    }
+  },
+  "audit": [
+    {
+      "actor_id": "controller",
+      "operation": "authorize.api_spend",
+      "target_ref": "api_spend:default",
+      "decision": "deny"
+    }
+  ]
+}

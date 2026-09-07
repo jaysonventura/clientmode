@@ -1,0 +1,225 @@
+{
+  "cross_stack": {
+    "document_only": {
+      "qualified": false,
+      "executed_stacks": [
+        "typescript"
+      ],
+      "reasons": [
+        "JAVASCRIPT_ONLY_RESULT_SET",
+        "FEWER_THAN_TWO_NON_JAVASCRIPT_STACKS"
+      ]
+    },
+    "cross_stack": {
+      "qualified": true,
+      "executed_stacks": [
+        "typescript",
+        "python",
+        "swift",
+        "rust"
+      ],
+      "reasons": []
+    },
+    "holdout_stacks": {
+      "typescript": {
+        "trials": 51,
+        "executed": 51,
+        "accepted": 51,
+        "toolchain": "node"
+      },
+      "python": {
+        "trials": 72,
+        "executed": 72,
+        "accepted": 72,
+        "toolchain": "python3"
+      },
+      "swift": {
+        "trials": 15,
+        "executed": 15,
+        "accepted": 15,
+        "toolchain": "swiftc"
+      },
+      "rust": {
+        "trials": 12,
+        "executed": 12,
+        "accepted": 12,
+        "toolchain": "rustc"
+      }
+    }
+  },
+  "comparison": {
+    "arm": {
+      "arm": "clientmode_bounded_agents",
+      "trials": 3,
+      "accepted": 1,
+      "rejected": 1,
+      "failed": 0,
+      "blocked": 1,
+      "false_ready": 1,
+      "accepted_rate": 0.3333333333333333,
+      "accepted_rate_interval": {
+        "low": 0.061490315276160515,
+        "high": 0.7923450448735121
+      },
+      "median_client_questions": 0,
+      "median_wall_ms": 10,
+      "cost": {
+        "known_microusd": 12000,
+        "unknown_events": 2,
+        "reserved_for_unknown_microusd": 100000,
+        "total_including_unknown_microusd": 112000,
+        "duplicate_events_flagged": [
+          "u1"
+        ],
+        "coverage": "partial"
+      }
+    },
+    "cost": {
+      "known_microusd": 12000,
+      "unknown_events": 2,
+      "reserved_for_unknown_microusd": 100000,
+      "total_including_unknown_microusd": 112000,
+      "duplicate_events_flagged": [
+        "u1"
+      ],
+      "coverage": "partial"
+    },
+    "usage": {
+      "accounted": 1,
+      "flagged": [
+        {
+          "event_id": "u2",
+          "reason": "UNKNOWN_COST"
+        },
+        {
+          "event_id": "u3",
+          "reason": "UNKNOWN_COST"
+        },
+        {
+          "event_id": "u1",
+          "reason": "DUPLICATE_USAGE_EVENT"
+        }
+      ]
+    },
+    "interval": {
+      "low": 0.061490315276160515,
+      "high": 0.7923450448735121
+    },
+    "document_usage_rows": [
+      {
+        "attempt_id": "datt_c8bbc945-1132-4469-a3e4-a253ac0185c3",
+        "measured_cost_microusd": 12000,
+        "usage_complete": 1
+      },
+      {
+        "attempt_id": "datt_56e4d537-12ff-4dc3-ba6f-2d51e0e9151d",
+        "measured_cost_microusd": null,
+        "usage_complete": 0
+      }
+    ]
+  },
+  "upgrade": {
+    "upgraded": {
+      "upgraded": true,
+      "from": "1.3.0",
+      "to": "1.3.1",
+      "snapshot": {
+        "taken_at": "2026-09-09T14:00:00.000Z",
+        "state_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t33-sSbOFY/backups/state-1.3.0.sqlite",
+        "config_backup": null,
+        "from_version": "1.3.0"
+      },
+      "applied_migrations": [
+        5
+      ]
+    },
+    "activated": "1.3.1",
+    "before": {
+      "versions": 7,
+      "jobs": 1,
+      "results": 1,
+      "usage": 2
+    },
+    "after_upgrade": {
+      "versions": 7,
+      "jobs": 1,
+      "results": 1,
+      "usage": 2,
+      "job_state": "READY",
+      "new_column": true
+    },
+    "after_restore": {
+      "versions": 7,
+      "jobs": 1,
+      "results": 1,
+      "usage": 2,
+      "job_state": "READY",
+      "new_column": false
+    },
+    "rollback": {
+      "rollback_safe": true,
+      "restores_from": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t33-sSbOFY/backups/state-1.3.0.sqlite"
+    }
+  },
+  "acceptance": {
+    "technically_ready": true,
+    "client_feedback": {
+      "recorded": true,
+      "feedback_id": "feedback_c0365110-39ad-4f2d-b756-6c66ae3e8fb7",
+      "satisfaction": "needs_changes"
+    },
+    "agent_satisfaction": {
+      "recorded": false,
+      "reason": "SATISFACTION_IS_CLIENT_AUTHORED_ONLY"
+    },
+    "job_state": "READY"
+  },
+  "release": {
+    "attestation": {
+      "kind": "release_attestation",
+      "schema_version": 1,
+      "project_id": "project_t33",
+      "candidate_id": "candidate_t33",
+      "source_digest": "sha256:88884ef2c2fbfa0218de291491062022de290e5f960af0e2d7faccdb08cad773",
+      "artifact_digest": "sha256:88884ef2c2fbfa0218de291491062022de290e5f960af0e2d7faccdb08cad773",
+      "policy_digest": "sha256:5ecafa3bdbf177625be6759232956c985f6cc22f65f7bbdab586355dbcb7a398",
+      "environment_digest": "sha256:92bb7552797462dba5170337f44bd71e208c45e42f5519b985c8d6134ab99179",
+      "requirements_revision": 1,
+      "evidence_id": "devidence_0d791189-935f-4bbb-bd21-23303e7d3108",
+      "composite_manifest_digest": null,
+      "issued_at": "2026-09-09T14:00:00.000Z",
+      "issuer_id": "document_verifier_t33",
+      "attestation_id": "att_d7ec38baecc878ac6de52b3b1eb192bc"
+    },
+    "unapproved": {
+      "authorized": false,
+      "reason": "NO_MATCHING_SCOPED_APPROVAL"
+    },
+    "approved": {
+      "authorized": true,
+      "reason": "SCOPED_APPROVAL_PRESENT",
+      "approval_id": "grant_b76a6ae6-7395-43b1-a8d5-770f45a3ed2f",
+      "maximum_spend_microusd": null
+    },
+    "wrong_artifact": {
+      "authorized": false,
+      "reason": "NO_MATCHING_SCOPED_APPROVAL"
+    },
+    "download": {
+      "allowed": true,
+      "filename": "summary.pdf",
+      "headers": {
+        "content-type": "application/pdf",
+        "content-length": "1105",
+        "content-disposition": "attachment; filename=\"summary.pdf\"",
+        "x-content-digest": "sha256:88884ef2c2fbfa0218de291491062022de290e5f960af0e2d7faccdb08cad773",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    "tampered_download": {
+      "allowed": false,
+      "reason": "DIGEST_MISMATCH"
+    }
+  },
+  "scope": "Base and document qualification on this machine. No production deployment, no paid service, and no metered evaluation budget; the provider comparison arms remain simulated and are named as such in AT-022."
+}

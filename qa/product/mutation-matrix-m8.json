@@ -1,0 +1,260 @@
+{
+  "P1": {
+    "name": "every responsibility engaged on low-risk work",
+    "file": "packages/core/src/company.ts",
+    "tests": [
+      "T31"
+    ],
+    "red_gates": [
+      "AT-031"
+    ],
+    "observations": [
+      "small_task_does_not_spawn_company_swarm"
+    ]
+  },
+  "P2": {
+    "name": "risk assessment ignores money and access",
+    "file": "packages/core/src/company.ts",
+    "tests": [
+      "T31"
+    ],
+    "red_gates": [],
+    "observations": []
+  },
+  "P3": {
+    "name": "research language no longer needs a study",
+    "file": "packages/core/src/company.ts",
+    "tests": [
+      "T31"
+    ],
+    "red_gates": [
+      "AT-031"
+    ],
+    "observations": [
+      "research_claims_have_actual_provenance"
+    ]
+  },
+  "P4": {
+    "name": "management homework is handed to the client",
+    "file": "packages/core/src/company.ts",
+    "tests": [
+      "T31"
+    ],
+    "red_gates": [
+      "AT-031"
+    ],
+    "observations": [
+      "client_not_given_management_homework"
+    ]
+  },
+  "P5": {
+    "name": "anyone may sign off a business decision",
+    "file": "packages/core/src/company.ts",
+    "tests": [
+      "T31"
+    ],
+    "red_gates": [
+      "AT-031"
+    ],
+    "observations": [
+      "role_titles_do_not_grant_authority"
+    ]
+  },
+  "P6": {
+    "name": "a purchase needs no approval",
+    "tests": [
+      "T31"
+    ],
+    "red_gates": [
+      "AT-031"
+    ],
+    "detail": "error: \"Cannot read properties of undefined (reading 'granted_by')\""
+  },
+  "P7": {
+    "name": "a case may be opened without a client request",
+    "file": "packages/core/src/service-cases.ts",
+    "tests": [
+      "T32"
+    ],
+    "red_gates": [],
+    "observations": []
+  },
+  "P8": {
+    "name": "a case resolves without verification evidence",
+    "file": "packages/core/src/service-cases.ts",
+    "tests": [
+      "T32"
+    ],
+    "red_gates": [
+      "AT-032"
+    ],
+    "observations": [
+      "resolution_requires_actual_evidence"
+    ]
+  },
+  "P9": {
+    "name": "coverage claims are no longer reviewed",
+    "tests": [
+      "T32"
+    ],
+    "red_gates": [
+      "AT-032"
+    ],
+    "detail": "no_fake_24x7_or_sla_claim"
+  },
+  "P10": {
+    "name": "outbound actions need no authorization",
+    "file": "packages/core/src/service-cases.ts",
+    "tests": [
+      "T32"
+    ],
+    "red_gates": [
+      "AT-032"
+    ],
+    "observations": [
+      "outbound_actions_require_authorization"
+    ]
+  },
+  "P11": {
+    "name": "an agent may record client satisfaction",
+    "file": "packages/core/src/service-cases.ts",
+    "tests": [
+      "T32"
+    ],
+    "red_gates": [
+      "AT-032"
+    ],
+    "observations": [
+      "client_satisfaction_not_written_by_agent"
+    ]
+  },
+  "P12": {
+    "name": "a duplicate report replaces the history instead of joining it",
+    "file": "packages/core/src/service-cases.ts",
+    "tests": [
+      "T32"
+    ],
+    "red_gates": [
+      "AT-032"
+    ],
+    "observations": [
+      "duplicate_reports_preserve_history"
+    ]
+  },
+  "P13": {
+    "name": "a missing required check no longer refuses the document verdict",
+    "tests": [
+      "T33"
+    ],
+    "red_gates": [
+      "AT-033"
+    ],
+    "detail": "partial_or_forged_results_never_full_ready"
+  },
+  "P14": {
+    "name": "a cached spreadsheet value is reported as matching",
+    "tests": [
+      "T33"
+    ],
+    "red_gates": [
+      "AT-033"
+    ],
+    "detail": "known_numeric_and_citation_defects_caught"
+  },
+  "P15": {
+    "name": "restore does not restore the state",
+    "tests": [
+      "T33"
+    ],
+    "red_gates": [
+      "AT-033"
+    ],
+    "detail": "new_document_state_survives_upgrade_restore"
+  },
+  "P16": {
+    "name": "a document-only result set counts as broad-remit",
+    "tests": [
+      "T33"
+    ],
+    "red_gates": [
+      "AT-033"
+    ],
+    "detail": "cross_stack_qualification_not_replaced_by_docs"
+  },
+  "P17": {
+    "name": "blocked trials dropped from the comparison",
+    "tests": [
+      "T33"
+    ],
+    "red_gates": [
+      "AT-033"
+    ],
+    "detail": "comparison_counts_all_attempts_and_costs"
+  },
+  "P18": {
+    "name": "release authorization ignores which artifact was approved",
+    "tests": [
+      "T33"
+    ],
+    "red_gates": [
+      "AT-033"
+    ],
+    "detail": "only_verified_authorized_artifacts_released"
+  },
+  "P19": {
+    "name": "a blank rendered page passes the export check",
+    "tests": [
+      "T33"
+    ],
+    "red_gates": [],
+    "detail": ""
+  },
+  "P2b": {
+    "name": "risk assessment ignores money, access and the high-risk surfaces",
+    "tests": [
+      "T31"
+    ],
+    "red_gates": [],
+    "detail": ""
+  },
+  "P2c": {
+    "name": "all three risk inputs removed",
+    "tests": [
+      "T31"
+    ],
+    "red_gates": [
+      "AT-031"
+    ],
+    "detail": "high_risk_gates_cannot_be_lowered_by_writer"
+  },
+  "P6b": {
+    "name": "a purchase is allowed with no approval",
+    "tests": [
+      "T31"
+    ],
+    "red_gates": [
+      "AT-031"
+    ],
+    "detail": "unapproved_purchase_or_legal_signoff_rejected"
+  },
+  "P20": {
+    "name": "an exported report collapses its sections onto one page",
+    "tests": [
+      "T33"
+    ],
+    "red_gates": [
+      "AT-033"
+    ],
+    "detail": "real_document_formats_and_exports_qualified"
+  },
+  "P11b": {
+    "name": "an agent may record client satisfaction",
+    "tests": [
+      "T33"
+    ],
+    "red_gates": [
+      "AT-033"
+    ],
+    "detail": "client_acceptance_distinct_from_technical_ready"
+  }
+}

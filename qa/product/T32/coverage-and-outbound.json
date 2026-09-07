@@ -1,0 +1,102 @@
+{
+  "coverage": {
+    "configured": {
+      "mode": "on_demand",
+      "monitoring_configured": false,
+      "controller_running": true,
+      "statement": "Nothing is being watched for you. Tell us when something is wrong and we will look at it.",
+      "response_target": null
+    },
+    "stopped": {
+      "mode": "on_demand",
+      "monitoring_configured": true,
+      "controller_running": false,
+      "statement": "Monitoring is configured but the controller is not running, so nothing is being observed right now.",
+      "response_target": null
+    }
+  },
+  "claims": {
+    "honest": {
+      "publishable": true,
+      "reasons": []
+    },
+    "overpromise": {
+      "publishable": false,
+      "reasons": [
+        "COVERAGE_CLAIM_NOT_CONFIGURED",
+        "MONITORING_CLAIMED_BUT_NOT_CONFIGURED"
+      ]
+    },
+    "while_stopped": {
+      "publishable": false,
+      "reasons": [
+        "OBSERVATION_CLAIMED_WHILE_STOPPED"
+      ]
+    }
+  },
+  "outbound": {
+    "email": {
+      "allowed": false,
+      "reason": "OUTBOUND_EMAIL_NOT_AUTHORIZED"
+    },
+    "webhook": {
+      "allowed": false,
+      "reason": "OUTBOUND_WEBHOOK_NOT_AUTHORIZED"
+    },
+    "approved_email": {
+      "allowed": true,
+      "reason": "GRANTED_BY:release_owner"
+    }
+  },
+  "satisfaction": {
+    "agent": {
+      "recorded": false,
+      "reason": "SATISFACTION_IS_CLIENT_AUTHORED_ONLY"
+    },
+    "client": {
+      "recorded": true,
+      "reason": "RECORDED_FOR:owner_1"
+    },
+    "worker_feedback": {
+      "recorded": false,
+      "reason": "SATISFACTION_IS_CLIENT_AUTHORED_ONLY"
+    }
+  },
+  "documentation": {
+    "documented": {
+      "snippet_id": "docs",
+      "request": "/price?product=rice&qty=2",
+      "target_version": "2.4.0",
+      "status": 400,
+      "body": {
+        "error": "MISSING_PARAMETER",
+        "expected": "quantity"
+      },
+      "executed": true,
+      "matches_documentation": false,
+      "detail": "observed 400 {\"error\":\"MISSING_PARAMETER\",\"expected\":\"quantity\"}"
+    },
+    "corrected": [
+      {
+        "snippet_id": "docs",
+        "documented": "qty",
+        "observed": "quantity",
+        "correction": "the implementation reads quantity"
+      }
+    ],
+    "verified": {
+      "snippet_id": "docs-fixed",
+      "request": "/price?product=rice&quantity=2",
+      "target_version": "2.4.0",
+      "status": 200,
+      "body": {
+        "product": "rice",
+        "quantity": 2,
+        "total_centavos": 9000
+      },
+      "executed": true,
+      "matches_documentation": true,
+      "detail": "the documented example behaves as documented"
+    }
+  }
+}

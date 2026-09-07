@@ -406,7 +406,7 @@ export interface ScenarioObservation {
   scenario_id: string;
   observed: Record<string, Json>;
   artifact_paths: string[];
-  mode: 'unit' | 'integration' | 'live_provider' | 'benchmark' | 'manual_review';
+  mode: 'unit' | 'integration' | 'live_provider' | 'benchmark' | 'manual_review' | 'qualification';
 }
 export type ScenarioExecutor = () => Promise<ScenarioObservation>;
 

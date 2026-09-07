@@ -1,0 +1,266 @@
+[
+  {
+    "task": "T01",
+    "gate": "AT-001",
+    "has_evidence": true,
+    "artifacts": 4,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T02",
+    "gate": "AT-002",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T03",
+    "gate": "AT-003",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T04",
+    "gate": "AT-004",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T05",
+    "gate": "AT-005",
+    "has_evidence": true,
+    "artifacts": 4,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T06",
+    "gate": "AT-006",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T07",
+    "gate": "AT-007",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T08",
+    "gate": "AT-008",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T09",
+    "gate": "AT-009",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T10",
+    "gate": "AT-010",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T11",
+    "gate": "AT-011",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T12",
+    "gate": "AT-012",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T13",
+    "gate": "AT-013",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T14",
+    "gate": "AT-014",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T15",
+    "gate": "AT-015",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T16",
+    "gate": "AT-016",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T17",
+    "gate": "AT-017",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T18",
+    "gate": "AT-018",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T19",
+    "gate": "AT-019",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T20",
+    "gate": "AT-020",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T21",
+    "gate": "AT-021",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T22",
+    "gate": "AT-022",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T23",
+    "gate": "AT-023",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T24",
+    "gate": "AT-024",
+    "has_evidence": true,
+    "artifacts": 4,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T25",
+    "gate": "AT-025",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T26",
+    "gate": "AT-026",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T27",
+    "gate": "AT-027",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T28",
+    "gate": "AT-028",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T29",
+    "gate": "AT-029",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T30",
+    "gate": "AT-030",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T31",
+    "gate": "AT-031",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T32",
+    "gate": "AT-032",
+    "has_evidence": true,
+    "artifacts": 2,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  },
+  {
+    "task": "T33",
+    "gate": "AT-033",
+    "has_evidence": true,
+    "artifacts": 3,
+    "red_evidence": true,
+    "status": "EVIDENCED"
+  }
+]

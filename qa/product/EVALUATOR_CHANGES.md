@@ -31,3 +31,16 @@ broader — it still covers `contracts/interfaces.ts` and adds every `packages/`
 `SHA256SUMS` is left at its as-received values so the handoff attestation stays verifiable.
 `shasum -a 256 -c SHA256SUMS` therefore reports the two scripts above plus the regenerated
 `qa/current/*` run logs as changed. No other file in the attestation differs.
+
+## 3. `ScenarioObservation.mode` widened to include `qualification`
+
+**File:** `contracts/interfaces.ts`
+**Change:** `mode` gains `'qualification'` alongside the five existing values.
+
+**Why:** the two normative artifacts disagreed. `contracts/acceptance-scenarios.json` declares
+AT-033 with `"mode": "qualification"`, and the TypeScript interface's union did not contain that
+value, so an executor that reports the mode the scenario data specifies could not typecheck.
+
+This widens a union to admit a value the normative scenario data already uses. It removes no
+assertion and weakens no requirement, but it is a change to a handoff-supplied contract file and
+needs a reviewer's sign-off like the other two.

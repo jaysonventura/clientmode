@@ -1,0 +1,266 @@
+/** AT-018 executor.
+ *
+ * A thousand real rows in a real database, a migration that fails part-way, a configuration
+ * edited while the upgrade is running, and a process tree that outlives its parent. The
+ * timings are measured, not estimated, and the reference machine is recorded with them.
+ */
+import { spawn } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import os, { tmpdir } from 'node:os';
+import path from 'node:path';
+import type { ClientRequest, Json, ScenarioObservation } from '../../contracts/interfaces.js';
+import { ControllerDatabase } from '../../packages/state/src/database.js';
+import { LifecycleService } from '../../packages/core/src/lifecycle.js';
+import { reconcile } from '../../packages/state/src/recovery.js';
+import { assessRollback, mergeConfiguration, restore, upgrade, type Migration } from '../../packages/packaging/src/upgrade.js';
+import { uninstallToolkit } from '../../packages/packaging/src/uninstall.js';
+import { install } from '../../apps/cli/src/install.js';
+import { COMMANDS, EXIT_CODES, commandNames, describe } from '../../apps/cli/src/main.js';
+import { cancelRun, createRun, readAuthorizedRequestFile } from '../../apps/cli/src/run.js';
+import { validate, rejectsCallerCommand } from '../../apps/cli/src/verify.js';
+import { Evidence, ROOT, attempt, fixedClock } from '../harness/evidence.js';
+import { registerScenario } from '../harness/registry.js';
+
+const PROJECT = 'project_t18';
+const NOW = '2026-09-08T20:00:00.000Z';
+const TASK_COUNT = 1000;
+
+/** The commands docs/OPERATIONS.md names. The CLI surface must cover all of them. */
+const CONTRACT_COMMANDS = ['doctor', 'install', 'uninstall', 'upgrade', 'open', 'run', 'pause', 'resume', 'cancel', 'status', 'verify', 'export-evidence', 'rollback'];
+
+registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
+  const writer = await Evidence.open('T18');
+  const clock = fixedClock(NOW);
+  const sandbox = mkdtempSync(path.join(tmpdir(), 'cm-t18-'));
+  const stateDir = path.join(sandbox, 'state');
+  const log: Record<string, unknown> = {};
+  let db = ControllerDatabase.open(stateDir);
+
+  try {
+    const service = new LifecycleService(db, { clock });
+    service.registerProject({ project_id: PROJECT, registered_root_ref: `file://${sandbox}/work`, profile_id: 'discover', data_class: 'internal' });
+
+    // 1. The command surface matches the operations contract, including its exit codes.
+    const missingCommands = CONTRACT_COMMANDS.filter(name => !commandNames().includes(name));
+    log['commands'] = {
+      contract: CONTRACT_COMMANDS, implemented: commandNames(), missing: missingCommands,
+      exit_codes: EXIT_CODES,
+      refusals: COMMANDS.map(command => ({ command: command.name, refuses: command.refuses })),
+      verify_refuses_caller_command: rejectsCallerCommand({ candidate: 'x', argv: ['/bin/sh'] }),
+      verify_accepts_candidate_only: !rejectsCallerCommand({ candidate: 'x', policy_digest: 'y' }),
+    };
+    const commandsMatch = missingCommands.length === 0 &&
+      describe('verify')?.refuses.includes('accepting a caller-supplied command string') === true &&
+      rejectsCallerCommand({ candidate: 'x', argv: ['/bin/sh'] }) &&
+      Object.keys(EXIT_CODES).length === 8;
+
+    // `cm run` reads only from the authorized root.
+    const authorizedRoot = path.join(sandbox, 'work');
+    mkdirSync(authorizedRoot, { recursive: true });
+    writeFileSync(path.join(authorizedRoot, 'brief.txt'), 'Simple ordering site. No account, no online payment.\n');
+    const outsideFile = path.join(sandbox, 'elsewhere.txt');
+    writeFileSync(outsideFile, 'a brief from outside the authorized root\n');
+    const insideRead = readAuthorizedRequestFile({ file: path.join(authorizedRoot, 'brief.txt'), authorized_root: authorizedRoot });
+    const outsideRead = readAuthorizedRequestFile({ file: outsideFile, authorized_root: authorizedRoot });
+    const created = await createRun({
+      service, project_id: PROJECT, request_file: path.join(authorizedRoot, 'brief.txt'),
+      authorized_root: authorizedRoot, idempotency_key: 'cm-run-1', now: NOW,
+    });
+    log['run_command'] = {
+      inside: 'text' in insideRead, outside: outsideRead, exit_code: created.exit_code, run_created: created.run !== undefined,
+    };
+
+    // 2. A thousand durable tasks, then recovery timed on this machine.
+    const run = created.run!;
+    const request: ClientRequest = {
+      kind: 'client_request', schema_version: 1, request_id: 'request_t18_bulk', project_id: PROJECT,
+      message: 'bulk', language_hint: 'en', attachment_ids: [], privacy_class: 'internal', created_at: NOW,
+    };
+    void request;
+    for (let index = 0; index < TASK_COUNT; index += 1) {
+      service.createAttempt({
+        attempt_id: `attempt_${index}`, project_id: PROJECT, run_id: run.run_id, task_id: `task_${index}`,
+        attempt_number: 1, role: 'writer', parent_attempt_id: null, depth: 0, workspace_id: `ws_${index}`,
+        base_source_digest: `sha256:${'a'.repeat(64)}`, allowed_write_paths: [`module_${index}/`],
+        dependency_task_ids: [], deadline: '2026-09-08T19:00:00.000Z', provider_session_id: null,
+      });
+      db.run("UPDATE task_attempts SET status = 'RUNNING' WHERE attempt_id = ?", `attempt_${index}`);
+      db.run('INSERT INTO workspace_leases (lease_id, project_id, attempt_id, workspace_id, owner_id, is_writer, active, epoch, expires_at) VALUES (?,?,?,?,?,0,1,1,?)',
+        `lease_${index}`, PROJECT, `attempt_${index}`, `ws_${index}`, `worker_${index}`, '2026-09-08T19:00:00.000Z');
+    }
+    const storedTasks = Number(db.get('SELECT COUNT(*) AS n FROM task_attempts WHERE run_id = ?', run.run_id)?.['n'] ?? 0);
+
+    // Close and reopen: recovery has to read this from disk, not from memory.
+    db.close();
+    const recoveryStarted = Date.now();
+    db = ControllerDatabase.open(stateDir);
+    const reconciliation = reconcile(db, '2026-09-09T00:00:00.000Z');
+    const recoveryElapsed = Date.now() - recoveryStarted;
+    log['recovery'] = {
+      stored_tasks: storedTasks, elapsed_ms: recoveryElapsed,
+      expired_leases: reconciliation.expired_leases.length,
+      revoked_attempts: reconciliation.revoked_attempts.length,
+      reference_machine: { platform: `${os.platform()}-${os.arch()}`, cpus: os.cpus().length, node: process.versions.node },
+    };
+    const recoveryFast = storedTasks === TASK_COUNT && recoveryElapsed < 30_000 &&
+      reconciliation.revoked_attempts.length === TASK_COUNT;
+
+    // 3. Cancel: the intent is recorded within a second, and the tree is checked separately.
+    const recoveredService = new LifecycleService(db, { clock });
+    const heartbeat = path.join(sandbox, 'heartbeat.txt');
+    // A parent that forks a child which outlives it, in its own process group. The scripts are
+    // files rather than nested `-e` strings, so the quoting cannot quietly break the fixture
+    // and leave the heartbeat evidence empty.
+    const childScript = path.join(sandbox, 'heartbeat-child.mjs');
+    const parentScript = path.join(sandbox, 'heartbeat-parent.mjs');
+    writeFileSync(childScript, `import { appendFileSync } from 'node:fs';\nsetInterval(() => { try { appendFileSync(${JSON.stringify(heartbeat)}, 'x'); } catch {} }, 40);\n`);
+    writeFileSync(parentScript, `import { spawn } from 'node:child_process';\nspawn(process.execPath, [${JSON.stringify(childScript)}], { stdio: 'ignore' });\nsetInterval(() => {}, 1000);\n`);
+    const parent = spawn(process.execPath, [parentScript], { detached: true, stdio: 'ignore' });
+    await new Promise(resolve => setTimeout(resolve, 600));
+    const beforeKill = existsSync(heartbeat) ? readFileSync(heartbeat).byteLength : 0;
+
+    const cancelled = cancelRun({
+      service: recoveredService, run_id: run.run_id,
+      stopTree: () => {
+        const started = Date.now();
+        try { if (parent.pid !== undefined) process.kill(-parent.pid, 'SIGKILL'); } catch { /* already gone */ }
+        // Confirm rather than assume: wait, then look at whether the group still exists.
+        const deadline = Date.now() + 10_000;
+        let alive = true;
+        while (Date.now() < deadline) {
+          try {
+            if (parent.pid === undefined) { alive = false; break; }
+            process.kill(-parent.pid, 0);
+          } catch { alive = false; break; }
+        }
+        return { terminated: !alive, quarantined: alive, elapsed_ms: Date.now() - started };
+      },
+    });
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const afterKill = existsSync(heartbeat) ? readFileSync(heartbeat).byteLength : 0;
+    log['cancel'] = {
+      acknowledged_in_ms: cancelled.acknowledged_in_ms, tree: cancelled.tree,
+      leases_revoked: cancelled.leases_revoked.length,
+      heartbeat_before_kill: beforeKill, heartbeat_after_kill: afterKill,
+      forked_child_was_writing: beforeKill > 0,
+      forked_child_stopped: beforeKill > 0 && afterKill - beforeKill <= 1,
+    };
+    const cancelFast = cancelled.acknowledged_in_ms < 1000;
+    const treeStopped = cancelled.tree !== null &&
+      (cancelled.tree.terminated || cancelled.tree.quarantined) &&
+      cancelled.tree.checked_after_ms <= 10_000 &&
+      // The grandchild has to have been writing, or "it stopped" says nothing.
+      beforeKill > 0 && afterKill - beforeKill <= 1;
+
+    // 4. An upgrade whose migration fails leaves the previous state intact.
+    const statePath = path.join(stateDir, 'state.sqlite');
+    const configPath = path.join(sandbox, 'config.json');
+    writeFileSync(configPath, JSON.stringify({ theme: 'dark', clientMode: { version: '0.1.0' } }, null, 2) + '\n');
+    // Measured after closing: a WAL checkpoint on close rewrites the main file, so a size or
+    // digest taken while the database is open describes a different file.
+    db.close();
+    const stateBefore = createHash('sha256').update(readFileSync(statePath)).digest('hex');
+
+    let activated = '0.1.0';
+    const failing: Migration[] = [
+      { version: 2, kind: 'expand', reversible: true, apply: () => { /* additive step succeeds */ } },
+      { version: 3, kind: 'contract', reversible: false, apply: () => { throw new Error('power loss during the contract step'); } },
+    ];
+    const failedUpgrade = upgrade({
+      state_path: statePath, config_path: configPath, backup_dir: path.join(sandbox, 'backups'),
+      from_version: '0.1.0', to_version: '0.2.0', migrations: failing,
+      activate: version => { activated = version; }, now: NOW,
+    });
+    const stateAfterFailure = createHash('sha256').update(readFileSync(statePath)).digest('hex');
+
+    // A user edited the configuration while the upgrade was running.
+    const concurrent = JSON.parse(readFileSync(configPath, 'utf8')) as Record<string, unknown>;
+    concurrent['statusLine'] = { command: 'my-status' };
+    writeFileSync(configPath, JSON.stringify(concurrent, null, 2) + '\n');
+    const merged = mergeConfiguration({
+      config_path: configPath, owned_keys: ['clientMode'], owned_values: { clientMode: { version: '0.2.0' } },
+    });
+
+    const successful = upgrade({
+      state_path: statePath, config_path: configPath, backup_dir: path.join(sandbox, 'backups2'),
+      from_version: '0.1.0', to_version: '0.2.0',
+      migrations: [{ version: 2, kind: 'expand', reversible: true, apply: () => { /* additive */ } }],
+      activate: version => { activated = version; }, now: NOW,
+    });
+    const reversible = assessRollback([{ version: 2, kind: 'expand', reversible: true, apply: () => {} }], successful.snapshot);
+    const irreversible = assessRollback(failing, successful.snapshot);
+    const restored = restore({ snapshot: successful.snapshot, state_path: statePath, config_path: configPath });
+    log['upgrade'] = {
+      failed: failedUpgrade, state_digest_before: stateBefore, state_digest_after_failure: stateAfterFailure,
+      state_identical_after_failed_upgrade: stateBefore === stateAfterFailure,
+      version_activated_after_failure: failedUpgrade.upgraded ? activated : '0.1.0',
+      concurrent_edit: merged, rollback_reversible: reversible, rollback_irreversible: irreversible,
+      restored: restored.restored.length,
+    };
+    const upgradePreservesState = !failedUpgrade.upgraded && failedUpgrade.failed_at === 3 &&
+      failedUpgrade.state_restored && stateAfterFailure === stateBefore &&
+      irreversible.rollback_safe === false && irreversible.reason === 'IRREVERSIBLE_MIGRATION_APPLIED' &&
+      reversible.rollback_safe === true;
+    const concurrentEditKept = merged.preserved_keys.includes('statusLine') &&
+      (JSON.parse(readFileSync(configPath, 'utf8')) as Record<string, unknown>)['statusLine'] !== undefined;
+
+    // 5. Uninstall leaves project work and retained evidence alone.
+    const installRoot = path.join(sandbox, 'install');
+    const installed = install({
+      provider: 'claude', source_root: ROOT, out_root: path.join(sandbox, 'dist'),
+      install_root: installRoot, version: '0.1.0', dry_run: false, now: NOW,
+    });
+    const uninstallReport = uninstallToolkit({
+      record: installed.applied!,
+      project_roots: [authorizedRoot],
+      retention: [{ path: path.join(sandbox, 'evidence'), retain_until: '2027-01-01T00:00:00.000Z', reason: 'release manifest retention' }],
+      now: NOW,
+    });
+    log['uninstall'] = {
+      ...uninstallReport,
+      brief_still_present: existsSync(path.join(authorizedRoot, 'brief.txt')),
+    };
+
+    // 6. A missing validation dependency is BLOCKED and nonzero, never green.
+    const allPresent = validate([
+      { name: 'node', required: true, available: true, detail: 'v22 present' },
+      { name: 'jsonschema', required: true, available: true, detail: 'installed' },
+    ]);
+    const oneMissing = validate([
+      { name: 'node', required: true, available: true, detail: 'v22 present' },
+      { name: 'jsonschema', required: true, available: false, detail: 'not installed; schema validation did not run' },
+      { name: 'ios-simulator', required: false, available: false, detail: 'optional target' },
+    ]);
+    log['validation'] = { all_present: allPresent, one_missing: oneMissing };
+    const missingNotGreen = allPresent.exit_code === EXIT_CODES.ok && allPresent.status === 'PASS' &&
+      oneMissing.exit_code === EXIT_CODES.missing_capability && oneMissing.status === 'BLOCKED' &&
+      oneMissing.blocked.length === 1;
+
+    const reopened = attempt(() => ControllerDatabase.open(stateDir));
+    if (reopened.ok) reopened.value.close();
+
+    await writer.write('operations.json', log);
+    await writer.write('command-surface.json', COMMANDS);
+
+    return {
+      scenario_id: 'AT-018',
+      mode: 'integration',
+      observed: {
+        commands_match_operations_contract: commandsMatch,
+        failed_upgrade_preserves_state: upgradePreservesState,
+        concurrent_user_edit_not_overwritten: concurrentEditKept,
+        recovery_1000_tasks_within_30s: recoveryFast,
+        cancel_ack_within_1s: cancelFast,
+        owned_tree_stopped_within_10s_or_quarantined: treeStopped,
+        unavailable_validation_dependency_not_green: missingNotGreen,
+        recovery_elapsed_ms: recoveryElapsed,
+        cancel_acknowledged_ms: Math.round(cancelled.acknowledged_in_ms * 100) / 100,
+        reference_machine: `${os.platform()}-${os.arch()} node ${process.versions.node}`,
+      } satisfies Record<string, Json>,
+      artifact_paths: writer.paths,
+    };
+  } finally {
+    rmSync(sandbox, { recursive: true, force: true });
+  }
+});

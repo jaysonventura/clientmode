@@ -4,7 +4,7 @@
       "fingerprint": "sha256:78b954d7569764c44b5e6fc1e530670954621cd45ce9b459da84215845e3ac68",
       "git": {
         "available": true,
-        "head": "c20b0bc98ffa5f5b6c8a0417f847e21d171403e6",
+        "head": "9c910a8a3bb51c9e92bf0ac5e5b3ec47edc25daf",
         "branch": "main",
         "modified_tracked": [
           "src/checkout.js"
@@ -19,7 +19,7 @@
       "fingerprint": "sha256:78b954d7569764c44b5e6fc1e530670954621cd45ce9b459da84215845e3ac68",
       "git": {
         "available": true,
-        "head": "c20b0bc98ffa5f5b6c8a0417f847e21d171403e6",
+        "head": "9c910a8a3bb51c9e92bf0ac5e5b3ec47edc25daf",
         "branch": "main",
         "modified_tracked": [
           "src/checkout.js"
@@ -30,7 +30,7 @@
         "staged": []
       }
     },
-    "head": "c20b0bc98ffa5f5b6c8a0417f847e21d171403e6",
+    "head": "9c910a8a3bb51c9e92bf0ac5e5b3ec47edc25daf",
     "modified_tracked": [
       "src/checkout.js"
     ],
@@ -43,10 +43,10 @@
     ]
   },
   "digests": {
-    "forward": "sha256:907f3d1d736ab88f1c3b03e19c5c0f36af2be6ef8ad37f77531cbda0011ec3b6",
-    "reversed": "sha256:907f3d1d736ab88f1c3b03e19c5c0f36af2be6ef8ad37f77531cbda0011ec3b6",
-    "shuffled": "sha256:907f3d1d736ab88f1c3b03e19c5c0f36af2be6ef8ad37f77531cbda0011ec3b6",
-    "after_untracked_edit": "sha256:60de6657b1662882bc5eb12d229b99d95e0028ee26e3d82e1e200244ab1e29d0",
+    "forward": "sha256:7180c075bb4c2169fbb14f33f2288ee6c361e2d46ca2120b0cbbd5e66a5dc08e",
+    "reversed": "sha256:7180c075bb4c2169fbb14f33f2288ee6c361e2d46ca2120b0cbbd5e66a5dc08e",
+    "shuffled": "sha256:7180c075bb4c2169fbb14f33f2288ee6c361e2d46ca2120b0cbbd5e66a5dc08e",
+    "after_untracked_edit": "sha256:b4083e0e830add08a91e529c85cf30e53869e73d84c251624100f455acfee9a2",
     "entry_count": 5,
     "unicode_entry": true
   },
@@ -54,7 +54,7 @@
     "escaping": {
       "ok": false,
       "code": "SYMLINK_ESCAPES_ROOT",
-      "message": "SYMLINK_ESCAPES_ROOT: escape-link -> /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t03-anWRQb/private-elsewhere"
+      "message": "SYMLINK_ESCAPES_ROOT: escape-link -> /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t03-PagjL6/private-elsewhere"
     },
     "internal_symlink_recorded": true
   },
@@ -82,10 +82,10 @@
     "candidate": {
       "kind": "candidate",
       "schema_version": 1,
-      "candidate_id": "candidate_f13085facdd24f8da95c6a9248886cc0",
+      "candidate_id": "candidate_7374edccfae2412db6e492614b3d886e",
       "project_id": "project_t03",
-      "run_id": "run_96f608c9-379d-4789-ae05-25dc2fe32443",
-      "source_digest": "sha256:88a9320c7971623f99ea65b2b293aed07ec699d2dbbe7dfc4f140a3cf914c4af",
+      "run_id": "run_60532bcf-2e82-4fac-a77a-7c0d84a46af2",
+      "source_digest": "sha256:06da50f686f7d1f64eae0ddd82ac31c5fc008b4fc904e4c37dadd508bcae9381",
       "artifact_digest": "sha256:b7115d755edbb520edac17392f38b6f160f8da2c1842d9b9ca088c0bc747a08e",
       "requirements_revision": 1,
       "policy_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
@@ -163,9 +163,9 @@
     }
   },
   "non_js_edits": {
-    "before": "sha256:e749a1a42376e8956c846287ceb889539f16ccb78d3d560c3544b17882f374ce",
-    "after_swift": "sha256:eedcf492c7088371c76dac3e4905252cfc7a6ad106e0112509123825db3bfd34",
-    "after_model_config": "sha256:32d0c83d201d65fbd2505c6bfde12b115661fba20eadec608d57188aabfc4c9a"
+    "before": "sha256:fc5466346e1ef7bc72288029adf9f4bef308a19edec28d89d119f8dc7ae35379",
+    "after_swift": "sha256:3f1b9e52b460877b0771c656c1c2c9daf0ca94a426563b59812a92b14364de89",
+    "after_model_config": "sha256:a88a168c994f0626530100395da6080bfc09f0d41338668bc9f058310f0da0b5"
   },
   "no_whitelist": {
     "csharp_components": [
@@ -188,14 +188,14 @@
       "ok": true,
       "value": {
         "removed": true,
-        "path": "/private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t03-anWRQb/workspaces/ws_attempt_a"
+        "path": "/private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t03-PagjL6/workspaces/ws_attempt_a"
       }
     },
     "refused_client_root": {
       "ok": false,
       "code": "WORKSPACE_NOT_OWNED",
-      "message": "WORKSPACE_NOT_OWNED: /private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t03-anWRQb/authorized/shop"
+      "message": "WORKSPACE_NOT_OWNED: /private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t03-PagjL6/authorized/shop"
     },
-    "client_root_intact": "sha256:5b7d1c371e49060ea3b3371d60e7eacd315f07531e359221f21f6647528061f3"
+    "client_root_intact": "sha256:367c77cda0f4b95fe7502177e9167c4640454b22234f42b726cb52a4d0f9afd9"
   }
 }

@@ -1,0 +1,285 @@
+{
+  "commands": {
+    "contract": [
+      "doctor",
+      "install",
+      "uninstall",
+      "upgrade",
+      "open",
+      "run",
+      "pause",
+      "resume",
+      "cancel",
+      "status",
+      "verify",
+      "export-evidence",
+      "rollback"
+    ],
+    "implemented": [
+      "doctor",
+      "install",
+      "uninstall",
+      "upgrade",
+      "open",
+      "run",
+      "pause",
+      "resume",
+      "cancel",
+      "status",
+      "verify",
+      "export-evidence",
+      "rollback"
+    ],
+    "missing": [],
+    "exit_codes": {
+      "ok": 0,
+      "input_or_contract_error": 2,
+      "missing_capability": 3,
+      "verification_not_accepted": 4,
+      "authorization_required": 5,
+      "budget_or_no_progress": 6,
+      "integrity_or_security": 7,
+      "internal": 8
+    },
+    "refusals": [
+      {
+        "command": "doctor",
+        "refuses": [
+          "reporting a configured capability as observed"
+        ]
+      },
+      {
+        "command": "install",
+        "refuses": [
+          "applying an unapproved plan",
+          "replacing a settings file"
+        ]
+      },
+      {
+        "command": "uninstall",
+        "refuses": [
+          "removing project work",
+          "removing retained evidence"
+        ]
+      },
+      {
+        "command": "upgrade",
+        "refuses": [
+          "activating before the migration commits"
+        ]
+      },
+      {
+        "command": "open",
+        "refuses": [
+          "registering a project root that was not chosen"
+        ]
+      },
+      {
+        "command": "run",
+        "refuses": [
+          "reading a file outside the authorized root"
+        ]
+      },
+      {
+        "command": "pause",
+        "refuses": [
+          "claiming external effects stopped"
+        ]
+      },
+      {
+        "command": "resume",
+        "refuses": [
+          "inventing progress that was not recorded"
+        ]
+      },
+      {
+        "command": "cancel",
+        "refuses": [
+          "reporting a process tree as dead without checking"
+        ]
+      },
+      {
+        "command": "status",
+        "refuses": [
+          "merging readiness with client acceptance"
+        ]
+      },
+      {
+        "command": "verify",
+        "refuses": [
+          "accepting a caller-supplied command string"
+        ]
+      },
+      {
+        "command": "export-evidence",
+        "refuses": [
+          "exporting under an active retention lock without saying so"
+        ]
+      },
+      {
+        "command": "rollback",
+        "refuses": [
+          "rolling back across an irreversible migration"
+        ]
+      }
+    ],
+    "verify_refuses_caller_command": true,
+    "verify_accepts_candidate_only": true
+  },
+  "run_command": {
+    "inside": true,
+    "outside": {
+      "error": "REQUEST_FILE_OUTSIDE_AUTHORIZED_ROOT: /private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/elsewhere.txt"
+    },
+    "exit_code": 0,
+    "run_created": true
+  },
+  "recovery": {
+    "stored_tasks": 1000,
+    "elapsed_ms": 99,
+    "expired_leases": 1000,
+    "revoked_attempts": 1000,
+    "reference_machine": {
+      "platform": "darwin-arm64",
+      "cpus": 11,
+      "node": "22.17.0"
+    }
+  },
+  "cancel": {
+    "acknowledged_in_ms": 1.039959,
+    "tree": {
+      "terminated": true,
+      "quarantined": false,
+      "checked_after_ms": 0
+    },
+    "leases_revoked": 0,
+    "heartbeat_before_kill": 12,
+    "heartbeat_after_kill": 12,
+    "forked_child_was_writing": true,
+    "forked_child_stopped": true
+  },
+  "upgrade": {
+    "failed": {
+      "upgraded": false,
+      "from": "0.1.0",
+      "to": "0.2.0",
+      "snapshot": {
+        "taken_at": "2026-09-08T20:00:00.000Z",
+        "state_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/backups/state-0.1.0.sqlite",
+        "config_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/backups/config-0.1.0.json",
+        "from_version": "0.1.0"
+      },
+      "failed_at": 3,
+      "state_restored": true,
+      "reason": "migration 3 failed: power loss during the contract step"
+    },
+    "state_digest_before": "9d250d5f068fcfc964abd255ad7d44456d14dd4293cfa2d687c5b6ba276c49e0",
+    "state_digest_after_failure": "9d250d5f068fcfc964abd255ad7d44456d14dd4293cfa2d687c5b6ba276c49e0",
+    "state_identical_after_failed_upgrade": true,
+    "version_activated_after_failure": "0.1.0",
+    "concurrent_edit": {
+      "merged": {
+        "theme": "dark",
+        "clientMode": {
+          "version": "0.2.0"
+        },
+        "statusLine": {
+          "command": "my-status"
+        }
+      },
+      "preserved_keys": [
+        "theme",
+        "statusLine"
+      ],
+      "overwritten_keys": [
+        "clientMode"
+      ]
+    },
+    "rollback_reversible": {
+      "rollback_safe": true,
+      "restores_from": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/backups2/state-0.1.0.sqlite"
+    },
+    "rollback_irreversible": {
+      "rollback_safe": false,
+      "reason": "IRREVERSIBLE_MIGRATION_APPLIED",
+      "irreversible": [
+        3
+      ],
+      "guidance": "Restore the state snapshot and roll forward, or accept the data written since the migration is lost. A binary rollback alone would leave the schema ahead of the code."
+    },
+    "restored": 2
+  },
+  "uninstall": {
+    "removed": [
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/install/client-mode/.claude-plugin/plugin.json",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/install/client-mode/CLAUDE.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/install/client-mode/skills/debug/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/install/client-mode/skills/delivery/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/install/client-mode/skills/grounding/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/install/client-mode/skills/handoff/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/install/client-mode/skills/intake/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/install/client-mode/skills/review/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/install/client-mode/skills/ui-ux/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/install/client-mode/skills/verify/SKILL.md"
+    ],
+    "restored": [],
+    "retained": [
+      {
+        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/evidence",
+        "reason": "release manifest retention (retained until 2027-01-01T00:00:00.000Z)"
+      }
+    ],
+    "project_work_untouched": [
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-z2Bxyu/work (1 file(s) left in place)"
+    ],
+    "brief_still_present": true
+  },
+  "validation": {
+    "all_present": {
+      "exit_code": 0,
+      "status": "PASS",
+      "blocked": [],
+      "checks": [
+        {
+          "name": "node",
+          "required": true,
+          "available": true,
+          "detail": "v22 present"
+        },
+        {
+          "name": "jsonschema",
+          "required": true,
+          "available": true,
+          "detail": "installed"
+        }
+      ]
+    },
+    "one_missing": {
+      "exit_code": 3,
+      "status": "BLOCKED",
+      "blocked": [
+        "jsonschema: not installed; schema validation did not run"
+      ],
+      "checks": [
+        {
+          "name": "node",
+          "required": true,
+          "available": true,
+          "detail": "v22 present"
+        },
+        {
+          "name": "jsonschema",
+          "required": true,
+          "available": false,
+          "detail": "not installed; schema validation did not run"
+        },
+        {
+          "name": "ios-simulator",
+          "required": false,
+          "available": false,
+          "detail": "optional target"
+        }
+      ]
+    }
+  }
+}

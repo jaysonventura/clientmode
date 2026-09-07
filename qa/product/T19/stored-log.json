@@ -1,0 +1,52 @@
+[
+  {
+    "log_id": "log_a6e0582d-38e2-4ba5-bd97-c72e4da664e5",
+    "project_id": "project_t19",
+    "run_id": null,
+    "level": "error",
+    "source": "worker",
+    "message": "deploy failed: curl -H \"Authorization: [redacted] [redacted token]\" https://api.example/deploy",
+    "fields": {
+      "command": "AWS_ACCESS_KEY_ID=[redacted aws key id] ./deploy.sh",
+      "cwd": "/work"
+    },
+    "created_at": "2026-09-08T21:00:00.000Z",
+    "redactions": [
+      "authorization_header",
+      "long_opaque_token",
+      "aws_access_key"
+    ]
+  },
+  {
+    "log_id": "log_825aa149-25ab-47f7-b1c4-e0ae0cb9ece7",
+    "project_id": "project_t19",
+    "run_id": null,
+    "level": "warn",
+    "source": "tool",
+    "message": "read config: DATABASE_PASSWORD=[redacted]",
+    "fields": {
+      "file": ".env",
+      "contents": "[redacted private key]"
+    },
+    "created_at": "2026-09-08T21:00:00.000Z",
+    "redactions": [
+      "api_key_assignment",
+      "private_key_block"
+    ]
+  },
+  {
+    "log_id": "log_fc5d8599-fead-40a4-972a-9eca377044b7",
+    "project_id": "project_t19",
+    "run_id": null,
+    "level": "error",
+    "source": "provider",
+    "message": "upstream 401 for https://[redacted]@staging.example/app",
+    "fields": {
+      "response": "{\"error\":\"bad token\",\"token\":\"[redacted]\"}"
+    },
+    "created_at": "2026-09-08T21:00:00.000Z",
+    "redactions": [
+      "url_credentials"
+    ]
+  }
+]

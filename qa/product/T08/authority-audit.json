@@ -2,31 +2,31 @@
   {
     "actor_id": "owner_1",
     "operation": "approval.deploy",
-    "target_ref": "apr_3b61d16e-590d-4901-ba31-6c8ad31ee0e0",
+    "target_ref": "apr_53423e8a-edb3-4cc5-bc05-ffb1d85d9ad5",
     "decision": "approve"
   },
   {
     "actor_id": "owner_1",
     "operation": "consume.deploy",
-    "target_ref": "grant_eb38a6c5-7452-4f5d-a2c4-c8a2c371b41e",
+    "target_ref": "grant_af5ebf18-ff19-4f13-802b-a99801a03d7b",
     "decision": "allow"
   },
   {
     "actor_id": "release_owner_1",
     "operation": "approval.rollback",
-    "target_ref": "apr_dafef8e3-fc43-46a3-a762-83f3e3c5ce56",
+    "target_ref": "apr_1d36bcf6-a718-4758-b814-6dbf7875fe1d",
     "decision": "approve"
   },
   {
     "actor_id": "release_owner_1",
     "operation": "consume.rollback",
-    "target_ref": "grant_13799763-da28-4ded-a11a-503aefd1e1f8",
+    "target_ref": "grant_0bf2feb8-c63f-41b6-b5d0-434d48395d95",
     "decision": "allow"
   },
   {
     "actor_id": "release_owner_1",
     "operation": "rollback",
-    "target_ref": "dep_3aed0170-5fd7-4533-b556-58fc91127c6f",
+    "target_ref": "dep_657784da-0614-4ccf-9cde-0642639c205a",
     "decision": "allow"
   }
 ]

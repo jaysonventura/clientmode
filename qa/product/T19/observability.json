@@ -1,0 +1,195 @@
+{
+  "redaction": {
+    "records": [
+      {
+        "source": "worker",
+        "message": "deploy failed: curl -H \"Authorization: [redacted] [redacted token]\" https://api.example/deploy",
+        "fields": {
+          "command": "AWS_ACCESS_KEY_ID=[redacted aws key id] ./deploy.sh",
+          "cwd": "/work"
+        },
+        "redactions": [
+          "authorization_header",
+          "long_opaque_token",
+          "aws_access_key"
+        ]
+      },
+      {
+        "source": "tool",
+        "message": "read config: DATABASE_PASSWORD=[redacted]",
+        "fields": {
+          "file": ".env",
+          "contents": "[redacted private key]"
+        },
+        "redactions": [
+          "api_key_assignment",
+          "private_key_block"
+        ]
+      },
+      {
+        "source": "provider",
+        "message": "upstream 401 for https://[redacted]@staging.example/app",
+        "fields": {
+          "response": "{\"error\":\"bad token\",\"token\":\"[redacted]\"}"
+        },
+        "redactions": [
+          "url_credentials"
+        ]
+      }
+    ],
+    "canaries_found_in_stored_log": [],
+    "rules_triggered": [
+      "authorization_header",
+      "long_opaque_token",
+      "aws_access_key",
+      "api_key_assignment",
+      "private_key_block",
+      "url_credentials"
+    ]
+  },
+  "cross_project": {
+    "own_records": 3,
+    "foreign": {
+      "allowed": false,
+      "reason": "CROSS_PROJECT_LOG_READ_DENIED"
+    },
+    "other_project_content_in_own_read": []
+  },
+  "retention": {
+    "policy_days": {
+      "operational_log": 30,
+      "screenshot": 30,
+      "audit_evidence": 90,
+      "release_manifest": 365
+    },
+    "decisions": [
+      {
+        "id": "log-fresh",
+        "retention_class": "operational_log",
+        "age_days": 10,
+        "action": "retain",
+        "reason": "within the 30-day retention period"
+      },
+      {
+        "id": "log-old",
+        "retention_class": "operational_log",
+        "age_days": 45,
+        "action": "delete",
+        "reason": "older than the 30-day retention period"
+      },
+      {
+        "id": "shot-old",
+        "retention_class": "screenshot",
+        "age_days": 31,
+        "action": "delete",
+        "reason": "older than the 30-day retention period"
+      },
+      {
+        "id": "audit-fresh",
+        "retention_class": "audit_evidence",
+        "age_days": 45,
+        "action": "retain",
+        "reason": "within the 90-day retention period"
+      },
+      {
+        "id": "audit-old",
+        "retention_class": "audit_evidence",
+        "age_days": 120,
+        "action": "delete",
+        "reason": "older than the 90-day retention period"
+      },
+      {
+        "id": "manifest",
+        "retention_class": "release_manifest",
+        "age_days": 200,
+        "action": "retain",
+        "reason": "within the 365-day retention period"
+      },
+      {
+        "id": "manifest-old-held",
+        "retention_class": "release_manifest",
+        "age_days": 400,
+        "action": "retain_under_hold",
+        "reason": "open dispute; legal hold"
+      }
+    ],
+    "export_blocked": {
+      "exported": false,
+      "blocked": [
+        {
+          "id": "manifest-old-held",
+          "reason": "export blocked by a retention hold: open dispute; legal hold"
+        }
+      ]
+    },
+    "delete_blocked": {
+      "exported": false,
+      "blocked": [
+        {
+          "id": "manifest-old-held",
+          "reason": "delete blocked by a retention hold: open dispute; legal hold"
+        }
+      ]
+    },
+    "export_allowed": {
+      "exported": true,
+      "ids": [
+        "log-fresh"
+      ]
+    }
+  },
+  "telemetry": {
+    "default": {
+      "enabled": false,
+      "endpoint": null,
+      "enabled_by": null
+    },
+    "observed": {
+      "absent": {
+        "enabled": false,
+        "endpoint": null,
+        "enabled_by": null
+      },
+      "empty": {
+        "enabled": false,
+        "endpoint": null,
+        "enabled_by": null
+      },
+      "disabled": {
+        "enabled": false,
+        "endpoint": null,
+        "enabled_by": null
+      },
+      "enabled": {
+        "enabled": true,
+        "endpoint": "https://metrics.example",
+        "enabled_by": "owner_1"
+      }
+    }
+  },
+  "usage": {
+    "first": "inserted",
+    "duplicate": "duplicate",
+    "rollup": {
+      "events": 3,
+      "complete_events": 2,
+      "unknown_events": 1,
+      "known_cost_microusd": 5000000,
+      "reserved_for_unknown_microusd": 500000,
+      "total_including_unknown_microusd": 5500000,
+      "failed_attempt_cost_microusd": 3000000,
+      "successful_attempt_cost_microusd": 2500000,
+      "coverage": "partial"
+    }
+  },
+  "health": {
+    "queue_depth": 0,
+    "oldest_queued_age_seconds": null,
+    "stale_leases": 1,
+    "running_attempts": 1,
+    "revoked_attempts": 0,
+    "outbox_pending": 1,
+    "runs_blocked": 0,
+    "invalid_attestations": 2
+  }
+}

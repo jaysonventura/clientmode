@@ -1,0 +1,135 @@
+{
+  "distributions": [
+    {
+      "provider": "claude",
+      "digest": "sha256:6def593bea1cc6005d02e9695833a9bf16b9e2ca00c992b48b2311846935916d",
+      "file_count": 10,
+      "self_contained": true,
+      "external_references": [],
+      "skills": 8
+    },
+    {
+      "provider": "codex",
+      "digest": "sha256:21f6a1529800ee13cd9ad4fb63a847ed3b970636894c20ac226344229de9c456",
+      "file_count": 10,
+      "self_contained": true,
+      "external_references": [],
+      "skills": 8
+    }
+  ],
+  "manifests": {
+    "claude": {
+      "name": "client-mode",
+      "version": "0.1.0",
+      "description": "Client Mode delivery procedures: intake, grounding, delivery, debugging, review, verification, UI/UX and handoff.",
+      "author": {
+        "name": "Client Mode"
+      }
+    },
+    "codex": {
+      "name": "client-mode",
+      "version": "0.1.0",
+      "instructions_file": "AGENTS.md",
+      "skills": [
+        "skills/debug/SKILL.md",
+        "skills/delivery/SKILL.md",
+        "skills/grounding/SKILL.md",
+        "skills/handoff/SKILL.md",
+        "skills/intake/SKILL.md",
+        "skills/review/SKILL.md",
+        "skills/ui-ux/SKILL.md",
+        "skills/verify/SKILL.md"
+      ]
+    },
+    "unparseable": {
+      "ok": false,
+      "code": "MANIFEST_NOT_PARSEABLE",
+      "message": "MANIFEST_NOT_PARSEABLE: Expected property name or '}' in JSON at position 2 (line 1 column 3)"
+    },
+    "missing_reference": {
+      "ok": false,
+      "code": "MANIFEST_REFERENCES_MISSING_FILE",
+      "message": "MANIFEST_REFERENCES_MISSING_FILE: AGENTS.md"
+    },
+    "wrong_location": {
+      "ok": false,
+      "code": "MANIFEST_WRONG_LOCATION",
+      "message": "MANIFEST_WRONG_LOCATION: /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/dist/codex/client-mode.json"
+    },
+    "skill_without_front_matter": {
+      "ok": false,
+      "code": "SKILL_MISSING_FRONT_MATTER",
+      "message": "SKILL_MISSING_FRONT_MATTER: nameless"
+    }
+  },
+  "install": {
+    "dry_run_plan": [
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/client-mode/.claude-plugin/plugin.json",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/client-mode/CLAUDE.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/client-mode/skills/debug/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/client-mode/skills/delivery/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/client-mode/skills/grounding/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/client-mode/skills/handoff/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/client-mode/skills/intake/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/client-mode/skills/review/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/client-mode/skills/ui-ux/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/client-mode/skills/verify/SKILL.md",
+      "merge  /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/settings.json (adds clientMode; preserves 3 existing key(s))"
+    ],
+    "tree_unchanged_by_dry_run": true,
+    "applied_files": 10,
+    "settings_after": {
+      "theme": "dark",
+      "permissions": {
+        "allow": [
+          "Bash(git status)"
+        ]
+      },
+      "statusLine": {
+        "type": "command",
+        "command": "my-status"
+      },
+      "clientMode": {
+        "version": "0.1.0",
+        "provider": "claude"
+      }
+    },
+    "install_root_contains_space_and_non_ascii": true
+  },
+  "fresh_sessions": {
+    "claude": {
+      "exit_code": 0,
+      "marker_returned": true,
+      "source": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/Client Mode Tëst Config/client-mode/CLAUDE.md"
+    },
+    "codex": {
+      "exit_code": 0,
+      "marker_returned": true,
+      "source": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ji4yj9/codex-config/client-mode/AGENTS.md",
+      "installed_files": 10
+    }
+  },
+  "uninstall": {
+    "removed": 10,
+    "restored": 1,
+    "left_alone_keys": [
+      "theme",
+      "permissions",
+      "statusLine"
+    ],
+    "settings_after_uninstall": {
+      "theme": "dark",
+      "permissions": {
+        "allow": [
+          "Bash(git status)"
+        ]
+      },
+      "statusLine": {
+        "type": "command",
+        "command": "my-status"
+      }
+    },
+    "tree_matches_original": true,
+    "client_mode_directory_present": false
+  }
+}

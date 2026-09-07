@@ -1,0 +1,106 @@
+{
+  "claude": [
+    {
+      "path": ".claude-plugin/plugin.json",
+      "bytes": 229,
+      "digest": "sha256:f06e1f224ceffd8d2c577fe0c090bf270eb1c8de40b46d64fe7d9c576a8101fd"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 743,
+      "digest": "sha256:7ddc5a25878e0b673e790ac4f54bb03f6fbbbb9fd2bb615dcd11e8c16667e5bb"
+    },
+    {
+      "path": "skills/debug/SKILL.md",
+      "bytes": 739,
+      "digest": "sha256:0ada34cc6fd716fba503b8363f1b56e50bbd1dc45d9aa72f5a4a9ef50e17fd5e"
+    },
+    {
+      "path": "skills/delivery/SKILL.md",
+      "bytes": 974,
+      "digest": "sha256:169ea3257fe4241a328d1fa9a295faf576e3f730c001529e5c9c0bb95910b24b"
+    },
+    {
+      "path": "skills/grounding/SKILL.md",
+      "bytes": 1209,
+      "digest": "sha256:2a952861aa3024279d4a46cbe153171a4bc8ca11ac018d1b582064287571aaf0"
+    },
+    {
+      "path": "skills/handoff/SKILL.md",
+      "bytes": 1025,
+      "digest": "sha256:d626095396bbf700585e2973b7e890b0e40d0a38ac9f1cdffed0f024170565cf"
+    },
+    {
+      "path": "skills/intake/SKILL.md",
+      "bytes": 1634,
+      "digest": "sha256:df51c52ddad5fe69592209dd8d21d6c5ccca8bc263cfbc389b49407069dcabf0"
+    },
+    {
+      "path": "skills/review/SKILL.md",
+      "bytes": 831,
+      "digest": "sha256:e419fc35bb3af86250d90b5fb0dfd18e1a0ef2c2d85da5f2b41f2a7279b034aa"
+    },
+    {
+      "path": "skills/ui-ux/SKILL.md",
+      "bytes": 1636,
+      "digest": "sha256:d3894cabb8ba004f6b91599f3f361a5c9f5d495607a22881553fd838c06cd91e"
+    },
+    {
+      "path": "skills/verify/SKILL.md",
+      "bytes": 975,
+      "digest": "sha256:4001a85e178b446893796c4652190d774b076d0696e6c31b7b4c4abb61d45719"
+    }
+  ],
+  "codex": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 626,
+      "digest": "sha256:60275541b4708b2409560d7bd8054342ff97d98165f2430b7d492596ba84da82"
+    },
+    {
+      "path": "client-mode.json",
+      "bytes": 348,
+      "digest": "sha256:e7d4ca49993b6069679855efdb465edbb20287643e726172fa92ff836524838b"
+    },
+    {
+      "path": "skills/debug/SKILL.md",
+      "bytes": 739,
+      "digest": "sha256:0ada34cc6fd716fba503b8363f1b56e50bbd1dc45d9aa72f5a4a9ef50e17fd5e"
+    },
+    {
+      "path": "skills/delivery/SKILL.md",
+      "bytes": 974,
+      "digest": "sha256:169ea3257fe4241a328d1fa9a295faf576e3f730c001529e5c9c0bb95910b24b"
+    },
+    {
+      "path": "skills/grounding/SKILL.md",
+      "bytes": 1209,
+      "digest": "sha256:2a952861aa3024279d4a46cbe153171a4bc8ca11ac018d1b582064287571aaf0"
+    },
+    {
+      "path": "skills/handoff/SKILL.md",
+      "bytes": 1025,
+      "digest": "sha256:d626095396bbf700585e2973b7e890b0e40d0a38ac9f1cdffed0f024170565cf"
+    },
+    {
+      "path": "skills/intake/SKILL.md",
+      "bytes": 1634,
+      "digest": "sha256:df51c52ddad5fe69592209dd8d21d6c5ccca8bc263cfbc389b49407069dcabf0"
+    },
+    {
+      "path": "skills/review/SKILL.md",
+      "bytes": 831,
+      "digest": "sha256:e419fc35bb3af86250d90b5fb0dfd18e1a0ef2c2d85da5f2b41f2a7279b034aa"
+    },
+    {
+      "path": "skills/ui-ux/SKILL.md",
+      "bytes": 1636,
+      "digest": "sha256:d3894cabb8ba004f6b91599f3f361a5c9f5d495607a22881553fd838c06cd91e"
+    },
+    {
+      "path": "skills/verify/SKILL.md",
+      "bytes": 975,
+      "digest": "sha256:4001a85e178b446893796c4652190d774b076d0696e6c31b7b4c4abb61d45719"
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "idempotent_replay": {
+    "first": "run_1c2ba951-7684-4351-bba9-f837a154e4b5",
+    "replay": "run_1c2ba951-7684-4351-bba9-f837a154e4b5",
+    "rows": 1
+  },
+  "changed_payload": {
+    "ok": false,
+    "code": "IDEMPOTENCY_KEY_CONFLICT",
+    "message": "the key was already used with a different request"
+  },
+  "race": {
+    "outcomes": [
+      "COMMITTED",
+      "STATE_VERSION_CONFLICT"
+    ],
+    "winners": 1,
+    "loser_reason": "STATE_VERSION_CONFLICT",
+    "second_connection_rows": 0
+  },
+  "precontract": {
+    "states": [
+      "RECEIVED",
+      "PAUSED@rev0/no-contract",
+      "RECEIVED@rev0/no-contract",
+      "BLOCKED@rev0/no-contract",
+      "CANCELLED@rev0/no-contract"
+    ],
+    "stored": {
+      "state": "CANCELLED",
+      "contract_id": null,
+      "requirements_revision": 0
+    },
+    "intents": [
+      {
+        "action": "pause",
+        "leases_revoked": 0
+      },
+      {
+        "action": "resume",
+        "leases_revoked": 0
+      },
+      {
+        "action": "block",
+        "leases_revoked": 0
+      },
+      {
+        "action": "cancel",
+        "leases_revoked": 1
+      }
+    ]
+  },
+  "restart": {
+    "child": "{\"run_id\":\"run_608c5937-dbc7-4f02-9bdb-37ccec1eeb94\",\"state\":\"RECEIVED\"}",
+    "child_signal": "SIGKILL",
+    "recovered": {
+      "run_id": "run_608c5937-dbc7-4f02-9bdb-37ccec1eeb94",
+      "project_id": "project_t02",
+      "contract_id": null,
+      "requirements_revision": 0,
+      "state": "RECEIVED",
+      "state_version": 1,
+      "idempotency_key": "idem-restart",
+      "request_digest": "sha256:f9596642a2ca689c9d5566e8d44b40c064d82450e82d958c944a4a3ccb4d960f",
+      "candidate_id": null,
+      "provider": "mock",
+      "created_at": "2026-09-07T13:00:00.000Z",
+      "updated_at": "2026-09-07T13:00:00.000Z"
+    },
+    "events": [
+      "request_received"
+    ],
+    "outbox": 8
+  },
+  "fencing": {
+    "first_epoch": 1,
+    "before_expiry": {
+      "accepted": true
+    },
+    "reconciliation": {
+      "expired_leases": [
+        "lse_a2b93e99-d9f6-4152-8716-49a092dcf3df"
+      ],
+      "revoked_attempts": [
+        "attempt_t02"
+      ],
+      "runs_awaiting_reconciliation": [],
+      "observed_at": "2026-09-08T00:00:00.000Z"
+    },
+    "reassigned_epoch": 2,
+    "stale": {
+      "accepted": false,
+      "reason": "STALE_LEASE_EPOCH"
+    },
+    "fresh": {
+      "accepted": true
+    }
+  },
+  "cross_run": {
+    "usage": {
+      "ok": false,
+      "code": "ATTEMPT_RUN_MISMATCH",
+      "message": "attempt_t02 does not belong to run_d22c776b-b124-4e92-a70d-4f72467754ca"
+    },
+    "budget": {
+      "ok": false,
+      "code": "ERR_SQLITE_ERROR",
+      "message": "FOREIGN KEY constraint failed"
+    },
+    "candidate": {
+      "ok": false,
+      "code": "ERR_SQLITE_ERROR",
+      "message": "FOREIGN KEY constraint failed"
+    }
+  },
+  "usage_dedup": {
+    "first": "inserted",
+    "again": "duplicate"
+  },
+  "revision": {
+    "before": {
+      "accepted": true
+    },
+    "revised": {
+      "run": {
+        "kind": "run",
+        "schema_version": 1,
+        "run_id": "run_1c2ba951-7684-4351-bba9-f837a154e4b5",
+        "project_id": "project_t02",
+        "contract_id": "contract_t02",
+        "requirements_revision": 2,
+        "state": "SCOPED",
+        "state_version": 3,
+        "idempotency_key": "idem-1",
+        "candidate_id": null,
+        "provider": "mock",
+        "created_at": "2026-09-07T12:00:01.000Z",
+        "updated_at": "2026-09-07T12:00:19.000Z"
+      },
+      "fenced_attempts": [
+        "attempt_t02"
+      ],
+      "revoked_leases": [
+        "lse_bd8c8f90-1716-47d3-b5f1-9c6e055474ca"
+      ]
+    },
+    "after": {
+      "accepted": false,
+      "reason": "ATTEMPT_REVOKED"
+    },
+    "run": {
+      "state": "SCOPED",
+      "requirements_revision": 2,
+      "candidate_id": null
+    }
+  }
+}

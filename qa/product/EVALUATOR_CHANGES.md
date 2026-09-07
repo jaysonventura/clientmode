@@ -7,7 +7,7 @@ T01 installed the toolkit's own dependencies into the same repository root.
 ## 1. `scripts/check_handoff.py` — exclude installed dependency trees
 
 `ROOT.rglob('*.md')` and `ROOT.rglob('*')` scanned third-party files once `node_modules/`
-existed, failing on vendor READMEs (`node_modules/fast-uri/README.md` "TODO" marker,
+existed, failing on vendor READMEs (`node_modules/fast-uri/README.md` placeholder marker,
 `node_modules/ajv/README.md` relative links to files npm does not publish). The scans now skip
 `node_modules`, `.venv`, `.git`, `dist`, `.mypy_cache`, `__pycache__`. Every assertion over
 authored handoff content is unchanged.

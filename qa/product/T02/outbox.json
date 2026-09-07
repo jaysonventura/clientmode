@@ -1,0 +1,117 @@
+[
+  {
+    "outbox_id": "obx_aac71b9e-cdea-4f3e-afaa-ae8e6e585bc1",
+    "run_id": "run_1c2ba951-7684-4351-bba9-f837a154e4b5",
+    "operation": "run.received",
+    "idempotency_key": "idem-1:received",
+    "payload": {
+      "run_id": "run_1c2ba951-7684-4351-bba9-f837a154e4b5"
+    },
+    "status": "PENDING",
+    "attempts": 0
+  },
+  {
+    "outbox_id": "obx_c16bf8ed-6574-4028-b2b9-76896e3f8571",
+    "run_id": "run_1c2ba951-7684-4351-bba9-f837a154e4b5",
+    "operation": "run.scoped",
+    "idempotency_key": "race-a",
+    "payload": {
+      "run_id": "run_1c2ba951-7684-4351-bba9-f837a154e4b5",
+      "state": "SCOPED"
+    },
+    "status": "PENDING",
+    "attempts": 0
+  },
+  {
+    "outbox_id": "obx_aa12b632-95a1-4c08-a8a3-c5cb96852c4d",
+    "run_id": "run_b7c75730-54ca-4cd9-910a-bfb365c55c7f",
+    "operation": "run.received",
+    "idempotency_key": "idem-pre:received",
+    "payload": {
+      "run_id": "run_b7c75730-54ca-4cd9-910a-bfb365c55c7f"
+    },
+    "status": "PENDING",
+    "attempts": 0
+  },
+  {
+    "outbox_id": "obx_94882b70-bee3-433e-ad1d-6cb197562183",
+    "run_id": "run_b7c75730-54ca-4cd9-910a-bfb365c55c7f",
+    "operation": "run.paused",
+    "idempotency_key": "pre-pause",
+    "payload": {
+      "run_id": "run_b7c75730-54ca-4cd9-910a-bfb365c55c7f",
+      "state": "PAUSED"
+    },
+    "status": "PENDING",
+    "attempts": 0
+  },
+  {
+    "outbox_id": "obx_d62eb676-18b5-4a0a-bce7-dbbbe8ad1bcb",
+    "run_id": "run_b7c75730-54ca-4cd9-910a-bfb365c55c7f",
+    "operation": "run.received",
+    "idempotency_key": "pre-resume",
+    "payload": {
+      "run_id": "run_b7c75730-54ca-4cd9-910a-bfb365c55c7f",
+      "state": "RECEIVED"
+    },
+    "status": "PENDING",
+    "attempts": 0
+  },
+  {
+    "outbox_id": "obx_ddef21e5-9592-437e-b94e-0ba376c7c38a",
+    "run_id": "run_b7c75730-54ca-4cd9-910a-bfb365c55c7f",
+    "operation": "run.blocked",
+    "idempotency_key": "pre-block",
+    "payload": {
+      "run_id": "run_b7c75730-54ca-4cd9-910a-bfb365c55c7f",
+      "state": "BLOCKED"
+    },
+    "status": "PENDING",
+    "attempts": 0
+  },
+  {
+    "outbox_id": "obx_abe35c5f-a1f7-4e22-be15-60060f1b07e2",
+    "run_id": "run_b7c75730-54ca-4cd9-910a-bfb365c55c7f",
+    "operation": "run.cancelled",
+    "idempotency_key": "pre-cancel",
+    "payload": {
+      "run_id": "run_b7c75730-54ca-4cd9-910a-bfb365c55c7f",
+      "state": "CANCELLED"
+    },
+    "status": "PENDING",
+    "attempts": 0
+  },
+  {
+    "outbox_id": "obx_d3290300-3ae9-402e-91ba-26e224f9fc50",
+    "run_id": "run_d22c776b-b124-4e92-a70d-4f72467754ca",
+    "operation": "run.received",
+    "idempotency_key": "idem-other:received",
+    "payload": {
+      "run_id": "run_d22c776b-b124-4e92-a70d-4f72467754ca"
+    },
+    "status": "PENDING",
+    "attempts": 0
+  },
+  {
+    "outbox_id": "obx_26c1b0e6-c133-4bab-95af-00a442944c6b",
+    "run_id": "run_1c2ba951-7684-4351-bba9-f837a154e4b5",
+    "operation": "run.reconcile_revision",
+    "idempotency_key": "revision-2",
+    "payload": {
+      "revision": 2
+    },
+    "status": "PENDING",
+    "attempts": 0
+  },
+  {
+    "outbox_id": "obx_451eb355-232d-47ff-a902-8f17886bb1d7",
+    "run_id": "run_608c5937-dbc7-4f02-9bdb-37ccec1eeb94",
+    "operation": "run.received",
+    "idempotency_key": "idem-restart:received",
+    "payload": {
+      "run_id": "run_608c5937-dbc7-4f02-9bdb-37ccec1eeb94"
+    },
+    "status": "PENDING",
+    "attempts": 0
+  }
+]

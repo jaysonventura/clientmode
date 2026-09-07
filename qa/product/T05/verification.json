@@ -1,0 +1,157 @@
+{
+  "unknown_check": {
+    "resolve": {
+      "ok": false,
+      "code": "UNKNOWN_CHECK_ID",
+      "message": "UNKNOWN_CHECK_ID: check-that-does-not-exist is not in policy sha256:6290d6fe0ac39ef403353d6d3fb4e223b1ae981d2709fd5fee4f5f3e5dbbc4fe"
+    },
+    "selected": [
+      "unit-tests",
+      "security-probe",
+      "ios-ui-journey",
+      "model-retrieval-eval",
+      "output-flood"
+    ]
+  },
+  "caller_argv": {
+    "verify": {
+      "ok": false,
+      "code": "CALLER_ARGV_REFUSED",
+      "message": "CALLER_ARGV_REFUSED: CALLER_SUPPLIED_COMMAND_REFUSED:argv"
+    },
+    "shapes": [
+      {
+        "key": "argv",
+        "rejected": true,
+        "reason": "CALLER_SUPPLIED_COMMAND_REFUSED:argv"
+      },
+      {
+        "key": "command",
+        "rejected": true,
+        "reason": "CALLER_SUPPLIED_COMMAND_REFUSED:command"
+      },
+      {
+        "key": "cmd",
+        "rejected": true,
+        "reason": "CALLER_SUPPLIED_COMMAND_REFUSED:cmd"
+      },
+      {
+        "key": "script",
+        "rejected": true,
+        "reason": "CALLER_SUPPLIED_COMMAND_REFUSED:script"
+      },
+      {
+        "key": "shell",
+        "rejected": true,
+        "reason": "CALLER_SUPPLIED_COMMAND_REFUSED:shell"
+      },
+      {
+        "key": "exec",
+        "rejected": true,
+        "reason": "CALLER_SUPPLIED_COMMAND_REFUSED:exec"
+      }
+    ],
+    "approved_argv": [
+      "/Users/viscion/.asdf/installs/nodejs/22.17.0/bin/node",
+      "checks/passing.mjs"
+    ]
+  },
+  "security_probe": {
+    "status": "PASSED",
+    "reasons": [],
+    "denied_assertions": [
+      "no_secret_access",
+      "no_env_secret",
+      "no_home_read",
+      "no_network",
+      "no_unix_socket"
+    ],
+    "isolation": {
+      "kind": "macos_seatbelt",
+      "network": "denied",
+      "denied_read_paths": [
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-gBvrV6/protected-secrets"
+      ],
+      "allowed_write_paths": [
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-gBvrV6/cm-sandbox-wWpSDC",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-gBvrV6/candidate"
+      ],
+      "limitations": [
+        "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",
+        "No container or VM boundary; kernel or sandbox escapes are not mitigated here.",
+        "Reads outside the denied paths are permitted so the dynamic linker and toolchains work."
+      ]
+    }
+  },
+  "timeout": {
+    "status": "TIMEOUT",
+    "timed_out": true,
+    "reasons": [
+      "TIMEOUT",
+      "NONZERO_EXIT:null"
+    ],
+    "process_tree_terminated": true,
+    "quarantined": false,
+    "heartbeat_bytes_at_kill": 37,
+    "heartbeat_bytes_500ms_later": 37,
+    "forked_child_stopped_writing": true
+  },
+  "reports": {
+    "silent": {
+      "status": "UNVERIFIED",
+      "reasons": [
+        "MISSING_REPORT"
+      ]
+    },
+    "malformed": {
+      "status": "UNVERIFIED",
+      "reasons": [
+        "MALFORMED_REPORT"
+      ]
+    },
+    "parser_mismatch": {
+      "status": "UNVERIFIED",
+      "reasons": [
+        "PARSER_VERSION_MISMATCH"
+      ],
+      "parser_version": "1.0.0"
+    },
+    "flood": {
+      "status": "FAILED",
+      "truncated": true,
+      "bytes": "sha256:ff735e9f0bae012c85f49d496d5cb8e7a7834736240c73421e998c07eac23308"
+    }
+  },
+  "missing_environments": {
+    "ios": {
+      "status": "UNVERIFIED",
+      "executed": false,
+      "reasons": [
+        "PLATFORM_UNAVAILABLE",
+        "MISSING:ios (host is darwin)"
+      ]
+    },
+    "model": {
+      "status": "UNVERIFIED",
+      "executed": false,
+      "reasons": [
+        "TOOLCHAIN_UNAVAILABLE",
+        "MISSING:authorized-model-runner"
+      ]
+    },
+    "blocked_checks": [
+      "ios-ui-journey",
+      "model-retrieval-eval"
+    ],
+    "executed_checks": [
+      "unit-tests",
+      "security-probe",
+      "hang-and-fork",
+      "output-flood",
+      "exit-zero-no-report",
+      "malformed-report",
+      "changed-parser-version"
+    ],
+    "integrity_passed": false
+  }
+}

@@ -3,4 +3,3 @@ node_modules/
 .venv/
 dist/
 *.tsbuildinfo
-tests/.artifacts/

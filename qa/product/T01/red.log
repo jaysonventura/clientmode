@@ -1,0 +1,2 @@
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/viscion/Documents/clientmode/packages/contracts/src/validate.js' imported from /Users/viscion/Documents/clientmode/tests/scenarios/T01.scenarios.ts
+  error: 'test failed'

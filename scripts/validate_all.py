@@ -20,7 +20,7 @@ def main():
         ('reference',['node','--test','tests/reference.test.mjs']),
         ('python',[sys.executable,'-m','unittest','discover','-s','tests','-p','test_*.py','-v']),
         ('structure',[sys.executable,'scripts/check_handoff.py']),
-        ('typescript',['tsc','--noEmit','--strict','--target','ES2022','--lib','ES2022,DOM','contracts/interfaces.ts'])
+        ('typescript',['npm','run','--silent','typecheck'])
     ]
     rows=[]
     for name,argv in commands:

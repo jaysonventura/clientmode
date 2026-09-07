@@ -1,0 +1,137 @@
+[
+  {
+    "name": "candidate.missing_artifact_digest",
+    "valid": false,
+    "errors": [
+      "/ must have required property 'artifact_digest' (artifact_digest)"
+    ]
+  },
+  {
+    "name": "candidate.unknown_field",
+    "valid": false,
+    "errors": [
+      "/ must NOT have additional properties (unexpected_field)"
+    ]
+  },
+  {
+    "name": "candidate.negative_requirements_revision",
+    "valid": false,
+    "errors": [
+      "/requirements_revision must be >= 1"
+    ]
+  },
+  {
+    "name": "engineering-context.grounded_without_source_refs",
+    "valid": false,
+    "errors": [
+      "/components/0/source_refs must NOT have fewer than 1 items",
+      "/components/0 must match \"then\" schema"
+    ]
+  },
+  {
+    "name": "engineering-context.blocked_without_capability_gap",
+    "valid": false,
+    "errors": [
+      "/components/0/capability_gaps must NOT have fewer than 1 items",
+      "/components/0 must match \"then\" schema"
+    ]
+  },
+  {
+    "name": "run.running_without_contract",
+    "valid": false,
+    "errors": [
+      "/state must be equal to one of the allowed values (allowed: RECEIVED, BLOCKED, PAUSED, CANCELLED, FAILED)",
+      "/ must match \"then\" schema"
+    ]
+  },
+  {
+    "name": "run.scoped_without_revision",
+    "valid": false,
+    "errors": [
+      "/requirements_revision must be >= 1",
+      "/ must match \"else\" schema"
+    ]
+  },
+  {
+    "name": "run.ready_without_candidate",
+    "valid": false,
+    "errors": [
+      "/candidate_id must be string",
+      "/ must match \"then\" schema"
+    ]
+  },
+  {
+    "name": "approval.deploy_without_artifact",
+    "valid": false,
+    "errors": [
+      "/candidate_id must be string",
+      "/artifact_digest must be string",
+      "/ must match \"then\" schema"
+    ]
+  },
+  {
+    "name": "approval.spend_without_limit",
+    "valid": false,
+    "errors": [
+      "/maximum_spend_usd must be number",
+      "/ must match \"then\" schema"
+    ]
+  },
+  {
+    "name": "approval_decision.approve_without_grant",
+    "valid": false,
+    "errors": [
+      "/approval must be object",
+      "/ must match \"then\" schema"
+    ]
+  },
+  {
+    "name": "approval_decision.deny_with_grant",
+    "valid": false,
+    "errors": [
+      "/approval must be null",
+      "/ must match \"else\" schema"
+    ]
+  },
+  {
+    "name": "policy.zero_minimum_tests",
+    "valid": false,
+    "errors": [
+      "/checks/0/minimum_tests must be >= 1",
+      "/checks/0 must match \"then\" schema"
+    ]
+  },
+  {
+    "name": "policy.all_checks_optional",
+    "valid": false,
+    "errors": [
+      "/checks/0/required must be equal to constant",
+      "/checks/1/required must be equal to constant",
+      "/checks must contain at least 1 valid item(s)"
+    ]
+  },
+  {
+    "name": "task_attempt.reviewer_with_write_scope",
+    "valid": false,
+    "errors": [
+      "/allowed_write_paths must NOT have more than 0 items",
+      "/ must match \"then\" schema"
+    ]
+  },
+  {
+    "name": "task_attempt.root_claims_parent",
+    "valid": false,
+    "errors": [
+      "/parent_attempt_id must be null",
+      "/ must match \"then\" schema"
+    ]
+  },
+  {
+    "name": "task_attempt.child_without_parent",
+    "valid": false,
+    "errors": [
+      "/parent_attempt_id must be string",
+      "/ must match \"else\" schema"
+    ]
+  }
+]

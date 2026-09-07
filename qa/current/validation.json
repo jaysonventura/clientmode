@@ -1,18 +1,18 @@
 {
   "scope": "HANDOFF_REFERENCE_ONLY",
   "handoff_edition": "1.3",
-  "observed_at": "2026-09-07T15:01:47.401619+00:00",
-  "status": "FAIL",
+  "observed_at": "2026-09-07T15:14:22.232934+00:00",
+  "status": "PASS",
   "checks": [
     {
       "check": "schema_dependency",
       "argv": [
-        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "/Users/viscion/Documents/clientmode/.venv/bin/python",
         "-c",
         "import jsonschema; print(jsonschema.__file__)"
       ],
-      "exit_code": 1,
-      "status": "FAIL",
+      "exit_code": 0,
+      "status": "PASS",
       "log": "qa/current/schema_dependency.log"
     },
     {
@@ -29,7 +29,7 @@
     {
       "check": "python",
       "argv": [
-        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "/Users/viscion/Documents/clientmode/.venv/bin/python",
         "-m",
         "unittest",
         "discover",
@@ -39,34 +39,30 @@
         "test_*.py",
         "-v"
       ],
-      "exit_code": 1,
-      "status": "FAIL",
+      "exit_code": 0,
+      "status": "PASS",
       "log": "qa/current/python.log"
     },
     {
       "check": "structure",
       "argv": [
-        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "/Users/viscion/Documents/clientmode/.venv/bin/python",
         "scripts/check_handoff.py"
       ],
-      "exit_code": 1,
-      "status": "FAIL",
+      "exit_code": 0,
+      "status": "PASS",
       "log": "qa/current/structure.log"
     },
     {
       "check": "typescript",
       "argv": [
-        "tsc",
-        "--noEmit",
-        "--strict",
-        "--target",
-        "ES2022",
-        "--lib",
-        "ES2022,DOM",
-        "contracts/interfaces.ts"
+        "npm",
+        "run",
+        "--silent",
+        "typecheck"
       ],
-      "exit_code": 127,
-      "status": "FAIL",
+      "exit_code": 0,
+      "status": "PASS",
       "log": "qa/current/typescript.log"
     }
   ],

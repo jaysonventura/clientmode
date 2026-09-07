@@ -1,0 +1,182 @@
+[
+  {
+    "name": "answer.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "approval-decision.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "approval-request.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "approval.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "attachment.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "attempt.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "audit.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "candidate.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "capability.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "contract.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "deployment.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "document-answer.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "document-evidence.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "document-finding.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "document-job.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "document-policy.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "document-question.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "document-result.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "document-scope.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "document-version.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "engineering-context.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "evidence.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "feedback.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "policy.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "project.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "question.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "request.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "run-message.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "run.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "service-case.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "text-attachment.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "usage.json",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "engineering-context.polyglot",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "engineering-context.unfamiliar_language",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "engineering-context.non_javascript_only",
+    "valid": true,
+    "errors": []
+  },
+  {
+    "name": "run.precontract_blocked_is_representable",
+    "valid": true,
+    "errors": []
+  }
+]

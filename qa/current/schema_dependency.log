@@ -1,5 +1,1 @@
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-    import jsonschema; print(jsonschema.__file__)
-    ^^^^^^^^^^^^^^^^^
-ModuleNotFoundError: No module named 'jsonschema'
+/Users/viscion/Documents/clientmode/.venv/lib/python3.13/site-packages/jsonschema/__init__.py

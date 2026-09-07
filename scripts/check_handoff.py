@@ -156,8 +156,14 @@ for path,item in api['paths'].items():
 checks.append('OpenAPI local refs, operation IDs, paths, auth/idempotency structure; %d operations' % len(ops))
 not_run.append('Full OpenAPI tooling validation and implementation conformance')
 
+# Installed dependency trees are not authored handoff content; scan only owned files.
+INSTALLED={'node_modules','.venv','.git','dist','.mypy_cache','__pycache__'}
+def owned(pattern):
+    return [p for p in ROOT.rglob(pattern)
+            if not INSTALLED.intersection(p.relative_to(ROOT).parts)]
+
 # Check real Markdown links and code-fence balance; inline code paths to future product files are not asserted to exist.
-for p in ROOT.rglob('*.md'):
+for p in owned('*.md'):
     text=p.read_text(encoding='utf-8')
     fences=re.findall(r'^\s*(`{3,}|~{3,})',text,re.M)
     check(len(fences)%2==0,'Unbalanced code fences '+str(p.relative_to(ROOT)))
@@ -170,7 +176,7 @@ for p in ROOT.rglob('*.md'):
         check(target.is_relative_to(ROOT) and target.exists(),'Broken local Markdown link '+str(p.relative_to(ROOT))+':'+link)
 checks.append('Markdown local links, code fences, unresolved-marker scan')
 # Detect private-key material in distribution, never reject harmless test API references.
-for p in ROOT.rglob('*'):
+for p in owned('*'):
     if p.is_file() and p.suffix in ['.md','.json','.ts','.mjs','.sql','.py']:
         check(('-----BEGIN ' + 'PRIVATE KEY' + '-----') not in p.read_text(encoding='utf-8'),'Private key material included '+str(p.relative_to(ROOT)))
 checks.append('No PEM private signing-key material included')

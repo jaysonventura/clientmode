@@ -1,8 +1,9 @@
 {
-  "status": "FAIL",
+  "status": "PASS",
   "checks": [
     "Required files and eight plans",
     "Parsed 37 JSON files",
+    "Draft2020-12 schema and 32 example instances, with format checking",
     "80 requirements mapped to 33 tasks and 33 concrete scenario groups; dependencies acyclic",
     "Research-to-requirement adoption pointers validated; not source-claim or efficacy verification",
     "State-machine/schema identities and authoritative actor guards",
@@ -12,10 +13,7 @@
     "No PEM private signing-key material included"
   ],
   "not_run": [
-    "JSON Schema validation: jsonschema package unavailable",
     "Full OpenAPI tooling validation and implementation conformance"
   ],
-  "errors": [
-    "Required dependency missing: jsonschema; schema validation did not run"
-  ]
+  "errors": []
 }

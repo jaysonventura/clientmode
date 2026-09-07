@@ -1,0 +1,109 @@
+{
+  "coverage": {
+    "coverage": "PARTIAL",
+    "attempted": 26,
+    "readable": 24,
+    "missing": [],
+    "unreadable": [
+      "unit_41486bf4afbb19ff",
+      "unit_72cc4002059318e9"
+    ]
+  },
+  "tools": {
+    "pdf": {
+      "pdf_text": {
+        "name": "pdftotext",
+        "available": true,
+        "version": "26.03.0",
+        "detail": "pdftotext version 26.03.0"
+      }
+    },
+    "docx": {
+      "ooxml": {
+        "name": "first-party OOXML reader",
+        "available": true,
+        "version": "1.0.0",
+        "detail": "structural read of the document parts"
+      }
+    },
+    "xlsx": {
+      "ooxml": {
+        "name": "first-party OOXML reader",
+        "available": true,
+        "version": "1.0.0",
+        "detail": "structural read of sheets, formulas and cached values"
+      }
+    },
+    "pptx": {
+      "ooxml": {
+        "name": "first-party OOXML reader",
+        "available": true,
+        "version": "1.0.0",
+        "detail": "structural read of slides, shapes and notes"
+      }
+    },
+    "image": {
+      "image": {
+        "name": "first-party PNG reader",
+        "available": true,
+        "version": "1.0.0",
+        "detail": "320x200"
+      }
+    }
+  },
+  "limitations": [
+    "One or more pages have no text layer. No OCR engine is installed, so their text is not established.",
+    "Text inside the image is not established: no OCR engine is installed."
+  ],
+  "unreadable": [
+    {
+      "unit_id": "unit_41486bf4afbb19ff",
+      "reason": "NO_TEXT_LAYER"
+    },
+    {
+      "unit_id": "unit_72cc4002059318e9",
+      "reason": "NO_OCR_ENGINE_INSTALLED"
+    }
+  ],
+  "visual_units": 5,
+  "visual_inspected": 5,
+  "degraded_run": {
+    "coverage": "PARTIAL",
+    "limitations": [
+      "PDF text extraction was disabled for this run; no page text was read."
+    ]
+  },
+  "truncated_run": {
+    "coverage": "PARTIAL",
+    "attempted": 1,
+    "readable": 1,
+    "missing": [
+      "unit_e8d7e72e67c46b29",
+      "unit_41486bf4afbb19ff",
+      "unit_1328021b0db6c7ae",
+      "unit_35bce378f64e0e0d",
+      "unit_e0bbaab50873a645",
+      "unit_4b9ea4baba96164b",
+      "unit_d79335784bace790",
+      "unit_beeb72ad6d744a1c",
+      "unit_a7a37e30e810ad15",
+      "unit_6c9ef5ed7d0f22ab",
+      "unit_70ab69adc94d6d3e",
+      "unit_69370ab52cd1fef6",
+      "unit_276aa44d71a392e8",
+      "unit_b358eb59ceec2f7f",
+      "unit_c679e15c6da32dc6",
+      "unit_b085852f689c3d97",
+      "unit_0c911e1be5441472",
+      "unit_4fea5b00114a2fc2",
+      "unit_75d9b1abf47b78a7",
+      "unit_64f1ba0166503832",
+      "unit_708dad3a24d534c3",
+      "unit_10aa35b475b1fc8d",
+      "unit_09ad9c7df04e39e6",
+      "unit_71c8edbf7d82acf6",
+      "unit_72cc4002059318e9"
+    ],
+    "unreadable": []
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "partial": {
+    "state": "PARTIAL",
+    "open_question": null,
+    "notices": [
+      "Page 3 has no text layer and no OCR engine is installed."
+    ],
+    "role_reports": []
+  },
+  "complete": {
+    "state": "READY",
+    "open_question": null,
+    "notices": [],
+    "role_reports": []
+  },
+  "routine_narration": [],
+  "routes": {
+    "upload": {
+      "method": "POST",
+      "path": "/v1/projects/{project_id}/attachments",
+      "grants": "an identity, not a safety verdict"
+    },
+    "create_job": {
+      "method": "POST",
+      "path": "/v1/document-jobs",
+      "grants": "nothing; no software run is created"
+    },
+    "job": {
+      "method": "GET",
+      "path": "/v1/document-jobs/{job_id}",
+      "grants": "nothing"
+    },
+    "questions": {
+      "method": "GET",
+      "path": "/v1/document-jobs/{job_id}/questions",
+      "grants": "nothing"
+    },
+    "answer": {
+      "method": "POST",
+      "path": "/v1/document-questions/{question_id}/answer",
+      "grants": "nothing; a business answer is not a permission"
+    },
+    "message": {
+      "method": "POST",
+      "path": "/v1/document-jobs/{job_id}/messages",
+      "grants": "nothing; a new instruction fences the old attempt"
+    },
+    "download": {
+      "method": "GET",
+      "path": "/v1/document-artifacts/{artifact_id}",
+      "grants": "read access to this project only"
+    }
+  },
+  "download": {
+    "own": {
+      "status": 200,
+      "body": {
+        "filename": "summary.pdf",
+        "headers": {
+          "content-type": "application/pdf",
+          "content-length": "686",
+          "content-disposition": "attachment; filename=\"summary.pdf\"",
+          "x-content-digest": "sha256:71f7b7bb583851be389ae85830810e9dac682b0f586bcd5faa1fc3e1f2586f12",
+          "x-content-type-options": "nosniff"
+        }
+      }
+    },
+    "replayed": {
+      "status": 404,
+      "error": {
+        "status": 404,
+        "code": "NOT_FOUND",
+        "message": "no such artifact in this project",
+        "retryable": false,
+        "request_id": "req-t30"
+      }
+    }
+  },
+  "cross_project_job": {
+    "status": 404,
+    "error": {
+      "status": 404,
+      "code": "NOT_FOUND",
+      "message": "no such document job in this project",
+      "retryable": false,
+      "request_id": "req-t30"
+    }
+  }
+}

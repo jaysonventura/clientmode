@@ -1,0 +1,30 @@
+{
+  "software_reservation": {
+    "cap_microusd": 1000000,
+    "reserved_microusd": 600000,
+    "settled_microusd": 0,
+    "unknown_usage_events": 0,
+    "verification_reserve_microusd": 200000,
+    "available_microusd": 200000,
+    "stopped": false
+  },
+  "document_reservation": {
+    "reserved": false,
+    "reason": "SHARED_BUDGET_EXHAUSTED",
+    "available_after": 200000
+  },
+  "small_document_reservation": {
+    "reserved": true,
+    "reservation_id": "dres_47efc99d-25de-4f44-883d-cdaeeb7e5f76",
+    "available_after": 100000
+  },
+  "duplicate_usage": {
+    "recorded": false,
+    "duplicate": true
+  },
+  "after_usage": {
+    "reserved": false,
+    "reason": "SHARED_BUDGET_EXHAUSTED",
+    "available_after": 50000
+  }
+}

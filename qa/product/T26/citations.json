@@ -1,0 +1,80 @@
+{
+  "resolved": [
+    {
+      "locator": {
+        "type": "page",
+        "page_number": 2
+      },
+      "resolves": true,
+      "observed": "Cancellation\nA booking may be cancelled within 24 hours of confirmation.\nAfter that window the deposit is retained.\nRefunds are processed within five working da"
+    },
+    {
+      "locator": {
+        "type": "paragraph",
+        "part_name": "word/document.xml",
+        "block_path": "/paragraph[4]"
+      },
+      "resolves": true,
+      "observed": "Staff may cancel a booking within 48 hours of confirmation."
+    },
+    {
+      "locator": {
+        "type": "slide",
+        "slide_number": 1,
+        "shape_id": "notes"
+      },
+      "resolves": true,
+      "observed": "Legal reminded us the cancellation window is 48 hours."
+    },
+    {
+      "locator": {
+        "type": "sheet",
+        "sheet_name": "Adjustments",
+        "cell_range": "A1:B1"
+      },
+      "resolves": true,
+      "observed": "A1=bulk discount\nB1=-5000"
+    },
+    {
+      "locator": {
+        "type": "sheet",
+        "sheet_name": "Items",
+        "cell_range": "B1501:B1501"
+      },
+      "resolves": true,
+      "observed": "B1501=250"
+    }
+  ],
+  "refused": [
+    {
+      "label": "stale digest",
+      "resolves": false,
+      "reason": "SOURCE_DIGEST_MISMATCH"
+    },
+    {
+      "label": "page beyond the document",
+      "resolves": false,
+      "reason": "PAGE_OUT_OF_BOUNDS"
+    },
+    {
+      "label": "row beyond the sheet",
+      "resolves": false,
+      "reason": "RANGE_BEYOND_SHEET"
+    },
+    {
+      "label": "excerpt not at the locator",
+      "resolves": false,
+      "reason": "EXCERPT_NOT_FOUND_AT_LOCATOR"
+    },
+    {
+      "label": "unknown version",
+      "resolves": false,
+      "reason": "UNKNOWN_VERSION"
+    },
+    {
+      "label": "sheet that does not exist",
+      "resolves": false,
+      "reason": "SHEET_NOT_FOUND"
+    }
+  ]
+}

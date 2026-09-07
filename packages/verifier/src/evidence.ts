@@ -11,7 +11,7 @@
 import { createPrivateKey, createPublicKey, generateKeyPairSync, sign as signBytes, verify as verifyBytes, type KeyObject } from 'node:crypto';
 import { chmodSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import type { Actor, Evidence, SignedEnvelope } from '../../../contracts/interfaces.js';
+import type { Actor, DocumentEvidence, Evidence, SignedEnvelope } from '../../../contracts/interfaces.js';
 import { validateEntity } from '../../contracts/src/validate.js';
 import type { ProtectedPolicyStore } from './policy.js';
 
@@ -91,6 +91,64 @@ export class EvidenceSigner {
       signature_base64: signBytes(null, payload, this.#private).toString('base64'),
     };
   }
+
+  /** Seals document evidence.
+   *
+   * Same envelope, same algorithm, same key handling — and a separate role. Only the document
+   * verification authority may ask for this, and the payload it produces is a kind the
+   * software evaluator refuses to open. */
+  sealDocument(evidence: DocumentEvidence, actor: string): SignedEnvelope {
+    if (actor !== 'document_verifier') throw new EvidenceError('ACTOR_CANNOT_SIGN_DOCUMENT_EVIDENCE', actor);
+    if (evidence.kind !== 'document_evidence') throw new EvidenceError('NOT_DOCUMENT_EVIDENCE', String(evidence.kind));
+    if (evidence.issuer_id !== this.issuer_id) throw new EvidenceError('ISSUER_MISMATCH', evidence.issuer_id);
+    const validation = validateEntity(evidence);
+    if (!validation.valid) throw new EvidenceError('INVALID_DOCUMENT_EVIDENCE', validation.errors.join('; '));
+    const payload = Buffer.from(JSON.stringify(evidence), 'utf8');
+    if (payload.byteLength > MAXIMUM_PAYLOAD_BYTES) throw new EvidenceError('PAYLOAD_TOO_LARGE', String(payload.byteLength));
+    return {
+      kind: 'signed_envelope', schema_version: 1, issuer_id: this.issuer_id, algorithm: 'Ed25519',
+      payload_base64: payload.toString('base64'),
+      signature_base64: signBytes(null, payload, this.#private).toString('base64'),
+    };
+  }
+}
+
+export type OpenedDocumentEnvelope =
+  | { opened: true; evidence: DocumentEvidence; issuer_id: string }
+  | { opened: false; reasons: string[] };
+
+/** Opens document evidence. The software `openEnvelope` refuses this kind and this one refuses
+ * the software kind, which is the separation the release path depends on. */
+export function openDocumentEnvelope(input: { envelope: unknown; trust: TrustStore; now: string }): OpenedDocumentEnvelope {
+  const envelope = input.envelope as Partial<SignedEnvelope> | null;
+  if (envelope === null || typeof envelope !== 'object' || Array.isArray(envelope)) return { opened: false, reasons: ['INVALID_ENVELOPE'] };
+  const reasons: string[] = [];
+  if (envelope.kind !== 'signed_envelope' || envelope.schema_version !== 1) reasons.push('UNSUPPORTED_ENVELOPE_SCHEMA');
+  if (envelope.algorithm !== 'Ed25519') reasons.push('UNSUPPORTED_ALGORITHM');
+  if (typeof envelope.issuer_id !== 'string' || envelope.issuer_id.length === 0) reasons.push('MISSING_ISSUER');
+  if (typeof envelope.payload_base64 !== 'string' || envelope.payload_base64.length > MAXIMUM_PAYLOAD_BASE64) reasons.push('PAYLOAD_LIMIT');
+  if (reasons.length > 0) return { opened: false, reasons };
+
+  const resolved = input.trust.resolve(envelope.issuer_id!, input.now);
+  if ('rejected' in resolved) return { opened: false, reasons: [resolved.rejected] };
+  const payload = strictBase64(envelope.payload_base64);
+  const signature = strictBase64(envelope.signature_base64);
+  if (payload === null || signature === null || payload.byteLength > MAXIMUM_PAYLOAD_BYTES || signature.byteLength !== 64) {
+    return { opened: false, reasons: ['MALFORMED_ENCODING'] };
+  }
+  if (!verifyBytes(null, payload, resolved.key, signature)) return { opened: false, reasons: ['INVALID_SIGNATURE'] };
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(payload.toString('utf8'));
+  } catch {
+    return { opened: false, reasons: ['MALFORMED_PAYLOAD'] };
+  }
+  const validation = validateEntity(parsed);
+  if (!validation.valid) return { opened: false, reasons: ['INVALID_DOCUMENT_EVIDENCE', ...validation.errors.slice(0, 5)] };
+  const evidence = parsed as DocumentEvidence;
+  if (evidence.kind !== 'document_evidence') return { opened: false, reasons: ['NOT_DOCUMENT_EVIDENCE'] };
+  if (evidence.issuer_id !== envelope.issuer_id) return { opened: false, reasons: ['ISSUER_IDENTITY'] };
+  return { opened: true, evidence, issuer_id: envelope.issuer_id! };
 }
 
 function strictBase64(value: unknown): Buffer | null {

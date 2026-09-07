@@ -1,0 +1,58 @@
+{
+  "macro": {
+    "media_type_from_bytes": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "declared_media_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "mismatch": false,
+    "container": {
+      "members": [
+        {
+          "name": "[Content_Types].xml",
+          "compressed_size": 240,
+          "uncompressed_size": 409,
+          "method": 8,
+          "unix_mode": null,
+          "is_symlink": false
+        },
+        {
+          "name": "_rels/.rels",
+          "compressed_size": 238,
+          "uncompressed_size": 493,
+          "method": 8,
+          "unix_mode": null,
+          "is_symlink": false
+        },
+        {
+          "name": "word/document.xml",
+          "compressed_size": 248,
+          "uncompressed_size": 398,
+          "method": 8,
+          "unix_mode": null,
+          "is_symlink": false
+        },
+        {
+          "name": "word/vbaProject.bin",
+          "compressed_size": 25,
+          "uncompressed_size": 25,
+          "method": 0,
+          "unix_mode": null,
+          "is_symlink": false
+        }
+      ],
+      "total_uncompressed": 1325,
+      "refusals": [],
+      "safe": true
+    },
+    "active_content": [
+      "word/vbaProject.bin"
+    ],
+    "external_references": [
+      "https://example.invalid/tracking-template.dotm"
+    ],
+    "disabled_external_links": [],
+    "refusals": [
+      "ACTIVE_CONTENT_PRESENT:word/vbaProject.bin",
+      "ACTIVATING_EXTERNAL_REFERENCE:https://example.invalid/tracking-template.dotm"
+    ],
+    "passed": false
+  }
+}

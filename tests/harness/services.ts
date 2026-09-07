@@ -46,3 +46,8 @@ export function startShop(options: { defect?: string; databaseFile?: string } = 
 export function startPricingService(python: string): Promise<RunningService> {
   return start(python, [path.join(ROOT, 'fixtures/services/pricing_service.py')], {}, 'PRICING_SERVICE');
 }
+
+/** The documentation fixture: a service whose published parameter name is wrong. */
+export function startPricingApi(): Promise<RunningService> {
+  return start(process.execPath, [path.join(ROOT, 'fixtures/services/pricing_api.mjs')], {}, 'PRICING_API');
+}

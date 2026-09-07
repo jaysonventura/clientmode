@@ -7,14 +7,14 @@
       "version": "1.3.0-rc1",
       "distribution_digest": "sha256:7c736fdf7eb5569c78d1e73e512f69969bf293d4c6c4709aef0596a0711bfdcb",
       "files": 10,
-      "archive_digest": "sha256:ab53b06b4602ebfaaff7d924b2fad8d8a0ab0de55001e9afddc1d001187a03a8"
+      "archive_digest": "sha256:021988e2480fa941df13ce8958d5e0c4e1e7ad02384b93bf3b33f7d36949f5e7"
     },
     {
       "provider": "codex",
       "version": "1.3.0-rc1",
       "distribution_digest": "sha256:23a0d3e02c9d17374f3bfbc3a6c6412c20c051aca7671402ad148fa98a012eb3",
       "files": 10,
-      "archive_digest": "sha256:57f82efeded3af7092bd57de141e9ad2145530a49444d55bb11bd41e8b9b1bde"
+      "archive_digest": "sha256:e46fb5cc22cf7d4a657212aca48e5d18186c3ebd25096ae29e0ec82651d9bcc8"
     }
   ],
   "dependencies": [
@@ -190,7 +190,13 @@
       "T21",
       "T22",
       "T23",
-      "T24"
+      "T24",
+      "T25",
+      "T26",
+      "T27",
+      "T28",
+      "T29",
+      "T30"
     ]
   },
   "sections": [
@@ -212,7 +218,7 @@
     {
       "name": "test_report",
       "present": true,
-      "detail": "24 gates, 24 evidence directories"
+      "detail": "24 gates, 30 evidence directories"
     },
     {
       "name": "runbooks",

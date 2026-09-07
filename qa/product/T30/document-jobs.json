@@ -1,0 +1,103 @@
+{
+  "review_job": {
+    "kind": "document_job",
+    "schema_version": 1,
+    "job_id": "djob_10eb4f10-d50b-4af8-96b8-1c91bd4ab125",
+    "project_id": "project_t30",
+    "request_id": "request_t30_review",
+    "operation": "review",
+    "input_version_ids": [
+      "ver_29f3b578-6ed4-4c76-9ffc-7f278cfcca0f"
+    ],
+    "software_run_id": null,
+    "state": "RECEIVED",
+    "state_version": 1,
+    "instruction_revision": 1,
+    "result_id": null,
+    "created_at": "2026-09-09T11:00:04.000Z",
+    "updated_at": "2026-09-09T11:00:04.000Z"
+  },
+  "create_job": {
+    "kind": "document_job",
+    "schema_version": 1,
+    "job_id": "djob_0cbf6b03-ebba-4087-8b70-2a6bc57cd662",
+    "project_id": "project_t30",
+    "request_id": "request_t30_create",
+    "operation": "create",
+    "input_version_ids": [],
+    "software_run_id": null,
+    "state": "RECEIVED",
+    "state_version": 1,
+    "instruction_revision": 1,
+    "result_id": null,
+    "created_at": "2026-09-09T11:00:06.000Z",
+    "updated_at": "2026-09-09T11:00:06.000Z"
+  },
+  "generated_scope": {
+    "kind": "document_scope",
+    "schema_version": 1,
+    "scope_id": "scope_4188f7b0-a8c1-4e29-b386-0f5be8e94123",
+    "job_id": "djob_0cbf6b03-ebba-4087-8b70-2a6bc57cd662",
+    "project_id": "project_t30",
+    "scope_mode": "generated_output",
+    "source_version_ids": [],
+    "units": [],
+    "scope_digest": "sha256:7d6b76590af54b4fc3f9d30bb9e138a0c3f4b9ad97df89ac8e107e46e334a353",
+    "inventory_digest": "sha256:1f3b582d1fd626d545ced1dc79b70ad8172d2100b83211af6a2e5dfe7e27d983",
+    "created_at": "2026-09-09T11:00:00.000Z"
+  },
+  "fabricated_inventory_refused": "GENERATED_OUTPUT_HAS_NO_SOURCE_VERSIONS",
+  "software_runs": 1,
+  "candidates": 0,
+  "git_created": false,
+  "restart": {
+    "job": {
+      "kind": "document_job",
+      "schema_version": 1,
+      "job_id": "djob_10eb4f10-d50b-4af8-96b8-1c91bd4ab125",
+      "project_id": "project_t30",
+      "request_id": "request_t30_review",
+      "operation": "review",
+      "input_version_ids": [
+        "ver_29f3b578-6ed4-4c76-9ffc-7f278cfcca0f"
+      ],
+      "software_run_id": null,
+      "state": "PROCESSING",
+      "state_version": 2,
+      "instruction_revision": 1,
+      "result_id": null,
+      "created_at": "2026-09-09T11:00:04.000Z",
+      "updated_at": "2026-09-09T11:00:07.000Z"
+    },
+    "answers": 1,
+    "question_status": {
+      "status": "ANSWERED"
+    },
+    "events": 3
+  },
+  "revision": {
+    "status": 201,
+    "body": {
+      "instruction_revision": 2,
+      "fenced_attempts": 1
+    }
+  },
+  "stale_attempt": {
+    "accepted": false,
+    "reason": "ATTEMPT_REVOKED"
+  },
+  "fresh_attempt": {
+    "accepted": true
+  },
+  "cross_job_attempt": {
+    "accepted": false,
+    "reason": "UNKNOWN_ATTEMPT"
+  },
+  "outbox": [
+    {
+      "operation": "job.received",
+      "status": "PENDING",
+      "idempotency_key": "job-review:received"
+    }
+  ]
+}

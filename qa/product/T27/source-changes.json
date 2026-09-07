@@ -1,0 +1,100 @@
+{
+  "result_current_before": true,
+  "result_current_after": false,
+  "invalidation": {
+    "results": [
+      "dres_djob_349f7983-b7a7-4033-b2a3-ad6a52e16435"
+    ],
+    "jobs": [
+      "djob_349f7983-b7a7-4033-b2a3-ad6a52e16435"
+    ]
+  },
+  "job_state": "STALE",
+  "new_version": "ver_03bc8f9f-40d2-439b-8f5e-27a6ddcdc9f2",
+  "old_version_still_stored": true,
+  "revocation": {
+    "before": true,
+    "after_read": {
+      "ok": false,
+      "code": "ACCESS_REVOKED",
+      "message": "ACCESS_REVOKED: ver_a4cff589-b85d-4303-bc10-eb99c6322313"
+    },
+    "live_resolve": {
+      "ok": false,
+      "code": "ACCESS_REVOKED",
+      "message": "ACCESS_REVOKED: ver_a4cff589-b85d-4303-bc10-eb99c6322313"
+    },
+    "cross_project": {
+      "ok": false,
+      "code": "VERSION_NOT_FOUND_IN_PROJECT",
+      "message": "VERSION_NOT_FOUND_IN_PROJECT: ver_b9ac01b6-c845-4a56-908d-5281df99bcd4"
+    }
+  },
+  "events": [
+    {
+      "sequence": 1,
+      "kind": "job.received",
+      "payload": {
+        "operation": "analyze",
+        "sources": 4
+      }
+    },
+    {
+      "sequence": 2,
+      "kind": "job.state_changed",
+      "payload": {
+        "from": "RECEIVED",
+        "to": "PROCESSING",
+        "actor": "controller",
+        "reason": "analysis started"
+      }
+    },
+    {
+      "sequence": 3,
+      "kind": "job.question_answered",
+      "payload": {
+        "question_id": "dq_1cdc9a6a-492e-4d94-ad49-398a77bc99bb",
+        "actor_id": "owner_1"
+      }
+    },
+    {
+      "sequence": 4,
+      "kind": "job.instructions_revised",
+      "payload": {
+        "revision": 2,
+        "actor_id": "owner_1",
+        "fenced": 0
+      }
+    },
+    {
+      "sequence": 5,
+      "kind": "job.state_changed",
+      "payload": {
+        "from": "PROCESSING",
+        "to": "VERIFYING",
+        "actor": "controller",
+        "reason": "checks"
+      }
+    },
+    {
+      "sequence": 6,
+      "kind": "job.state_changed",
+      "payload": {
+        "from": "VERIFYING",
+        "to": "PARTIAL",
+        "actor": "document_verifier",
+        "reason": "partial coverage"
+      }
+    },
+    {
+      "sequence": 7,
+      "kind": "job.state_changed",
+      "payload": {
+        "from": "PARTIAL",
+        "to": "STALE",
+        "actor": "controller",
+        "reason": "source ver_a4cff589-b85d-4303-bc10-eb99c6322313 was revised"
+      }
+    }
+  ]
+}

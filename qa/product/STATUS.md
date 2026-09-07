@@ -163,6 +163,33 @@ no gate exercised — the dispatch depth ceiling, and approval expiry and candid
 `ApprovalAuthority.authorize`. All three scenarios were strengthened and the mutations re-run to
 confirm the gates now go red. Two narrow gaps remain open and are named in the matrix.
 
+## Milestone M7 — document intelligence: COMPLETE
+
+| Task | Gate | Mode | Status | Evidence |
+|---|---|---|---|---|
+| T25 | AT-025 | integration | PASS | `qa/product/T25/` |
+| T26 | AT-026 | integration | PASS | `qa/product/T26/` |
+| T27 | AT-027 | integration | PASS | `qa/product/T27/` |
+| T28 | AT-028 | integration | PASS | `qa/product/T28/` |
+| T29 | AT-029 | integration | PASS | `qa/product/T29/` |
+| T30 | AT-030 | integration | PASS | `qa/product/T30/` |
+
+- PDF, DOCX, XLSX, PPTX, CSV/TSV, PNG and text are read and written by first-party format code:
+  a ZIP reader that enforces the container limits before decompressing anything, an OOXML
+  reader that reaches hidden sheets, comments, revisions and slide notes, and a PDF builder
+  whose output is extracted by `pdftotext 26.03.0` and rendered by Ghostscript 10.05.1
+- the calculation engine is first-party with a declared capability set. `XLOOKUP` is reported
+  unsupported rather than approximated, external links stay disabled, and money is integer
+  minor units throughout. The workbook's cached totals (150,000 and 145,000) are both reported
+  as differing from the recalculation (150,250 and 145,250)
+- **no OCR engine and no office suite are installed.** Text inside an image is reported
+  uncertain, a scanned page is reported as having no text layer, and neither is guessed at
+- the document verification authority is separate from the software one in every sense that
+  matters: its own database, its own policy records, its own evidence kind, and a software
+  evaluator that refuses to open a `document_evidence` payload at all
+- 26 mutations executed across the six gates; two needed a second layer removed before the
+  gate went red, and both pairs are recorded
+
 ## Explicitly not proven yet
 
 - Provider integration is proved on **one machine at one version each**. That is not a

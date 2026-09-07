@@ -1,0 +1,274 @@
+{
+  "stored": [
+    {
+      "label": "pdf",
+      "media_type": "application/pdf",
+      "byte_length": 1528,
+      "expected_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
+      "stored": true,
+      "recorded_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
+      "ingestion_status": "INGESTED",
+      "safety_status": "PASSED",
+      "version_id": "ver_7e99eb10-b3a0-455f-9698-e68cfd483b09",
+      "refusals": [],
+      "schema_valid": true,
+      "round_trip_identical": true
+    },
+    {
+      "label": "docx",
+      "media_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "byte_length": 2504,
+      "expected_digest": "sha256:4b129f8b5a3407c5e79729c38cc88325dabc87e574b8073b46d7e194b66f64db",
+      "stored": true,
+      "recorded_digest": "sha256:4b129f8b5a3407c5e79729c38cc88325dabc87e574b8073b46d7e194b66f64db",
+      "ingestion_status": "INGESTED",
+      "safety_status": "PASSED",
+      "version_id": "ver_3776513f-c08b-4acf-a54b-c6dd24fcb7c2",
+      "refusals": [],
+      "schema_valid": true,
+      "round_trip_identical": true
+    },
+    {
+      "label": "xlsx",
+      "media_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "byte_length": 9855,
+      "expected_digest": "sha256:5840cbdd7304ff6839381fa0fa40ab4aa1a2e18d01ba1110fb25142cc1d30a5a",
+      "stored": true,
+      "recorded_digest": "sha256:5840cbdd7304ff6839381fa0fa40ab4aa1a2e18d01ba1110fb25142cc1d30a5a",
+      "ingestion_status": "INGESTED",
+      "safety_status": "PASSED",
+      "version_id": "ver_97f96454-003d-4cca-8bc7-509edb177c18",
+      "refusals": [],
+      "schema_valid": true,
+      "round_trip_identical": true
+    },
+    {
+      "label": "pptx",
+      "media_type": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "byte_length": 2364,
+      "expected_digest": "sha256:33208a33e129857ec7e27539252afca766dd3e4bcc705d65af91da842df31e0a",
+      "stored": true,
+      "recorded_digest": "sha256:33208a33e129857ec7e27539252afca766dd3e4bcc705d65af91da842df31e0a",
+      "ingestion_status": "INGESTED",
+      "safety_status": "PASSED",
+      "version_id": "ver_80b8deb7-3fd2-446c-a78c-37ced48589be",
+      "refusals": [],
+      "schema_valid": true,
+      "round_trip_identical": true
+    },
+    {
+      "label": "csv",
+      "media_type": "text/csv",
+      "byte_length": 120,
+      "expected_digest": "sha256:e01122329af4dc12a5392fac1eaa1b9a5bb3ebd0bbe198c659bb66ca5629b29b",
+      "stored": true,
+      "recorded_digest": "sha256:e01122329af4dc12a5392fac1eaa1b9a5bb3ebd0bbe198c659bb66ca5629b29b",
+      "ingestion_status": "INGESTED",
+      "safety_status": "PASSED",
+      "version_id": "ver_0099fd62-51d7-4006-bd33-b51eea3489ab",
+      "refusals": [],
+      "schema_valid": true,
+      "round_trip_identical": true
+    },
+    {
+      "label": "tsv",
+      "media_type": "text/tab-separated-values",
+      "byte_length": 53,
+      "expected_digest": "sha256:e40f97e9dfa9cdc1f32270a9e962c70cb382a15967b907d941b1b1881ca0059a",
+      "stored": true,
+      "recorded_digest": "sha256:e40f97e9dfa9cdc1f32270a9e962c70cb382a15967b907d941b1b1881ca0059a",
+      "ingestion_status": "INGESTED",
+      "safety_status": "PASSED",
+      "version_id": "ver_fcabbdac-ff0f-4e19-8a38-f5c6bba907f1",
+      "refusals": [],
+      "schema_valid": true,
+      "round_trip_identical": true
+    },
+    {
+      "label": "png",
+      "media_type": "image/png",
+      "byte_length": 738,
+      "expected_digest": "sha256:7751f67d629a3af65f28d136d3f9752ed94c48f240cfed339488de32e801ff82",
+      "stored": true,
+      "recorded_digest": "sha256:7751f67d629a3af65f28d136d3f9752ed94c48f240cfed339488de32e801ff82",
+      "ingestion_status": "INGESTED",
+      "safety_status": "PASSED",
+      "version_id": "ver_8a4ac18f-3e9f-43cb-8811-652c712c312b",
+      "refusals": [],
+      "schema_valid": true,
+      "round_trip_identical": true
+    },
+    {
+      "label": "markdown",
+      "media_type": "text/markdown",
+      "byte_length": 70,
+      "expected_digest": "sha256:1ac3793e6406ef5be2d344a6359501c7cd401eb124cfc8d16f3fdb6a841322b8",
+      "stored": true,
+      "recorded_digest": "sha256:1ac3793e6406ef5be2d344a6359501c7cd401eb124cfc8d16f3fdb6a841322b8",
+      "ingestion_status": "INGESTED",
+      "safety_status": "PASSED",
+      "version_id": "ver_c77fb84a-6c56-45e0-9303-e14d7630c157",
+      "refusals": [],
+      "schema_valid": true,
+      "round_trip_identical": true
+    },
+    {
+      "label": "json",
+      "media_type": "application/json",
+      "byte_length": 46,
+      "expected_digest": "sha256:42a377825e317be96104f80c9710435eb5838d88d2a92841e1f12d26f1e9d9f5",
+      "stored": true,
+      "recorded_digest": "sha256:42a377825e317be96104f80c9710435eb5838d88d2a92841e1f12d26f1e9d9f5",
+      "ingestion_status": "INGESTED",
+      "safety_status": "PASSED",
+      "version_id": "ver_ea5fe3b0-2bcd-4503-9fda-68ad75bd2ff1",
+      "refusals": [],
+      "schema_valid": true,
+      "round_trip_identical": true
+    }
+  ],
+  "upload_is_not_analysis": {
+    "record": {
+      "label": "pdf",
+      "media_type": "application/pdf",
+      "byte_length": 1528,
+      "expected_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
+      "stored": true,
+      "recorded_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
+      "ingestion_status": "INGESTED",
+      "safety_status": "PASSED",
+      "version_id": "ver_7e99eb10-b3a0-455f-9698-e68cfd483b09",
+      "refusals": [],
+      "schema_valid": true,
+      "round_trip_identical": true
+    },
+    "scopes": 0,
+    "results": 0,
+    "jobs": 0
+  },
+  "canaries": {
+    "macro_and_remote_template": {
+      "stored": false,
+      "refusals": [
+        "ACTIVE_CONTENT_PRESENT:word/vbaProject.bin",
+        "ACTIVATING_EXTERNAL_REFERENCE:https://example.invalid/tracking-template.dotm"
+      ],
+      "active_content": [
+        "word/vbaProject.bin"
+      ],
+      "external_references": [
+        "https://example.invalid/tracking-template.dotm"
+      ],
+      "disabled_external_links": [],
+      "media_type_from_bytes": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    },
+    "forged_type": {
+      "stored": false,
+      "refusals": [
+        "MEDIA_TYPE_MISMATCH:declared=application/vnd.openxmlformats-officedocument.wordprocessingml.document:bytes=application/pdf"
+      ],
+      "active_content": [],
+      "external_references": [],
+      "disabled_external_links": [],
+      "media_type_from_bytes": "application/pdf"
+    },
+    "legacy_ole": {
+      "stored": false,
+      "refusals": [
+        "LEGACY_OLE_FORMAT_NOT_ACCEPTED_AS_OOXML",
+        "MEDIA_TYPE_MISMATCH:declared=application/vnd.openxmlformats-officedocument.wordprocessingml.document:bytes=application/x-ole-storage"
+      ],
+      "active_content": [],
+      "external_references": [],
+      "disabled_external_links": [],
+      "media_type_from_bytes": "application/x-ole-storage"
+    },
+    "zip_bomb": {
+      "stored": false,
+      "refusals": [
+        "COMPRESSION_RATIO:word/document.xml:1028"
+      ],
+      "active_content": [],
+      "external_references": [],
+      "disabled_external_links": [],
+      "media_type_from_bytes": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    },
+    "traversal": {
+      "stored": false,
+      "refusals": [
+        "PARENT_TRAVERSAL:../../etc/passwd"
+      ],
+      "active_content": [],
+      "external_references": [],
+      "disabled_external_links": [],
+      "media_type_from_bytes": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    },
+    "absolute_path": {
+      "stored": false,
+      "refusals": [
+        "ABSOLUTE_PATH:/etc/hosts"
+      ],
+      "active_content": [],
+      "external_references": [],
+      "disabled_external_links": [],
+      "media_type_from_bytes": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    },
+    "too_many_members": {
+      "stored": false,
+      "refusals": [
+        "MEMBER_COUNT:2501"
+      ],
+      "active_content": [],
+      "external_references": [],
+      "disabled_external_links": [],
+      "media_type_from_bytes": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    },
+    "oversized_text": {
+      "stored": false,
+      "refusals": [
+        "FILE_TOO_LARGE:2097152>1048576"
+      ],
+      "active_content": [],
+      "external_references": [],
+      "disabled_external_links": [],
+      "media_type_from_bytes": "text/markdown"
+    },
+    "binary_as_text": {
+      "stored": false,
+      "refusals": [
+        "BINARY_CONTENT_DECLARED_AS_TEXT",
+        "MEDIA_TYPE_NOT_ESTABLISHED_FROM_BYTES"
+      ],
+      "active_content": [],
+      "external_references": [],
+      "disabled_external_links": [],
+      "media_type_from_bytes": null
+    }
+  },
+  "workbook_external_link_disabled_not_blocked": {
+    "stored": true,
+    "disabled_links": [
+      "https://example.invalid/external.xlsx"
+    ]
+  },
+  "cross_project": {
+    "read_other_project": {
+      "ok": false,
+      "code": "VERSION_NOT_FOUND_IN_PROJECT",
+      "message": "VERSION_NOT_FOUND_IN_PROJECT: ver_7e99eb10-b3a0-455f-9698-e68cfd483b09"
+    },
+    "read_own": true,
+    "after_revocation": {
+      "ok": false,
+      "code": "ACCESS_REVOKED",
+      "message": "ACCESS_REVOKED: ver_7e99eb10-b3a0-455f-9698-e68cfd483b09"
+    }
+  },
+  "retry": {
+    "replayed": true,
+    "ingested_identities": 1,
+    "blocked_versions_with_same_bytes": 1,
+    "different_bytes": "IDEMPOTENCY_KEY_REUSED_WITH_DIFFERENT_BYTES"
+  },
+  "container_limits_note": "The macro part and the remote template are recorded as findings. Nothing was executed and no external target was fetched."
+}

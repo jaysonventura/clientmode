@@ -1,0 +1,52 @@
+{
+  "exported": {
+    "text": "order_id,customer_id,note\n1001,00742,'=cmd|' /C calc'!A1\n",
+    "escaped_cells": 1,
+    "policy": "a leading =, +, -, @ or control character is prefixed with an apostrophe; the original value is retained in the source"
+  },
+  "reopened_rows": [
+    [
+      "order_id",
+      "customer_id",
+      "note"
+    ],
+    [
+      "1001",
+      "00742",
+      "'=cmd|' /C calc'!A1"
+    ]
+  ],
+  "canary": "=cmd|' /C calc'!A1",
+  "canary_cell": "'=cmd|' /C calc'!A1",
+  "rounding": [
+    {
+      "input": 0.5,
+      "expected": 1,
+      "observed": 1
+    },
+    {
+      "input": 1.5,
+      "expected": 2,
+      "observed": 2
+    },
+    {
+      "input": -0.5,
+      "expected": -1,
+      "observed": -1
+    },
+    {
+      "input": 2.4,
+      "expected": 2,
+      "observed": 2
+    },
+    {
+      "input": 2.5,
+      "expected": 3,
+      "observed": 3
+    }
+  ],
+  "identifiers": [
+    "00742",
+    "00815"
+  ]
+}

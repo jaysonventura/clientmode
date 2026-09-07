@@ -1,0 +1,267 @@
+{
+  "policy": {
+    "kind": "document_policy",
+    "schema_version": 1,
+    "policy_id": "dpolicy_t29",
+    "project_id": "project_t29",
+    "job_id": "djob_ef4a2bb0-084f-44b2-80b1-c5ac56db4288",
+    "instruction_revision": 1,
+    "authority": "protected",
+    "scope_digest": "sha256:8ad86e1322da26808c89178af6ff2004c37e19476ee76e6082c6c431ef312730",
+    "policy_digest": "sha256:eef29f9f2bdfda8cbdbcf93a5f01aabe77e62db23c86db34644446659b5c9735",
+    "maximum_age_seconds": 86400,
+    "trusted_issuer_ids": [
+      "document_verifier_t29"
+    ],
+    "checks": [
+      {
+        "check_id": "meaning_preserved",
+        "definition_digest": "sha256:16cc87dcf25e6fe5ebc55adaf1f61100709a074cbfa6c99c2bbd61871dbcb54e",
+        "required": true,
+        "result_kind": "process",
+        "minimum_tests": 3,
+        "required_assertion_ids": [
+          "cancellation_window",
+          "unit_prices",
+          "permissions"
+        ],
+        "maximum_skipped": 0
+      },
+      {
+        "check_id": "output_reopens",
+        "definition_digest": "sha256:1fa2002430ec3f92315ce0e36c9795a82e4c53da164baf7e6521717a5767128f",
+        "required": true,
+        "result_kind": "process",
+        "minimum_tests": 2,
+        "required_assertion_ids": [
+          "docx_reopens",
+          "sections_present"
+        ],
+        "maximum_skipped": 0
+      },
+      {
+        "check_id": "render_inspected",
+        "definition_digest": "sha256:1bd5d25ec30fb8cc1a6019040c6cd86b2d0ac027cee09195849d071bbc83ef65",
+        "required": true,
+        "result_kind": "browser",
+        "minimum_tests": 2,
+        "required_assertion_ids": [
+          "no_blank_pages",
+          "expected_text_present"
+        ],
+        "maximum_skipped": 0
+      }
+    ]
+  },
+  "evidence": {
+    "kind": "document_evidence",
+    "schema_version": 1,
+    "evidence_id": "devidence_97d8849c-f73c-4eb5-904e-a92fbc5c036f",
+    "project_id": "project_t29",
+    "job_id": "djob_ef4a2bb0-084f-44b2-80b1-c5ac56db4288",
+    "attempt_id": "datt_238ed9fd-073a-40a2-9e9d-510a65de4de0",
+    "instruction_revision": 1,
+    "issuer_id": "document_verifier_t29",
+    "scope_digest": "sha256:8ad86e1322da26808c89178af6ff2004c37e19476ee76e6082c6c431ef312730",
+    "source_manifest_digest": "sha256:a0403038ae590530448061d7e6032875608280f08bd5ff950de8439c4ba9368f",
+    "output_manifest_digest": "sha256:0f6d9e531f19e28b6222512687d410dd9ff0037c25b28b549f78d113fbc71cde",
+    "policy_digest": "sha256:eef29f9f2bdfda8cbdbcf93a5f01aabe77e62db23c86db34644446659b5c9735",
+    "pipeline_digest": "sha256:7b982e18dd6c1106cd207c99ffb8380d830d39a81e819726bce2a2aba6a52bce",
+    "results": [
+      {
+        "check_id": "meaning_preserved",
+        "definition_digest": "sha256:16cc87dcf25e6fe5ebc55adaf1f61100709a074cbfa6c99c2bbd61871dbcb54e",
+        "status": "PASSED",
+        "executed": true,
+        "exit_code": 0,
+        "tests_total": 3,
+        "tests_passed": 3,
+        "tests_skipped": 0,
+        "assertion_ids": [
+          "cancellation_window",
+          "unit_prices",
+          "permissions"
+        ],
+        "observer_id": "document_verifier_t29",
+        "log_digest": "sha256:18fc7b2b961e23e24a1ec10a50cec848f259d995a4fed144dfdb2579b8135467"
+      },
+      {
+        "check_id": "output_reopens",
+        "definition_digest": "sha256:1fa2002430ec3f92315ce0e36c9795a82e4c53da164baf7e6521717a5767128f",
+        "status": "PASSED",
+        "executed": true,
+        "exit_code": 0,
+        "tests_total": 2,
+        "tests_passed": 2,
+        "tests_skipped": 0,
+        "assertion_ids": [
+          "docx_reopens",
+          "sections_present"
+        ],
+        "observer_id": "document_verifier_t29",
+        "log_digest": "sha256:3cd7f8ae8dbc6950f1a842ad1b240cde5153896e6ec00399d46f2273c1ebca75"
+      },
+      {
+        "check_id": "render_inspected",
+        "definition_digest": "sha256:1bd5d25ec30fb8cc1a6019040c6cd86b2d0ac027cee09195849d071bbc83ef65",
+        "status": "PASSED",
+        "executed": true,
+        "exit_code": 0,
+        "tests_total": 2,
+        "tests_passed": 2,
+        "tests_skipped": 0,
+        "assertion_ids": [
+          "no_blank_pages",
+          "expected_text_present"
+        ],
+        "observer_id": "document_verifier_t29",
+        "log_digest": "sha256:4bd690a8fc0f15d49f487315d1573fb585d78ca63b3520e7729e77c1003faa0b"
+      }
+    ],
+    "integrity_passed": true,
+    "blocking_findings": [],
+    "started_at": "2026-09-09T10:00:00.000Z",
+    "finished_at": "2026-09-09T10:00:05.000Z"
+  },
+  "verdict": {
+    "verdict": "READY_FOR_SCOPE",
+    "reasons": [],
+    "job_id": "djob_ef4a2bb0-084f-44b2-80b1-c5ac56db4288",
+    "evidence_id": "devidence_97d8849c-f73c-4eb5-904e-a92fbc5c036f"
+  },
+  "expected": {
+    "project_id": "project_t29",
+    "job_id": "djob_ef4a2bb0-084f-44b2-80b1-c5ac56db4288",
+    "attempt_id": "datt_238ed9fd-073a-40a2-9e9d-510a65de4de0",
+    "instruction_revision": 1,
+    "scope_digest": "sha256:8ad86e1322da26808c89178af6ff2004c37e19476ee76e6082c6c431ef312730",
+    "source_manifest_digest": "sha256:a0403038ae590530448061d7e6032875608280f08bd5ff950de8439c4ba9368f",
+    "output_manifest_digest": "sha256:0f6d9e531f19e28b6222512687d410dd9ff0037c25b28b549f78d113fbc71cde",
+    "pipeline_digest": "sha256:7b982e18dd6c1106cd207c99ffb8380d830d39a81e819726bce2a2aba6a52bce"
+  },
+  "forged": [
+    {
+      "label": "claimed pass without observations",
+      "verdict": "UNVERIFIED",
+      "reasons": [
+        "OBSERVATION_COUNTS_meaning_preserved",
+        "OBSERVATION_COUNTS_output_reopens",
+        "OBSERVATION_COUNTS_render_inspected"
+      ]
+    },
+    {
+      "label": "required check missing",
+      "verdict": "UNVERIFIED",
+      "reasons": [
+        "MISSING_CHECK_render_inspected"
+      ]
+    },
+    {
+      "label": "blocking finding present",
+      "verdict": "UNVERIFIED",
+      "reasons": [
+        "BLOCKING_FINDINGS"
+      ]
+    },
+    {
+      "label": "output bytes changed after the checks",
+      "verdict": "UNVERIFIED",
+      "reasons": [
+        "IDENTITY_output_manifest_digest"
+      ]
+    },
+    {
+      "label": "stale source manifest",
+      "verdict": "UNVERIFIED",
+      "reasons": [
+        "IDENTITY_source_manifest_digest"
+      ]
+    },
+    {
+      "label": "wrong instruction revision",
+      "verdict": "UNVERIFIED",
+      "reasons": [
+        "INSTRUCTION_REVISION"
+      ]
+    },
+    {
+      "label": "different attempt",
+      "verdict": "UNVERIFIED",
+      "reasons": [
+        "IDENTITY_attempt_id"
+      ]
+    }
+  ],
+  "worker_seal": {
+    "ok": false,
+    "code": "ACTOR_CANNOT_SIGN_DOCUMENT_EVIDENCE",
+    "message": "ACTOR_CANNOT_SIGN_DOCUMENT_EVIDENCE: worker"
+  },
+  "worker_policy": {
+    "ok": false,
+    "code": "ACTOR_CANNOT_APPROVE_POLICY",
+    "message": "ACTOR_CANNOT_APPROVE_POLICY: worker"
+  },
+  "worker_ready_from_processing": {
+    "ok": false,
+    "code": "ILLEGAL_TRANSITION",
+    "message": "ILLEGAL_TRANSITION: PROCESSING->READY"
+  },
+  "worker_ready_from_verifying": {
+    "ok": false,
+    "code": "READY_REQUIRES_DOCUMENT_VERIFIER",
+    "message": "READY_REQUIRES_DOCUMENT_VERIFIER: worker"
+  },
+  "verifier_without_result": {
+    "ok": false,
+    "code": "READY_REQUIRES_RESULT",
+    "message": "READY_REQUIRES_RESULT"
+  },
+  "software_evaluator": {
+    "opened": false,
+    "reasons": [
+      "NOT_EVIDENCE"
+    ]
+  },
+  "job_state": "READY",
+  "events": [
+    {
+      "sequence": 1,
+      "kind": "job.received",
+      "payload": {
+        "operation": "edit",
+        "sources": 1
+      }
+    },
+    {
+      "sequence": 2,
+      "kind": "job.state_changed",
+      "payload": {
+        "from": "RECEIVED",
+        "to": "PROCESSING",
+        "actor": "controller",
+        "reason": "editing"
+      }
+    },
+    {
+      "sequence": 3,
+      "kind": "job.state_changed",
+      "payload": {
+        "from": "PROCESSING",
+        "to": "VERIFYING",
+        "actor": "controller",
+        "reason": "document QA"
+      }
+    },
+    {
+      "sequence": 4,
+      "kind": "job.state_changed",
+      "payload": {
+        "from": "VERIFYING",
+        "to": "READY",
+        "actor": "document_verifier",
+        "reason": "document QA passed"
+      }
+    }
+  ]
+}

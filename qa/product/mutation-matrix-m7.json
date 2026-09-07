@@ -1,0 +1,329 @@
+{
+  "N1": {
+    "name": "macro parts no longer refuse the upload",
+    "file": "packages/documents/src/ingest.ts",
+    "tests": [
+      "T25"
+    ],
+    "red_gates": [
+      "AT-025"
+    ],
+    "observations": [
+      "macro_and_network_canaries_not_executed"
+    ]
+  },
+  "N2": {
+    "name": "container compression ratio not checked",
+    "file": "packages/documents/src/zip.ts",
+    "tests": [
+      "T25"
+    ],
+    "red_gates": [
+      "AT-025"
+    ],
+    "observations": [
+      "size_and_expansion_limits_enforced"
+    ]
+  },
+  "N3": {
+    "name": "stored bytes readable from any project",
+    "file": "packages/documents/src/ingest.ts",
+    "tests": [
+      "T25"
+    ],
+    "red_gates": [
+      "AT-025"
+    ],
+    "observations": [
+      "cross_project_access_denied"
+    ]
+  },
+  "N4": {
+    "name": "a replayed upload creates a second source identity",
+    "file": "packages/documents/src/ingest.ts",
+    "tests": [
+      "T25"
+    ],
+    "red_gates": [
+      "AT-025"
+    ],
+    "observations": []
+  },
+  "N5": {
+    "name": "hidden sheets left out of the inventory",
+    "file": "packages/documents/src/inventory.ts",
+    "tests": [
+      "T26"
+    ],
+    "red_gates": [
+      "AT-026"
+    ],
+    "observations": [
+      "hidden_and_late_rows_not_dropped"
+    ]
+  },
+  "N6": {
+    "name": "sheet ranges capped at the first thousand rows",
+    "file": "packages/documents/src/inventory.ts",
+    "tests": [
+      "T26"
+    ],
+    "red_gates": [
+      "AT-026"
+    ],
+    "observations": [
+      "hidden_and_late_rows_not_dropped"
+    ]
+  },
+  "N7": {
+    "name": "a cited excerpt is taken on trust",
+    "file": "packages/documents/src/extract.ts",
+    "tests": [
+      "T26"
+    ],
+    "red_gates": [
+      "AT-026"
+    ],
+    "observations": [
+      "citations_resolve_to_exact_source_version"
+    ]
+  },
+  "N8": {
+    "name": "coverage reports complete despite unreadable units",
+    "file": "packages/documents/src/extract.ts",
+    "tests": [
+      "T26"
+    ],
+    "red_gates": [
+      "AT-026"
+    ],
+    "observations": [
+      "unreadable_units_reported"
+    ]
+  },
+  "N9": {
+    "name": "a conflict may cite one location",
+    "file": "packages/documents/src/reasoning.ts",
+    "tests": [
+      "T27"
+    ],
+    "red_gates": [],
+    "observations": []
+  },
+  "N10": {
+    "name": "any actor may answer a document question",
+    "file": "packages/documents/src/jobs.ts",
+    "tests": [
+      "T27"
+    ],
+    "red_gates": [
+      "AT-027"
+    ],
+    "observations": [
+      "client_answer_not_invented"
+    ]
+  },
+  "N11": {
+    "name": "a changed source invalidates nothing",
+    "file": "packages/documents/src/jobs.ts",
+    "tests": [
+      "T27"
+    ],
+    "red_gates": [
+      "AT-027"
+    ],
+    "observations": [
+      "changed_sources_invalidate_derived_results"
+    ]
+  },
+  "N12": {
+    "name": "revoked access still serves the bytes",
+    "file": "packages/documents/src/ingest.ts",
+    "tests": [
+      "T25",
+      "T27"
+    ],
+    "red_gates": [
+      "AT-025",
+      "AT-027"
+    ],
+    "observations": [
+      "access_revocation_applies_to_cache",
+      "cross_project_access_denied"
+    ]
+  },
+  "N13": {
+    "name": "a cached value is used instead of recalculating",
+    "file": "packages/documents/src/calc.ts",
+    "tests": [
+      "T28"
+    ],
+    "red_gates": [
+      "AT-028"
+    ],
+    "observations": [
+      "cached_values_not_called_recalculated"
+    ]
+  },
+  "N14": {
+    "name": "an unsupported function returns zero",
+    "file": "packages/documents/src/calc.ts",
+    "tests": [
+      "T28"
+    ],
+    "red_gates": [
+      "AT-028"
+    ],
+    "observations": []
+  },
+  "N15": {
+    "name": "CSV export stops escaping formula characters",
+    "file": "packages/documents/src/calc.ts",
+    "tests": [
+      "T28"
+    ],
+    "red_gates": [
+      "AT-028"
+    ],
+    "observations": [
+      "csv_canary_not_executed"
+    ]
+  },
+  "N16": {
+    "name": "numeric readiness ignores a missing engine",
+    "file": "packages/documents/src/calc.ts",
+    "tests": [
+      "T28"
+    ],
+    "red_gates": [],
+    "observations": []
+  },
+  "N17": {
+    "name": "the meaning check always passes",
+    "file": "packages/documents/src/edit.ts",
+    "tests": [
+      "T29"
+    ],
+    "red_gates": [
+      "AT-029"
+    ],
+    "observations": [
+      "business_meaning_preserved"
+    ]
+  },
+  "N18": {
+    "name": "blank rendered pages are not reported",
+    "file": "packages/documents/src/edit.ts",
+    "tests": [
+      "T29"
+    ],
+    "red_gates": [
+      "AT-029"
+    ],
+    "observations": [
+      "rendered_layout_failures_caught"
+    ]
+  },
+  "N19": {
+    "name": "any actor may sign document evidence",
+    "file": "packages/verifier/src/evidence.ts",
+    "tests": [
+      "T29"
+    ],
+    "red_gates": [
+      "AT-029"
+    ],
+    "observations": [
+      "worker_cannot_forge_document_ready"
+    ]
+  },
+  "N20": {
+    "name": "a download is served without checking its digest",
+    "file": "packages/documents/src/edit.ts",
+    "tests": [
+      "T29"
+    ],
+    "red_gates": [
+      "AT-029"
+    ],
+    "observations": [
+      "artifact_download_matches_verified_digest"
+    ]
+  },
+  "N21": {
+    "name": "the document budget ignores software reservations",
+    "file": "packages/documents/src/jobs.ts",
+    "tests": [
+      "T30"
+    ],
+    "red_gates": [
+      "AT-030"
+    ],
+    "observations": [
+      "software_and_document_budget_shared"
+    ]
+  },
+  "N22": {
+    "name": "a partial result shows no limitations",
+    "file": "apps/controller/src/document-routes.ts",
+    "tests": [
+      "T30"
+    ],
+    "red_gates": [
+      "AT-030"
+    ],
+    "observations": [
+      "no_routine_role_reports"
+    ]
+  },
+  "N23": {
+    "name": "a download link is not scoped to its project",
+    "file": "apps/controller/src/document-routes.ts",
+    "tests": [
+      "T30"
+    ],
+    "red_gates": [
+      "AT-030"
+    ],
+    "observations": [
+      "replayed_download_cannot_cross_projects"
+    ]
+  },
+  "N24": {
+    "name": "a create-from-brief scope may carry a fabricated source inventory",
+    "file": "packages/documents/src/inventory.ts",
+    "tests": [
+      "T30"
+    ],
+    "red_gates": [
+      "AT-030"
+    ],
+    "observations": [
+      "create_without_input_documents_works"
+    ]
+  },
+  "N9b": {
+    "name": "both conflict-location checks removed",
+    "tests": [
+      "T27"
+    ],
+    "red_gates": [
+      "AT-027"
+    ],
+    "observations": [
+      "conflicts_have_both_source_locations"
+    ]
+  },
+  "N16b": {
+    "name": "numeric readiness ignores both the missing engine and the calculation's own reasons",
+    "tests": [
+      "T28"
+    ],
+    "red_gates": [
+      "AT-028"
+    ],
+    "observations": [
+      "missing_calculation_engine_blocks_numeric_ready"
+    ]
+  }
+}

@@ -1,0 +1,295 @@
+{
+  "conflict": {
+    "conflict": true,
+    "distinct_values": [
+      "24 hours",
+      "48 hours"
+    ],
+    "citations": [
+      {
+        "version_id": "ver_a4cff589-b85d-4303-bc10-eb99c6322313",
+        "content_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
+        "locator": {
+          "type": "page",
+          "page_number": 2
+        },
+        "excerpt": "within 24 hours of confirmation"
+      },
+      {
+        "version_id": "ver_b9ac01b6-c845-4a56-908d-5281df99bcd4",
+        "content_digest": "sha256:ad79c4c8019875183dfda36bf148c507a861bdb9afad3430670c805da4c7f7fa",
+        "locator": {
+          "type": "paragraph",
+          "part_name": "word/document.xml",
+          "block_path": "/paragraph[2]"
+        },
+        "excerpt": "within 48 hours of confirmation"
+      },
+      {
+        "version_id": "ver_413847e5-adac-49e2-8ab8-40304a7a399d",
+        "content_digest": "sha256:33208a33e129857ec7e27539252afca766dd3e4bcc705d65af91da842df31e0a",
+        "locator": {
+          "type": "slide",
+          "slide_number": 1,
+          "shape_id": "notes"
+        },
+        "excerpt": "cancellation window is 48 hours"
+      }
+    ],
+    "authority": "undecided",
+    "resolved": [
+      {
+        "resolves": true,
+        "observed": "Cancellation\nA booking may be cancelled within 24 hours of confirmation.\nAfter that window the deposit is retained.\nRefu",
+        "reason": null
+      },
+      {
+        "resolves": true,
+        "observed": "Staff may cancel a booking within 48 hours of confirmation.",
+        "reason": null
+      },
+      {
+        "resolves": true,
+        "observed": "Legal reminded us the cancellation window is 48 hours.",
+        "reason": null
+      }
+    ]
+  },
+  "findings": {
+    "conflict": {
+      "kind": "document_finding",
+      "schema_version": 1,
+      "finding_id": "df_ab2648d0-ed1f-4f26-a864-c8fc0ecad9aa",
+      "job_id": "djob_349f7983-b7a7-4033-b2a3-ad6a52e16435",
+      "project_id": "project_t27",
+      "classification": "conflict",
+      "material": true,
+      "statement": "The cancellation window is stated as 24 hours in one source and 48 hours in two others.",
+      "citations": [
+        {
+          "version_id": "ver_a4cff589-b85d-4303-bc10-eb99c6322313",
+          "content_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
+          "locator": {
+            "type": "page",
+            "page_number": 2
+          },
+          "excerpt": "within 24 hours of confirmation"
+        },
+        {
+          "version_id": "ver_b9ac01b6-c845-4a56-908d-5281df99bcd4",
+          "content_digest": "sha256:ad79c4c8019875183dfda36bf148c507a861bdb9afad3430670c805da4c7f7fa",
+          "locator": {
+            "type": "paragraph",
+            "part_name": "word/document.xml",
+            "block_path": "/paragraph[2]"
+          },
+          "excerpt": "within 48 hours of confirmation"
+        },
+        {
+          "version_id": "ver_413847e5-adac-49e2-8ab8-40304a7a399d",
+          "content_digest": "sha256:33208a33e129857ec7e27539252afca766dd3e4bcc705d65af91da842df31e0a",
+          "locator": {
+            "type": "slide",
+            "slide_number": 1,
+            "shape_id": "notes"
+          },
+          "excerpt": "cancellation window is 48 hours"
+        }
+      ],
+      "resolution": "unresolved",
+      "created_at": "2026-09-09T08:00:00.000Z"
+    },
+    "fact": {
+      "kind": "document_finding",
+      "schema_version": 1,
+      "finding_id": "df_410040b1-e081-4287-a7bc-3e3d25ceff0c",
+      "job_id": "djob_349f7983-b7a7-4033-b2a3-ad6a52e16435",
+      "project_id": "project_t27",
+      "classification": "observed",
+      "material": true,
+      "statement": "The PDF states a 24 hour cancellation window.",
+      "citations": [
+        {
+          "version_id": "ver_a4cff589-b85d-4303-bc10-eb99c6322313",
+          "content_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
+          "locator": {
+            "type": "page",
+            "page_number": 2
+          },
+          "excerpt": "within 24 hours of confirmation"
+        }
+      ],
+      "resolution": "unresolved",
+      "created_at": "2026-09-09T08:00:00.000Z"
+    },
+    "inference": {
+      "kind": "document_finding",
+      "schema_version": 1,
+      "finding_id": "df_75ce652c-aba0-4995-ad36-8383bf21dda8",
+      "job_id": "djob_349f7983-b7a7-4033-b2a3-ad6a52e16435",
+      "project_id": "project_t27",
+      "classification": "inference",
+      "material": false,
+      "statement": "The manual appears to have been updated after the published terms.",
+      "citations": [],
+      "resolution": "unresolved",
+      "created_at": "2026-09-09T08:00:00.000Z"
+    },
+    "suggestion": {
+      "kind": "document_finding",
+      "schema_version": 1,
+      "finding_id": "df_97c09368-b4f8-457c-88b4-8275ce4cbdd4",
+      "job_id": "djob_349f7983-b7a7-4033-b2a3-ad6a52e16435",
+      "project_id": "project_t27",
+      "classification": "suggestion",
+      "material": false,
+      "statement": "Consider publishing one cancellation rule in both documents.",
+      "citations": [],
+      "resolution": "unresolved",
+      "created_at": "2026-09-09T08:00:00.000Z"
+    }
+  },
+  "refusals": {
+    "one_location_only": {
+      "ok": false,
+      "code": "CONFLICT_REQUIRES_TWO_LOCATIONS",
+      "message": "CONFLICT_REQUIRES_TWO_LOCATIONS: half a conflict"
+    },
+    "fact_without_source": {
+      "ok": false,
+      "code": "FACT_REQUIRES_SOURCE_REFERENCE",
+      "message": "FACT_REQUIRES_SOURCE_REFERENCE: the deposit is always refundable"
+    },
+    "material_suggestion": {
+      "ok": false,
+      "code": "SUGGESTION_CANNOT_BE_MATERIAL",
+      "message": "SUGGESTION_CANNOT_BE_MATERIAL: adopt 48 hours"
+    }
+  },
+  "question": {
+    "question": {
+      "kind": "document_question",
+      "schema_version": 1,
+      "question_id": "dq_1cdc9a6a-492e-4d94-ad49-398a77bc99bb",
+      "job_id": "djob_349f7983-b7a7-4033-b2a3-ad6a52e16435",
+      "project_id": "project_t27",
+      "instruction_revision": 1,
+      "prompt": "Your published terms say a booking can be cancelled within 24 hours, and the operations manual says 48. Which one should we build to?",
+      "recommendation": null,
+      "citations": [
+        {
+          "version_id": "ver_a4cff589-b85d-4303-bc10-eb99c6322313",
+          "content_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
+          "locator": {
+            "type": "page",
+            "page_number": 2
+          },
+          "excerpt": "within 24 hours of confirmation"
+        },
+        {
+          "version_id": "ver_b9ac01b6-c845-4a56-908d-5281df99bcd4",
+          "content_digest": "sha256:ad79c4c8019875183dfda36bf148c507a861bdb9afad3430670c805da4c7f7fa",
+          "locator": {
+            "type": "paragraph",
+            "part_name": "word/document.xml",
+            "block_path": "/paragraph[2]"
+          },
+          "excerpt": "within 48 hours of confirmation"
+        },
+        {
+          "version_id": "ver_413847e5-adac-49e2-8ab8-40304a7a399d",
+          "content_digest": "sha256:33208a33e129857ec7e27539252afca766dd3e4bcc705d65af91da842df31e0a",
+          "locator": {
+            "type": "slide",
+            "slide_number": 1,
+            "shape_id": "notes"
+          },
+          "excerpt": "cancellation window is 48 hours"
+        }
+      ],
+      "status": "OPEN",
+      "created_at": "2026-09-09T08:00:09.000Z"
+    },
+    "second_question_refused": "ONE_OPEN_QUESTION_PER_JOB: dq_1cdc9a6a-492e-4d94-ad49-398a77bc99bb",
+    "worker_answer": {
+      "recorded": false,
+      "reason": "DOCUMENT_ANSWER_IS_CLIENT_AUTHORED_ONLY"
+    },
+    "client_answer": {
+      "kind": "document_answer",
+      "schema_version": 1,
+      "answer_id": "da_218a78a8-5c10-4038-816c-14bf852a2071",
+      "question_id": "dq_1cdc9a6a-492e-4d94-ad49-398a77bc99bb",
+      "job_id": "djob_349f7983-b7a7-4033-b2a3-ad6a52e16435",
+      "project_id": "project_t27",
+      "request_id": "request_t27",
+      "actor_id": "owner_1",
+      "created_at": "2026-09-09T08:00:12.000Z"
+    },
+    "stale_answer_after_revision": {
+      "recorded": false,
+      "reason": "QUESTION_ANSWERED"
+    },
+    "derived": {
+      "derived": true,
+      "requirement": {
+        "requirement_id": "req_cancellation-window",
+        "description": "cancellation window: 48 hours",
+        "origin": "client_answer",
+        "citations": [
+          {
+            "version_id": "ver_a4cff589-b85d-4303-bc10-eb99c6322313",
+            "content_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
+            "locator": {
+              "type": "page",
+              "page_number": 2
+            },
+            "excerpt": "within 24 hours of confirmation"
+          },
+          {
+            "version_id": "ver_b9ac01b6-c845-4a56-908d-5281df99bcd4",
+            "content_digest": "sha256:ad79c4c8019875183dfda36bf148c507a861bdb9afad3430670c805da4c7f7fa",
+            "locator": {
+              "type": "paragraph",
+              "part_name": "word/document.xml",
+              "block_path": "/paragraph[2]"
+            },
+            "excerpt": "within 48 hours of confirmation"
+          },
+          {
+            "version_id": "ver_413847e5-adac-49e2-8ab8-40304a7a399d",
+            "content_digest": "sha256:33208a33e129857ec7e27539252afca766dd3e4bcc705d65af91da842df31e0a",
+            "locator": {
+              "type": "slide",
+              "slide_number": 1,
+              "shape_id": "notes"
+            },
+            "excerpt": "cancellation window is 48 hours"
+          }
+        ],
+        "answer_id": "da_218a78a8-5c10-4038-816c-14bf852a2071"
+      }
+    },
+    "before_answer": {
+      "derived": false,
+      "reason": "CONFLICT_UNRESOLVED_WITHOUT_CLIENT_ANSWER"
+    },
+    "invented_value": {
+      "derived": false,
+      "reason": "ANSWER_DOES_NOT_MATCH_ANY_SOURCE_STATEMENT"
+    }
+  },
+  "untrusted_text": {
+    "classification": {
+      "is_instruction_shaped": true,
+      "patterns": [
+        "ATTEMPTED_ACCESS_CONTROL_BYPASS",
+        "ATTEMPTED_ROLE_ELEVATION",
+        "ATTEMPTED_APPROVAL_BYPASS"
+      ],
+      "treatment": "recorded_as_observed_content",
+      "grants_authority": false
+    },
+    "recorded_as": "observed"
+  }
+}

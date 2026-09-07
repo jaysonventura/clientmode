@@ -44,12 +44,12 @@
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_7217b84d-330c-4ec6-b3a8-2a81940aee9f/events",
+        "path": "/v1/runs/run_217e830f-caf4-4fa2-8cb0-ffc0a712fb2a/events",
         "status": 200
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_7217b84d-330c-4ec6-b3a8-2a81940aee9f/questions",
+        "path": "/v1/runs/run_217e830f-caf4-4fa2-8cb0-ffc0a712fb2a/questions",
         "status": 200
       },
       {
@@ -59,17 +59,17 @@
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_7217b84d-330c-4ec6-b3a8-2a81940aee9f/events",
+        "path": "/v1/runs/run_217e830f-caf4-4fa2-8cb0-ffc0a712fb2a/events",
         "status": 200
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_7217b84d-330c-4ec6-b3a8-2a81940aee9f/questions",
+        "path": "/v1/runs/run_217e830f-caf4-4fa2-8cb0-ffc0a712fb2a/questions",
         "status": 200
       },
       {
         "method": "POST",
-        "path": "/v1/runs/run_7217b84d-330c-4ec6-b3a8-2a81940aee9f/cancel",
+        "path": "/v1/runs/run_217e830f-caf4-4fa2-8cb0-ffc0a712fb2a/cancel",
         "status": 200
       }
     ]
@@ -83,7 +83,7 @@
           "schema_version": 1,
           "question_id": "question_t15",
           "project_id": "project_t15",
-          "run_id": "run_7217b84d-330c-4ec6-b3a8-2a81940aee9f",
+          "run_id": "run_217e830f-caf4-4fa2-8cb0-ffc0a712fb2a",
           "requirements_revision": 0,
           "state_version": 1,
           "prompt": "Should we record a deposit before delivery? Reference from your file: <img src=x onerror=\"window.__executed=true\"><b>bold</b>",
@@ -141,7 +141,7 @@
     "worker_token": 403
   },
   "cancel": {
-    "elapsed_ms": 229,
+    "elapsed_ms": 217,
     "intents": [
       {
         "action": "cancel",
@@ -158,12 +158,12 @@
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_7217b84d-330c-4ec6-b3a8-2a81940aee9f/events",
+        "path": "/v1/runs/run_217e830f-caf4-4fa2-8cb0-ffc0a712fb2a/events",
         "status": 200
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_7217b84d-330c-4ec6-b3a8-2a81940aee9f/questions",
+        "path": "/v1/runs/run_217e830f-caf4-4fa2-8cb0-ffc0a712fb2a/questions",
         "status": 200
       },
       {
@@ -173,17 +173,17 @@
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_7217b84d-330c-4ec6-b3a8-2a81940aee9f/events",
+        "path": "/v1/runs/run_217e830f-caf4-4fa2-8cb0-ffc0a712fb2a/events",
         "status": 200
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_7217b84d-330c-4ec6-b3a8-2a81940aee9f/questions",
+        "path": "/v1/runs/run_217e830f-caf4-4fa2-8cb0-ffc0a712fb2a/questions",
         "status": 200
       },
       {
         "method": "POST",
-        "path": "/v1/runs/run_7217b84d-330c-4ec6-b3a8-2a81940aee9f/cancel",
+        "path": "/v1/runs/run_217e830f-caf4-4fa2-8cb0-ffc0a712fb2a/cancel",
         "status": 200
       }
     ]

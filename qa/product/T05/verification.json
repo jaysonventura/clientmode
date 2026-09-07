@@ -70,11 +70,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-lb3Lcr/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-1mumKB/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-lb3Lcr/cm-sandbox-UQzA64",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-lb3Lcr/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-1mumKB/cm-sandbox-9FaWWm",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-1mumKB/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",
@@ -92,8 +92,8 @@
     ],
     "process_tree_terminated": true,
     "quarantined": false,
-    "heartbeat_bytes_at_kill": 37,
-    "heartbeat_bytes_500ms_later": 37,
+    "heartbeat_bytes_at_kill": 36,
+    "heartbeat_bytes_500ms_later": 36,
     "forked_child_stopped_writing": true
   },
   "reports": {
@@ -119,7 +119,7 @@
     "flood": {
       "status": "FAILED",
       "truncated": true,
-      "bytes": "sha256:ff735e9f0bae012c85f49d496d5cb8e7a7834736240c73421e998c07eac23308"
+      "bytes": "sha256:fcb4e8e724b9790b9486610786e8895b829e2b2bcd1ff2eefddd0af7ea939a5d"
     }
   },
   "missing_environments": {

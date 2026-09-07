@@ -69,9 +69,17 @@ export async function deploy(input: {
     return { started: true, deployment_id: String(existing['deployment_id']), operation_id: String(existing['provider_operation_id']), replayed: true };
   }
 
+  // The approval names an artifact. Comparing the attestation only against itself would let a
+  // different artifact ride on an approval that was never given for it.
+  if (input.scope.artifact_digest !== null && input.attestation.artifact_digest !== input.scope.artifact_digest) {
+    return { started: false, reasons: ['ARTIFACT_MISMATCH', `approved ${input.scope.artifact_digest}, attested ${input.attestation.artifact_digest}`] };
+  }
+  if (input.scope.candidate_id !== null && input.attestation.candidate_id !== input.scope.candidate_id) {
+    return { started: false, reasons: ['CANDIDATE_MISMATCH'] };
+  }
   const promotion = checkPromotable({
     attestation: input.attestation,
-    artifact_digest_to_promote: input.attestation.artifact_digest,
+    artifact_digest_to_promote: input.scope.artifact_digest ?? input.attestation.artifact_digest,
     current_policy_digest: input.current_policy_digest,
     current_requirements_revision: input.current_requirements_revision,
     current_composite_manifest_digest: input.current_composite_manifest_digest ?? null,

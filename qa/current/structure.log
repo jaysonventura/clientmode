@@ -1,5 +1,5 @@
 {
-  "status": "PASS",
+  "status": "FAIL",
   "checks": [
     "Required files and eight plans",
     "Parsed 37 JSON files",
@@ -15,5 +15,7 @@
   "not_run": [
     "Full OpenAPI tooling validation and implementation conformance"
   ],
-  "errors": []
+  "errors": [
+    "Private key material included tests/scenarios/T19.scenarios.ts"
+  ]
 }

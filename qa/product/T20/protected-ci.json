@@ -1,0 +1,183 @@
+{
+  "protected_policy": {
+    "attacks": {
+      "verifier_database": {
+        "exit_code": 1,
+        "stderr": "node:fs:2425\n    return binding.writeFileUtf8(\n                   ^\n\nError: EPERM: operation not permitted, open '/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-DtwPXS/ver"
+      },
+      "read_signing_key": {
+        "exit_code": 1,
+        "stderr": "node:fs:1583\n  const result = binding.readdir(\n                         ^\n\nError: EPERM: operation not permitted, scandir '/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-D"
+      },
+      "rewrite_ci_workflow": {
+        "exit_code": 1,
+        "stderr": "node:fs:2425\n    return binding.writeFileUtf8(\n                   ^\n\nError: EPERM: operation not permitted, open '/Users/viscion/Documents/clientmode/.github/workflows/product-ci.y"
+      }
+    },
+    "workflow_digest_unchanged": true,
+    "planted_policy_ignored": [
+      "unit"
+    ],
+    "planted_pass_json_present": true,
+    "checks_actually_run": [
+      {
+        "check": "unit",
+        "status": "PASSED",
+        "tests": 1
+      }
+    ],
+    "ci_holds_no_secrets": true,
+    "ci_permissions_block": true,
+    "ci_pull_request_read_only": true
+  },
+  "deployment": {
+    "timed_out": {
+      "ok": false,
+      "code": "Error",
+      "message": "destination timeout after the request was accepted"
+    },
+    "row_after_timeout": {
+      "deployment_id": "dep_dc4f2d46-a57d-481d-bf79-fe51c406bda0",
+      "status": "DEPLOYING",
+      "provider_operation_id": null
+    },
+    "reconciliation": {
+      "deployment_id": "dep_dc4f2d46-a57d-481d-bf79-fe51c406bda0",
+      "destination_state": "COMPLETE",
+      "action": "ADOPTED_EXISTING_OPERATION",
+      "status": "DEPLOYING"
+    },
+    "operation_after_reconcile": "op_1",
+    "retried": {
+      "started": true,
+      "deployment_id": "dep_dc4f2d46-a57d-481d-bf79-fe51c406bda0",
+      "operation_id": "op_1",
+      "replayed": true
+    },
+    "rebuilt": {
+      "started": false,
+      "reasons": [
+        "ARTIFACT_MISMATCH",
+        "approved sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, attested sha256:9999999999999999999999999999999999999999999999999999999999999999"
+      ]
+    },
+    "promote_calls": 1,
+    "calls": [
+      {
+        "method": "promote",
+        "idempotency_key": "deploy-t20"
+      },
+      {
+        "method": "lookup",
+        "idempotency_key": "deploy-t20"
+      },
+      {
+        "method": "promote",
+        "idempotency_key": "deploy-t20:rollback"
+      }
+    ]
+  },
+  "migration_recovery": {
+    "rows_before": 250,
+    "migration_failure": {
+      "ok": false,
+      "code": "ERR_SQLITE_ERROR",
+      "message": "no such table: orders_missing_table"
+    },
+    "rows_after_restore": 250,
+    "columns_after_restore": [
+      "id",
+      "total_centavos",
+      "note"
+    ],
+    "sample_row_intact": true,
+    "roll_forward_guidance": "restore the snapshot and roll forward; a binary rollback across a contract step leaves the schema ahead of the code"
+  },
+  "runbooks": {
+    "executed": [
+      {
+        "runbook": "stuck-deployment.md",
+        "status": "EXECUTED",
+        "steps": [
+          {
+            "name": "read-intent",
+            "exit_code": 0,
+            "stdout": "deployment_id=dep_dc4f2d46-a57d-481d-bf79-fe51c406bda0\nidempotency_key=deploy-t20"
+          },
+          {
+            "name": "reconcile",
+            "exit_code": 0,
+            "stdout": "reconciling deploy-t20 with the destination\ndestination_state=COMPLETE"
+          },
+          {
+            "name": "decide",
+            "exit_code": 0,
+            "stdout": "adopt the existing operation; do not promote again"
+          }
+        ]
+      },
+      {
+        "runbook": "failed-migration.md",
+        "status": "EXECUTED",
+        "steps": [
+          {
+            "name": "confirm-snapshot",
+            "exit_code": 0,
+            "stdout": "snapshot present: /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-DtwPXS/synthetic.backup.sqlite"
+          },
+          {
+            "name": "assess-rollback",
+            "exit_code": 0,
+            "stdout": "irreversible migration applied: restore the snapshot and roll forward\na binary rollback alone would leave the schema ahead of the code"
+          },
+          {
+            "name": "restore-and-verify",
+            "exit_code": 0,
+            "stdout": "restored /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-DtwPXS/synthetic.sqlite"
+          }
+        ]
+      },
+      {
+        "runbook": "failed-smoke.md",
+        "status": "EXECUTED",
+        "steps": [
+          {
+            "name": "read-failure",
+            "exit_code": 0,
+            "stdout": "failing probes: checkout:HTTP 500 from /api/orders"
+          },
+          {
+            "name": "decide-recovery",
+            "exit_code": 0,
+            "stdout": "execute the rollback under its own scoped approval"
+          },
+          {
+            "name": "record",
+            "exit_code": 0,
+            "stdout": "recorded recovery decision for dep_dc4f2d46-a57d-481d-bf79-fe51c406bda0"
+          }
+        ]
+      }
+    ],
+    "missing_variable": {
+      "status": "BLOCKED",
+      "blocked_at": "read-intent"
+    },
+    "smoke": {
+      "released": false,
+      "status": "FAILED",
+      "blocking": [
+        "checkout:HTTP 500 from /api/orders"
+      ]
+    },
+    "rollback": {
+      "authorized_by": "release_owner",
+      "status": "ROLLED_BACK"
+    },
+    "step_counts": [
+      3,
+      3,
+      3
+    ]
+  }
+}

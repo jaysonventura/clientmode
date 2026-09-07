@@ -88,6 +88,26 @@ projects outside this repository. No metered API billing was configured.
   prompts: verified candidate → bound preview → client feedback → second verified candidate →
   interruption → resume at the correct phase
 
+## Milestone M5 — install and operations: COMPLETE
+
+| Task | Gate | Mode | Status | Evidence |
+|---|---|---|---|---|
+| T17 | AT-017 | live_provider | PASS | `qa/product/T17/` |
+| T18 | AT-018 | integration | PASS | `qa/product/T18/` |
+| T19 | AT-019 | integration | PASS | `qa/product/T19/` |
+| T20 | AT-020 | integration | PASS | `qa/product/T20/` |
+
+- both distributions built from one source tree, installed under a path with a space and a
+  non-ASCII character beside existing configuration, loaded by both live hosts, and uninstalled
+  back to a byte-identical tree
+- measured on darwin-arm64 / Node 22.17.0: 1000 tasks recovered in 16 ms, cancel recorded in
+  3.2 ms, a forked grandchild stopped after writing 13 bytes
+- six secret canaries pushed through worker, tool and provider paths and then searched for in
+  the whole stored log: none found
+- a candidate's attempts to overwrite the verifier database, read the signing-key directory and
+  rewrite the CI workflow all refused with EPERM, and its planted policy and `pass.json` never
+  consulted
+
 ## Explicitly not proven yet
 
 - Provider integration is proved on **one machine at one version each**. That is not a

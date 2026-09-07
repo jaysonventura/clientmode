@@ -1,0 +1,67 @@
+# Product CI for the toolkit itself.
+#
+# The split this file exists to enforce: this workflow runs on untrusted code and therefore
+# holds no secrets. Protected acceptance — the checks whose result can approve a candidate —
+# runs elsewhere, from a trusted ref, under a different principal.
+#
+# `pull_request` gives a read-only token and no access to repository secrets, so a pull request
+# cannot exfiltrate anything or reach the release path. That is the point, not an oversight.
+name: product-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: product-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: typecheck, contracts and task gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # No `environment:` and no `secrets:` — untrusted code never runs in a secret-bearing job.
+    env:
+      CI: '1'
+      CM_TELEMETRY: 'off'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.17.0'
+          cache: npm
+
+      - name: Install pinned dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Executable reference contract
+        run: npm run test:reference
+
+      - name: Install the pinned browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Task acceptance gates
+        run: npm run test:tasks
+
+      - name: Retain evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-product-evidence
+          path: qa/product/
+          retention-days: 30
+
+  # Protected acceptance is deliberately absent from this file. It lives in a workflow that is
+  # only callable from a trusted ref, runs under the verification principal, and takes its check
+  # definitions from the protected policy store rather than from the candidate checkout.

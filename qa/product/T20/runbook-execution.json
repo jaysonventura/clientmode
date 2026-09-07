@@ -1,0 +1,86 @@
+[
+  {
+    "runbook": "/Users/viscion/Documents/clientmode/docs/runbooks/stuck-deployment.md",
+    "steps": [
+      {
+        "name": "read-intent",
+        "exit_code": 0,
+        "stdout": "deployment_id=dep_dc4f2d46-a57d-481d-bf79-fe51c406bda0\nidempotency_key=deploy-t20\n",
+        "stderr": "",
+        "ran": true
+      },
+      {
+        "name": "reconcile",
+        "exit_code": 0,
+        "stdout": "reconciling deploy-t20 with the destination\ndestination_state=COMPLETE\n",
+        "stderr": "",
+        "ran": true
+      },
+      {
+        "name": "decide",
+        "exit_code": 0,
+        "stdout": "adopt the existing operation; do not promote again\n",
+        "stderr": "",
+        "ran": true
+      }
+    ],
+    "status": "EXECUTED",
+    "blocked_at": null
+  },
+  {
+    "runbook": "/Users/viscion/Documents/clientmode/docs/runbooks/failed-migration.md",
+    "steps": [
+      {
+        "name": "confirm-snapshot",
+        "exit_code": 0,
+        "stdout": "snapshot present: /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-DtwPXS/synthetic.backup.sqlite\n",
+        "stderr": "",
+        "ran": true
+      },
+      {
+        "name": "assess-rollback",
+        "exit_code": 0,
+        "stdout": "irreversible migration applied: restore the snapshot and roll forward\na binary rollback alone would leave the schema ahead of the code\n",
+        "stderr": "",
+        "ran": true
+      },
+      {
+        "name": "restore-and-verify",
+        "exit_code": 0,
+        "stdout": "restored /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-DtwPXS/synthetic.sqlite\n",
+        "stderr": "",
+        "ran": true
+      }
+    ],
+    "status": "EXECUTED",
+    "blocked_at": null
+  },
+  {
+    "runbook": "/Users/viscion/Documents/clientmode/docs/runbooks/failed-smoke.md",
+    "steps": [
+      {
+        "name": "read-failure",
+        "exit_code": 0,
+        "stdout": "failing probes: checkout:HTTP 500 from /api/orders\n",
+        "stderr": "",
+        "ran": true
+      },
+      {
+        "name": "decide-recovery",
+        "exit_code": 0,
+        "stdout": "execute the rollback under its own scoped approval\n",
+        "stderr": "",
+        "ran": true
+      },
+      {
+        "name": "record",
+        "exit_code": 0,
+        "stdout": "recorded recovery decision for dep_dc4f2d46-a57d-481d-bf79-fe51c406bda0\n",
+        "stderr": "",
+        "ran": true
+      }
+    ],
+    "status": "EXECUTED",
+    "blocked_at": null
+  }
+]

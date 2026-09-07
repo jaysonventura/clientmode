@@ -1,0 +1,15 @@
+{
+  "note": "mock protocol adapter; not a live provider gate",
+  "calls": [
+    {
+      "kind": "start",
+      "attempt_id": "child_1",
+      "at": "2026-09-07T15:00:07.000Z"
+    },
+    {
+      "kind": "start",
+      "attempt_id": "child_2",
+      "at": "2026-09-07T15:00:10.000Z"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "actor_id": "worker",
+    "operation": "authorize.api_spend",
+    "target_ref": "api_spend:local",
+    "decision": "deny"
+  },
+  {
+    "actor_id": "owner_1",
+    "operation": "approval.api_spend",
+    "target_ref": "apr_446bd1a5-1afb-49d1-b3f1-f60dbab5dab0",
+    "decision": "approve"
+  },
+  {
+    "actor_id": "controller",
+    "operation": "authorize.api_spend",
+    "target_ref": "grant_f2273873-5a04-49a7-aca6-ddf756ebb3df",
+    "decision": "allow"
+  },
+  {
+    "actor_id": "controller",
+    "operation": "authorize.api_spend",
+    "target_ref": "api_spend:local",
+    "decision": "deny"
+  }
+]

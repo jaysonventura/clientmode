@@ -1,0 +1,350 @@
+{
+  "delegation": {
+    "children": [
+      {
+        "attempt_id": "child_1",
+        "outcome": {
+          "admitted": true,
+          "reservation_id": "res_aa792fed-dc9d-4d50-8ffc-8e9fbd7c6196"
+        }
+      },
+      {
+        "attempt_id": "child_2",
+        "outcome": {
+          "admitted": true,
+          "reservation_id": "res_25bcf0d2-5aac-42aa-93de-7c1b4288eec2"
+        }
+      },
+      {
+        "attempt_id": "child_3",
+        "outcome": {
+          "admitted": false,
+          "reason": "CHILD_LIMIT"
+        }
+      }
+    ],
+    "grandchild": {
+      "admitted": false,
+      "reason": "RECURSIVE_CHILD_REJECTED"
+    },
+    "writer_one": {
+      "ok": true,
+      "value": {
+        "lease_id": "lse_a89826bd-06b7-4077-b51f-1559951e17b9",
+        "project_id": "project_t04",
+        "attempt_id": "child_1",
+        "workspace_id": "ws_child_1",
+        "owner_id": "writer_one",
+        "paths": [
+          "src/child_1/"
+        ],
+        "expires_at": "2026-09-08T00:00:00.000Z",
+        "is_writer": true,
+        "active": true,
+        "epoch": 1
+      }
+    },
+    "writer_two": {
+      "ok": false,
+      "code": "WRITER_LEASE_CONFLICT",
+      "message": "project project_t04 already has an active writer"
+    },
+    "limits": {
+      "maximum_children_per_lead": 2,
+      "maximum_depth": 1,
+      "active_writers_per_project": 1,
+      "maximum_repair_cycles": 3,
+      "task_ceiling_seconds": 1800,
+      "check_timeout_seconds": 300
+    }
+  },
+  "usage": {
+    "first": "inserted",
+    "repeat": "duplicate",
+    "state": {
+      "cap_microusd": 10000000,
+      "reserved_microusd": 2000000,
+      "settled_microusd": 500000,
+      "unknown_usage_events": 0,
+      "verification_reserve_microusd": 2000000,
+      "available_microusd": 5500000,
+      "stopped": false
+    }
+  },
+  "budget": {
+    "calls_before_exhaustion": 2,
+    "drains": [
+      {
+        "attempt_id": "drain_1",
+        "outcome": {
+          "admitted": true,
+          "reservation_id": "res_4a0fc84e-d158-4bf4-9100-5226454fec58"
+        }
+      },
+      {
+        "attempt_id": "drain_2",
+        "outcome": {
+          "admitted": true,
+          "reservation_id": "res_bb488871-d044-4cfe-8cb0-d0c4db6f8241"
+        }
+      },
+      {
+        "attempt_id": "drain_3",
+        "outcome": {
+          "admitted": false,
+          "reason": "BUDGET_EXHAUSTED"
+        }
+      },
+      {
+        "attempt_id": "drain_4",
+        "outcome": {
+          "admitted": false,
+          "reason": "BUDGET_EXHAUSTED"
+        }
+      },
+      {
+        "attempt_id": "drain_5",
+        "outcome": {
+          "admitted": false,
+          "reason": "BUDGET_EXHAUSTED"
+        }
+      },
+      {
+        "attempt_id": "drain_6",
+        "outcome": {
+          "admitted": false,
+          "reason": "BUDGET_EXHAUSTED"
+        }
+      },
+      {
+        "attempt_id": "drain_7",
+        "outcome": {
+          "admitted": false,
+          "reason": "BUDGET_EXHAUSTED"
+        }
+      },
+      {
+        "attempt_id": "drain_8",
+        "outcome": {
+          "admitted": false,
+          "reason": "BUDGET_EXHAUSTED"
+        }
+      },
+      {
+        "attempt_id": "drain_final",
+        "outcome": {
+          "admitted": true,
+          "reservation_id": "res_cfa2272b-09a3-4c75-89dc-16567f826fb3"
+        }
+      }
+    ],
+    "stopped_state": {
+      "cap_microusd": 10000000,
+      "reserved_microusd": 7500000,
+      "settled_microusd": 500000,
+      "unknown_usage_events": 0,
+      "verification_reserve_microusd": 2000000,
+      "available_microusd": 0,
+      "stopped": true
+    },
+    "dispatch_after_stop": {
+      "admitted": false,
+      "reason": "BUDGET_EXHAUSTED"
+    },
+    "provider_starts_after_stop": 0,
+    "enforcement": {
+      "granularity": "pre_dispatch_reservation",
+      "in_flight_overrun_possible": true
+    }
+  },
+  "repair": {
+    "cycles": [
+      {
+        "proceed": true,
+        "cycle_number": 1
+      },
+      {
+        "proceed": false,
+        "outcome": "BLOCKED",
+        "reason": "REPEATED_DIAGNOSIS_WITHOUT_EVIDENCE"
+      }
+    ],
+    "with_new_evidence": {
+      "proceed": true,
+      "cycle_number": 1
+    },
+    "cycle_limit": 3
+  },
+  "authority": {
+    "unapproved_billing": {
+      "allowed": false,
+      "reason": "NO_MATCHING_SCOPED_APPROVAL"
+    },
+    "unapproved_capability": {
+      "enabled": false,
+      "reason": "CAPABILITY_NOT_APPROVED"
+    },
+    "worker_self_approval": {
+      "ok": false,
+      "code": "ACTOR_CANNOT_APPROVE",
+      "message": "worker cannot decide an approval request"
+    },
+    "approved_billing": {
+      "allowed": true,
+      "reason": "SCOPED_APPROVAL_PRESENT",
+      "maximum_spend_microusd": 6000000
+    },
+    "injected_text_recorded_as_data": 151,
+    "audit": [
+      {
+        "actor_id": "worker",
+        "operation": "authorize.api_spend",
+        "target_ref": "api_spend:local",
+        "decision": "deny"
+      },
+      {
+        "actor_id": "owner_1",
+        "operation": "approval.api_spend",
+        "target_ref": "apr_446bd1a5-1afb-49d1-b3f1-f60dbab5dab0",
+        "decision": "approve"
+      },
+      {
+        "actor_id": "controller",
+        "operation": "authorize.api_spend",
+        "target_ref": "grant_f2273873-5a04-49a7-aca6-ddf756ebb3df",
+        "decision": "allow"
+      }
+    ]
+  },
+  "responsibilities": {
+    "assignments": [
+      {
+        "assignment_id": "asg_3b146695-8445-4901-b2b3-6a87cc2b617c",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "architecture",
+        "risk_tier": "high",
+        "review_required": true
+      },
+      {
+        "assignment_id": "asg_a6c64671-cf51-48b2-90c6-cd14a366b494",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "product",
+        "risk_tier": "high",
+        "review_required": false
+      },
+      {
+        "assignment_id": "asg_26ac8178-adf2-4f3c-9545-ecd3937b8dc5",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "delivery",
+        "risk_tier": "high",
+        "review_required": false
+      },
+      {
+        "assignment_id": "asg_693f33fd-cca0-41c0-9c1b-05ed57162476",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "design",
+        "risk_tier": "high",
+        "review_required": false
+      },
+      {
+        "assignment_id": "asg_d750f9c8-be1d-4d7f-93f3-ee00beee79c8",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "engineering",
+        "risk_tier": "high",
+        "review_required": false
+      },
+      {
+        "assignment_id": "asg_6a6e3c89-e95e-4880-adcc-abbffde26642",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "quality",
+        "risk_tier": "high",
+        "review_required": true
+      },
+      {
+        "assignment_id": "asg_1fce8776-5a0c-408c-a680-546155d82ae0",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "security",
+        "risk_tier": "high",
+        "review_required": true
+      },
+      {
+        "assignment_id": "asg_222cab09-61ad-463c-bc8b-fa36bd93684d",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "reliability",
+        "risk_tier": "high",
+        "review_required": true
+      },
+      {
+        "assignment_id": "asg_0f6b64c0-b755-4370-b0ba-fb573a622f62",
+        "task_id": "task_lead",
+        "attempt_id": "lead",
+        "responsibility": "documentation",
+        "risk_tier": "high",
+        "review_required": false
+      }
+    ],
+    "distinct_titles": 9,
+    "provider_starts_before": 2,
+    "provider_starts_after": 2,
+    "active_attempts": 5,
+    "review_required": [
+      "architecture",
+      "quality",
+      "security",
+      "reliability"
+    ]
+  },
+  "new_scope": {
+    "fenced_attempts": [
+      "after_stop",
+      "child_1",
+      "child_2",
+      "child_3",
+      "drain_1",
+      "drain_2",
+      "drain_3",
+      "drain_4",
+      "drain_5",
+      "drain_6",
+      "drain_7",
+      "drain_8",
+      "drain_final",
+      "grandchild",
+      "lead"
+    ],
+    "invalidated_context_facts": [
+      "fact_8b0dcc09-6f3c-4b8e-9c83-e7208e6560d5"
+    ],
+    "budget_after_revision": {
+      "cap_microusd": 10000000,
+      "reserved_microusd": 7500000,
+      "settled_microusd": 500000,
+      "unknown_usage_events": 0,
+      "verification_reserve_microusd": 2000000,
+      "available_microusd": 0,
+      "stopped": true
+    },
+    "admission": {
+      "admitted": false,
+      "reason": "BUDGET_EXHAUSTED"
+    },
+    "billing_above_ceiling": {
+      "allowed": false,
+      "reason": "NO_MATCHING_SCOPED_APPROVAL"
+    },
+    "stale_context_packet": {
+      "ok": false,
+      "code": "STALE_CONTEXT_REVISION",
+      "message": "1"
+    },
+    "remaining_context_facts": 0
+  }
+}

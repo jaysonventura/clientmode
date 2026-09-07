@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { DatabaseSync, type StatementSync } from 'node:sqlite';
 
 const SCHEMA_SQL = path.resolve(fileURLToPath(import.meta.url), '../../../../contracts/storage/controller.sql');
-export const SCHEMA_VERSION = 2;
+export const SCHEMA_VERSION = 3;
 
 /** Product migrations layered on the reference DDL. The reference file stays unmodified;
  * controlled migrations are how the product extends it (handoff section 18). */
@@ -25,6 +25,38 @@ const MIGRATIONS: Array<{ version: number; sql: string }> = [
  FOREIGN KEY(project_id, run_id) REFERENCES runs(project_id, run_id)
 );
 CREATE INDEX run_control_intents_by_run ON run_control_intents(run_id, created_at);`,
+  },
+  {
+    version: 3,
+    sql: `CREATE TABLE budget_policies (
+ project_id TEXT PRIMARY KEY REFERENCES projects(project_id),
+ cap_microusd INTEGER NOT NULL CHECK(cap_microusd >= 0),
+ verification_reserve_microusd INTEGER NOT NULL CHECK(verification_reserve_microusd >= 0),
+ unknown_usage_reserve_microusd INTEGER NOT NULL CHECK(unknown_usage_reserve_microusd >= 0),
+ billing_mode TEXT NOT NULL CHECK(billing_mode IN ('native_account','approved_api')),
+ set_by TEXT NOT NULL, updated_at TEXT NOT NULL
+);
+CREATE TABLE capability_grants (
+ project_id TEXT NOT NULL REFERENCES projects(project_id),
+ capability TEXT NOT NULL, enabled INTEGER NOT NULL CHECK(enabled IN (0,1)),
+ approval_id TEXT NOT NULL, granted_by TEXT NOT NULL, updated_at TEXT NOT NULL,
+ PRIMARY KEY(project_id, capability)
+);
+CREATE TABLE repair_cycles (
+ cycle_id TEXT PRIMARY KEY, project_id TEXT NOT NULL, run_id TEXT NOT NULL,
+ task_id TEXT NOT NULL, attempt_id TEXT NOT NULL, cycle_number INTEGER NOT NULL CHECK(cycle_number >= 1),
+ diagnosis_digest TEXT NOT NULL, new_evidence_ref TEXT, outcome TEXT NOT NULL,
+ created_at TEXT NOT NULL,
+ FOREIGN KEY(project_id, run_id) REFERENCES runs(project_id, run_id)
+);
+CREATE TABLE responsibility_assignments (
+ assignment_id TEXT PRIMARY KEY, project_id TEXT NOT NULL, run_id TEXT NOT NULL,
+ task_id TEXT NOT NULL, attempt_id TEXT, responsibility TEXT NOT NULL,
+ risk_tier TEXT NOT NULL, review_required INTEGER NOT NULL CHECK(review_required IN (0,1)),
+ created_at TEXT NOT NULL,
+ FOREIGN KEY(project_id, run_id) REFERENCES runs(project_id, run_id),
+ UNIQUE(run_id, task_id, responsibility)
+);`,
   },
 ];
 

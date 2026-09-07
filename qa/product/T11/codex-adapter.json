@@ -11,7 +11,7 @@
     "usage": {
       "kind": "usage_event",
       "schema_version": 1,
-      "usage_event_id": "usage_ab3a0971-4aa9-4adc-be36-b5cc764780b7",
+      "usage_event_id": "usage_d17a7286-412c-402c-92b6-2e8b2e6b0f07",
       "provider_event_id": "turn:attempt_t11:19023:7",
       "run_id": "run_t11",
       "attempt_id": "attempt_t11",
@@ -123,7 +123,7 @@
   },
   "fresh_session": {
     "exit_code": 0,
-    "thread_id": "01a07d53-2dbf-77a2-b9a3-8caaa26bc4d2",
+    "thread_id": "01a07df5-e3ba-79d0-b909-794ff8c9db6c",
     "claims": [
       "CLIENT_MODE_INSTRUCTIONS_LOADED"
     ],
@@ -131,15 +131,15 @@
       {
         "kind": "usage_event",
         "schema_version": 1,
-        "usage_event_id": "usage_100aaac0-eeb0-47e0-9c28-47ba073aa0b6",
-        "provider_event_id": "turn:attempt_t11_fresh:19164:10",
+        "usage_event_id": "usage_788b3a32-ab23-4abe-bac2-8230a49c0aa5",
+        "provider_event_id": "turn:attempt_t11_fresh:19161:10",
         "run_id": "run_t11",
         "attempt_id": "attempt_t11_fresh",
         "provider": "codex",
         "billing_mode": "native_account",
-        "input_tokens": 19164,
+        "input_tokens": 19161,
         "output_tokens": 10,
-        "cache_read_tokens": 15488,
+        "cache_read_tokens": 12160,
         "cache_write_tokens": 0,
         "reasoning_tokens": 0,
         "cost_usd": null,
@@ -162,7 +162,7 @@
     "exit_code": 0,
     "claims": [
       "I’ll attempt to create the file in the current directory.",
-      "CANNOT_WRITE: The filesystem is read-only; creating permission-probe.txt was denied with “operation not permitted.”"
+      "CANNOT_WRITE: The filesystem is read-only; creating permission-probe.txt failed with “operation not permitted.”"
     ],
     "file_created": false,
     "verified_by": "filesystem check after the turn, not the session transcript"

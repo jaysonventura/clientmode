@@ -2,403 +2,403 @@ TAP version 13
 # Subtest: synthetic authentic current complete evidence is verified for scope only
 ok 1 - synthetic authentic current complete evidence is verified for scope only
   ---
-  duration_ms: 1.397041
+  duration_ms: 1.628917
   type: 'test'
   ...
 # Subtest: reject missing evidence identity, even when signed by fixture issuer
 ok 2 - reject missing evidence identity, even when signed by fixture issuer
   ---
-  duration_ms: 0.578167
+  duration_ms: 0.746584
   type: 'test'
   ...
 # Subtest: reject missing required result, even when signed by fixture issuer
 ok 3 - reject missing required result, even when signed by fixture issuer
   ---
-  duration_ms: 0.392125
+  duration_ms: 0.417958
   type: 'test'
   ...
 # Subtest: reject failed result, even when signed by fixture issuer
 ok 4 - reject failed result, even when signed by fixture issuer
   ---
-  duration_ms: 0.337667
+  duration_ms: 0.324917
   type: 'test'
   ...
 # Subtest: reject nonzero exit, even when signed by fixture issuer
 ok 5 - reject nonzero exit, even when signed by fixture issuer
   ---
-  duration_ms: 0.612291
+  duration_ms: 0.736667
   type: 'test'
   ...
 # Subtest: reject timeout, even when signed by fixture issuer
 ok 6 - reject timeout, even when signed by fixture issuer
   ---
-  duration_ms: 0.334916
+  duration_ms: 0.3665
   type: 'test'
   ...
 # Subtest: reject skipped status, even when signed by fixture issuer
 ok 7 - reject skipped status, even when signed by fixture issuer
   ---
-  duration_ms: 0.344791
+  duration_ms: 0.342416
   type: 'test'
   ...
 # Subtest: reject not executed, even when signed by fixture issuer
 ok 8 - reject not executed, even when signed by fixture issuer
   ---
-  duration_ms: 0.29175
+  duration_ms: 0.278333
   type: 'test'
   ...
 # Subtest: reject zero tests, even when signed by fixture issuer
 ok 9 - reject zero tests, even when signed by fixture issuer
   ---
-  duration_ms: 0.95225
+  duration_ms: 0.888917
   type: 'test'
   ...
 # Subtest: reject reduced test discovery, even when signed by fixture issuer
 ok 10 - reject reduced test discovery, even when signed by fixture issuer
   ---
-  duration_ms: 0.603375
+  duration_ms: 0.557417
   type: 'test'
   ...
 # Subtest: reject skipped test, even when signed by fixture issuer
 ok 11 - reject skipped test, even when signed by fixture issuer
   ---
-  duration_ms: 0.338125
+  duration_ms: 0.312209
   type: 'test'
   ...
 # Subtest: reject incomplete passing count, even when signed by fixture issuer
 ok 12 - reject incomplete passing count, even when signed by fixture issuer
   ---
-  duration_ms: 0.262041
+  duration_ms: 0.253
   type: 'test'
   ...
 # Subtest: reject negative count, even when signed by fixture issuer
 ok 13 - reject negative count, even when signed by fixture issuer
   ---
-  duration_ms: 0.2595
+  duration_ms: 0.255292
   type: 'test'
   ...
 # Subtest: reject missing assertion, even when signed by fixture issuer
 ok 14 - reject missing assertion, even when signed by fixture issuer
   ---
-  duration_ms: 0.250083
+  duration_ms: 0.247125
   type: 'test'
   ...
 # Subtest: reject duplicate assertion, even when signed by fixture issuer
 ok 15 - reject duplicate assertion, even when signed by fixture issuer
   ---
-  duration_ms: 0.2575
+  duration_ms: 0.236166
   type: 'test'
   ...
 # Subtest: reject duplicate result, even when signed by fixture issuer
 ok 16 - reject duplicate result, even when signed by fixture issuer
   ---
-  duration_ms: 0.251375
+  duration_ms: 0.252583
   type: 'test'
   ...
 # Subtest: reject unknown result, even when signed by fixture issuer
 ok 17 - reject unknown result, even when signed by fixture issuer
   ---
-  duration_ms: 0.253042
+  duration_ms: 0.243833
   type: 'test'
   ...
 # Subtest: reject changed check definition, even when signed by fixture issuer
 ok 18 - reject changed check definition, even when signed by fixture issuer
   ---
-  duration_ms: 0.248
+  duration_ms: 0.259958
   type: 'test'
   ...
 # Subtest: reject missing observer, even when signed by fixture issuer
 ok 19 - reject missing observer, even when signed by fixture issuer
   ---
-  duration_ms: 0.256083
+  duration_ms: 0.262958
   type: 'test'
   ...
 # Subtest: reject invalid log hash, even when signed by fixture issuer
 ok 20 - reject invalid log hash, even when signed by fixture issuer
   ---
-  duration_ms: 0.249625
+  duration_ms: 0.236542
   type: 'test'
   ...
 # Subtest: reject changed source, even when signed by fixture issuer
 ok 21 - reject changed source, even when signed by fixture issuer
   ---
-  duration_ms: 0.248375
+  duration_ms: 0.25725
   type: 'test'
   ...
 # Subtest: reject changed artifact, even when signed by fixture issuer
 ok 22 - reject changed artifact, even when signed by fixture issuer
   ---
-  duration_ms: 0.243959
+  duration_ms: 0.230625
   type: 'test'
   ...
 # Subtest: reject changed environment, even when signed by fixture issuer
 ok 23 - reject changed environment, even when signed by fixture issuer
   ---
-  duration_ms: 0.24675
+  duration_ms: 0.228958
   type: 'test'
   ...
 # Subtest: reject changed policy, even when signed by fixture issuer
 ok 24 - reject changed policy, even when signed by fixture issuer
   ---
-  duration_ms: 0.249125
+  duration_ms: 0.233875
   type: 'test'
   ...
 # Subtest: reject wrong project, even when signed by fixture issuer
 ok 25 - reject wrong project, even when signed by fixture issuer
   ---
-  duration_ms: 0.248125
+  duration_ms: 0.247541
   type: 'test'
   ...
 # Subtest: reject wrong run, even when signed by fixture issuer
 ok 26 - reject wrong run, even when signed by fixture issuer
   ---
-  duration_ms: 0.244167
+  duration_ms: 0.263875
   type: 'test'
   ...
 # Subtest: reject wrong candidate, even when signed by fixture issuer
 ok 27 - reject wrong candidate, even when signed by fixture issuer
   ---
-  duration_ms: 0.240875
+  duration_ms: 0.240958
   type: 'test'
   ...
 # Subtest: reject expired attempt, even when signed by fixture issuer
 ok 28 - reject expired attempt, even when signed by fixture issuer
   ---
-  duration_ms: 0.240583
+  duration_ms: 0.231875
   type: 'test'
   ...
 # Subtest: reject requirement change, even when signed by fixture issuer
 ok 29 - reject requirement change, even when signed by fixture issuer
   ---
-  duration_ms: 0.248084
+  duration_ms: 0.229125
   type: 'test'
   ...
 # Subtest: reject issuer substitution, even when signed by fixture issuer
 ok 30 - reject issuer substitution, even when signed by fixture issuer
   ---
-  duration_ms: 0.275834
+  duration_ms: 0.274541
   type: 'test'
   ...
 # Subtest: reject source changed during verification, even when signed by fixture issuer
 ok 31 - reject source changed during verification, even when signed by fixture issuer
   ---
-  duration_ms: 0.235958
+  duration_ms: 0.236792
   type: 'test'
   ...
 # Subtest: reject blocking review finding, even when signed by fixture issuer
 ok 32 - reject blocking review finding, even when signed by fixture issuer
   ---
-  duration_ms: 0.25375
+  duration_ms: 0.238667
   type: 'test'
   ...
 # Subtest: reject missing blocking finding field, even when signed by fixture issuer
 ok 33 - reject missing blocking finding field, even when signed by fixture issuer
   ---
-  duration_ms: 0.25275
+  duration_ms: 0.244833
   type: 'test'
   ...
 # Subtest: reject future finish, even when signed by fixture issuer
 ok 34 - reject future finish, even when signed by fixture issuer
   ---
-  duration_ms: 0.243208
+  duration_ms: 0.238667
   type: 'test'
   ...
 # Subtest: reject invalid timestamp, even when signed by fixture issuer
 ok 35 - reject invalid timestamp, even when signed by fixture issuer
   ---
-  duration_ms: 0.232875
+  duration_ms: 0.230125
   type: 'test'
   ...
 # Subtest: reject finish before start, even when signed by fixture issuer
 ok 36 - reject finish before start, even when signed by fixture issuer
   ---
-  duration_ms: 0.234792
+  duration_ms: 0.239459
   type: 'test'
   ...
 # Subtest: reject evidence before candidate, even when signed by fixture issuer
 ok 37 - reject evidence before candidate, even when signed by fixture issuer
   ---
-  duration_ms: 0.233792
+  duration_ms: 0.250333
   type: 'test'
   ...
 # Subtest: reject missing results, even when signed by fixture issuer
 ok 38 - reject missing results, even when signed by fixture issuer
   ---
-  duration_ms: 0.250875
+  duration_ms: 0.252917
   type: 'test'
   ...
 # Subtest: reject string count, even when signed by fixture issuer
 ok 39 - reject string count, even when signed by fixture issuer
   ---
-  duration_ms: 0.246208
+  duration_ms: 0.233584
   type: 'test'
   ...
 # Subtest: reject unsupported evidence schema, even when signed by fixture issuer
 ok 40 - reject unsupported evidence schema, even when signed by fixture issuer
   ---
-  duration_ms: 0.242
+  duration_ms: 0.2275
   type: 'test'
   ...
 # Subtest: reject expired evidence
 ok 41 - reject expired evidence
   ---
-  duration_ms: 0.214083
+  duration_ms: 0.197667
   type: 'test'
   ...
 # Subtest: reject advisory policy
 ok 42 - reject advisory policy
   ---
-  duration_ms: 0.133458
+  duration_ms: 0.117792
   type: 'test'
   ...
 # Subtest: reject empty policy
 ok 43 - reject empty policy
   ---
-  duration_ms: 0.318083
+  duration_ms: 0.191875
   type: 'test'
   ...
 # Subtest: reject all optional policy
 ok 44 - reject all optional policy
   ---
-  duration_ms: 0.2345
+  duration_ms: 0.491709
   type: 'test'
   ...
 # Subtest: reject duplicate definition
 ok 45 - reject duplicate definition
   ---
-  duration_ms: 0.214292
+  duration_ms: 0.289542
   type: 'test'
   ...
 # Subtest: reject zero-test behavioral policy
 ok 46 - reject zero-test behavioral policy
   ---
-  duration_ms: 0.204084
+  duration_ms: 0.220125
   type: 'test'
   ...
 # Subtest: reject revoked key
 ok 47 - reject revoked key
   ---
-  duration_ms: 0.110375
+  duration_ms: 0.111209
   type: 'test'
   ...
 # Subtest: reject unknown issuer
 ok 48 - reject unknown issuer
   ---
-  duration_ms: 0.109792
+  duration_ms: 0.110916
   type: 'test'
   ...
 # Subtest: reject missing trusted attempt
 ok 49 - reject missing trusted attempt
   ---
-  duration_ms: 0.109833
+  duration_ms: 0.105833
   type: 'test'
   ...
 # Subtest: reject unapproved policy issuer
 ok 50 - reject unapproved policy issuer
   ---
-  duration_ms: 0.108
+  duration_ms: 0.099458
   type: 'test'
   ...
 # Subtest: reject wrong policy revision
 ok 51 - reject wrong policy revision
   ---
-  duration_ms: 0.197042
+  duration_ms: 0.184917
   type: 'test'
   ...
 # Subtest: reject unsupported signature algorithm
 ok 52 - reject unsupported signature algorithm
   ---
-  duration_ms: 0.108584
+  duration_ms: 0.096708
   type: 'test'
   ...
 # Subtest: reject malformed base64
 ok 53 - reject malformed base64
   ---
-  duration_ms: 0.111458
+  duration_ms: 0.099667
   type: 'test'
   ...
 # Subtest: reject oversized envelope
 ok 54 - reject oversized envelope
   ---
-  duration_ms: 0.1105
+  duration_ms: 0.098625
   type: 'test'
   ...
 # Subtest: reject payload altered after signing
 ok 55 - reject payload altered after signing
   ---
-  duration_ms: 0.221416
+  duration_ms: 0.200417
   type: 'test'
   ...
 # Subtest: reject signature replaced
 ok 56 - reject signature replaced
   ---
-  duration_ms: 0.184416
+  duration_ms: 0.169167
   type: 'test'
   ...
 # Subtest: missing and malformed top-level inputs fail closed
 ok 57 - missing and malformed top-level inputs fail closed
   ---
-  duration_ms: 0.046041
+  duration_ms: 0.043
   type: 'test'
   ...
 # Subtest: trusted verifier can transition with current evidence and state version
 ok 58 - trusted verifier can transition with current evidence and state version
   ---
-  duration_ms: 0.057458
+  duration_ms: 0.0525
   type: 'test'
   ...
 # Subtest: worker role cannot assign ready state
 ok 59 - worker role cannot assign ready state
   ---
-  duration_ms: 0.031834
+  duration_ms: 0.028959
   type: 'test'
   ...
 # Subtest: stale state version cannot transition
 ok 60 - stale state version cannot transition
   ---
-  duration_ms: 0.023666
+  duration_ms: 0.022458
   type: 'test'
   ...
 # Subtest: missing trusted evidence guard cannot transition
 ok 61 - missing trusted evidence guard cannot transition
   ---
-  duration_ms: 0.026916
+  duration_ms: 0.025834
   type: 'test'
   ...
 # Subtest: unlisted transition cannot occur
 ok 62 - unlisted transition cannot occur
   ---
-  duration_ms: 0.025916
+  duration_ms: 0.025209
   type: 'test'
   ...
 # Subtest: malformed transition requests fail closed without throwing
 ok 63 - malformed transition requests fail closed without throwing
   ---
-  duration_ms: 0.029333
+  duration_ms: 0.027875
   type: 'test'
   ...
 # Subtest: inherited guard values cannot grant a transition
 ok 64 - inherited guard values cannot grant a transition
   ---
-  duration_ms: 0.029792
+  duration_ms: 0.028208
   type: 'test'
   ...
 # Subtest: intake blocker and cancellation have lifecycle transitions
 ok 65 - intake blocker and cancellation have lifecycle transitions
   ---
-  duration_ms: 0.107417
+  duration_ms: 0.102166
   type: 'test'
   ...
 # Subtest: precontract resume can return to intake, not unauthorized engineering
 ok 66 - precontract resume can return to intake, not unauthorized engineering
   ---
-  duration_ms: 0.028334
+  duration_ms: 0.029375
   type: 'test'
   ...
 # Subtest: signed evidence with date-only timestamps is unverified
 ok 67 - signed evidence with date-only timestamps is unverified
   ---
-  duration_ms: 0.267917
+  duration_ms: 0.245042
   type: 'test'
   ...
 1..67
@@ -409,4 +409,4 @@ ok 67 - signed evidence with date-only timestamps is unverified
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 64.720292
+# duration_ms 68.218584

@@ -22,7 +22,7 @@
     "status": 201,
     "body": {
       "order": {
-        "order_id": "order_mtrmow5r_65bnee",
+        "order_id": "order_mtrt1fr6_7qqhnh",
         "customer_name": "Ana Dela Cruz",
         "customer_mobile": "+639000000001",
         "total_centavos": 13500,
@@ -38,7 +38,7 @@
             "unit_price_centavos": 2500
           }
         ],
-        "created_at": "2026-09-07T19:23:17.583Z"
+        "created_at": "2026-09-07T22:21:00.546Z"
       },
       "replayed": false
     }
@@ -48,13 +48,13 @@
     "status": 200,
     "body": {
       "order": {
-        "order_id": "order_mtrmow5r_65bnee",
+        "order_id": "order_mtrt1fr6_7qqhnh",
         "idempotency_key": "probe-order-1",
         "customer_name": "Ana Dela Cruz",
         "customer_mobile": "+639000000001",
         "total_centavos": 13500,
         "items_json": "[{\"product_id\":\"rice\",\"quantity\":2,\"unit_price_centavos\":5500},{\"product_id\":\"soap\",\"quantity\":1,\"unit_price_centavos\":2500}]",
-        "created_at": "2026-09-07T19:23:17.583Z",
+        "created_at": "2026-09-07T22:21:00.546Z",
         "items": [
           {
             "product_id": "rice",
@@ -106,7 +106,7 @@
     "status": 201,
     "body": {
       "order": {
-        "order_id": "order_mtrmow67_oq2yj5",
+        "order_id": "order_mtrt1frz_e6px2i",
         "customer_name": "Ana Dela Cruz",
         "customer_mobile": "+639000000001",
         "total_centavos": 5500,
@@ -117,7 +117,7 @@
             "unit_price_centavos": 5500
           }
         ],
-        "created_at": "2026-09-07T19:23:17.599Z"
+        "created_at": "2026-09-07T22:21:00.575Z"
       },
       "replayed": false
     }

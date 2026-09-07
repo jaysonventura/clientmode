@@ -1,0 +1,533 @@
+{
+  "records": {
+    "K01": {
+      "name": "schema validation loosened: type coercion on, strict mode off",
+      "file": "packages/contracts/src/validate.ts",
+      "red": [
+        "AT-007",
+        "AT-011",
+        "AT-016"
+      ],
+      "dropped": []
+    },
+    "K02": {
+      "name": "manifest entries no longer sorted before digesting",
+      "file": "packages/workspace/src/snapshot.ts",
+      "red": [
+        "AT-003"
+      ],
+      "dropped": []
+    },
+    "K03": {
+      "name": "symlink targets no longer canonicalised before the escape check",
+      "file": "packages/workspace/src/snapshot.ts",
+      "red": [
+        "AT-003"
+      ],
+      "dropped": []
+    },
+    "K04": {
+      "name": "dispatch depth limit removed",
+      "file": "packages/core/src/router.ts",
+      "red": [],
+      "dropped": [],
+      "superseded_by": "K04b"
+    },
+    "K05": {
+      "name": "recursive child check removed",
+      "file": "packages/core/src/router.ts",
+      "red": [
+        "AT-004",
+        "AT-012"
+      ],
+      "dropped": []
+    },
+    "K06": {
+      "name": "approval expiry ignored when authorising",
+      "file": "packages/core/src/approvals.ts",
+      "red": [],
+      "dropped": [],
+      "superseded_by": "K06b"
+    },
+    "K07": {
+      "name": "approval candidate scope ignored when authorising",
+      "file": "packages/core/src/approvals.ts",
+      "red": [],
+      "dropped": [],
+      "superseded_by": "K07b"
+    },
+    "K08": {
+      "name": "Seatbelt deny paths written without canonicalisation",
+      "file": "packages/verifier/src/executor.ts",
+      "red": [
+        "AT-005",
+        "AT-007",
+        "AT-020"
+      ],
+      "dropped": []
+    },
+    "K09": {
+      "name": "evidence attempt binding removed",
+      "file": "packages/verifier/src/verdict.ts",
+      "red": [
+        "AT-007"
+      ],
+      "dropped": []
+    },
+    "K10": {
+      "name": "test-count floor removed from the readiness verdict",
+      "file": "packages/verifier/src/verdict.ts",
+      "red": [
+        "AT-007"
+      ],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ]
+    },
+    "K11": {
+      "name": "lease epoch fencing removed",
+      "file": "packages/state/src/leases.ts",
+      "red": [
+        "AT-002",
+        "AT-012"
+      ],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ]
+    },
+    "K12": {
+      "name": "unknown provider cost counted as zero",
+      "file": "packages/observability/src/metrics.ts",
+      "red": [],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ],
+      "superseded_by": "K12b"
+    },
+    "K13": {
+      "name": "failed attempts excluded from the cost roll-up",
+      "file": "packages/observability/src/metrics.ts",
+      "red": [
+        "AT-019"
+      ],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ]
+    },
+    "K14": {
+      "name": "retention holds ignored",
+      "file": "packages/observability/src/metrics.ts",
+      "red": [
+        "AT-019"
+      ],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ]
+    },
+    "K15": {
+      "name": "telemetry on by default",
+      "file": "packages/observability/src/metrics.ts",
+      "red": [
+        "AT-019"
+      ],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ]
+    },
+    "K16": {
+      "name": "secret redaction rules emptied",
+      "file": "packages/observability/src/redaction.ts",
+      "red": [],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ],
+      "superseded_by": "K16b"
+    },
+    "K17": {
+      "name": "a configured capability reported as observed working",
+      "file": "packages/providers/src/capabilities.ts",
+      "red": [
+        "AT-009"
+      ],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ]
+    },
+    "K18": {
+      "name": "deployment released regardless of the smoke result",
+      "file": "packages/release/src/smoke.ts",
+      "red": [
+        "AT-008",
+        "AT-020"
+      ],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ]
+    },
+    "K19": {
+      "name": "rollback no longer requires a rollback-scoped approval",
+      "file": "packages/release/src/rollback.ts",
+      "red": [
+        "AT-008"
+      ],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ]
+    },
+    "K20": {
+      "name": "distribution self-containment never checked",
+      "file": "packages/packaging/src/build.ts",
+      "red": [],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ],
+      "superseded_by": "K40"
+    },
+    "K21": {
+      "name": "uninstall leaves its files behind",
+      "file": "packages/packaging/src/install.ts",
+      "red": [],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ],
+      "superseded_by": "K21b"
+    },
+    "K22": {
+      "name": "project memory returns facts from every project",
+      "file": "packages/core/src/context.ts",
+      "red": [],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ],
+      "superseded_by": "K22c"
+    },
+    "K23": {
+      "name": "compare-and-swap dropped from the state transition",
+      "file": "packages/core/src/lifecycle.ts",
+      "red": [
+        "AT-002"
+      ],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ]
+    },
+    "K24": {
+      "name": "client satisfaction may be recorded by a worker",
+      "file": "packages/core/src/lifecycle.ts",
+      "red": [
+        "AT-016"
+      ],
+      "dropped": [
+        "AT-010",
+        "AT-017"
+      ]
+    },
+    "K25": {
+      "name": "unknown entity kinds accepted instead of refused",
+      "file": "packages/contracts/src/validate.ts",
+      "red": [],
+      "dropped": []
+    },
+    "K26": {
+      "name": "the union check dropped, so a kind-level pass is enough",
+      "file": "packages/contracts/src/validate.ts",
+      "red": [],
+      "dropped": []
+    },
+    "K27": {
+      "name": "the shop fixture stops injecting its negative-quantity defect",
+      "file": "fixtures/shop/server.mjs",
+      "red": [
+        "AT-006"
+      ],
+      "dropped": []
+    },
+    "K28": {
+      "name": "the shop fixture stops injecting its missing-label defect",
+      "file": "fixtures/shop/public/app.js",
+      "red": [
+        "AT-006"
+      ],
+      "dropped": []
+    },
+    "K29": {
+      "name": "client exclusions dropped from the interpreted requirements",
+      "file": "packages/core/src/intake.ts",
+      "red": [
+        "AT-013"
+      ],
+      "dropped": []
+    },
+    "K30": {
+      "name": "the smallest required viewport is no longer observed",
+      "file": "packages/browser/src/visual.ts",
+      "red": [],
+      "dropped": []
+    },
+    "K31": {
+      "name": "origin check removed from the controller",
+      "file": "apps/controller/src/auth.ts",
+      "red": [
+        "AT-015"
+      ],
+      "dropped": []
+    },
+    "K32": {
+      "name": "CSRF token no longer required on mutating requests",
+      "file": "apps/controller/src/auth.ts",
+      "red": [
+        "AT-015"
+      ],
+      "dropped": []
+    },
+    "K33": {
+      "name": "a failed migration no longer restores the state snapshot",
+      "file": "packages/packaging/src/upgrade.ts",
+      "red": [],
+      "dropped": []
+    },
+    "K34": {
+      "name": "a worker credential may open a client session",
+      "file": "apps/controller/src/auth.ts",
+      "red": [
+        "AT-015"
+      ],
+      "dropped": []
+    },
+    "K20b": {
+      "name": "distribution self-containment never checked",
+      "file": "packages/packaging/src/build.ts",
+      "red": [],
+      "dropped": []
+    },
+    "K21b": {
+      "name": "uninstall leaves its files behind",
+      "file": "packages/packaging/src/install.ts",
+      "red": [
+        "AT-017"
+      ],
+      "dropped": []
+    },
+    "K35": {
+      "name": "provider events pass through without normalisation",
+      "file": "packages/providers/src/claude.ts",
+      "red": [],
+      "dropped": []
+    },
+    "K36": {
+      "name": "per-kind schema validation result ignored",
+      "file": "packages/contracts/src/validate.ts",
+      "red": [],
+      "dropped": []
+    },
+    "K37": {
+      "name": "missing design tokens reported as present",
+      "file": "packages/browser/src/visual.ts",
+      "red": [],
+      "dropped": []
+    },
+    "K38": {
+      "name": "the new version is activated before its migrations run",
+      "file": "packages/packaging/src/upgrade.ts",
+      "red": [],
+      "dropped": []
+    },
+    "K39": {
+      "name": "provider usage coverage defaults to complete",
+      "file": "packages/providers/src/normalize.ts",
+      "red": [
+        "AT-011"
+      ],
+      "dropped": []
+    },
+    "K40": {
+      "name": "a shipped skill carries a path back into the build tree",
+      "file": "skills/handoff/SKILL.md",
+      "red": [
+        "AT-017"
+      ],
+      "dropped": []
+    },
+    "K41": {
+      "name": "irreversible migrations reported as safe to roll back",
+      "file": "",
+      "red": [
+        "AT-018"
+      ],
+      "dropped": []
+    },
+    "K42": {
+      "name": "a required design token removed from the fixture stylesheet",
+      "file": "",
+      "red": [
+        "AT-014"
+      ],
+      "dropped": []
+    },
+    "K43": {
+      "name": "both validator layers removed: per-kind result ignored and the union check dropped",
+      "file": "",
+      "red": [
+        "AT-001"
+      ],
+      "dropped": []
+    },
+    "K04b": {
+      "name": "dispatch depth limit removed (re-run after T04 was strengthened)",
+      "file": "",
+      "red": [
+        "AT-004"
+      ],
+      "dropped": []
+    },
+    "K06b": {
+      "name": "approval expiry ignored when authorising (re-run after T08 was strengthened)",
+      "file": "",
+      "red": [
+        "AT-008"
+      ],
+      "dropped": []
+    },
+    "K07b": {
+      "name": "approval candidate scope ignored when authorising (re-run after T08 was strengthened)",
+      "file": "",
+      "red": [
+        "AT-008"
+      ],
+      "dropped": []
+    },
+    "K44": {
+      "name": "adapter marker removed from the shipped Claude instructions",
+      "file": "",
+      "red": [
+        "AT-010"
+      ],
+      "dropped": []
+    },
+    "K16b": {
+      "name": "secret redaction rules emptied",
+      "file": "",
+      "red": [
+        "AT-019"
+      ],
+      "dropped": []
+    },
+    "K22b": {
+      "name": "project memory returns facts from every project",
+      "file": "",
+      "red": [],
+      "dropped": []
+    },
+    "K12b": {
+      "name": "unknown provider cost counted as zero in the attempt split",
+      "file": "",
+      "red": [],
+      "dropped": []
+    },
+    "K22c": {
+      "name": "project memory recall returns every project's facts",
+      "file": "",
+      "red": [
+        "AT-013"
+      ],
+      "dropped": []
+    }
+  },
+  "by_gate": {
+    "AT-007": [
+      "K01",
+      "K08",
+      "K09",
+      "K10"
+    ],
+    "AT-011": [
+      "K01",
+      "K39"
+    ],
+    "AT-016": [
+      "K01",
+      "K24"
+    ],
+    "AT-003": [
+      "K02",
+      "K03"
+    ],
+    "AT-004": [
+      "K04b",
+      "K05"
+    ],
+    "AT-012": [
+      "K05",
+      "K11"
+    ],
+    "AT-008": [
+      "K06b",
+      "K07b",
+      "K18",
+      "K19"
+    ],
+    "AT-005": [
+      "K08"
+    ],
+    "AT-020": [
+      "K08",
+      "K18"
+    ],
+    "AT-002": [
+      "K11",
+      "K23"
+    ],
+    "AT-019": [
+      "K13",
+      "K14",
+      "K15",
+      "K16b"
+    ],
+    "AT-009": [
+      "K17"
+    ],
+    "AT-017": [
+      "K21b",
+      "K40"
+    ],
+    "AT-013": [
+      "K22c",
+      "K29"
+    ],
+    "AT-006": [
+      "K27",
+      "K28"
+    ],
+    "AT-015": [
+      "K31",
+      "K32",
+      "K34"
+    ],
+    "AT-018": [
+      "K41"
+    ],
+    "AT-014": [
+      "K42"
+    ],
+    "AT-001": [
+      "K43"
+    ],
+    "AT-010": [
+      "K44"
+    ]
+  }
+}

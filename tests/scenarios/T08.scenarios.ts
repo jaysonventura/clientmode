@@ -84,15 +84,41 @@ registerScenario('AT-008', async (): Promise<ScenarioObservation> => {
       });
       return authority.decide({ approval_id: requested.approval_id, actor: 'worker', actor_id: 'worker_1', decision: 'approve', now: NOW });
     });
+    // The authority's own lookup is scoped too: a grant that has expired, and a grant for a
+    // different candidate, both answer "no". These are a separate code path from the scope
+    // check a release performs, and are exercised here rather than assumed to agree with it.
+    const shortGrant = authority.request({
+      project_id: PROJECT, requested_by: 'controller', action: 'deploy', target_environment: 'staging',
+      policy_digest: POLICY, description: 'expires quickly', expires_at: '2026-09-07T01:00:00.000Z',
+      now: '2026-09-07T00:00:00.000Z', candidate_id: 'candidate_t08', artifact_digest: ARTIFACT,
+    });
+    authority.decide({ approval_id: shortGrant.approval_id, actor: 'maintainer', actor_id: 'release_owner', decision: 'approve', now: '2026-09-07T00:00:00.000Z' });
+    const askExpired = authority.authorize({
+      project_id: PROJECT, action: 'deploy', target_environment: 'staging',
+      candidate_id: 'candidate_t08', artifact_digest: ARTIFACT, requested_by: 'controller',
+      now: '2026-09-07T02:00:00.000Z',
+    });
+    const askOtherCandidate = authority.authorize({
+      project_id: PROJECT, action: 'deploy', target_environment: 'staging',
+      candidate_id: 'candidate_somebody_else', artifact_digest: ARTIFACT, requested_by: 'controller',
+      now: '2026-09-07T00:30:00.000Z',
+    });
+    const askInScope = authority.authorize({
+      project_id: PROJECT, action: 'deploy', target_environment: 'staging',
+      candidate_id: 'candidate_t08', artifact_digest: ARTIFACT, requested_by: 'controller',
+      now: '2026-09-07T00:30:00.000Z',
+    });
     log['authentication'] = {
       cookie_header: sessions.cookieHeader(session), cookie_notes: sessions.cookie_notes,
       attempts: authAttempts, worker_decision: workerDecision,
+      authority_lookup: { expired: askExpired, other_candidate: askOtherCandidate, in_scope: askInScope },
     };
     const authDenied = !authAttempts.worker_token.authenticated && authAttempts.worker_token.reason === 'WORKER_TOKEN_CANNOT_ACT_AS_CLIENT' &&
       !authAttempts.cross_origin.authenticated && authAttempts.cross_origin.reason === 'ORIGIN_NOT_ALLOWED' &&
       !authAttempts.missing_csrf.authenticated && !authAttempts.stale_csrf.authenticated &&
       !authAttempts.no_session.authenticated && authAttempts.valid.authenticated &&
       !workerDecision.ok && workerDecision.code === 'ACTOR_CANNOT_APPROVE' &&
+      !askExpired.authorized && !askOtherCandidate.authorized && askInScope.authorized &&
       !sessions.cookieHeader(session).includes('Secure');
 
     // 2. One scoped approval for the exact candidate, artifact and environment.
@@ -240,7 +266,9 @@ registerScenario('AT-008', async (): Promise<ScenarioObservation> => {
       authenticated_actor_id: 'worker_1', actor: 'worker', idempotency_key: 'answer-worker',
     }));
     const grantsAfterAnswer = releaseDb.prepare('SELECT COUNT(*) AS n FROM approvals WHERE project_id = ?').get(PROJECT) as Record<string, unknown>;
-    const grantsBefore = 2; // the deploy grant and the rollback grant, both from authenticated decisions
+    // The deploy grant, the rollback grant and the short-lived grant used to exercise the
+    // authority's expiry filter — all three from authenticated decisions, none from an answer.
+    const grantsBefore = 3;
     log['question_answer'] = {
       question_status_after_answer: db.get('SELECT status FROM client_questions WHERE question_id = ?', question.question_id),
       answer_id: answer.answer_id, answer_actor: answer.actor_id, worker_answer: workerAnswer,

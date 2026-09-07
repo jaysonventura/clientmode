@@ -98,10 +98,18 @@ registerScenario('AT-004', async (): Promise<ScenarioObservation> => {
       project_id: PROJECT, run_id: run.run_id, attempt_id: 'grandchild', parent_attempt_id: 'child_1', depth: 1,
       estimated_microusd: DOLLAR, context: {} as never, actor: 'controller',
     });
+    // The depth ceiling is also checked directly on the request, not only through the parent:
+    // a caller that declares a deeper level is refused before anything is looked up.
+    const tooDeep = router.admit({
+      project_id: PROJECT, run_id: run.run_id, attempt_id: 'grandchild', parent_attempt_id: 'child_1',
+      depth: DISPATCH_LIMITS.maximum_depth + 1,
+      estimated_microusd: DOLLAR, context: {} as never, actor: 'controller',
+    });
     const writerOne = attempt(() => claimWriteScope(db, { project_id: PROJECT, attempt_id: 'child_1', workspace_id: 'ws_child_1', owner_id: 'writer_one', paths: ['src/child_1/'], expires_at: '2026-09-08T00:00:00.000Z' }));
     const writerTwo = attempt(() => claimWriteScope(db, { project_id: PROJECT, attempt_id: 'child_2', workspace_id: 'ws_child_2', owner_id: 'writer_two', paths: ['src/child_2/'], expires_at: '2026-09-08T00:00:00.000Z' }));
-    log['delegation'] = { children: childOutcomes, grandchild, writer_one: writerOne, writer_two: writerTwo, limits: DISPATCH_LIMITS };
-    const recursiveChildRejected = !grandchild.admitted && grandchild.reason === 'RECURSIVE_CHILD_REJECTED' &&
+    log['delegation'] = { children: childOutcomes, grandchild, too_deep: tooDeep, writer_one: writerOne, writer_two: writerTwo, limits: DISPATCH_LIMITS };
+    const recursiveChildRejected = !tooDeep.admitted && tooDeep.reason === 'DEPTH_LIMIT' &&
+      !grandchild.admitted && grandchild.reason === 'RECURSIVE_CHILD_REJECTED' &&
       writerOne.ok && !writerTwo.ok && writerTwo.code === 'WRITER_LEASE_CONFLICT';
 
     // 2. A provider event ID is counted once however often it is delivered.

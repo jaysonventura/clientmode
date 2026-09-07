@@ -410,6 +410,69 @@ export class LifecycleService implements StateStore {
     });
   }
 
+
+  /** A preview points at a candidate that passed protected verification, and at nothing else.
+   * "Looks good" on an unverified build is the failure this prevents. */
+  bindPreview(input: {
+    run_id: string; candidate_id: string;
+    verdict: { verdict: 'VERIFIED_FOR_SCOPE' | 'UNVERIFIED'; candidate_id?: string; evidence_id?: string; reasons: string[] };
+    preview_url: string; actor: Actor;
+  }): { bound: true; preview_url: string; candidate_id: string; evidence_id: string } | { bound: false; reasons: string[] } {
+    if (input.actor === 'worker') return { bound: false, reasons: ['ACTOR_CANNOT_BIND_PREVIEW'] };
+    if (input.verdict.verdict !== 'VERIFIED_FOR_SCOPE') return { bound: false, reasons: ['CANDIDATE_NOT_VERIFIED', ...input.verdict.reasons] };
+    if (input.verdict.candidate_id !== input.candidate_id) return { bound: false, reasons: ['VERDICT_CANDIDATE_MISMATCH'] };
+    if (input.verdict.evidence_id === undefined) return { bound: false, reasons: ['VERDICT_WITHOUT_EVIDENCE'] };
+    const run = this.#db.get('SELECT candidate_id FROM runs WHERE run_id = ?', input.run_id);
+    if (run === undefined) return { bound: false, reasons: ['UNKNOWN_RUN'] };
+    if (String(run['candidate_id']) !== input.candidate_id) return { bound: false, reasons: ['RUN_CANDIDATE_MISMATCH'] };
+    return { bound: true, preview_url: input.preview_url, candidate_id: input.candidate_id, evidence_id: input.verdict.evidence_id };
+  }
+
+  /** Satisfaction is written by the client or not at all. The controller may record that a
+   * candidate was shown; it may never record that the client liked it. */
+  recordFeedback(input: {
+    project_id: string; run_id: string; candidate_id: string; message: string;
+    satisfaction: 'not_recorded' | 'needs_changes' | 'accepted';
+    actor: Actor; authenticated_actor_id: string;
+  }): { recorded: true; feedback_id: string; satisfaction: string } | { recorded: false; reason: string } {
+    if (input.satisfaction !== 'not_recorded' && input.actor !== 'client') {
+      return { recorded: false, reason: 'SATISFACTION_IS_CLIENT_AUTHORED_ONLY' };
+    }
+    const at = this.#now();
+    const feedback_id = `feedback_${randomUUID()}`;
+    return this.#db.transaction(() => {
+      this.#db.run('INSERT OR IGNORE INTO client_requests (request_id, project_id, message, attachment_ids_json, language_hint, privacy_class, created_at) VALUES (?,?,?,?,?,?,?)',
+        feedback_id, input.project_id, input.message, '[]', 'mixed', 'internal', at);
+      this.#db.run('INSERT INTO feedback (feedback_id, project_id, candidate_id, client_request_id, satisfaction, next_contract_revision, created_at) VALUES (?,?,?,?,?,NULL,?)',
+        feedback_id, input.project_id, input.candidate_id, feedback_id, input.satisfaction, at);
+      appendEvent(this.#db, {
+        run_id: input.run_id, project_id: input.project_id, kind: 'question_answered', actor_id: input.authenticated_actor_id,
+        payload: { feedback_id, satisfaction: input.satisfaction }, at,
+      });
+      return { recorded: true as const, feedback_id, satisfaction: input.satisfaction };
+    });
+  }
+
+  /** After an interruption the phase comes from reconciled controller state. A run that was
+   * verifying does not resume as ready, and a candidate invalidated meanwhile is not restored. */
+  resumePhase(run_id: string): { phase: Run['state']; resumable: boolean; reason: string } {
+    const row = this.#db.get('SELECT * FROM runs WHERE run_id = ?', run_id);
+    if (!row) return { phase: 'FAILED', resumable: false, reason: 'UNKNOWN_RUN' };
+    const run = toRun(row);
+    // A run that is verifying or ready has, by definition, something to verify. A null
+    // candidate there means the candidate was invalidated while the process was down, so the
+    // phase cannot be resumed as it stood.
+    const candidateStillValid = run.candidate_id !== null &&
+      this.#db.get('SELECT 1 AS ok FROM candidates WHERE candidate_id = ? AND requirements_revision = ?', run.candidate_id, run.requirements_revision) !== undefined;
+    if (run.state === 'VERIFYING' && !candidateStillValid) {
+      return { phase: 'RUNNING', resumable: true, reason: 'the candidate no longer matches the current requirements revision, so verification restarts from build' };
+    }
+    if (run.state === 'READY_FOR_REVIEW' && !candidateStillValid) {
+      return { phase: 'NEEDS_REPAIR', resumable: true, reason: 'readiness was invalidated by a requirements change' };
+    }
+    return { phase: run.state, resumable: !['CANCELLED', 'FAILED'].includes(run.state), reason: 'reconciled from controller-owned state' };
+  }
+
   /** A material requirement change creates the next revision and fences every in-flight
    * attempt, dropping any readiness reference, in one transaction. */
   applyRequirementRevision(input: {

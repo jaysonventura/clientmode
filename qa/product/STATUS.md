@@ -70,6 +70,24 @@ projects outside this repository. No metered API billing was configured.
 - argv for both adapters comes from each host's own `--help` on this machine, and every
   permission-escape flag is refused before a process is spawned
 
+## Milestone M4 — client experience: COMPLETE
+
+| Task | Gate | Mode | Status | Evidence |
+|---|---|---|---|---|
+| T13 | AT-013 | integration | PASS | `qa/product/T13/` |
+| T14 | AT-014 | integration | PASS | `qa/product/T14/` |
+| T15 | AT-015 | integration | PASS | `qa/product/T15/` |
+| T16 | AT-016 | live_provider | PASS | `qa/product/T16/` |
+
+- three equivalent briefs (English, rough English, Taglish) produce one approved scope, and a
+  brief that asks technical questions gets zero questions back
+- the real React console, served by the real controller and driven by Chromium: 17 events
+  recorded, 2 narrated, a markup reference rendered inert, cross-origin and worker mutations
+  refused with 403
+- the whole loop end to end on one brief with one live provider turn and **zero** continue
+  prompts: verified candidate → bound preview → client feedback → second verified candidate →
+  interruption → resume at the correct phase
+
 ## Explicitly not proven yet
 
 - Provider integration is proved on **one machine at one version each**. That is not a

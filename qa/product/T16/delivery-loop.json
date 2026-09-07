@@ -1,0 +1,154 @@
+{
+  "single_brief": {
+    "brief_submitted_times": 1,
+    "prompts_sent": 1,
+    "continue_prompts": 0,
+    "live_available": true,
+    "live_claims": [
+      "no-online-payment"
+    ],
+    "requirements": [
+      "excluded:no-account",
+      "excluded:no-online-payment",
+      "excluded:cash-on-delivery",
+      "required:ordering",
+      "required:cart",
+      "required:mobile-friendly",
+      "required:delivery"
+    ]
+  },
+  "preview": {
+    "verdict": {
+      "verdict": "VERIFIED_FOR_SCOPE",
+      "reasons": [],
+      "candidate_id": "candidate_t16_a",
+      "evidence_id": "evidence_ver_74cebfab-cc21-42ea-94a6-cee925676618"
+    },
+    "bound": {
+      "bound": true,
+      "preview_url": "http://127.0.0.1:63759",
+      "candidate_id": "candidate_t16_a",
+      "evidence_id": "evidence_ver_74cebfab-cc21-42ea-94a6-cee925676618"
+    },
+    "unverified_refused": {
+      "bound": false,
+      "reasons": [
+        "CANDIDATE_NOT_VERIFIED",
+        "FAILED_shop-unit"
+      ]
+    },
+    "worker_refused": {
+      "bound": false,
+      "reasons": [
+        "ACTOR_CANNOT_BIND_PREVIEW"
+      ]
+    },
+    "business_rules_hold": true,
+    "checks_executed": [
+      {
+        "check": "shop-unit",
+        "status": "PASSED",
+        "tests": 2
+      }
+    ]
+  },
+  "feedback_authorship": {
+    "controller_attempt": {
+      "recorded": false,
+      "reason": "SATISFACTION_IS_CLIENT_AUTHORED_ONLY"
+    },
+    "client_feedback": {
+      "recorded": true,
+      "feedback_id": "feedback_d0dadc78-ee8f-42bd-a8bf-76e885455794",
+      "satisfaction": "needs_changes"
+    }
+  },
+  "revision_during_verify": {
+    "state_before": "VERIFYING",
+    "revision_after": 2,
+    "candidate_cleared": null,
+    "fenced": [
+      "attempt_t16"
+    ],
+    "stale_verdict": {
+      "verdict": "UNVERIFIED",
+      "reasons": [
+        "COMPOSITE_MANIFEST_CHANGED"
+      ]
+    }
+  },
+  "second_candidate": {
+    "verdict": {
+      "verdict": "VERIFIED_FOR_SCOPE",
+      "reasons": [],
+      "candidate_id": "candidate_t16_b",
+      "evidence_id": "evidence_ver_589c9504-349a-4d2d-8f15-1733261846ab"
+    },
+    "first_evidence_id": "evidence_ver_74cebfab-cc21-42ea-94a6-cee925676618",
+    "second_evidence_id": "evidence_ver_589c9504-349a-4d2d-8f15-1733261846ab"
+  },
+  "cross_stack": {
+    "composite_verdict": {
+      "verdict": "UNVERIFIED",
+      "reasons": [
+        "INTEGRITY_FAILED",
+        "BLOCKING_FINDINGS",
+        "FAILED_ios-journey"
+      ]
+    },
+    "composite": {
+      "verdict": "UNVERIFIED",
+      "covered_components": [
+        "shop-web"
+      ],
+      "blocked_components": [
+        "shop-ios"
+      ],
+      "substituted_components": [],
+      "failed_components": [],
+      "manifest_digest": "sha256:65550e5c3987c746c37f4eceab2b475c79a90755b1a2fa3b7c798fb2ff3f838b",
+      "reasons": [
+        "NO_OBSERVATION:shop-ios"
+      ]
+    },
+    "ios_check": {
+      "status": "UNVERIFIED",
+      "executed": false,
+      "reasons": [
+        "PLATFORM_UNAVAILABLE",
+        "MISSING:ios (host is darwin)"
+      ]
+    },
+    "web_check": {
+      "status": "PASSED",
+      "tests": 2
+    },
+    "blocked_checks": [
+      "ios-journey"
+    ]
+  },
+  "integrations": {
+    "delivery_api": {
+      "configured": false,
+      "label": "mocked",
+      "evidence": "no credential is configured, so no request left this machine"
+    },
+    "shop_api": {
+      "configured": true,
+      "label": "sandbox_tested",
+      "evidence": "live requests against http://127.0.0.1:63759"
+    }
+  },
+  "resume": {
+    "state_before_interrupt": "VERIFYING",
+    "phase_after_resume": {
+      "phase": "RUNNING",
+      "resumable": true,
+      "reason": "the candidate no longer matches the current requirements revision, so verification restarts from build"
+    },
+    "requirements_revision": 2,
+    "brief_still_stored": true,
+    "stored_request_count": 2,
+    "client_asked_again": false
+  }
+}

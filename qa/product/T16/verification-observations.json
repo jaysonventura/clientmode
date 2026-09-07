@@ -1,0 +1,18 @@
+[
+  {
+    "check_id": "shop-unit",
+    "definition_digest": "sha256:ad7fd82edba5851c2c19a83e2c4912efc9556a7212c98750e28da37354cf1117",
+    "status": "PASSED",
+    "executed": true,
+    "exit_code": 0,
+    "tests_total": 2,
+    "tests_passed": 2,
+    "tests_skipped": 0,
+    "assertion_ids": [
+      "server_prices_the_order",
+      "guest_checkout"
+    ],
+    "observer_id": "verifier_t16",
+    "log_digest": "sha256:fd53bb2f2a0f73700bab6cdafcd85d64c439a7d6f8d3c20ace0a545f28393546"
+  }
+]

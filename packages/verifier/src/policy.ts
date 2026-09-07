@@ -158,6 +158,14 @@ export class ProtectedPolicyStore {
     if (!validation.valid) throw new PolicyError('INVALID_POLICY', validation.errors.join('; '));
     const computed = digest(policy, 'policy_digest');
     if (policy.policy_digest !== computed) throw new PolicyError('POLICY_DIGEST_MISMATCH', `${policy.policy_digest} vs ${computed}`);
+    // A frozen policy version is immutable. Re-registering different content under the same
+    // (project, policy_id, revision) would replace the row a candidate's evidence points at,
+    // so it is refused: a changed policy is a new version, reviewed separately.
+    const existing = this.#db.prepare('SELECT policy_digest FROM policy_versions WHERE project_id = ? AND policy_id = ? AND revision = ?')
+      .get(policy.project_id, policy.policy_id, policy.requirements_revision) as Record<string, unknown> | undefined;
+    if (existing !== undefined && String(existing['policy_digest']) !== policy.policy_digest) {
+      throw new PolicyError('POLICY_VERSION_IMMUTABLE', `${policy.policy_id}@${policy.requirements_revision} already frozen as ${String(existing['policy_digest'])}`);
+    }
     this.#db.prepare('INSERT OR REPLACE INTO policy_versions (policy_digest, policy_id, project_id, revision, policy_json, approved_by, approved_at) VALUES (?,?,?,?,?,?,?)')
       .run(policy.policy_digest, policy.policy_id, policy.project_id, policy.requirements_revision,
         JSON.stringify(policy), approved_by, at);

@@ -14,7 +14,7 @@
   },
   "holdout_opened_at": "2026-09-09T02:00:01.000Z",
   "leak_scan": {
-    "scanned_files": 78,
+    "scanned_files": 80,
     "roots": [
       "/Users/viscion/Documents/clientmode/skills",
       "/Users/viscion/Documents/clientmode/adapters",

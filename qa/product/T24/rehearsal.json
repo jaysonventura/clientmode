@@ -1,0 +1,231 @@
+{
+  "version": "1.3.0-rc1",
+  "checksums": [
+    {
+      "provider": "claude",
+      "archive": "client-mode-claude-1.3.0-rc1.tar",
+      "archive_digest": "sha256:d57cceceeb58478d4b1a429c795998c2442a0a793a39ec6f921f19b5103049ab",
+      "distribution_digest": "sha256:7c736fdf7eb5569c78d1e73e512f69969bf293d4c6c4709aef0596a0711bfdcb",
+      "self_contained": true
+    },
+    {
+      "provider": "codex",
+      "archive": "client-mode-codex-1.3.0-rc1.tar",
+      "archive_digest": "sha256:115c74ea4873e327559f0b139ea7852fabc9e5c5057af5fb5112743fe0756c1e",
+      "distribution_digest": "sha256:23a0d3e02c9d17374f3bfbc3a6c6412c20c051aca7671402ad148fa98a012eb3",
+      "self_contained": true
+    }
+  ],
+  "installs": [
+    {
+      "provider": "claude",
+      "checksums_verified": true,
+      "planned_changes": 11,
+      "installed_files": 10
+    },
+    {
+      "provider": "codex",
+      "checksums_verified": true,
+      "planned_changes": 11,
+      "installed_files": 10
+    }
+  ],
+  "install_root": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t24-WTQ4q5/fresh-machine/Client Mode ñ",
+  "existing_configuration_survived": true,
+  "rolled_back_to_identical_tree": true,
+  "tree_files_before": 1,
+  "adapters": [
+    {
+      "host": "claude",
+      "version": "2.1.263",
+      "loaded": true,
+      "exit_code": 0,
+      "observed": "CLIENT_MODE_INSTRUCTIONS_LOADED",
+      "reason": null
+    },
+    {
+      "host": "codex",
+      "version": "0.153.4",
+      "loaded": true,
+      "exit_code": 0,
+      "observed": "CLIENT_MODE_INSTRUCTIONS_LOADED",
+      "reason": null
+    }
+  ],
+  "client_request": {
+    "run_id": "run_d21d122d-a823-4a7c-ba8b-85578b16be63",
+    "verdict": "VERIFIED_FOR_SCOPE",
+    "message": "i want customers to be able to order rice from their phone"
+  },
+  "rollout": {
+    "staged": true,
+    "production_refused": true,
+    "production_no_approval_reasons": [
+      "UNKNOWN_APPROVAL"
+    ],
+    "production_reused_staging_grant_reasons": [
+      "ENVIRONMENT_MISMATCH",
+      "ALREADY_CONSUMED"
+    ],
+    "destination_promotions": [
+      "staging:sha256:fc51e674224c7eb2604cac236440455877c0cd15509713e16cd4a1737e8161fa"
+    ]
+  },
+  "publication": {
+    "published": {
+      "documents": [
+        "docs/RELEASE_REMIT.md",
+        "docs/QUALIFICATION_MEASURED.md",
+        "docs/CLIENT_GUIDE.md",
+        "SUPPORT.md"
+      ],
+      "findings": [],
+      "publishable": true
+    },
+    "rejected_marketing": {
+      "documents": [
+        "rejected-marketing.md"
+      ],
+      "findings": [
+        {
+          "document": "rejected-marketing.md",
+          "line": 1,
+          "text": "Client Mode works on any stack and every platform.",
+          "rule": "UNIVERSAL_CLAIM"
+        },
+        {
+          "document": "rejected-marketing.md",
+          "line": 2,
+          "text": "The shop fixture passes, so the toolkit is production-ready for everything.",
+          "rule": "UNIVERSAL_CLAIM"
+        },
+        {
+          "document": "rejected-marketing.md",
+          "line": 3,
+          "text": "It is the best autonomous engineer available and never fails.",
+          "rule": "SUPERLATIVE"
+        },
+        {
+          "document": "rejected-marketing.md",
+          "line": 3,
+          "text": "It is the best autonomous engineer available and never fails.",
+          "rule": "CERTAINTY"
+        },
+        {
+          "document": "rejected-marketing.md",
+          "line": 4,
+          "text": "Fully qualified on Windows, Linux and Android.",
+          "rule": "UNMEASURED_SUBJECT"
+        },
+        {
+          "document": "rejected-marketing.md",
+          "line": 4,
+          "text": "Fully qualified on Windows, Linux and Android.",
+          "rule": "UNMEASURED_SUBJECT"
+        },
+        {
+          "document": "rejected-marketing.md",
+          "line": 4,
+          "text": "Fully qualified on Windows, Linux and Android.",
+          "rule": "UNMEASURED_SUBJECT"
+        }
+      ],
+      "publishable": false
+    }
+  },
+  "signoffs": [
+    {
+      "path": "toolkit_qualification",
+      "authority": "engineering, QA and the security owner",
+      "store": "verifier-authority",
+      "granted": true,
+      "actor": "security_owner",
+      "reference": "sha256:5fca577e8e2e7f2d2e03c2dc8ec38ab72a2b17f271ab87f55fb1e26a10799a67"
+    },
+    {
+      "path": "deliverable_technical_readiness",
+      "authority": "protected verifier",
+      "store": "verifier-evidence",
+      "granted": true,
+      "actor": "verifier_t24",
+      "reference": "evidence_ver_9ae09e32-cfe1-4d4a-b991-eb71046f6dc4"
+    },
+    {
+      "path": "client_acceptance",
+      "authority": "the authenticated client",
+      "store": "controller-state",
+      "granted": true,
+      "actor": "owner_1",
+      "reference": "feedback_9f7dc4ef-ac20-4c6a-a5a5-8cdb8d4fdf98"
+    },
+    {
+      "path": "production_release",
+      "authority": "the release owner",
+      "store": "release-authority",
+      "granted": true,
+      "actor": "release_owner",
+      "reference": "grant_09c0365d-1e19-4227-b0a9-ef41549a6a80"
+    }
+  ],
+  "separation": {
+    "separate": true,
+    "stores": {
+      "toolkit_qualification": "verifier-authority",
+      "deliverable_technical_readiness": "verifier-evidence",
+      "client_acceptance": "controller-state",
+      "production_release": "release-authority"
+    },
+    "shared_store": []
+  },
+  "client_surface": {
+    "guide_states_no_markdown": true,
+    "guide_states_no_agents": true,
+    "client_authors_no_files": true,
+    "console_actions": [
+      "/v1/session",
+      "/v1/runs/:id/events",
+      "/v1/runs/:id/questions",
+      "/v1/questions/:id/answer",
+      "/v1/runs/:id/messages",
+      "/v1/runs/:id/cancel"
+    ],
+    "console_has_no_agent_management": true,
+    "console_has_no_markdown_editor": true
+  },
+  "traceability": {
+    "evidenced": 61,
+    "deferred": 19,
+    "no_go": []
+  },
+  "red_evidence_retained": {
+    "retained": [
+      "T11",
+      "T20",
+      "T21",
+      "T22",
+      "T23",
+      "T24"
+    ],
+    "missing": [
+      "T01",
+      "T02",
+      "T03",
+      "T04",
+      "T05",
+      "T06",
+      "T07",
+      "T08",
+      "T09",
+      "T10",
+      "T12",
+      "T13",
+      "T14",
+      "T15",
+      "T16",
+      "T17",
+      "T18",
+      "T19"
+    ]
+  },
+  "scope": "Base software release rehearsal only. Nothing was published or deployed to a real destination; edition 1.3 also requires T25-T33 and gates G7 and G8."
+}

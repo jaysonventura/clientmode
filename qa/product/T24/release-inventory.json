@@ -1,0 +1,235 @@
+{
+  "generated_at": "2026-09-09T04:00:00.000Z",
+  "source_root": "/Users/viscion/Documents/clientmode",
+  "artifacts": [
+    {
+      "provider": "claude",
+      "version": "1.3.0-rc1",
+      "distribution_digest": "sha256:7c736fdf7eb5569c78d1e73e512f69969bf293d4c6c4709aef0596a0711bfdcb",
+      "files": 10,
+      "archive_digest": "sha256:d57cceceeb58478d4b1a429c795998c2442a0a793a39ec6f921f19b5103049ab"
+    },
+    {
+      "provider": "codex",
+      "version": "1.3.0-rc1",
+      "distribution_digest": "sha256:23a0d3e02c9d17374f3bfbc3a6c6412c20c051aca7671402ad148fa98a012eb3",
+      "files": 10,
+      "archive_digest": "sha256:115c74ea4873e327559f0b139ea7852fabc9e5c5057af5fb5112743fe0756c1e"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "@types/node",
+      "declared_range": "26.5.0",
+      "installed_version": "26.5.0",
+      "license": "MIT",
+      "license_file": "node_modules/@types/node/LICENSE",
+      "status": "complete"
+    },
+    {
+      "name": "@types/react",
+      "declared_range": "^19.2.18",
+      "installed_version": "19.2.18",
+      "license": "MIT",
+      "license_file": "node_modules/@types/react/LICENSE",
+      "status": "complete"
+    },
+    {
+      "name": "@types/react-dom",
+      "declared_range": "^19.2.7",
+      "installed_version": "19.2.7",
+      "license": "MIT",
+      "license_file": "node_modules/@types/react-dom/LICENSE",
+      "status": "complete"
+    },
+    {
+      "name": "ajv",
+      "declared_range": "8.20.0",
+      "installed_version": "8.20.0",
+      "license": "MIT",
+      "license_file": "node_modules/ajv/LICENSE",
+      "status": "complete"
+    },
+    {
+      "name": "ajv-formats",
+      "declared_range": "3.0.1",
+      "installed_version": "3.0.1",
+      "license": "MIT",
+      "license_file": "node_modules/ajv-formats/LICENSE",
+      "status": "complete"
+    },
+    {
+      "name": "axe-core",
+      "declared_range": "^4.11.0",
+      "installed_version": "4.11.0",
+      "license": "MPL-2.0",
+      "license_file": "node_modules/axe-core/LICENSE",
+      "status": "complete"
+    },
+    {
+      "name": "esbuild",
+      "declared_range": "^0.28.2",
+      "installed_version": "0.28.2",
+      "license": "MIT",
+      "license_file": "node_modules/esbuild/LICENSE.md",
+      "status": "complete"
+    },
+    {
+      "name": "playwright",
+      "declared_range": "^1.63.0",
+      "installed_version": "1.63.0",
+      "license": "Apache-2.0",
+      "license_file": "node_modules/playwright/LICENSE",
+      "status": "complete"
+    },
+    {
+      "name": "react",
+      "declared_range": "^19.2.8",
+      "installed_version": "19.2.8",
+      "license": "MIT",
+      "license_file": "node_modules/react/LICENSE",
+      "status": "complete"
+    },
+    {
+      "name": "react-dom",
+      "declared_range": "^19.2.8",
+      "installed_version": "19.2.8",
+      "license": "MIT",
+      "license_file": "node_modules/react-dom/LICENSE",
+      "status": "complete"
+    },
+    {
+      "name": "tsx",
+      "declared_range": "4.23.13",
+      "installed_version": "4.23.13",
+      "license": "MIT",
+      "license_file": "node_modules/tsx/LICENSE",
+      "status": "complete"
+    },
+    {
+      "name": "typescript",
+      "declared_range": "5.9.3",
+      "installed_version": "5.9.3",
+      "license": "Apache-2.0",
+      "license_file": "node_modules/typescript/LICENSE.txt",
+      "status": "complete"
+    }
+  ],
+  "supported_versions": {
+    "node": "22.17.0",
+    "platform": "darwin-arm64",
+    "os_release": "25.5.0",
+    "claude": "2.1.263",
+    "codex": "0.153.4"
+  },
+  "runbooks": [
+    "README.md",
+    "failed-migration.md",
+    "failed-smoke.md",
+    "stuck-deployment.md"
+  ],
+  "retention_days": {
+    "operational_log": 30,
+    "screenshot": 30,
+    "audit_evidence": 90,
+    "release_manifest": 365
+  },
+  "support_ownership": {
+    "file": "SUPPORT.md",
+    "owner": "the engineering team that installed this build",
+    "response_target": "next working day for questions; same working day for a failed release or a lost run"
+  },
+  "test_report": {
+    "gates": [
+      "AT-001",
+      "AT-002",
+      "AT-003",
+      "AT-004",
+      "AT-005",
+      "AT-006",
+      "AT-007",
+      "AT-008",
+      "AT-009",
+      "AT-010",
+      "AT-011",
+      "AT-012",
+      "AT-013",
+      "AT-014",
+      "AT-015",
+      "AT-016",
+      "AT-017",
+      "AT-018",
+      "AT-019",
+      "AT-020",
+      "AT-021",
+      "AT-022",
+      "AT-023",
+      "AT-024"
+    ],
+    "evidence_directories": [
+      "T01",
+      "T02",
+      "T03",
+      "T04",
+      "T05",
+      "T06",
+      "T07",
+      "T08",
+      "T09",
+      "T10",
+      "T11",
+      "T12",
+      "T13",
+      "T14",
+      "T15",
+      "T16",
+      "T17",
+      "T18",
+      "T19",
+      "T20",
+      "T21",
+      "T22",
+      "T23",
+      "T24"
+    ]
+  },
+  "sections": [
+    {
+      "name": "source_and_artifact_checksums",
+      "present": true,
+      "detail": "2 distributions with archive checksums"
+    },
+    {
+      "name": "dependency_and_license_inventory",
+      "present": true,
+      "detail": "12 dependencies"
+    },
+    {
+      "name": "supported_versions",
+      "present": true,
+      "detail": "node, platform, os_release, claude, codex"
+    },
+    {
+      "name": "test_report",
+      "present": true,
+      "detail": "24 gates, 24 evidence directories"
+    },
+    {
+      "name": "runbooks",
+      "present": true,
+      "detail": "README.md, failed-migration.md, failed-smoke.md, stuck-deployment.md"
+    },
+    {
+      "name": "retention",
+      "present": true,
+      "detail": "operational_log=30d, screenshot=30d, audit_evidence=90d, release_manifest=365d"
+    },
+    {
+      "name": "support_and_incident_ownership",
+      "present": true,
+      "detail": "owner the engineering team that installed this build"
+    }
+  ],
+  "complete": true,
+  "gaps": []
+}

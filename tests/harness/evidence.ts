@@ -2,7 +2,7 @@
  * Evidence is written under qa/product/<task>/ so a reviewer reads the real outputs,
  * not a summary of them.
  */
-import { mkdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -24,9 +24,14 @@ export class Evidence {
   readonly paths: string[] = [];
   private constructor(dir: string) { this.#dir = dir; }
 
+  /** Opens the directory without emptying it.
+   *
+   * It used to remove the whole directory, which deleted the hand-written `red-evidence.md`
+   * beside the generated JSON every time the suite ran. Deleting only the JSON was no better:
+   * the gates run in parallel, so one task's directory could be empty at the moment another
+   * task read it. Each artifact is overwritten by the run that produces it, which is enough. */
   static async open(task: string): Promise<Evidence> {
     const dir = path.join(ROOT, 'qa/product', task);
-    await rm(dir, { recursive: true, force: true });
     await mkdir(dir, { recursive: true });
     return new Evidence(dir);
   }

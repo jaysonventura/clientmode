@@ -35,7 +35,7 @@
         "high": 0.7143069699623449
       },
       "median_client_questions": 0,
-      "median_wall_ms": 373,
+      "median_wall_ms": 372,
       "cost": {
         "known_microusd": 59376,
         "unknown_events": 21,
@@ -95,7 +95,7 @@
         "high": 0.8817161026314104
       },
       "median_client_questions": 0,
-      "median_wall_ms": 420,
+      "median_wall_ms": 421,
       "cost": {
         "known_microusd": 136260,
         "unknown_events": 18,

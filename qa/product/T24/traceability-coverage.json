@@ -1,0 +1,689 @@
+[
+  {
+    "requirement_id": "FR-01",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T13/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "FR-02",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T04/",
+      "qa/product/T13/"
+    ]
+  },
+  {
+    "requirement_id": "FR-03",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T01/",
+      "qa/product/T13/"
+    ]
+  },
+  {
+    "requirement_id": "FR-04",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T03/",
+      "qa/product/T13/"
+    ]
+  },
+  {
+    "requirement_id": "FR-05",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T09/",
+      "qa/product/T10/",
+      "qa/product/T11/"
+    ]
+  },
+  {
+    "requirement_id": "FR-06",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T04/",
+      "qa/product/T10/",
+      "qa/product/T11/",
+      "qa/product/T12/"
+    ]
+  },
+  {
+    "requirement_id": "FR-07",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T03/",
+      "qa/product/T12/"
+    ]
+  },
+  {
+    "requirement_id": "FR-08",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T04/",
+      "qa/product/T10/",
+      "qa/product/T11/",
+      "qa/product/T12/",
+      "qa/product/T16/"
+    ]
+  },
+  {
+    "requirement_id": "FR-09",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T06/",
+      "qa/product/T14/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "FR-10",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T06/",
+      "qa/product/T14/",
+      "qa/product/T16/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "FR-11",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T05/",
+      "qa/product/T06/"
+    ]
+  },
+  {
+    "requirement_id": "FR-12",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T02/",
+      "qa/product/T16/",
+      "qa/product/T18/"
+    ]
+  },
+  {
+    "requirement_id": "FR-13",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T03/",
+      "qa/product/T07/"
+    ]
+  },
+  {
+    "requirement_id": "FR-14",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T05/",
+      "qa/product/T07/",
+      "qa/product/T20/",
+      "qa/product/T21/"
+    ]
+  },
+  {
+    "requirement_id": "FR-15",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T07/",
+      "qa/product/T12/"
+    ]
+  },
+  {
+    "requirement_id": "FR-16",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T02/",
+      "qa/product/T07/",
+      "qa/product/T16/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "FR-17",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T04/",
+      "qa/product/T08/"
+    ]
+  },
+  {
+    "requirement_id": "FR-18",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T04/",
+      "qa/product/T12/",
+      "qa/product/T19/",
+      "qa/product/T22/"
+    ]
+  },
+  {
+    "requirement_id": "FR-19",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T15/",
+      "qa/product/T16/",
+      "qa/product/T19/",
+      "qa/product/T24/"
+    ]
+  },
+  {
+    "requirement_id": "FR-20",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T10/",
+      "qa/product/T11/",
+      "qa/product/T17/"
+    ]
+  },
+  {
+    "requirement_id": "FR-21",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T09/",
+      "qa/product/T10/",
+      "qa/product/T11/",
+      "qa/product/T15/"
+    ]
+  },
+  {
+    "requirement_id": "FR-22",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T17/",
+      "qa/product/T18/",
+      "qa/product/T24/"
+    ]
+  },
+  {
+    "requirement_id": "FR-23",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T09/",
+      "qa/product/T10/",
+      "qa/product/T11/",
+      "qa/product/T17/",
+      "qa/product/T18/",
+      "qa/product/T23/",
+      "qa/product/T24/"
+    ]
+  },
+  {
+    "requirement_id": "FR-24",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T21/",
+      "qa/product/T22/",
+      "qa/product/T23/",
+      "qa/product/T24/"
+    ]
+  },
+  {
+    "requirement_id": "FR-25",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T08/",
+      "qa/product/T16/",
+      "qa/product/T20/",
+      "qa/product/T24/"
+    ]
+  },
+  {
+    "requirement_id": "FR-26",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T03/",
+      "qa/product/T05/",
+      "qa/product/T08/",
+      "qa/product/T19/"
+    ]
+  },
+  {
+    "requirement_id": "FR-27",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T04/",
+      "qa/product/T09/"
+    ]
+  },
+  {
+    "requirement_id": "FR-28",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T12/",
+      "qa/product/T13/",
+      "qa/product/T19/"
+    ]
+  },
+  {
+    "requirement_id": "FR-29",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T13/",
+      "qa/product/T14/",
+      "qa/product/T16/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "FR-30",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T01/",
+      "qa/product/T18/",
+      "qa/product/T19/",
+      "qa/product/T20/",
+      "qa/product/T24/"
+    ]
+  },
+  {
+    "requirement_id": "FR-31",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T04/",
+      "qa/product/T09/",
+      "qa/product/T10/",
+      "qa/product/T11/",
+      "qa/product/T12/",
+      "qa/product/T13/",
+      "qa/product/T17/"
+    ]
+  },
+  {
+    "requirement_id": "FR-32",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T05/",
+      "qa/product/T07/",
+      "qa/product/T08/",
+      "qa/product/T20/",
+      "qa/product/T21/"
+    ]
+  },
+  {
+    "requirement_id": "FR-33",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T06/",
+      "qa/product/T14/",
+      "qa/product/T16/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "FR-34",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T02/",
+      "qa/product/T07/",
+      "qa/product/T19/",
+      "qa/product/T21/"
+    ]
+  },
+  {
+    "requirement_id": "FR-35",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T14/",
+      "qa/product/T15/"
+    ]
+  },
+  {
+    "requirement_id": "FR-36",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T18/",
+      "qa/product/T20/",
+      "qa/product/T24/"
+    ]
+  },
+  {
+    "requirement_id": "FR-37",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T03/",
+      "qa/product/T12/",
+      "qa/product/T13/"
+    ]
+  },
+  {
+    "requirement_id": "FR-38",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T03/",
+      "qa/product/T12/"
+    ]
+  },
+  {
+    "requirement_id": "FR-39",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T09/",
+      "qa/product/T12/",
+      "qa/product/T13/"
+    ]
+  },
+  {
+    "requirement_id": "FR-40",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T05/",
+      "qa/product/T06/",
+      "qa/product/T14/",
+      "qa/product/T16/"
+    ]
+  },
+  {
+    "requirement_id": "FR-41",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T01/",
+      "qa/product/T03/",
+      "qa/product/T07/",
+      "qa/product/T16/"
+    ]
+  },
+  {
+    "requirement_id": "FR-42",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T21/",
+      "qa/product/T22/",
+      "qa/product/T23/",
+      "qa/product/T24/"
+    ]
+  },
+  {
+    "requirement_id": "FR-43",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T04/",
+      "qa/product/T12/",
+      "qa/product/T14/",
+      "qa/product/T16/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "FR-44",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T01/",
+      "qa/product/T02/",
+      "qa/product/T08/",
+      "qa/product/T13/",
+      "qa/product/T15/",
+      "qa/product/T16/"
+    ]
+  },
+  {
+    "requirement_id": "FR-45",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T02/",
+      "qa/product/T04/",
+      "qa/product/T12/",
+      "qa/product/T13/",
+      "qa/product/T15/",
+      "qa/product/T16/",
+      "qa/product/T21/"
+    ]
+  },
+  {
+    "requirement_id": "FR-46",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-47",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-48",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-49",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-50",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-51",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-52",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-53",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-54",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-55",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-56",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-57",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-58",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-59",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "FR-60",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "NFR-01",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T05/",
+      "qa/product/T06/",
+      "qa/product/T07/",
+      "qa/product/T16/",
+      "qa/product/T20/",
+      "qa/product/T21/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-02",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T05/",
+      "qa/product/T07/",
+      "qa/product/T08/",
+      "qa/product/T20/",
+      "qa/product/T21/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-03",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T02/",
+      "qa/product/T08/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-04",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T15/",
+      "qa/product/T19/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-05",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T14/",
+      "qa/product/T15/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-06",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T02/",
+      "qa/product/T16/",
+      "qa/product/T18/",
+      "qa/product/T21/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-07",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T02/",
+      "qa/product/T18/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-08",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T13/",
+      "qa/product/T15/",
+      "qa/product/T16/",
+      "qa/product/T19/",
+      "qa/product/T22/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-09",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T03/",
+      "qa/product/T04/",
+      "qa/product/T10/",
+      "qa/product/T11/",
+      "qa/product/T12/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-10",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T05/",
+      "qa/product/T08/",
+      "qa/product/T19/",
+      "qa/product/T21/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-11",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T06/",
+      "qa/product/T14/",
+      "qa/product/T15/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-12",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T17/",
+      "qa/product/T18/",
+      "qa/product/T20/",
+      "qa/product/T24/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-13",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T04/",
+      "qa/product/T09/",
+      "qa/product/T10/",
+      "qa/product/T11/",
+      "qa/product/T22/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-14",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T04/",
+      "qa/product/T12/",
+      "qa/product/T19/",
+      "qa/product/T22/",
+      "qa/product/T23/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-15",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T01/",
+      "qa/product/T24/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-16",
+    "status": "EVIDENCED",
+    "evidence": [
+      "qa/product/T01/",
+      "qa/product/T18/",
+      "qa/product/T21/",
+      "qa/product/T24/"
+    ]
+  },
+  {
+    "requirement_id": "NFR-17",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "NFR-18",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "NFR-19",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  },
+  {
+    "requirement_id": "NFR-20",
+    "status": "DEFERRED_TO_T25_T33",
+    "evidence": []
+  }
+]

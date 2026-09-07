@@ -1,0 +1,146 @@
+{
+  "normalisation": {
+    "session_id": "7f2a4392-d5fc-4c03-97f1-397d1c6a0910",
+    "claims": [
+      "PROBE_OK"
+    ],
+    "ignored": 3,
+    "unrecognised": [
+      "a_future_event_type",
+      "system/init"
+    ],
+    "usage": {
+      "kind": "usage_event",
+      "schema_version": 1,
+      "usage_event_id": "usage_989bb676-9a31-48eb-8581-bcc6ea91a312",
+      "provider_event_id": "103b201b-a9b8-4bd9-b83b-a421ca6cc6ce",
+      "run_id": "run_t10",
+      "attempt_id": "attempt_t10",
+      "provider": "claude",
+      "billing_mode": "native_account",
+      "input_tokens": 2,
+      "output_tokens": 9,
+      "cache_read_tokens": 13073,
+      "cache_write_tokens": 25544,
+      "reasoning_tokens": 0,
+      "cost_usd": 0.2622115,
+      "coverage": "complete",
+      "occurred_at": "2026-09-08T12:00:00.000Z"
+    },
+    "usage_schema": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  "permission_escape": {
+    "flags": [
+      {
+        "flag": "--allow-dangerously-skip-permissions",
+        "refused": true
+      },
+      {
+        "flag": "--dangerously-skip-permissions",
+        "refused": true
+      },
+      {
+        "flag": "--dangerously-bypass-approvals-and-sandbox",
+        "refused": true
+      },
+      {
+        "flag": "--dangerously-bypass-hook-trust",
+        "refused": true
+      },
+      {
+        "flag": "--yolo",
+        "refused": true
+      }
+    ],
+    "via_options": {
+      "ok": false,
+      "code": "PermissionEscapeError",
+      "message": "PERMISSION_ESCAPE_REFUSED: --allow-dangerously-skip-permissions"
+    },
+    "safe_argv": [
+      "-p",
+      "x",
+      "--output-format",
+      "stream-json",
+      "--verbose",
+      "--permission-mode",
+      "plan",
+      "--session-id",
+      "58576c52-f620-41ee-9191-59bcae9b45c8",
+      "--disallowedTools",
+      "Bash",
+      "Write",
+      "Edit"
+    ]
+  },
+  "live_availability": {
+    "available": true,
+    "executable": "claude",
+    "version": "2.1.263"
+  },
+  "fresh_session": {
+    "exit_code": 0,
+    "session_id": "9fde3892-64f8-4003-8e96-bbbe7e2cc273",
+    "claims": [
+      "CLIENT_MODE_INSTRUCTIONS_LOADED"
+    ],
+    "usage": [
+      {
+        "kind": "usage_event",
+        "schema_version": 1,
+        "usage_event_id": "usage_6c23f356-9dc0-4a08-ab72-eae4dfa95a03",
+        "provider_event_id": "61d101ce-c220-4304-93cd-9a25b503cac8",
+        "run_id": "run_t10",
+        "attempt_id": "attempt_t10_fresh",
+        "provider": "claude",
+        "billing_mode": "native_account",
+        "input_tokens": 2,
+        "output_tokens": 27,
+        "cache_read_tokens": 10248,
+        "cache_write_tokens": 27578,
+        "reasoning_tokens": 0,
+        "cost_usd": 0.281589,
+        "coverage": "complete",
+        "occurred_at": "2026-09-08T12:00:00.000Z"
+      }
+    ],
+    "unrecognised": [],
+    "instructions_unchanged": true,
+    "instructions_bytes": 743
+  },
+  "resume": {
+    "codeword_length": 15,
+    "first_session": "75751880-d83b-483c-8ddf-e51fd1515250",
+    "first_claims": [
+      "STORED"
+    ],
+    "resumed_session": "75751880-d83b-483c-8ddf-e51fd1515250",
+    "resumed_claims": [
+      "ORCHID-B74BB255"
+    ],
+    "resumed_exit": 0,
+    "continuity": true,
+    "usage_across_turns": [
+      {
+        "coverage": "complete",
+        "input_tokens": 2,
+        "output_tokens": 5,
+        "cost_usd": 0.292679
+      },
+      {
+        "coverage": "complete",
+        "input_tokens": 2,
+        "output_tokens": 13,
+        "cost_usd": 0.293339
+      }
+    ]
+  },
+  "task_prompt": {
+    "bytes": 579,
+    "mentions_scope": true,
+    "excerpt": "Task task_t10, attempt attempt_t10.\nAllowed write scope: src/.\n\nApproved requirements:\n- [required] checkout-guest: Customer submits an order without registration.\n- [excluded] no-payment: Do not add online payments.\n\nComponents in scope:\n- ios (Swift) on iOS; checks: ios-build, ios-ui-journey\n- api (Go) on Linux; checks: api-contract, api-auth-negative\n- model (Python) on model-serving-target; ch"
+  }
+}

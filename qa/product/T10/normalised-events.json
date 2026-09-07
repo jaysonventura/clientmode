@@ -1,0 +1,33 @@
+[
+  {
+    "type": "session",
+    "session_id": "7f2a4392-d5fc-4c03-97f1-397d1c6a0910",
+    "attempt_id": "attempt_t10"
+  },
+  {
+    "type": "claim",
+    "attempt_id": "attempt_t10",
+    "text": "PROBE_OK"
+  },
+  {
+    "type": "usage",
+    "event": {
+      "kind": "usage_event",
+      "schema_version": 1,
+      "usage_event_id": "usage_989bb676-9a31-48eb-8581-bcc6ea91a312",
+      "provider_event_id": "103b201b-a9b8-4bd9-b83b-a421ca6cc6ce",
+      "run_id": "run_t10",
+      "attempt_id": "attempt_t10",
+      "provider": "claude",
+      "billing_mode": "native_account",
+      "input_tokens": 2,
+      "output_tokens": 9,
+      "cache_read_tokens": 13073,
+      "cache_write_tokens": 25544,
+      "reasoning_tokens": 0,
+      "cost_usd": 0.2622115,
+      "coverage": "complete",
+      "occurred_at": "2026-09-08T12:00:00.000Z"
+    }
+  }
+]

@@ -2,7 +2,7 @@
   {
     "actor_id": "release_owner",
     "operation": "approval.deploy",
-    "target_ref": "apr_8c3a229e-5263-4f3a-9e3f-869ce34a573a",
+    "target_ref": "apr_4d3d10a6-4ca7-4e2b-af38-e5e27333efb3",
     "decision": "approve"
   },
   {
@@ -14,7 +14,7 @@
   {
     "actor_id": "controller",
     "operation": "authorize.deploy",
-    "target_ref": "grant_772df8af-7009-4936-911b-d5946763650a",
+    "target_ref": "grant_4cf17523-876e-4f5f-8308-786609a40fcd",
     "decision": "allow"
   },
   {
@@ -26,31 +26,31 @@
   {
     "actor_id": "owner_1",
     "operation": "approval.deploy",
-    "target_ref": "apr_61b6e84c-735f-4e65-a86e-b8ad1a94bc1d",
+    "target_ref": "apr_5def7a0e-6873-413d-8009-6fb8f0653ead",
     "decision": "approve"
   },
   {
     "actor_id": "owner_1",
     "operation": "consume.deploy",
-    "target_ref": "grant_d28c7e03-b9d6-400a-bdcd-9175b9304c8f",
+    "target_ref": "grant_9069ef87-ce0c-4546-be71-7de0022bb4c8",
     "decision": "allow"
   },
   {
     "actor_id": "release_owner_1",
     "operation": "approval.rollback",
-    "target_ref": "apr_02e6e9a0-0326-4824-839c-6df2d02a5bc9",
+    "target_ref": "apr_be5d8ee8-c00a-4307-9838-c5d1d1ee79ea",
     "decision": "approve"
   },
   {
     "actor_id": "release_owner_1",
     "operation": "consume.rollback",
-    "target_ref": "grant_8bce6f30-dc2e-40dc-b2b8-f54eadbd4e59",
+    "target_ref": "grant_8a503a3d-5211-40c5-8dbc-733b5e7c34eb",
     "decision": "allow"
   },
   {
     "actor_id": "release_owner_1",
     "operation": "rollback",
-    "target_ref": "dep_3347771b-8b7e-46b6-99d9-4437be68cbbe",
+    "target_ref": "dep_4f57f162-63a0-4c80-a7a8-a3b930571611",
     "decision": "allow"
   }
 ]

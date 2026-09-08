@@ -94,6 +94,36 @@
     ]
   },
   {
+    "name": "handoff",
+    "arguments": [
+      "--json"
+    ],
+    "summary": "Brief the next session from durable state, whichever host it is.",
+    "refuses": [
+      "reporting in-flight work as finished"
+    ]
+  },
+  {
+    "name": "use",
+    "arguments": [
+      "HOST"
+    ],
+    "summary": "Choose which host a bare `cm` starts.",
+    "refuses": [
+      "starting a host that is not installed"
+    ]
+  },
+  {
+    "name": "start",
+    "arguments": [
+      "--host"
+    ],
+    "summary": "Start the preferred host here, with the handoff briefing.",
+    "refuses": [
+      "inventing progress the controller did not record"
+    ]
+  },
+  {
     "name": "status",
     "arguments": [
       "RUN",

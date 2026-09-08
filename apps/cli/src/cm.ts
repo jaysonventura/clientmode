@@ -8,7 +8,8 @@
  * A zero exit means the command did what it said within its stated scope. It is never a
  * product readiness verdict.
  */
-import { mkdirSync, existsSync, readFileSync, readdirSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdirSync, existsSync, readFileSync, readdirSync, realpathSync, writeFileSync, rmSync } from 'node:fs';
+import { execFileSync, spawnSync } from 'node:child_process';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -18,6 +19,7 @@ import { LifecycleService } from '../../../packages/core/src/lifecycle.js';
 import { SessionStore } from '../../controller/src/auth.js';
 import { createControllerServer, listenLoopback } from '../../controller/src/server.js';
 import { COMMANDS, EXIT_CODES, describe, type ExitCode } from './main.js';
+import { buildHandoff, endSession, renderHandoff, startSession } from '../../../packages/core/src/handoff.js';
 import { doctor, type HostSpec } from './doctor.js';
 import { buildDistribution } from '../../../packages/packaging/src/build.js';
 import { applyInstall, approve, planInstall, uninstall, type InstallRecord } from '../../../packages/packaging/src/install.js';
@@ -42,19 +44,29 @@ export function parseArgv(argv: readonly string[]): Argv {
   return { command, positional, flags };
 }
 
+/** The canonical path of a folder.
+ *
+ * On macOS `/tmp` is a symlink into `/private/tmp`, so the same folder reached two ways would
+ * otherwise hash to two different projects — and a session started one way would not see the
+ * work left by a session started the other. Continuity depends on this being one answer. */
+export function canonicalRoot(root: string): string {
+  const resolved = path.resolve(root);
+  try { return realpathSync(resolved); } catch { return resolved; }
+}
+
 /** Where the controller keeps its state. One directory per authorized project root, derived
  * from the root itself so two projects never share a database. */
 export function stateDirFor(root: string): string {
   const home = process.env['CM_HOME'] ?? path.join(os.homedir(), '.client-mode');
-  return path.join(home, 'projects', createHash('sha256').update(path.resolve(root)).digest('hex').slice(0, 16));
+  return path.join(home, 'projects', createHash('sha256').update(canonicalRoot(root)).digest('hex').slice(0, 16));
 }
 
 export function projectIdFor(root: string): string {
-  return `project_${createHash('sha256').update(path.resolve(root)).digest('hex').slice(0, 12)}`;
+  return `project_${createHash('sha256').update(canonicalRoot(root)).digest('hex').slice(0, 12)}`;
 }
 
 function openProject(root: string): { db: ControllerDatabase; service: LifecycleService; project_id: string; state_dir: string } {
-  const resolved = path.resolve(root);
+  const resolved = canonicalRoot(root);
   if (!existsSync(resolved)) throw new Error(`ROOT_NOT_FOUND: ${resolved}`);
   const state_dir = stateDirFor(resolved);
   mkdirSync(state_dir, { recursive: true });
@@ -69,6 +81,52 @@ function openProject(root: string): { db: ControllerDatabase; service: Lifecycle
     });
   } catch { /* already registered */ }
   return { db, service, project_id, state_dir };
+}
+
+export type Preference = { preferred_host: 'claude' | 'codex' };
+
+function configFile(): string {
+  return path.join(process.env['CM_HOME'] ?? path.join(os.homedir(), '.client-mode'), 'config.json');
+}
+
+export function readPreference(): Preference | null {
+  const file = configFile();
+  if (!existsSync(file)) return null;
+  try {
+    const parsed = JSON.parse(readFileSync(file, 'utf8')) as Partial<Preference>;
+    return parsed.preferred_host === 'claude' || parsed.preferred_host === 'codex'
+      ? { preferred_host: parsed.preferred_host } : null;
+  } catch { return null; }
+}
+
+export function writePreference(host: 'claude' | 'codex'): string {
+  const file = configFile();
+  mkdirSync(path.dirname(file), { recursive: true });
+  const current = existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) as Record<string, unknown> : {};
+  writeFileSync(file, JSON.stringify({ ...current, preferred_host: host }, null, 2) + '\n');
+  return file;
+}
+
+function onPath(executable: string): boolean {
+  try { execFileSync('/usr/bin/which', [executable], { stdio: 'ignore' }); return true; } catch { return false; }
+}
+
+/** Which host a bare `cm` should start: the stated preference if it is installed, otherwise the
+ * only one that is. Two installed hosts and no preference is a question, not a guess. */
+export function chooseHost(input: { requested?: string; preference: Preference | null; installed: string[] }):
+  | { host: 'claude' | 'codex'; why: string }
+  | { host: null; reason: string } {
+  if (input.requested !== undefined) {
+    if (input.requested !== 'claude' && input.requested !== 'codex') return { host: null, reason: `unknown host: ${input.requested}` };
+    if (!input.installed.includes(input.requested)) return { host: null, reason: `${input.requested} is not installed on this machine` };
+    return { host: input.requested, why: 'asked for on the command line' };
+  }
+  const preferred = input.preference?.preferred_host;
+  if (preferred !== undefined && input.installed.includes(preferred)) return { host: preferred, why: 'your saved preference' };
+  if (preferred !== undefined) return { host: null, reason: `your preferred host (${preferred}) is not installed on this machine` };
+  if (input.installed.length === 1) return { host: input.installed[0] as 'claude' | 'codex', why: 'the only host installed' };
+  if (input.installed.length === 0) return { host: null, reason: 'neither claude nor codex is installed' };
+  return { host: null, reason: 'both claude and codex are installed and no preference is saved' };
 }
 
 const HOSTS: HostSpec[] = [
@@ -86,7 +144,11 @@ const BLOCK_END = '<!-- client-mode:end -->';
  * Skills go to the host's own skills directory; the operating rules go into the instructions
  * file the host loads on every session, inside markers so `cm uninstall` can take exactly them
  * back out. An existing instructions file is backed up and appended to — never replaced. */
-export function activate(input: { host: 'claude' | 'codex'; install_root: string; distribution_root: string }): {
+export function activate(input: {
+  host: 'claude' | 'codex'; install_root: string; distribution_root: string;
+  /** Lead mode puts Client Mode first and treats whatever was already there as reference. */
+  lead?: boolean;
+}): {
   created: string[]; backups: Array<{ target: string; backup: string }>; summary: string;
 } {
   const created: string[] = [];
@@ -104,15 +166,17 @@ export function activate(input: { host: 'claude' | 'codex'; install_root: string
   }
 
   const instructions = instructionsFile(input.host, input.install_root);
-  const block = `${BLOCK_START}\n${readFileSync(path.join(REPO_ROOT, 'adapters/global/CLIENT_MODE.md'), 'utf8').trimEnd()}\n${BLOCK_END}\n`;
+  const source = input.lead === true ? 'adapters/global/CLIENT_MODE_LEAD.md' : 'adapters/global/CLIENT_MODE.md';
+  const block = `${BLOCK_START}\n${readFileSync(path.join(REPO_ROOT, source), 'utf8').trimEnd()}\n${BLOCK_END}\n`;
   if (existsSync(instructions)) {
     const current = readFileSync(instructions, 'utf8');
-    const without = stripBlock(current);
+    const without = stripBlock(current).trimEnd();
     const backup = `${instructions}.client-mode-backup`;
     // The backup is the file without our block, so reinstalling over an existing install
     // cannot turn our own text into "the user's original".
-    if (!existsSync(backup)) { writeFileSync(backup, without); backups.push({ target: instructions, backup }); }
-    writeFileSync(instructions, `${without.trimEnd()}\n\n${block}`);
+    if (!existsSync(backup)) { writeFileSync(backup, `${without}\n`); backups.push({ target: instructions, backup }); }
+    // Lead mode goes first and says so; nothing that was there is deleted.
+    writeFileSync(instructions, input.lead === true ? `${block}\n${without}\n` : `${without}\n\n${block}`);
   } else {
     mkdirSync(path.dirname(instructions), { recursive: true });
     writeFileSync(instructions, block);
@@ -184,13 +248,17 @@ function usage(): string {
   return [
     'cm — Client Mode',
     '',
-    'Usage: cm <command> [options]',
+    'Usage: cm                     start your preferred host here, with Client Mode loaded',
+    '       cm use <claude|codex>  choose which host a bare `cm` starts',
+    '       cm <command> [options]',
     '',
     ...COMMANDS.map(command => `  ${command.name.padEnd(width)}  ${command.summary}`),
     '',
     'Common options:',
     '  --root <path>     the project directory to work in (default: the current directory)',
     '  --json            machine-readable output',
+    '  --lead            (install) put Client Mode first, ahead of any existing instructions',
+    '  --dry-run         (install) print the change set and write nothing',
     '',
     'State lives under $CM_HOME (default ~/.client-mode), one directory per project root.',
   ].join('\n');
@@ -199,7 +267,101 @@ function usage(): string {
 export async function main(argv: readonly string[]): Promise<ExitCode> {
   const { command, positional, flags } = parseArgv(argv);
   const json = flags['json'] === true;
-  const root = typeof flags['root'] === 'string' ? flags['root'] : process.cwd();
+  // The launcher runs node from the toolkit directory so its dependencies resolve; the folder
+  // the client actually invoked `cm` in arrives in CM_CWD.
+  const root = typeof flags['root'] === 'string' ? flags['root'] : (process.env['CM_CWD'] ?? process.cwd());
+
+  // A bare `cm` in a project folder starts the preferred host there, with Client Mode already
+  // loaded from the global instructions. `cm help` is how you get the command list.
+  // A bare `cm` in a project folder starts the preferred host there, with Client Mode loaded
+  // and a briefing from whatever the last session left behind — whichever host that was.
+  // A leading flag means the whole argv is for the host, not for us.
+  // Anything that is not one of our own commands belongs to the host: `cm exec ...`,
+  // `cm --resume`, `cm "fix the checkout"`. A launcher that swallowed those would be a worse
+  // way to reach the host than typing its name.
+  const OURS = new Set(['help', '--help', '-h', 'version', '--version', 'commands', 'use', 'start', 'handoff']);
+  const passthroughOnly = !OURS.has(command) && describe(command) === undefined;
+  if (command === 'start' || argv.length === 0 || passthroughOnly) {
+    const installed = (['claude', 'codex'] as const).filter(onPath);
+    const chosen = chooseHost({
+      ...(typeof flags['host'] === 'string' && !passthroughOnly ? { requested: flags['host'] } : {}),
+      preference: readPreference(), installed,
+    });
+    if (chosen.host === null) {
+      process.stderr.write(`${chosen.reason}.\n`);
+      if (installed.length > 1) process.stderr.write('Pick one: cm use claude   |   cm use codex\n');
+      return EXIT_CODES.missing_capability;
+    }
+    const resolved = canonicalRoot(root);
+    const hostArgv = passthroughOnly ? [...argv] : positional.filter(token => token !== 'start');
+
+    let session: { session_id: string } | null = null;
+    let brief = '';
+    let briefFile = '';
+    let db: ControllerDatabase | null = null;
+    try {
+      const opened = openProject(resolved);
+      db = opened.db;
+      const handoff = buildHandoff(db, { project_id: opened.project_id, working_directory: resolved, at: new Date().toISOString() });
+      // The briefing is written where both hosts and the client can read it, and passed to the
+      // host only when the client did not bring their own opening prompt.
+      briefFile = path.join(opened.state_dir, 'HANDOFF.md');
+      brief = renderHandoff(handoff);
+      writeFileSync(briefFile, brief);
+      session = startSession(db, { project_id: opened.project_id, host: chosen.host, working_directory: resolved, at: new Date().toISOString() });
+      if (!handoff.nothing_in_progress) {
+        const next = handoff.runs[0]?.next_task;
+        process.stderr.write(
+          `Continuing work left by ${handoff.previous?.host ?? 'an earlier session'} — ${String(handoff.runs.length)} run(s) open` +
+          `${next === undefined || next === null ? '' : `, next task: ${next.task_id} (${next.title})`}.\n`);
+        // The briefing is context, not the client's prompt. Claude Code takes it as an appended
+        // system prompt so it is present whether or not the client typed something; Codex has no
+        // such flag, so it is prepended to the prompt with a rule between.
+        if (chosen.host === 'claude') {
+          hostArgv.push('--append-system-prompt-file', briefFile);
+        } else if (hostArgv.length === 0) {
+          // Codex has no flag for appended instructions, so a bare `cm` opens with the briefing
+          // as its first message. When the client brought their own command, their argv is left
+          // exactly as they wrote it — rewriting someone's arguments is how a flag value ends up
+          // with a briefing pasted into it — and the session reads the briefing itself.
+          hostArgv.push(brief);
+        }
+        process.stderr.write(`Briefing: ${briefFile}  (or run \`cm handoff\`)\n`);
+      }
+    } catch (error) {
+      process.stderr.write(`(no project state: ${String((error as Error).message)})\n`);
+    }
+
+    process.stderr.write(`Client Mode → ${chosen.host} in ${resolved}  (${chosen.why})\n`);
+    const result = spawnSync(chosen.host, hostArgv, { stdio: 'inherit', cwd: resolved });
+    if (db !== null) {
+      if (session !== null) endSession(db, { session_id: session.session_id, at: new Date().toISOString(), exit_code: result.status });
+      db.close();
+    }
+    return (result.status ?? EXIT_CODES.internal) as ExitCode;
+  }
+
+  if (command === 'handoff') {
+    const { db, project_id, state_dir } = openProject(root);
+    try {
+      const handoff = buildHandoff(db, { project_id, working_directory: path.resolve(root), at: new Date().toISOString() });
+      const text = renderHandoff(handoff);
+      writeFileSync(path.join(state_dir, 'HANDOFF.md'), text);
+      process.stdout.write(json ? `${JSON.stringify(handoff, null, 2)}\n` : text);
+      return EXIT_CODES.ok;
+    } finally { db.close(); }
+  }
+
+  if (command === 'use') {
+    const host = positional[0] ?? (typeof flags['host'] === 'string' ? flags['host'] : undefined);
+    if (host !== 'claude' && host !== 'codex') {
+      process.stderr.write('use needs a host: cm use claude   |   cm use codex\n');
+      return EXIT_CODES.input_or_contract_error;
+    }
+    const file = writePreference(host);
+    process.stdout.write(`${host} is now the host a bare \`cm\` starts.\nsaved in ${file}\n`);
+    return EXIT_CODES.ok;
+  }
 
   if (command === 'help' || command === '--help' || command === '-h') {
     process.stdout.write(`${usage()}\n`);
@@ -213,11 +375,6 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     process.stdout.write(`${JSON.stringify(COMMANDS, null, json ? 2 : 0)}\n`);
     return EXIT_CODES.ok;
   }
-  if (describe(command) === undefined) {
-    process.stderr.write(`unknown command: ${command}\n\n${usage()}\n`);
-    return EXIT_CODES.input_or_contract_error;
-  }
-
   if (command === 'doctor') {
     const { report } = await doctor({
       hosts: HOSTS, billing_mode: 'native_account', now: new Date().toISOString(),
@@ -282,8 +439,8 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     const { db, service } = openProject(root);
     try {
       const run = await service.getRun(runId);
-      const questions = db.all("SELECT record_json FROM client_questions WHERE run_id = ? AND status = 'OPEN'", runId)
-        .map(row => JSON.parse(String(row['record_json'])) as { prompt: string });
+      const questions = db.all("SELECT prompt FROM client_questions WHERE run_id = ? AND status = 'OPEN'", runId)
+        .map(row => ({ prompt: String(row['prompt']) }));
       const body = {
         run_id: run.run_id, state: run.state, state_version: run.state_version,
         requirements_revision: run.requirements_revision, candidate_id: run.candidate_id,
@@ -367,13 +524,20 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     const plan = planInstall({ distribution, install_root: installRoot });
 
     if (flags['dry-run'] === true) {
-      process.stdout.write(json ? `${JSON.stringify(plan, null, 2)}\n` : renderPlan(plan, distribution.distribution_digest));
+      process.stdout.write(json ? `${JSON.stringify(plan, null, 2)}\n`
+        : `${renderPlan(plan, distribution.distribution_digest)}` +
+          `\nActivation: 8 skill(s) into ${path.join(installRoot, 'skills')}, and the Client Mode section ` +
+          `${flags['lead'] === true ? 'placed FIRST in' : 'appended to'} ${instructionsFile(host, installRoot)}.\n` +
+          'Existing content is kept either way; uninstall removes only the marked section.\n');
       return EXIT_CODES.ok;
     }
     const record = applyInstall({ plan: approve(plan), distribution, now: new Date().toISOString() });
     // Copying the package under the host's config directory puts the files on disk; it does not
     // make the host read them. Activation writes the locations each host actually loads.
-    const activated = activate({ host, install_root: installRoot, distribution_root: distribution.root });
+    const activated = activate({
+      host, install_root: installRoot, distribution_root: distribution.root,
+      lead: flags['lead'] === true,
+    });
     record.created.push(...activated.created);
     record.backups.push(...activated.backups);
     writeFileSync(recordFile, JSON.stringify(record, null, 2) + '\n');

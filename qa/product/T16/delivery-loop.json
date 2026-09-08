@@ -23,13 +23,13 @@
       "verdict": "VERIFIED_FOR_SCOPE",
       "reasons": [],
       "candidate_id": "candidate_t16_a",
-      "evidence_id": "evidence_ver_45ba5d10-e4bc-492d-84b7-778ab5156efa"
+      "evidence_id": "evidence_ver_19c07e24-9139-45cb-abcf-78f615b50262"
     },
     "bound": {
       "bound": true,
-      "preview_url": "http://127.0.0.1:57896",
+      "preview_url": "http://127.0.0.1:59990",
       "candidate_id": "candidate_t16_a",
-      "evidence_id": "evidence_ver_45ba5d10-e4bc-492d-84b7-778ab5156efa"
+      "evidence_id": "evidence_ver_19c07e24-9139-45cb-abcf-78f615b50262"
     },
     "unverified_refused": {
       "bound": false,
@@ -60,7 +60,7 @@
     },
     "client_feedback": {
       "recorded": true,
-      "feedback_id": "feedback_e21401e5-db0b-4065-b7b8-7557c8da8533",
+      "feedback_id": "feedback_69414af8-728e-4ebe-9d97-54ed076e47c3",
       "satisfaction": "needs_changes"
     }
   },
@@ -83,10 +83,10 @@
       "verdict": "VERIFIED_FOR_SCOPE",
       "reasons": [],
       "candidate_id": "candidate_t16_b",
-      "evidence_id": "evidence_ver_64fd458f-f913-4801-9cb0-aa69fe30f44c"
+      "evidence_id": "evidence_ver_53fd0f0a-8f37-40b3-80f6-2e76f909c431"
     },
-    "first_evidence_id": "evidence_ver_45ba5d10-e4bc-492d-84b7-778ab5156efa",
-    "second_evidence_id": "evidence_ver_64fd458f-f913-4801-9cb0-aa69fe30f44c"
+    "first_evidence_id": "evidence_ver_19c07e24-9139-45cb-abcf-78f615b50262",
+    "second_evidence_id": "evidence_ver_53fd0f0a-8f37-40b3-80f6-2e76f909c431"
   },
   "cross_stack": {
     "composite_verdict": {
@@ -137,7 +137,7 @@
     "shop_api": {
       "configured": true,
       "label": "sandbox_tested",
-      "evidence": "live requests against http://127.0.0.1:57896"
+      "evidence": "live requests against http://127.0.0.1:59990"
     }
   },
   "resume": {
@@ -151,5 +151,68 @@
     "brief_still_stored": true,
     "stored_request_count": 2,
     "client_asked_again": false
+  },
+  "cross_host_handoff": {
+    "previous_host": "codex",
+    "next_task_when_interrupted": "C",
+    "next_task_after_evidence": "D",
+    "briefing_names_the_task": true,
+    "briefing_forbids_skipping": true,
+    "done_without_evidence": {
+      "ok": false,
+      "code": "DONE_REQUIRES_EVIDENCE",
+      "message": "DONE_REQUIRES_EVIDENCE: D"
+    },
+    "finished_task_cannot_be_reclaimed": {
+      "ok": false,
+      "code": "TASK_ALREADY_FINISHED",
+      "message": "TASK_ALREADY_FINISHED: A"
+    },
+    "tasks": [
+      {
+        "run_id": "run_4ee2e4ac-7f3f-49f6-bb95-dc8848bb19c2",
+        "task_id": "A",
+        "sequence": 1,
+        "title": "Letter A",
+        "status": "DONE",
+        "evidence_ref": "checks/A.log exit 0",
+        "claimed_by": "codex",
+        "claimed_at": null,
+        "updated_at": "2026-09-08T18:00:01.000Z"
+      },
+      {
+        "run_id": "run_4ee2e4ac-7f3f-49f6-bb95-dc8848bb19c2",
+        "task_id": "B",
+        "sequence": 2,
+        "title": "Letter B",
+        "status": "DONE",
+        "evidence_ref": "checks/B.log exit 0",
+        "claimed_by": "codex",
+        "claimed_at": null,
+        "updated_at": "2026-09-08T18:00:02.000Z"
+      },
+      {
+        "run_id": "run_4ee2e4ac-7f3f-49f6-bb95-dc8848bb19c2",
+        "task_id": "C",
+        "sequence": 3,
+        "title": "Letter C",
+        "status": "DONE",
+        "evidence_ref": "checks/C.log exit 0",
+        "claimed_by": "claude",
+        "claimed_at": "2026-09-08T18:00:03.000Z",
+        "updated_at": "2026-09-08T18:00:05.000Z"
+      },
+      {
+        "run_id": "run_4ee2e4ac-7f3f-49f6-bb95-dc8848bb19c2",
+        "task_id": "D",
+        "sequence": 4,
+        "title": "Letter D",
+        "status": "PENDING",
+        "evidence_ref": null,
+        "claimed_by": null,
+        "claimed_at": null,
+        "updated_at": "2026-09-08T18:00:00.000Z"
+      }
+    ]
   }
 }

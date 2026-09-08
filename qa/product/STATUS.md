@@ -239,6 +239,32 @@ operations contract, and nothing ran it. `bin/cm.mjs` now dispatches `doctor`, `
 `open`, `install` and `uninstall` to the modules the gates already exercise, and `activate` /
 `deactivate` are gated by AT-017 with four mutations (`R1`–`R4`).
 
+## Continuity across hosts
+
+Claude Code resumes only Claude sessions and Codex only Codex ones, so neither can pick up the
+other's work. The controller's own record carries it instead, and `cm` briefs every session from
+it: the ordered task ledger, which task is next, and what the previous session left in flight.
+
+The rule the ledger enforces is that **done requires evidence** — a `DONE` row without an
+`evidence_ref` is refused by the schema, not by a convention. So a session that stopped partway
+through a task leaves that task unfinished, and the next session is told to resume it rather than
+move past it.
+
+Observed on this machine, with live turns on both hosts:
+
+- codex finished A and B with check evidence, claimed C and exited 130. Claude Code, opening the
+  same folder: *"Letter C — the briefing names task 3 as started by codex and never finished, so
+  it's the resume point. Not D: I don't skip ahead."*
+- C was then finished with evidence. Codex, opening the same folder: *"Letter D. The saved handoff
+  lists A–C with recorded check evidence and D as the first unfinished task."*
+
+`H1`–`H5` turn AT-016 red: skipping an unfinished task, marking one done without evidence,
+dropping the task name from the briefing, dropping the warning against skipping, and re-claiming
+a finished task.
+
+A folder reached two ways is one project: `/tmp/x` and `/private/tmp/x` used to hash to different
+state, which would have split the very continuity this depends on. Paths are canonicalised now.
+
 ## Explicitly not proven yet
 
 All 33 gates are green. These are the things that green does **not** cover, stated so nobody has

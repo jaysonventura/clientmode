@@ -28,9 +28,11 @@ import { apiProbes } from '../../packages/browser/src/journeys.js';
 import { ClaudeAdapter } from '../../packages/providers/src/claude.js';
 import { normaliseStream } from '../../packages/providers/src/normalize.js';
 import { DEFAULT_TRUSTED_ROOTS, standardProbes } from '../../apps/cli/src/doctor.js';
-import { Evidence, ROOT, fixedClock } from '../harness/evidence.js';
+import { Evidence, ROOT, fixedClock, attempt } from '../harness/evidence.js';
 import { disposableProject, liveHostAvailable, liveTurn } from '../harness/live-provider.js';
 import { startShop } from '../harness/services.js';
+import { TaskLedger } from '../../packages/core/src/tasks.js';
+import { buildHandoff, endSession, renderHandoff, startSession } from '../../packages/core/src/handoff.js';
 import { registerScenario } from '../harness/registry.js';
 
 const PROJECT = 'project_t16';
@@ -371,7 +373,49 @@ registerScenario('AT-016', async (): Promise<ScenarioObservation> => {
       brief_still_stored: briefStillStored, stored_request_count: storedRequests.length,
       client_asked_again: false,
     };
-    const resumeWithoutRepeat = briefStillStored && phase.resumable && storedRequests.length >= 1;
+    // Continuity across hosts: neither host can resume the other's session, so the controller's
+    // own record is what carries the work. A task left in flight is the task the next session
+    // picks up — not the one after it, and not a new one.
+    const ledger = new TaskLedger(reopened, { clock: fixedClock(NOW) });
+    ledger.plan({
+      project_id: PROJECT, run_id: run.run_id,
+      tasks: [{ task_id: 'A', title: 'Letter A' }, { task_id: 'B', title: 'Letter B' },
+              { task_id: 'C', title: 'Letter C' }, { task_id: 'D', title: 'Letter D' }],
+    });
+    const codexSession = startSession(reopened, { project_id: PROJECT, host: 'codex', working_directory: sandbox, at: NOW });
+    ledger.finish({ run_id: run.run_id, task_id: 'A', evidence_ref: 'checks/A.log exit 0', by: 'codex' });
+    ledger.finish({ run_id: run.run_id, task_id: 'B', evidence_ref: 'checks/B.log exit 0', by: 'codex' });
+    ledger.claim({ run_id: run.run_id, task_id: 'C', by: 'codex' });
+    endSession(reopened, { session_id: codexSession.session_id, at: NOW, exit_code: 130 });
+
+    const handedOver = buildHandoff(reopened, { project_id: PROJECT, working_directory: sandbox, at: NOW });
+    const briefing = renderHandoff(handedOver);
+    const unfinishedNext = handedOver.runs.find(entry => entry.run_id === run.run_id)?.next_task ?? null;
+    // Finishing without evidence is refused by the schema, so "done" cannot be a claim.
+    const doneWithoutEvidence = attempt(() => ledger.finish({ run_id: run.run_id, task_id: 'D', evidence_ref: '   ', by: 'worker' }));
+    const skipAhead = attempt(() => ledger.claim({ run_id: run.run_id, task_id: 'A', by: 'claude' }));
+    ledger.finish({ run_id: run.run_id, task_id: 'C', evidence_ref: 'checks/C.log exit 0', by: 'claude' });
+    const afterC = buildHandoff(reopened, { project_id: PROJECT, working_directory: sandbox, at: NOW });
+    const nextAfterC = afterC.runs.find(entry => entry.run_id === run.run_id)?.next_task ?? null;
+    log['cross_host_handoff'] = {
+      previous_host: handedOver.previous?.host ?? null,
+      next_task_when_interrupted: unfinishedNext?.task_id ?? null,
+      next_task_after_evidence: nextAfterC?.task_id ?? null,
+      briefing_names_the_task: briefing.includes('Pick up task 3: Letter C.'),
+      briefing_forbids_skipping: briefing.includes('do not start the one after it'),
+      done_without_evidence: doneWithoutEvidence,
+      finished_task_cannot_be_reclaimed: skipAhead,
+      tasks: ledger.list(run.run_id),
+    };
+    const crossHostHandoff =
+      handedOver.previous?.host === 'codex' &&
+      unfinishedNext?.task_id === 'C' && unfinishedNext.status === 'IN_PROGRESS' &&
+      briefing.includes('Pick up task 3: Letter C.') &&
+      briefing.includes('do not start the one after it') &&
+      !doneWithoutEvidence.ok && !skipAhead.ok &&
+      nextAfterC?.task_id === 'D';
+
+    const resumeWithoutRepeat = briefStillStored && phase.resumable && storedRequests.length >= 1 && crossHostHandoff;
     const recoveryCorrectPhase = phase.phase === 'RUNNING' &&
       phase.reason.includes('no longer matches the current requirements revision');
 

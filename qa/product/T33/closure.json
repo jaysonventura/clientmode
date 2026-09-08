@@ -2,37 +2,37 @@
   "formats": [
     {
       "label": "pdf",
-      "version_id": "ver_957eac9a-80be-425f-8139-e5a4eb83e24a",
+      "version_id": "ver_e5acc655-2c4e-421f-8941-d7d68edb14ac",
       "format": "pdf"
     },
     {
       "label": "docx",
-      "version_id": "ver_c3480a48-9417-420b-9fc1-03fa9a47ed50",
+      "version_id": "ver_e1e00f0a-0749-4dd8-9163-e190eca28c5c",
       "format": "docx"
     },
     {
       "label": "xlsx",
-      "version_id": "ver_0ed9798c-2768-439f-931d-ddafe15f15cf",
+      "version_id": "ver_9bc87c19-2559-473c-953b-8eb52998b50a",
       "format": "xlsx"
     },
     {
       "label": "pptx",
-      "version_id": "ver_5e556c56-2e2d-4d88-b17b-86d8313ae95b",
+      "version_id": "ver_984cfd86-7eb2-4531-8cee-3747d4cd0ad3",
       "format": "pptx"
     },
     {
       "label": "csv",
-      "version_id": "ver_5975e813-61d0-4fda-ba97-11b1720e2523",
+      "version_id": "ver_d58d96df-2370-47e9-b00b-fa423b4b497a",
       "format": "csv"
     },
     {
       "label": "tsv",
-      "version_id": "ver_d24bd4ca-d9e9-49a4-8d5f-2c897341c581",
+      "version_id": "ver_8e93ac8c-e7d4-4102-b610-b0aa5c86a3e7",
       "format": "tsv"
     },
     {
       "label": "png",
-      "version_id": "ver_b35cef25-665d-41d5-bdd0-e74d08cb1a7b",
+      "version_id": "ver_c370a65e-45c7-46cf-8094-6db59662123b",
       "format": "image"
     }
   ],
@@ -6229,8 +6229,8 @@
     "verdict": {
       "verdict": "READY_FOR_SCOPE",
       "reasons": [],
-      "job_id": "djob_550b7a23-ef38-4c21-b8dd-9370ccd3d53b",
-      "evidence_id": "devidence_75be2a06-c87c-4855-8ea0-be7858646aae"
+      "job_id": "djob_d1ebdf01-fc92-4636-b0f3-c1bcc5cad7e2",
+      "evidence_id": "devidence_6a3ebef3-ac46-45f0-9095-fe6173a6cc0b"
     },
     "partial": {
       "verdict": "UNVERIFIED",
@@ -6265,8 +6265,8 @@
     "readable": 26,
     "missing": [],
     "unreadable": [
-      "unit_296aef77cfbf656b",
-      "unit_ac58c1abdf8db84f"
+      "unit_f82886cd72cf76fe",
+      "unit_e6f38b2f55a8793a"
     ]
   }
 }

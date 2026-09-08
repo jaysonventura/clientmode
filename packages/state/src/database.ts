@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { DatabaseSync, type StatementSync } from 'node:sqlite';
 
 const SCHEMA_SQL = path.resolve(fileURLToPath(import.meta.url), '../../../../contracts/storage/controller.sql');
-export const SCHEMA_VERSION = 4;
+export const SCHEMA_VERSION = 6;
 
 /** Product migrations layered on the reference DDL. The reference file stays unmodified;
  * controlled migrations are how the product extends it (handoff section 18). */
@@ -175,6 +175,29 @@ CREATE TABLE document_outbox (
  status TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0 CHECK(attempts>=0), created_at TEXT NOT NULL
 );
 `,
+  },
+  {
+    version: 5,
+    sql: `CREATE TABLE host_sessions (
+ session_id TEXT PRIMARY KEY, project_id TEXT NOT NULL REFERENCES projects(project_id),
+ host TEXT NOT NULL, working_directory TEXT NOT NULL,
+ started_at TEXT NOT NULL, ended_at TEXT, exit_code INTEGER,
+ handoff_note TEXT
+);
+CREATE INDEX host_sessions_by_project ON host_sessions(project_id, started_at);`,
+  },
+  {
+    version: 6,
+    sql: `CREATE TABLE run_tasks (
+ project_id TEXT NOT NULL, run_id TEXT NOT NULL, task_id TEXT NOT NULL,
+ sequence INTEGER NOT NULL CHECK(sequence >= 1), title TEXT NOT NULL,
+ status TEXT NOT NULL CHECK(status IN ('PENDING','IN_PROGRESS','DONE','BLOCKED')),
+ evidence_ref TEXT, claimed_by TEXT, claimed_at TEXT, updated_at TEXT NOT NULL,
+ -- Done is not a word a worker gets to write. It requires a reference to something observed.
+ CHECK(status <> 'DONE' OR evidence_ref IS NOT NULL),
+ PRIMARY KEY(run_id, task_id), UNIQUE(run_id, sequence),
+ FOREIGN KEY(project_id, run_id) REFERENCES runs(project_id, run_id)
+);`,
   },
 ];
 

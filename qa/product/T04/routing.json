@@ -5,14 +5,14 @@
         "attempt_id": "child_1",
         "outcome": {
           "admitted": true,
-          "reservation_id": "res_beefcbf5-9374-4b32-b715-8db699d9af3e"
+          "reservation_id": "res_b152f84b-c386-4cc0-b42b-78658677e92b"
         }
       },
       {
         "attempt_id": "child_2",
         "outcome": {
           "admitted": true,
-          "reservation_id": "res_13dea175-c158-4313-b638-cb5aad016e0e"
+          "reservation_id": "res_907e63e6-b5c8-499e-9dee-4dba8789eb7a"
         }
       },
       {
@@ -34,7 +34,7 @@
     "writer_one": {
       "ok": true,
       "value": {
-        "lease_id": "lse_ea587244-f8c2-4c72-8b5f-81344755585a",
+        "lease_id": "lse_d609be2b-d669-4011-9464-e541a722ec39",
         "project_id": "project_t04",
         "attempt_id": "child_1",
         "workspace_id": "ws_child_1",
@@ -82,14 +82,14 @@
         "attempt_id": "drain_1",
         "outcome": {
           "admitted": true,
-          "reservation_id": "res_4b78e15a-cfbb-4cda-ba37-8b84be02101e"
+          "reservation_id": "res_e467e22d-ef33-4a8b-a7aa-2e7e24e11a21"
         }
       },
       {
         "attempt_id": "drain_2",
         "outcome": {
           "admitted": true,
-          "reservation_id": "res_26dfba20-7317-44f7-94d8-948ce3f1c9b1"
+          "reservation_id": "res_71d5d1c6-73bd-4b1d-aa42-4ca5ed6307cf"
         }
       },
       {
@@ -138,7 +138,7 @@
         "attempt_id": "drain_final",
         "outcome": {
           "admitted": true,
-          "reservation_id": "res_4c82347c-efb6-420d-99d9-57e84ae292bc"
+          "reservation_id": "res_7dde0233-e923-4ad3-b6d9-b50259f53cf4"
         }
       }
     ],
@@ -209,13 +209,13 @@
       {
         "actor_id": "owner_1",
         "operation": "approval.api_spend",
-        "target_ref": "apr_87ff74cf-6140-4712-8876-b3c702cc280a",
+        "target_ref": "apr_a62aff5f-956d-48a2-94af-921568aba551",
         "decision": "approve"
       },
       {
         "actor_id": "controller",
         "operation": "authorize.api_spend",
-        "target_ref": "grant_39687912-7493-4981-93fb-a118549bc39f",
+        "target_ref": "grant_b30eeb77-cb31-4b47-8326-f9aef6ae8b2b",
         "decision": "allow"
       }
     ]
@@ -223,7 +223,7 @@
   "responsibilities": {
     "assignments": [
       {
-        "assignment_id": "asg_7a76db30-fb80-4c46-b387-f33d37f75418",
+        "assignment_id": "asg_9a07ec9a-963f-4b8f-9849-156daf783e1c",
         "task_id": "task_lead",
         "attempt_id": "lead",
         "responsibility": "architecture",
@@ -231,7 +231,7 @@
         "review_required": true
       },
       {
-        "assignment_id": "asg_0142cd7b-8075-4fa0-b5a8-7e8801ae9d00",
+        "assignment_id": "asg_d15792cb-25a1-4bb1-8251-9418292cbb9d",
         "task_id": "task_lead",
         "attempt_id": "lead",
         "responsibility": "product",
@@ -239,7 +239,7 @@
         "review_required": false
       },
       {
-        "assignment_id": "asg_73117561-4ab7-4062-893f-4ff35afce327",
+        "assignment_id": "asg_6289495f-bcd1-4958-b582-e6220236cfda",
         "task_id": "task_lead",
         "attempt_id": "lead",
         "responsibility": "delivery",
@@ -247,7 +247,7 @@
         "review_required": false
       },
       {
-        "assignment_id": "asg_b89613de-904e-45ac-aed4-2c447b90840a",
+        "assignment_id": "asg_592e094f-f69f-43f8-adf0-8cff68c1a893",
         "task_id": "task_lead",
         "attempt_id": "lead",
         "responsibility": "design",
@@ -255,7 +255,7 @@
         "review_required": false
       },
       {
-        "assignment_id": "asg_3501c3e3-d355-46bd-a941-f04061b02190",
+        "assignment_id": "asg_37791457-06b4-4d72-87c4-37fd56f2a17d",
         "task_id": "task_lead",
         "attempt_id": "lead",
         "responsibility": "engineering",
@@ -263,7 +263,7 @@
         "review_required": false
       },
       {
-        "assignment_id": "asg_8981ad91-6c37-45fb-8dbb-c93a184f3c32",
+        "assignment_id": "asg_f91f5101-7a46-487d-97c8-ebc76dee3264",
         "task_id": "task_lead",
         "attempt_id": "lead",
         "responsibility": "quality",
@@ -271,7 +271,7 @@
         "review_required": true
       },
       {
-        "assignment_id": "asg_d6886394-d798-4ef7-8235-55d2548242b3",
+        "assignment_id": "asg_bda91887-3f28-4d6d-bf7a-221b8d3fa03f",
         "task_id": "task_lead",
         "attempt_id": "lead",
         "responsibility": "security",
@@ -279,7 +279,7 @@
         "review_required": true
       },
       {
-        "assignment_id": "asg_2fd850f3-b813-4712-9bd6-87bb38e9e01e",
+        "assignment_id": "asg_57e487b3-1e7a-435f-8e69-4d01edc2d5e7",
         "task_id": "task_lead",
         "attempt_id": "lead",
         "responsibility": "reliability",
@@ -287,7 +287,7 @@
         "review_required": true
       },
       {
-        "assignment_id": "asg_ad7596d8-a069-4d4f-a2cc-58f3a4f5b411",
+        "assignment_id": "asg_0ab7e65c-d41b-4940-babb-8d193ee359e9",
         "task_id": "task_lead",
         "attempt_id": "lead",
         "responsibility": "documentation",
@@ -325,7 +325,7 @@
       "lead"
     ],
     "invalidated_context_facts": [
-      "fact_38dd9d48-2c8b-41e1-8d50-82d58f34e2d5"
+      "fact_fe7d6528-edae-45f1-9adb-252f52074117"
     ],
     "budget_after_revision": {
       "cap_microusd": 10000000,

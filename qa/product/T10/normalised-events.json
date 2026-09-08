@@ -14,7 +14,7 @@
     "event": {
       "kind": "usage_event",
       "schema_version": 1,
-      "usage_event_id": "usage_ec8b50e0-df9e-4808-a38d-72061e998aeb",
+      "usage_event_id": "usage_330c603e-7769-47f2-b1b1-7edb29908de1",
       "provider_event_id": "103b201b-a9b8-4bd9-b83b-a421ca6cc6ce",
       "run_id": "run_t10",
       "attempt_id": "attempt_t10",

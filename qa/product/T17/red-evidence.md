@@ -55,3 +55,26 @@ Three things were wrong, and none of them showed up in a repo-relative run:
 | `P3b` | the console bundler bundled in, making `esbuild` a load-time import | **RED** | one optional dependency must not stop every command |
 
 The bundle is 459 KB and runs `doctor`, `status` and `handoff` from an unrelated directory.
+
+
+## Round 4 — `cm install` ships the portable toolkit
+
+Round 3 proved a portable install was *possible*. `cm install` still did not produce one: the
+launcher on the machine pointed at the developer's checkout.
+
+`cm install` now builds the portable toolkit into `$CM_HOME/toolkit` and writes a launcher that
+names it, so the CLI never has to guess where its files are and never depends on where the source
+was when it was installed. The gate runs that launcher from an unrelated directory and asserts it
+contains no reference to the checkout.
+
+| # | Mutation | Result | What it proves |
+|---|----------|--------|----------------|
+| `Q1` | the launcher is not made executable | **RED** | `mode` on `writeFileSync` only applies when the file is created; an existing launcher kept whatever it had, so `chmod` is what makes a reinstall work |
+| `Q2` | the launcher points at the checkout instead of the installed toolkit | **RED** | the whole point of the round |
+| `Q3` | the launcher names no toolkit root at all | **RED** | without it the bundle resolves its files from wherever it was invoked |
+| `Q4` | repeated install and uninstall leaves a growing gap | **RED** | each cycle used to push the client's own content further down the page |
+
+`Q4` was green at first: the gate did one install/uninstall cycle and `deactivate`'s own trim
+hid the accumulation. It now runs three more cycles and requires the file to come back
+byte-identical with no run of blank lines introduced — which is what actually happens on a
+client's machine when they reinstall.

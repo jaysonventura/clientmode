@@ -48,3 +48,16 @@ export function runPackaged(entry: string, argv: readonly string[], home: string
     child.on('error', () => { clearTimeout(timer); resolve(8); });
   });
 }
+
+/** Run the launcher `cm install` wrote, from a directory that is not the checkout. */
+export function runLauncher(launcher: string, argv: readonly string[], home: string, cwd: string): Promise<number> {
+  return new Promise(resolve => {
+    const child = spawn(launcher, [...argv], {
+      cwd, stdio: ['ignore', 'ignore', 'ignore'],
+      env: { ...process.env, NODE_NO_WARNINGS: '1', CM_HOME: home, CM_CWD: cwd },
+    });
+    const timer = setTimeout(() => { try { child.kill('SIGKILL'); } catch { /* gone */ } }, 120_000);
+    child.on('close', code => { clearTimeout(timer); resolve(code ?? 8); });
+    child.on('error', () => { clearTimeout(timer); resolve(8); });
+  });
+}

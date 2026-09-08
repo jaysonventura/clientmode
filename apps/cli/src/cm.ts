@@ -227,7 +227,9 @@ function instructionsFile(host: 'claude' | 'codex', install_root: string): strin
 function stripBlock(text: string): string {
   if (!text.includes(BLOCK_START)) return text;
   const end = text.indexOf(BLOCK_END);
-  return `${text.slice(0, text.indexOf(BLOCK_START))}${end === -1 ? '' : text.slice(end + BLOCK_END.length)}`;
+  const without = `${text.slice(0, text.indexOf(BLOCK_START))}${end === -1 ? '' : text.slice(end + BLOCK_END.length)}`;
+  // Installing and removing repeatedly must not leave a growing gap where the block used to be.
+  return without.replace(/\n{3,}/g, '\n\n').trim();
 }
 
 /** Take the activation back out.
@@ -272,6 +274,8 @@ function usage(): string {
     '  --root <path>     the project directory to work in (default: the current directory)',
     '  --json            machine-readable output',
     '  --lead            (install) put Client Mode first, ahead of any existing instructions',
+    '  --bin-dir <path>  (install) where to write the `cm` launcher (default: ~/.local/bin)',
+    '  --no-portable     (install) skip the portable toolkit; run from this checkout instead',
     '  --dry-run         (install) print the change set and write nothing',
     '',
     'State lives under $CM_HOME (default ~/.client-mode), one directory per project root.',
@@ -700,6 +704,24 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
           'Existing content is kept either way; uninstall removes only the marked section.\n');
       return EXIT_CODES.ok;
     }
+    // The portable toolkit is what makes `cm` work anywhere: a bundled entry point plus the
+    // files the controller reads, in a directory that does not depend on where the source is.
+    // A launcher that pointed at a checkout would stop working the moment a folder moved.
+    let portable: { root: string; launcher: string | null; bytes: number } | null = null;
+    if (flags['no-portable'] !== true) {
+      try {
+        const { buildPortableToolkit } = await import('../../../packages/packaging/src/portable.js');
+        const binDir = typeof flags['bin-dir'] === 'string' ? flags['bin-dir'] : path.join(os.homedir(), '.local', 'bin');
+        portable = await buildPortableToolkit({
+          out_root: path.join(home, 'toolkit'),
+          launcher_path: path.join(binDir, 'cm'),
+        });
+      } catch (error) {
+        process.stderr.write('the portable toolkit could not be built ' +
+          `(${String((error as Error).message).slice(0, 120)}).\n` +
+          'The skills and instructions below are still installed; `cm` will keep running from this checkout.\n');
+      }
+    }
     const record = applyInstall({ plan: approve(plan), distribution, now: new Date().toISOString() });
     // Copying the package under the host's config directory puts the files on disk; it does not
     // make the host read them. Activation writes the locations each host actually loads.
@@ -707,6 +729,10 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
       host, install_root: installRoot, distribution_root: distribution.root,
       lead: flags['lead'] === true,
     });
+    if (portable !== null) {
+      record.created.push(portable.root);
+      if (portable.launcher !== null) record.created.push(portable.launcher);
+    }
     record.created.push(...activated.created);
     record.backups.push(...activated.backups);
     writeFileSync(recordFile, JSON.stringify(record, null, 2) + '\n');
@@ -714,6 +740,9 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
       : `installed ${String(record.created.length)} file(s) under ${installRoot}\n` +
         `${String(record.backups.length)} existing file(s) backed up, ${String(record.merged.length)} settings file(s) merged\n` +
         `${activated.summary}\n` +
+        `${portable === null ? 'portable toolkit: not built; cm runs from this checkout\n'
+          : `portable toolkit: ${portable.root} (${String(Math.round(portable.bytes / 1024))} KB)\n` +
+            `${portable.launcher === null ? '' : `launcher: ${portable.launcher}\n`}`}` +
         `record: ${recordFile}\nremove it again with: cm uninstall --host ${host}\n`);
     return EXIT_CODES.ok;
   }

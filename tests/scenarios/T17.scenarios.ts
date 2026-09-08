@@ -14,7 +14,7 @@ import { fingerprintTree } from '../../packages/packaging/src/install.js';
 import { install, remove, describePlan } from '../../apps/cli/src/install.js';
 import { activate, deactivate } from '../../apps/cli/src/cm.js';
 import { packageToolkit } from '../harness/package-toolkit.js';
-import { runPackaged } from '../harness/cli.js';
+import { runLauncher, runPackaged } from '../harness/cli.js';
 import { Evidence, ROOT, attempt } from '../harness/evidence.js';
 import { disposableProject, liveHostAvailable, liveTurn } from '../harness/live-provider.js';
 import { registerScenario } from '../harness/registry.js';
@@ -183,26 +183,37 @@ registerScenario('AT-017', async (): Promise<ScenarioObservation> => {
       ? readFileSync(path.join(activationRoot, 'CLAUDE.md.client-mode-backup'), 'utf8') : '';
     deactivate({ host: 'claude', install_root: activationRoot });
     const afterDeactivate = readFileSync(path.join(activationRoot, 'CLAUDE.md'), 'utf8');
+    // Installing and removing repeatedly is what a client actually does. Each cycle must leave
+    // the file where it found it, not push the rest of it further down the page.
+    for (let cycle = 0; cycle < 3; cycle += 1) {
+      activate({ host: 'claude', install_root: activationRoot, distribution_root: distributionRoot, lead: true });
+      deactivate({ host: 'claude', install_root: activationRoot });
+    }
+    const afterCycles = readFileSync(path.join(activationRoot, 'CLAUDE.md'), 'utf8');
+    const gapGrew = /\n{3,}/.test(afterCycles);
     log['activation'] = {
       own_instructions_kept: afterActivate.includes('Keep these.'),
       block_added: afterActivate.includes('<!-- client-mode:start -->'),
       skills_installed: skillsInstalled,
       backup_is_the_clients_own_file: backupContent === ownInstructions,
       restored_identical: afterDeactivate === ownInstructions,
+      identical_after_three_more_cycles: afterCycles === ownInstructions,
+      blank_gap_grew: gapGrew,
       skills_directory_gone: !existsSync(path.join(activationRoot, 'skills')),
       backup_removed: !existsSync(path.join(activationRoot, 'CLAUDE.md.client-mode-backup')),
     };
     const activationRoundTrips = afterActivate.includes('Keep these.') &&
       afterActivate.includes('<!-- client-mode:start -->') && skillsInstalled.length === 8 &&
       backupContent === ownInstructions &&
-      afterDeactivate === ownInstructions && !existsSync(path.join(activationRoot, 'skills')) &&
+      afterDeactivate === ownInstructions && afterCycles === ownInstructions && !gapGrew &&
+      !existsSync(path.join(activationRoot, 'skills')) &&
       !existsSync(path.join(activationRoot, 'CLAUDE.md.client-mode-backup'));
 
     // Portability: the installed toolkit has to work with the checkout out of the picture. A
     // client's machine has no `/Users/<someone>/Documents/clientmode`, and a launcher that
     // points at one is a tool that breaks the moment the developer moves a folder.
     const packagedDir = path.join(sandbox, 'packaged');
-    const packaged = await packageToolkit(packagedDir);
+    const packaged = await packageToolkit({ out_root: packagedDir, launcher_path: path.join(sandbox, 'bin', 'cm') });
     const bundleText = readFileSync(packaged.entry, 'utf8');
     const pointsAtCheckout = bundleText.includes(ROOT);
     // Run it from a directory that is not the checkout, with the checkout not on any path.
@@ -218,8 +229,25 @@ registerScenario('AT-017', async (): Promise<ScenarioObservation> => {
     log['portable_install'] = {
       bundle_bytes: packaged.bytes, points_at_checkout: pointsAtCheckout, runs: portableRuns,
     };
+    // And the launcher `cm install` writes: run it from elsewhere, with nothing on PATH or in
+    // the environment pointing back at the checkout.
+    const launcherRuns = packaged.launcher === null ? [] : await Promise.all(([
+      ['doctor', ['doctor', '--json']],
+      ['handoff', ['handoff', '--root', awayFrom, '--json']],
+    ] as const).map(async ([name, argv]) => ({
+      name, exit_code: await runLauncher(packaged.launcher!, argv, path.join(sandbox, 'launcher-home'), awayFrom),
+    })));
+    const launcherText = packaged.launcher === null ? '' : readFileSync(packaged.launcher, 'utf8');
+    log['portable_install'] = {
+      ...(log['portable_install'] as Record<string, unknown>),
+      launcher: packaged.launcher, launcher_runs: launcherRuns,
+      launcher_points_at_checkout: launcherText.includes(ROOT),
+      carried: packaged.carried,
+    };
     const portable = !pointsAtCheckout &&
-      portableRuns.every(entry => entry.exit_code === 0 || entry.exit_code === 2);
+      portableRuns.every(entry => entry.exit_code === 0 || entry.exit_code === 2) &&
+      packaged.launcher !== null && !launcherText.includes(ROOT) &&
+      launcherRuns.length === 2 && launcherRuns.every(entry => entry.exit_code === 0);
 
     const uninstallRestores = portable && activationRoundTrips &&
       JSON.stringify(before) === JSON.stringify(afterUninstall) &&

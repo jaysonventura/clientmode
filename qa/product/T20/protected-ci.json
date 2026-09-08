@@ -3,11 +3,11 @@
     "attacks": {
       "verifier_database": {
         "exit_code": 1,
-        "stderr": "node:fs:2425\n    return binding.writeFileUtf8(\n                   ^\n\nError: EPERM: operation not permitted, open '/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-4zeebo/ver"
+        "stderr": "node:fs:2425\n    return binding.writeFileUtf8(\n                   ^\n\nError: EPERM: operation not permitted, open '/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-v0Xryt/ver"
       },
       "read_signing_key": {
         "exit_code": 1,
-        "stderr": "node:fs:1583\n  const result = binding.readdir(\n                         ^\n\nError: EPERM: operation not permitted, scandir '/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-4"
+        "stderr": "node:fs:1583\n  const result = binding.readdir(\n                         ^\n\nError: EPERM: operation not permitted, scandir '/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-v"
       },
       "rewrite_ci_workflow": {
         "exit_code": 1,
@@ -37,12 +37,12 @@
       "message": "destination timeout after the request was accepted"
     },
     "row_after_timeout": {
-      "deployment_id": "dep_f8f569c2-e8c5-4685-b578-9420b892cdf6",
+      "deployment_id": "dep_d7bf6aa2-f417-44db-a877-bc15f3b4f5e6",
       "status": "DEPLOYING",
       "provider_operation_id": null
     },
     "reconciliation": {
-      "deployment_id": "dep_f8f569c2-e8c5-4685-b578-9420b892cdf6",
+      "deployment_id": "dep_d7bf6aa2-f417-44db-a877-bc15f3b4f5e6",
       "destination_state": "COMPLETE",
       "action": "ADOPTED_EXISTING_OPERATION",
       "status": "DEPLOYING"
@@ -50,7 +50,7 @@
     "operation_after_reconcile": "op_1",
     "retried": {
       "started": true,
-      "deployment_id": "dep_f8f569c2-e8c5-4685-b578-9420b892cdf6",
+      "deployment_id": "dep_d7bf6aa2-f417-44db-a877-bc15f3b4f5e6",
       "operation_id": "op_1",
       "replayed": true
     },
@@ -102,7 +102,7 @@
           {
             "name": "read-intent",
             "exit_code": 0,
-            "stdout": "deployment_id=dep_f8f569c2-e8c5-4685-b578-9420b892cdf6\nidempotency_key=deploy-t20"
+            "stdout": "deployment_id=dep_d7bf6aa2-f417-44db-a877-bc15f3b4f5e6\nidempotency_key=deploy-t20"
           },
           {
             "name": "reconcile",
@@ -123,7 +123,7 @@
           {
             "name": "confirm-snapshot",
             "exit_code": 0,
-            "stdout": "snapshot present: /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-4zeebo/synthetic.backup.sqlite"
+            "stdout": "snapshot present: /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-v0Xryt/synthetic.backup.sqlite"
           },
           {
             "name": "assess-rollback",
@@ -133,7 +133,7 @@
           {
             "name": "restore-and-verify",
             "exit_code": 0,
-            "stdout": "restored /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-4zeebo/synthetic.sqlite"
+            "stdout": "restored /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t20-v0Xryt/synthetic.sqlite"
           }
         ]
       },
@@ -154,7 +154,7 @@
           {
             "name": "record",
             "exit_code": 0,
-            "stdout": "recorded recovery decision for dep_f8f569c2-e8c5-4685-b578-9420b892cdf6"
+            "stdout": "recorded recovery decision for dep_d7bf6aa2-f417-44db-a877-bc15f3b4f5e6"
           }
         ]
       }

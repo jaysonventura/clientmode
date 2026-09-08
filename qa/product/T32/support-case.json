@@ -2,24 +2,24 @@
   "case": {
     "kind": "service_case",
     "schema_version": 1,
-    "case_id": "case_5fc60ad4-e3f0-4d20-b058-9dbc04a4a940",
+    "case_id": "case_9a5f6778-d1d3-426a-83e0-632d2e3c8549",
     "project_id": "project_t32",
     "request_id": "request_t32_report",
     "severity": "high",
     "status": "RESOLVED",
     "coverage_mode": "on_demand",
-    "related_run_id": "run_27c6a7b0-9424-4046-814a-41e507c49882",
+    "related_run_id": "run_335a45e7-467a-4d43-a8d7-14af88ed70ce",
     "related_deployment_id": null,
     "created_at": "2026-09-09T13:00:02.000Z",
     "summary": "Reported: the total for two rice is wrong.",
     "links": [
       {
         "kind": "software_run",
-        "run_id": "run_27c6a7b0-9424-4046-814a-41e507c49882"
+        "run_id": "run_335a45e7-467a-4d43-a8d7-14af88ed70ce"
       },
       {
         "kind": "document_job",
-        "job_id": "djob_1b4848f3-ff18-44e1-9ab3-13187e2ce49a"
+        "job_id": "djob_15805af1-ada9-4d10-818b-347ca29e3a58"
       },
       {
         "kind": "regression_test",
@@ -90,7 +90,7 @@
   "probe_status": 201,
   "probe_body": {
     "order": {
-      "order_id": "order_mts92zh6_z50q57",
+      "order_id": "order_mts992xz_wjatiz",
       "customer_name": "Ana Dela Cruz",
       "customer_mobile": "+639000000001",
       "total_centavos": -5500,
@@ -101,13 +101,13 @@
           "unit_price_centavos": 5500
         }
       ],
-      "created_at": "2026-09-08T05:50:06.618Z"
+      "created_at": "2026-09-08T05:54:51.047Z"
     },
     "replayed": false
   },
   "after_fix_status": 422,
   "duplicate": {
-    "duplicate_of": "case_5fc60ad4-e3f0-4d20-b058-9dbc04a4a940",
+    "duplicate_of": "case_9a5f6778-d1d3-426a-83e0-632d2e3c8549",
     "history_length": 5,
     "timeline_before": 4,
     "case_rows": 1
@@ -123,7 +123,7 @@
     },
     "resolved": {
       "resolved": true,
-      "case_id": "case_5fc60ad4-e3f0-4d20-b058-9dbc04a4a940",
+      "case_id": "case_9a5f6778-d1d3-426a-83e0-632d2e3c8549",
       "evidence_ref": "status:422"
     },
     "not_reproduced": {

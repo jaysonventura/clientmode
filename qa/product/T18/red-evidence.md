@@ -128,6 +128,7 @@ than call the install healthy.
 | P5 | `makePrivateDirectory` does not chmod the parents it created | **still green** |
 | P7 | `makePrivateDirectory` does not chmod a directory that already existed | **still green** |
 | P8 | `$CM_HOME` and `$CM_HOME/projects` are not tightened by name | **red** |
+| P10 | the handoff briefing is written at the process umask | **red** |
 
 P5 stayed green for a reason worth recording: `mkdirSync(dir, { recursive: true, mode })`
 applies the mode to **every** directory it creates, not only the leaf — confirmed directly
@@ -138,6 +139,11 @@ P7 stayed green because no gate opens a store whose directory pre-exists at a lo
 through that call. The upgrade path is covered instead by P8, which goes red: the existing
 install's home is tightened by name on every `openProject`, and `cm doctor` reports it with a
 `chmod -R go-rwx` for anything the toolkit did not create.
+
+`HANDOFF.md` is the one file here that leaves the store — it quotes the client's own words and
+gets copied and mailed around — so it carries 0600 of its own rather than relying on the
+directory it happens to be sitting in. Its mode is read back off the disk after real `cm`
+invocations, not assumed from the write call.
 
 ### A note on what the audit measures
 

@@ -70,11 +70,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-DX7GVG/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/cm-sandbox-12n0JC",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-DX7GVG/cm-sandbox-TUI8Gw",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-DX7GVG/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",
@@ -85,20 +85,20 @@
   },
   "file_permissions": {
     "roots": [
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/verifier-authority"
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-DX7GVG/verifier-authority"
     ],
     "readable_by_other_accounts": [],
     "modes": [
       {
-        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/verifier-authority/verifier.sqlite",
+        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-DX7GVG/verifier-authority/verifier.sqlite",
         "mode": "0600"
       },
       {
-        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/verifier-authority/verifier.sqlite-shm",
+        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-DX7GVG/verifier-authority/verifier.sqlite-shm",
         "mode": "0600"
       },
       {
-        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/verifier-authority/verifier.sqlite-wal",
+        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-DX7GVG/verifier-authority/verifier.sqlite-wal",
         "mode": "0600"
       }
     ]
@@ -112,8 +112,8 @@
     ],
     "process_tree_terminated": true,
     "quarantined": false,
-    "heartbeat_bytes_at_kill": 36,
-    "heartbeat_bytes_500ms_later": 36,
+    "heartbeat_bytes_at_kill": 35,
+    "heartbeat_bytes_500ms_later": 35,
     "forked_child_stopped_writing": true
   },
   "reports": {
@@ -139,7 +139,7 @@
     "flood": {
       "status": "FAILED",
       "truncated": true,
-      "bytes": "sha256:3165a5abc3677f934e4f28b24268968c9d2da81362bd5cfaccfead76f129445d"
+      "bytes": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   },
   "missing_environments": {

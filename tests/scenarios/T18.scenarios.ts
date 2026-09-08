@@ -6,7 +6,7 @@
  */
 import { spawn } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import os, { tmpdir } from 'node:os';
 import path from 'node:path';
 import type { ClientRequest, Json, ScenarioObservation } from '../../contracts/interfaces.js';
@@ -171,7 +171,14 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
     // What those real invocations left on disk. The state directory holds every client request
     // and the run record; a mode is not something to assume, so it is read back.
     const cliExposed = auditPermissions([cliHome, concurrentHome]);
-    log['state_permissions'] = { roots: [cliHome, concurrentHome], readable_by_other_accounts: cliExposed };
+    // The briefing is the one file that leaves the store — it gets copied and mailed around —
+    // so its own mode has to hold, not just the directory's.
+    const briefings = readdirSync(cliHome, { recursive: true, encoding: 'utf8' })
+      .filter(entry => entry.endsWith('HANDOFF.md'))
+      .map(entry => ({ path: entry, mode: `0${(statSync(path.join(cliHome, entry)).mode & 0o777).toString(8)}` }));
+    log['state_permissions'] = {
+      roots: [cliHome, concurrentHome], readable_by_other_accounts: cliExposed, briefings,
+    };
     log['cli_invocations'] = {
       runs: runs.map(entry => ({ name: entry.name, exit_code: entry.exit_code })),
       unwired, off_contract: offContract, crashed, home: cliHome,
@@ -183,6 +190,7 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
     const commandsMatch = unwired.length === 0 && offContract.length === 0 && crashed.length === 0 &&
       concurrentOk && raceOk && healthReported && doctorReportsBroken && cliExposed.length === 0 &&
       legacyExposed.length === 0 &&
+      briefings.length > 0 && briefings.every(entry => entry.mode === '0600') &&
       missingCommands.length === 0 &&
       describe('verify')?.refuses.includes('accepting a caller-supplied command string') === true &&
       rejectsCallerCommand({ candidate: 'x', argv: ['/bin/sh'] }) &&

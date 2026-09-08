@@ -8,7 +8,7 @@
  * A zero exit means the command did what it said within its stated scope. It is never a
  * product readiness verdict.
  */
-import { cpSync, mkdirSync, existsSync, readFileSync, readdirSync, realpathSync, writeFileSync, rmSync } from 'node:fs';
+import { chmodSync, cpSync, mkdirSync, existsSync, readFileSync, readdirSync, realpathSync, writeFileSync, rmSync } from 'node:fs';
 import { execFileSync, spawnSync } from 'node:child_process';
 import os from 'node:os';
 import path from 'node:path';
@@ -30,7 +30,7 @@ import { checkInstall } from '../../../packages/packaging/src/install-health.js'
 import { redactValue } from '../../../packages/observability/src/redaction.js';
 import { toolkitRoot } from '../../../packages/contracts/src/toolkit-root.js';
 import { writeConsoleIndex } from './console-page.js';
-import { makePrivateDirectory } from '../../../packages/verifier/src/file-permissions.js';
+import { makePrivateDirectory, PRIVATE_FILE_MODE } from '../../../packages/verifier/src/file-permissions.js';
 
 export type Argv = { command: string; positional: string[]; flags: Record<string, string | true> };
 
@@ -378,7 +378,12 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     try {
       const handoff = buildHandoff(db, { project_id, working_directory: path.resolve(root), at: new Date().toISOString() });
       const text = renderHandoff(handoff);
-      writeFileSync(path.join(state_dir, 'HANDOFF.md'), text);
+      // The briefing quotes the client's own words back. It is the one file here that gets
+      // copied out of the store and mailed around, so it carries its own mode rather than
+      // relying on the directory it happens to be sitting in.
+      const briefingFile = path.join(state_dir, 'HANDOFF.md');
+      writeFileSync(briefingFile, text, { mode: PRIVATE_FILE_MODE });
+      chmodSync(briefingFile, PRIVATE_FILE_MODE);
       process.stdout.write(json ? `${JSON.stringify(handoff, null, 2)}\n` : text);
       return EXIT_CODES.ok;
     } finally { db.close(); }

@@ -61,9 +61,12 @@ export function canonicalRoot(root: string): string {
 
 /** Where the controller keeps its state. One directory per authorized project root, derived
  * from the root itself so two projects never share a database. */
+export function cmHome(): string {
+  return process.env['CM_HOME'] ?? path.join(os.homedir(), '.client-mode');
+}
+
 export function stateDirFor(root: string): string {
-  const home = process.env['CM_HOME'] ?? path.join(os.homedir(), '.client-mode');
-  return path.join(home, 'projects', createHash('sha256').update(canonicalRoot(root)).digest('hex').slice(0, 16));
+  return path.join(cmHome(), 'projects', createHash('sha256').update(canonicalRoot(root)).digest('hex').slice(0, 16));
 }
 
 export function projectIdFor(root: string): string {
@@ -80,7 +83,11 @@ function openProject(root: string, options: { exclusive?: boolean } = {}):
   const resolved = canonicalRoot(root);
   if (!existsSync(resolved)) throw new Error(`ROOT_NOT_FOUND: ${resolved}`);
   const state_dir = stateDirFor(resolved);
-  // Owner-only from $CM_HOME down. Everything the controller writes for a project lands here.
+  // Owner-only from $CM_HOME down. Everything the controller writes for a project lands here,
+  // and the two directories above it are tightened by name because an install made before this
+  // existed already has them at the process umask — one client project per readable entry.
+  makePrivateDirectory(cmHome());
+  makePrivateDirectory(path.join(cmHome(), 'projects'));
   makePrivateDirectory(state_dir);
   const db = ControllerDatabase.open(state_dir, { exclusive: options.exclusive === true });
   const service = new LifecycleService(db);
@@ -98,7 +105,7 @@ function openProject(root: string, options: { exclusive?: boolean } = {}):
 export type Preference = { preferred_host: 'claude' | 'codex' };
 
 function configFile(): string {
-  return path.join(process.env['CM_HOME'] ?? path.join(os.homedir(), '.client-mode'), 'config.json');
+  return path.join(cmHome(), 'config.json');
 }
 
 export function readPreference(): Preference | null {
@@ -400,7 +407,7 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     // The install's own health comes first: a client whose launcher points at a deleted folder
     // does not need a capability report, they need to know that.
     const health = checkInstall({
-      home: process.env['CM_HOME'] ?? path.join(os.homedir(), '.client-mode'),
+      home: cmHome(),
       source_root: REPO_ROOT,
       hosts: [
         { host: 'claude', install_root: path.join(os.homedir(), '.claude') },
@@ -690,7 +697,7 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
       process.stderr.write(`${command} needs --host claude or --host codex\n`);
       return EXIT_CODES.input_or_contract_error;
     }
-    const home = process.env['CM_HOME'] ?? path.join(os.homedir(), '.client-mode');
+    const home = cmHome();
     const recordFile = path.join(home, `install-${host}.json`);
 
     if (command === 'uninstall') {

@@ -44,12 +44,12 @@
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_3f7b104e-a400-44d2-b1e7-60fa091c97a6/events",
+        "path": "/v1/runs/run_dd7dc833-41f3-42d3-8b2d-5ab3a8395e8b/events",
         "status": 200
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_3f7b104e-a400-44d2-b1e7-60fa091c97a6/questions",
+        "path": "/v1/runs/run_dd7dc833-41f3-42d3-8b2d-5ab3a8395e8b/questions",
         "status": 200
       },
       {
@@ -59,17 +59,17 @@
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_3f7b104e-a400-44d2-b1e7-60fa091c97a6/events",
+        "path": "/v1/runs/run_dd7dc833-41f3-42d3-8b2d-5ab3a8395e8b/events",
         "status": 200
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_3f7b104e-a400-44d2-b1e7-60fa091c97a6/questions",
+        "path": "/v1/runs/run_dd7dc833-41f3-42d3-8b2d-5ab3a8395e8b/questions",
         "status": 200
       },
       {
         "method": "POST",
-        "path": "/v1/runs/run_3f7b104e-a400-44d2-b1e7-60fa091c97a6/cancel",
+        "path": "/v1/runs/run_dd7dc833-41f3-42d3-8b2d-5ab3a8395e8b/cancel",
         "status": 200
       }
     ]
@@ -83,7 +83,7 @@
           "schema_version": 1,
           "question_id": "question_t15",
           "project_id": "project_t15",
-          "run_id": "run_3f7b104e-a400-44d2-b1e7-60fa091c97a6",
+          "run_id": "run_dd7dc833-41f3-42d3-8b2d-5ab3a8395e8b",
           "requirements_revision": 0,
           "state_version": 1,
           "prompt": "Should we record a deposit before delivery? Reference from your file: <img src=x onerror=\"window.__executed=true\"><b>bold</b>",
@@ -141,7 +141,7 @@
     "worker_token": 403
   },
   "cancel": {
-    "elapsed_ms": 233,
+    "elapsed_ms": 224,
     "intents": [
       {
         "action": "cancel",
@@ -158,12 +158,12 @@
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_3f7b104e-a400-44d2-b1e7-60fa091c97a6/events",
+        "path": "/v1/runs/run_dd7dc833-41f3-42d3-8b2d-5ab3a8395e8b/events",
         "status": 200
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_3f7b104e-a400-44d2-b1e7-60fa091c97a6/questions",
+        "path": "/v1/runs/run_dd7dc833-41f3-42d3-8b2d-5ab3a8395e8b/questions",
         "status": 200
       },
       {
@@ -173,17 +173,17 @@
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_3f7b104e-a400-44d2-b1e7-60fa091c97a6/events",
+        "path": "/v1/runs/run_dd7dc833-41f3-42d3-8b2d-5ab3a8395e8b/events",
         "status": 200
       },
       {
         "method": "GET",
-        "path": "/v1/runs/run_3f7b104e-a400-44d2-b1e7-60fa091c97a6/questions",
+        "path": "/v1/runs/run_dd7dc833-41f3-42d3-8b2d-5ab3a8395e8b/questions",
         "status": 200
       },
       {
         "method": "POST",
-        "path": "/v1/runs/run_3f7b104e-a400-44d2-b1e7-60fa091c97a6/cancel",
+        "path": "/v1/runs/run_dd7dc833-41f3-42d3-8b2d-5ab3a8395e8b/cancel",
         "status": 200
       }
     ]

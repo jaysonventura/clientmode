@@ -157,6 +157,17 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
     // schema bootstrap has to survive: all of them find the state ready, none finds it half-made.
     const raced = await raceOpen(path.join(cliRoot, 'raced-state'), 8);
     const raceOk = raced.every(code => code === 0);
+    // The upgrade case, which is every install that exists today: $CM_HOME and its projects
+    // directory are already there at the process umask, so creating the state directory
+    // owner-only is not enough on its own — the two above it have to be brought down too.
+    const legacyHome = path.join(cliRoot, 'legacy-home');
+    mkdirSync(path.join(legacyHome, 'projects'), { recursive: true, mode: 0o755 });
+    chmodSync(legacyHome, 0o755);
+    chmodSync(path.join(legacyHome, 'projects'), 0o755);
+    const legacyExit = await runCli(['status', 'run_that_does_not_exist', '--root', cliRoot], legacyHome);
+    const legacyExposed = auditPermissions([legacyHome]);
+    log['legacy_home_tightened'] = { home: legacyHome, exit_code: legacyExit, readable_by_other_accounts: legacyExposed };
+
     // What those real invocations left on disk. The state directory holds every client request
     // and the run record; a mode is not something to assume, so it is read back.
     const cliExposed = auditPermissions([cliHome, concurrentHome]);
@@ -171,6 +182,7 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
 
     const commandsMatch = unwired.length === 0 && offContract.length === 0 && crashed.length === 0 &&
       concurrentOk && raceOk && healthReported && doctorReportsBroken && cliExposed.length === 0 &&
+      legacyExposed.length === 0 &&
       missingCommands.length === 0 &&
       describe('verify')?.refuses.includes('accepting a caller-supplied command string') === true &&
       rejectsCallerCommand({ candidate: 'x', argv: ['/bin/sh'] }) &&

@@ -101,3 +101,51 @@ The unwired check used exit code `missing_capability` as its signal. Once `docto
 returning that same code for a genuinely broken install, a correctly wired command looked
 unwired. Exit codes cannot carry that distinction — both answers are honest for what they
 describe — so the check now reads the dispatcher's own sentence instead.
+
+## Round 8 — what a real `cm` invocation leaves on disk, and what an existing install still has
+
+AT-005 covers one store in a fixture. This gate covers the production path: the CLI is invoked
+for real, and what those processes wrote is read back off the disk afterwards. Three assertions
+were added, each red before its fix.
+
+**`cliExposed`** — the first run reported 50 reachable paths under `$CM_HOME`, including the
+home itself, every per-command home under it, `projects/`, and `HANDOFF.md`. `mkdirSync`
+without a mode had created the whole chain at 0755.
+
+**`legacyExposed`** — a `$CM_HOME` that already exists at 0755, which is every install made
+before this change. Creating the state directory owner-only does not fix the two directories
+above it; each one lists a client project per entry.
+
+**`exposedHealth`** — `cm doctor` on a home with a world-readable store must report it rather
+than call the install healthy.
+
+### Mutations
+
+| # | Mutation | Result |
+|---|----------|--------|
+| P3 | `checkInstall` stops emitting `STORE_WORLD_READABLE` | **red** |
+| P4 | `openProject` creates the state directory with plain `mkdirSync` | **red** |
+| P5 | `makePrivateDirectory` does not chmod the parents it created | **still green** |
+| P7 | `makePrivateDirectory` does not chmod a directory that already existed | **still green** |
+| P8 | `$CM_HOME` and `$CM_HOME/projects` are not tightened by name | **red** |
+
+P5 stayed green for a reason worth recording: `mkdirSync(dir, { recursive: true, mode })`
+applies the mode to **every** directory it creates, not only the leaf — confirmed directly
+on this Node (22.17.0), all four levels of `mk/a/b/c` came out 0700. The chmod loop was
+guarding a case that does not exist, so it was deleted rather than kept as reassurance.
+
+P7 stayed green because no gate opens a store whose directory pre-exists at a loose mode
+through that call. The upgrade path is covered instead by P8, which goes red: the existing
+install's home is tightened by name on every `openProject`, and `cm doctor` reports it with a
+`chmod -R go-rwx` for anything the toolkit did not create.
+
+### A note on what the audit measures
+
+`auditPermissions` reports reachability, not modes in isolation: it stops descending at a
+directory no other account can traverse, because nothing below such a directory is readable by
+anyone else. Reporting those files anyway would have flagged the built distribution under
+`$CM_HOME/install/dist` — public skill files that are 0644 by design — and a check that
+reports things that are not exposures is a check people learn to skip. The file modes are still
+enforced separately by `secureStore`, which is what P2 in T05 proves; the two together mean the
+directory keeps other accounts out and the file mode survives the directory being loosened
+later or the file being copied into a backup.

@@ -8,13 +8,13 @@
   {
     "actor_id": "owner_1",
     "operation": "approval.api_spend",
-    "target_ref": "apr_ec1b2029-74c5-49db-b5ca-eacd241a53c5",
+    "target_ref": "apr_87ff74cf-6140-4712-8876-b3c702cc280a",
     "decision": "approve"
   },
   {
     "actor_id": "controller",
     "operation": "authorize.api_spend",
-    "target_ref": "grant_6bcd39fd-7d74-4562-86f9-0a3a7c140738",
+    "target_ref": "grant_39687912-7493-4981-93fb-a118549bc39f",
     "decision": "allow"
   },
   {

@@ -8,7 +8,7 @@
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import type { ClientRequest, Json, ScenarioObservation, UsageEvent } from '../../contracts/interfaces.js';
+import type { ClientRequest, Json, ScenarioObservation, UsageEvent, EngineeringContext } from '../../contracts/interfaces.js';
 import { ControllerDatabase } from '../../packages/state/src/database.js';
 import { LifecycleService } from '../../packages/core/src/lifecycle.js';
 import { OperationalLog } from '../../packages/observability/src/logging.js';
@@ -19,6 +19,8 @@ import {
 } from '../../packages/observability/src/metrics.js';
 import { Evidence, fixedClock } from '../harness/evidence.js';
 import { registerScenario } from '../harness/registry.js';
+import { ContextStore } from '../../packages/core/src/context.js';
+import { digest } from '../../packages/contracts/src/canonical.js';
 
 const PROJECT = 'project_t19';
 const OTHER_PROJECT = 'project_t19_other';
@@ -90,7 +92,39 @@ registerScenario('AT-019', async (): Promise<ScenarioObservation> => {
     const foreign = operational.readForActor({ requesting_project_id: PROJECT, requested_project_id: OTHER_PROJECT });
     const leakedAcross = own.allowed ? containsSecret(JSON.stringify(own.records), ['SUPPLIER-PRIVATE-4417']) : ['unreadable'];
     log['cross_project'] = { own_records: own.allowed ? own.records.length : 0, foreign, other_project_content_in_own_read: leakedAcross };
-    const crossProjectDenied = foreign.allowed === false && foreign.reason === 'CROSS_PROJECT_LOG_READ_DENIED' &&
+    // Logs are one store that must not leak across projects; the engineering context is
+    // another, and it had no gate of its own. Two clients' facts live in the same database, and
+    // the project is part of every query or it is not isolation at all.
+    const contexts = new ContextStore(db);
+    const contextFor = (project_id: string, component_id: string, detail: string): EngineeringContext => ({
+      kind: 'engineering_context', schema_version: 1, context_id: `ctx_${component_id}`,
+      project_id, task_id: `task_${component_id}`, requirements_revision: 1,
+      source_digest: digest({ component_id, detail }),
+      components: [{
+        component_id, root_ref: component_id, domain: 'service', languages: ['Python'], frameworks: [],
+        target_platforms: ['linux'], environment_ref: null, grounding_status: 'GROUNDED',
+        source_refs: [`${component_id}/main.py`], required_check_ids: ['unit'], capability_gaps: [],
+      }],
+      observed_at: NOW,
+    });
+    contexts.store(contextFor(PROJECT, 'ours', 'our own service'),
+      { source_ref: 'ours/main.py', freshness_rule: 'source_digest', observed_at: NOW });
+    contexts.store(contextFor(OTHER_PROJECT, 'theirs', 'SUPPLIER-PRIVATE-4417'),
+      { source_ref: 'theirs/main.py', freshness_rule: 'source_digest', observed_at: NOW });
+    const ourContexts = contexts.current(PROJECT);
+    const theirContexts = contexts.current(OTHER_PROJECT);
+    const contextLeak = containsSecret(JSON.stringify(ourContexts), ['SUPPLIER-PRIVATE-4417']);
+    log['cross_project_context'] = {
+      ours: ourContexts.map(entry => entry.context_id),
+      theirs: theirContexts.map(entry => entry.context_id),
+      other_project_content_in_our_read: contextLeak,
+    };
+    const contextIsolated = ourContexts.length === 1 && ourContexts[0]?.context_id === 'ctx_ours' &&
+      theirContexts.length === 1 && theirContexts[0]?.context_id === 'ctx_theirs' &&
+      contextLeak.length === 0;
+
+    const crossProjectDenied = contextIsolated &&
+      foreign.allowed === false && foreign.reason === 'CROSS_PROJECT_LOG_READ_DENIED' &&
       leakedAcross.length === 0;
 
     // 3. Retention at 30, 90 and 365 days on a fixed clock, with a legal hold.
@@ -155,13 +189,20 @@ registerScenario('AT-019', async (): Promise<ScenarioObservation> => {
     const duplicate = await service.recordUsage({ ...usage('attempt_ok', 'event_1', 2, 'complete'), usage_event_id: 'usage_dup' });
     await service.recordUsage(usage('attempt_ok', 'event_2', null, 'partial'));
     await service.recordUsage(usage('attempt_failed', 'event_3', 3, 'complete'));
+    // An unmeasured turn on an attempt that then failed: the reserve has to land in the failed
+    // column, not vanish. Without this the split could quietly cost unknown work at zero and
+    // every arithmetic assertion above would still pass.
+    await service.recordUsage(usage('attempt_failed', 'event_4', null, 'unavailable'));
     const rollup = rollupUsage(db, { run_id: run.run_id, unknown_reserve_microusd: 500_000 });
     log['usage'] = { first, duplicate, rollup };
-    const unknownNotZero = rollup.unknown_events === 1 &&
-      rollup.reserved_for_unknown_microusd === 500_000 &&
-      rollup.total_including_unknown_microusd === rollup.known_cost_microusd + 500_000 &&
+    const unknownNotZero = rollup.unknown_events === 2 &&
+      rollup.reserved_for_unknown_microusd === 1_000_000 &&
+      rollup.total_including_unknown_microusd === rollup.known_cost_microusd + 1_000_000 &&
       rollup.coverage === 'partial' && first === 'inserted' && duplicate === 'duplicate';
-    const failedCostIncluded = rollup.failed_attempt_cost_microusd === 3_000_000 &&
+    const failedCostIncluded =
+      // 3 USD measured, plus the 0.5 USD reserve for the unmeasured turn on the same attempt.
+      rollup.failed_attempt_cost_microusd === 3_500_000 &&
+      rollup.unknown_events === 2 &&
       rollup.total_including_unknown_microusd >= rollup.failed_attempt_cost_microusd &&
       rollup.successful_attempt_cost_microusd > 0;
 

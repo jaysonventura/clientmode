@@ -55,6 +55,15 @@
     },
     "other_project_content_in_own_read": []
   },
+  "cross_project_context": {
+    "ours": [
+      "ctx_ours"
+    ],
+    "theirs": [
+      "ctx_theirs"
+    ],
+    "other_project_content_in_our_read": []
+  },
   "retention": {
     "policy_days": {
       "operational_log": 30,
@@ -171,13 +180,13 @@
     "first": "inserted",
     "duplicate": "duplicate",
     "rollup": {
-      "events": 3,
+      "events": 4,
       "complete_events": 2,
-      "unknown_events": 1,
+      "unknown_events": 2,
       "known_cost_microusd": 5000000,
-      "reserved_for_unknown_microusd": 500000,
-      "total_including_unknown_microusd": 5500000,
-      "failed_attempt_cost_microusd": 3000000,
+      "reserved_for_unknown_microusd": 1000000,
+      "total_including_unknown_microusd": 6000000,
+      "failed_attempt_cost_microusd": 3500000,
       "successful_attempt_cost_microusd": 2500000,
       "coverage": "partial"
     }

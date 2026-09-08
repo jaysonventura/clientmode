@@ -1,7 +1,7 @@
 {
   "idempotent_replay": {
-    "first": "run_26c2e1c4-9359-4cca-b1b1-d5266cb8c3a9",
-    "replay": "run_26c2e1c4-9359-4cca-b1b1-d5266cb8c3a9",
+    "first": "run_394eb609-082f-477a-adb3-bce77fff2f96",
+    "replay": "run_394eb609-082f-477a-adb3-bce77fff2f96",
     "rows": 1
   },
   "changed_payload": {
@@ -51,10 +51,10 @@
     ]
   },
   "restart": {
-    "child": "{\"run_id\":\"run_e660d793-4f4e-4b86-ba7b-27769c63107a\",\"state\":\"RECEIVED\"}",
+    "child": "{\"run_id\":\"run_93e5f48e-ced6-45df-a7f5-6c09c22a9cd1\",\"state\":\"RECEIVED\"}",
     "child_signal": "SIGKILL",
     "recovered": {
-      "run_id": "run_e660d793-4f4e-4b86-ba7b-27769c63107a",
+      "run_id": "run_93e5f48e-ced6-45df-a7f5-6c09c22a9cd1",
       "project_id": "project_t02",
       "contract_id": null,
       "requirements_revision": 0,
@@ -79,7 +79,7 @@
     },
     "reconciliation": {
       "expired_leases": [
-        "lse_a2b5cac2-44c9-4d87-b37d-647d3efc43c5"
+        "lse_8ee0314f-bdb6-4c34-9db6-b3ae85c2beec"
       ],
       "revoked_attempts": [
         "attempt_t02"
@@ -100,7 +100,7 @@
     "usage": {
       "ok": false,
       "code": "ATTEMPT_RUN_MISMATCH",
-      "message": "attempt_t02 does not belong to run_53dea518-d557-4fa4-87dc-24f234c45fd5"
+      "message": "attempt_t02 does not belong to run_8dcc7155-dfa4-445a-9a8c-227229e2426f"
     },
     "budget": {
       "ok": false,
@@ -125,7 +125,7 @@
       "run": {
         "kind": "run",
         "schema_version": 1,
-        "run_id": "run_26c2e1c4-9359-4cca-b1b1-d5266cb8c3a9",
+        "run_id": "run_394eb609-082f-477a-adb3-bce77fff2f96",
         "project_id": "project_t02",
         "contract_id": "contract_t02",
         "requirements_revision": 2,
@@ -141,7 +141,7 @@
         "attempt_t02"
       ],
       "revoked_leases": [
-        "lse_7df124a2-d24f-44b0-974e-edbdb9fb3318"
+        "lse_508553f7-0d44-41b9-8ccd-dff1fe0c4673"
       ]
     },
     "after": {

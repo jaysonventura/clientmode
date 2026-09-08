@@ -83,8 +83,8 @@ All twenty base gates are covered.
 | `K38` | the new version is activated before its migrations run | AT-018 asserts state restoration and rollback safety, not activation ordering |
 | `K35` | one normalised event kind dropped on the way out | AT-010 reads the adapter's normalised stream for the kinds it needs; a missing usage event is caught by AT-011's coverage assertion instead |
 | `K20b` | distribution self-containment forced to `true` | forcing the flag to the value the gate wants cannot make the gate fail. `K40` plants a real path back into the build tree and AT-017 goes red |
-| `K12b` | unknown provider cost counted as zero in the attempt split | **an open coverage gap.** AT-019 asserts the unknown reserve in the roll-up total and the failed-attempt cost separately, but its fixture's unknown-cost event does not belong to a failed attempt, so zeroing the reserve inside the split changes no asserted number. Closing it needs an AT-019 fixture where an unknown-cost event belongs to a revoked attempt |
-| `K22b` | `ContextStore.current` returns every project's facts | AT-013 exercises `ProjectMemory.recall`, which is a different function. `K22c` mutates the one the gate actually uses and AT-013 goes red. `ContextStore.current` has no gate of its own — a second open gap |
+| `K12b` | unknown provider cost counted as zero in the attempt split | **closed.** AT-019's fixture now records an unmeasured turn on the attempt that then failed, so the reserve has to land in the failed column. `G1` turns the gate red |
+| `K22b` | `ContextStore.current` returns every project's facts | **closed.** AT-013 exercises `ProjectMemory.recall`; `ContextStore.current` now has its own check in AT-019, where two clients' engineering contexts share a database and the project has to be part of the query. `G2` turns the gate red |
 
 ## Superseded mutations
 
@@ -98,6 +98,11 @@ All twenty base gates are covered.
 | `K20` | `K40` | first run was inconclusive or targeted the wrong function |
 | `K21` | `K21b` | first run was inconclusive or targeted the wrong function |
 | `K22` | `K22c` | first run was inconclusive or targeted the wrong function |
+
+## Both gaps later closed
+
+The two gaps named above were left open when the matrix was first written and were closed in a
+later round. `G1` and `G2` are the mutations that prove it, and both turn AT-019 red.
 
 ## Three coverage gaps this exercise closed
 

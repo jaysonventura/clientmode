@@ -411,7 +411,7 @@
             "updated_at": "2026-09-08T15:00:03.000Z",
             "question_id": "question_t13",
             "project_id": "project_t13",
-            "run_id": "run_d9e3676c-4364-407e-9eeb-607afb745bc7",
+            "run_id": "run_b5080a4a-1a08-425a-bd2e-dab6d1ec07c0",
             "requirements_revision": 0,
             "prompt": "Should a partial payment be recorded, or is the whole amount always collected on delivery?",
             "recommendation": "Start with payment on delivery only.",

@@ -46,7 +46,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 222
+    "wall_ms": 190
   },
   {
     "trial_id": "holdout_hx_ui_cart_badge_2",
@@ -95,7 +95,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 217
+    "wall_ms": 240
   },
   {
     "trial_id": "holdout_hx_ui_cart_badge_3",
@@ -144,7 +144,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 260
+    "wall_ms": 216
   },
   {
     "trial_id": "holdout_hx_ui_price_alignment_1",
@@ -202,7 +202,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 355
+    "wall_ms": 302
   },
   {
     "trial_id": "holdout_hx_ui_price_alignment_2",
@@ -260,7 +260,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 288
+    "wall_ms": 313
   },
   {
     "trial_id": "holdout_hx_ui_price_alignment_3",
@@ -318,7 +318,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 351
+    "wall_ms": 317
   },
   {
     "trial_id": "holdout_hx_ui_empty_cart_1",
@@ -375,7 +375,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 323
+    "wall_ms": 270
   },
   {
     "trial_id": "holdout_hx_ui_empty_cart_2",
@@ -432,7 +432,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 281
+    "wall_ms": 276
   },
   {
     "trial_id": "holdout_hx_ui_empty_cart_3",
@@ -489,7 +489,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 290
+    "wall_ms": 222
   },
   {
     "trial_id": "holdout_hx_ui_disabled_submit_1",
@@ -544,7 +544,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 300
+    "wall_ms": 231
   },
   {
     "trial_id": "holdout_hx_ui_disabled_submit_2",
@@ -599,7 +599,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 279
+    "wall_ms": 230
   },
   {
     "trial_id": "holdout_hx_ui_disabled_submit_3",
@@ -654,7 +654,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 252
+    "wall_ms": 225
   },
   {
     "trial_id": "holdout_hx_ui_error_banner_1",
@@ -703,7 +703,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 168
+    "wall_ms": 158
   },
   {
     "trial_id": "holdout_hx_ui_error_banner_2",
@@ -752,7 +752,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 166
+    "wall_ms": 199
   },
   {
     "trial_id": "holdout_hx_ui_error_banner_3",
@@ -801,7 +801,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 168
+    "wall_ms": 246
   },
   {
     "trial_id": "holdout_hx_ui_focus_ring_1",
@@ -852,7 +852,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 227
+    "wall_ms": 321
   },
   {
     "trial_id": "holdout_hx_ui_focus_ring_2",
@@ -903,7 +903,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 336
+    "wall_ms": 302
   },
   {
     "trial_id": "holdout_hx_ui_focus_ring_3",
@@ -954,7 +954,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 334
+    "wall_ms": 358
   },
   {
     "trial_id": "holdout_hx_ui_small_viewport_1",
@@ -1011,7 +1011,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 350
+    "wall_ms": 404
   },
   {
     "trial_id": "holdout_hx_ui_small_viewport_2",
@@ -1068,7 +1068,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 347
+    "wall_ms": 368
   },
   {
     "trial_id": "holdout_hx_ui_small_viewport_3",
@@ -1125,7 +1125,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 339
+    "wall_ms": 303
   },
   {
     "trial_id": "holdout_hx_ui_quantity_stepper_1",
@@ -1180,7 +1180,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 362
+    "wall_ms": 223
   },
   {
     "trial_id": "holdout_hx_ui_quantity_stepper_2",
@@ -1235,7 +1235,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 276
+    "wall_ms": 209
   },
   {
     "trial_id": "holdout_hx_ui_quantity_stepper_3",
@@ -1290,7 +1290,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 214
+    "wall_ms": 217
   },
   {
     "trial_id": "holdout_hx_ui_currency_format_1",
@@ -1339,7 +1339,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 155
+    "wall_ms": 163
   },
   {
     "trial_id": "holdout_hx_ui_currency_format_2",
@@ -1388,7 +1388,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 161
+    "wall_ms": 160
   },
   {
     "trial_id": "holdout_hx_ui_currency_format_3",
@@ -1437,7 +1437,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 166
+    "wall_ms": 149
   },
   {
     "trial_id": "holdout_hx_ui_loading_state_1",
@@ -1488,7 +1488,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 205
+    "wall_ms": 199
   },
   {
     "trial_id": "holdout_hx_ui_loading_state_2",
@@ -1539,7 +1539,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 194
+    "wall_ms": 195
   },
   {
     "trial_id": "holdout_hx_ui_loading_state_3",
@@ -1590,7 +1590,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 202
+    "wall_ms": 201
   },
   {
     "trial_id": "holdout_hx_ui_long_product_name_1",
@@ -1654,7 +1654,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 193
+    "wall_ms": 192
   },
   {
     "trial_id": "holdout_hx_ui_long_product_name_2",
@@ -1718,7 +1718,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 195
+    "wall_ms": 192
   },
   {
     "trial_id": "holdout_hx_ui_long_product_name_3",
@@ -1782,7 +1782,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 193
+    "wall_ms": 192
   },
   {
     "trial_id": "holdout_hx_ui_receipt_summary_1",
@@ -1837,7 +1837,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 191
+    "wall_ms": 194
   },
   {
     "trial_id": "holdout_hx_ui_receipt_summary_2",
@@ -1947,7 +1947,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 193
+    "wall_ms": 196
   },
   {
     "trial_id": "holdout_hx_auth_session_scope_1",
@@ -2045,7 +2045,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 131
+    "wall_ms": 128
   },
   {
     "trial_id": "holdout_hx_auth_session_scope_3",
@@ -2094,7 +2094,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 132
+    "wall_ms": 125
   },
   {
     "trial_id": "holdout_hx_auth_price_authority_1",
@@ -2152,7 +2152,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 170
+    "wall_ms": 178
   },
   {
     "trial_id": "holdout_hx_auth_price_authority_2",
@@ -2210,7 +2210,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 181
+    "wall_ms": 177
   },
   {
     "trial_id": "holdout_hx_auth_price_authority_3",
@@ -2268,7 +2268,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 172
+    "wall_ms": 196
   },
   {
     "trial_id": "holdout_hx_auth_replay_order_1",
@@ -2325,7 +2325,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 169
+    "wall_ms": 181
   },
   {
     "trial_id": "holdout_hx_auth_replay_order_2",
@@ -2382,7 +2382,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 171
+    "wall_ms": 178
   },
   {
     "trial_id": "holdout_hx_auth_replay_order_3",
@@ -2439,7 +2439,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 172
+    "wall_ms": 174
   },
   {
     "trial_id": "holdout_hx_data_quantity_bounds_1",
@@ -2494,7 +2494,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 187
+    "wall_ms": 176
   },
   {
     "trial_id": "holdout_hx_data_quantity_bounds_2",
@@ -2549,7 +2549,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 296
+    "wall_ms": 191
   },
   {
     "trial_id": "holdout_hx_data_quantity_bounds_3",
@@ -2604,7 +2604,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 279
+    "wall_ms": 304
   },
   {
     "trial_id": "holdout_hx_data_unknown_product_1",
@@ -2653,7 +2653,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 177
+    "wall_ms": 212
   },
   {
     "trial_id": "holdout_hx_data_unknown_product_2",
@@ -2702,7 +2702,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 162
+    "wall_ms": 177
   },
   {
     "trial_id": "holdout_hx_data_unknown_product_3",
@@ -2751,7 +2751,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 158
+    "wall_ms": 176
   },
   {
     "trial_id": "holdout_hx_data_total_integrity_1",
@@ -2802,7 +2802,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 220
+    "wall_ms": 213
   },
   {
     "trial_id": "holdout_hx_data_total_integrity_2",
@@ -2853,7 +2853,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 197
+    "wall_ms": 206
   },
   {
     "trial_id": "holdout_hx_data_total_integrity_3",
@@ -2904,7 +2904,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 214
+    "wall_ms": 201
   },
   {
     "trial_id": "holdout_hx_integration_timeout_1",
@@ -2961,7 +2961,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 197
+    "wall_ms": 190
   },
   {
     "trial_id": "holdout_hx_integration_timeout_2",
@@ -3018,7 +3018,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 191
+    "wall_ms": 207
   },
   {
     "trial_id": "holdout_hx_integration_timeout_3",
@@ -3075,7 +3075,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 185
+    "wall_ms": 197
   },
   {
     "trial_id": "holdout_hx_integration_partial_write_1",
@@ -3130,7 +3130,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 187
+    "wall_ms": 189
   },
   {
     "trial_id": "holdout_hx_integration_partial_write_2",
@@ -3185,7 +3185,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 177
+    "wall_ms": 191
   },
   {
     "trial_id": "holdout_hx_integration_partial_write_3",
@@ -3240,7 +3240,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 196
+    "wall_ms": 170
   },
   {
     "trial_id": "holdout_hx_integration_retry_safety_1",
@@ -3296,7 +3296,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 150
+    "wall_ms": 136
   },
   {
     "trial_id": "holdout_hx_integration_retry_safety_2",
@@ -3352,7 +3352,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 132
+    "wall_ms": 140
   },
   {
     "trial_id": "holdout_hx_integration_retry_safety_3",
@@ -3459,7 +3459,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 171
+    "wall_ms": 172
   },
   {
     "trial_id": "holdout_hx_data_currency_units_2",
@@ -3510,7 +3510,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 171
+    "wall_ms": 167
   },
   {
     "trial_id": "holdout_hx_data_currency_units_3",
@@ -3625,7 +3625,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 167
+    "wall_ms": 170
   },
   {
     "trial_id": "holdout_hx_auth_role_separation_2",
@@ -3689,7 +3689,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 169
+    "wall_ms": 168
   },
   {
     "trial_id": "holdout_hx_auth_role_separation_3",
@@ -3753,7 +3753,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 171
+    "wall_ms": 172
   },
   {
     "trial_id": "holdout_hx_data_audit_trail_1",
@@ -3815,7 +3815,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 169
+    "wall_ms": 167
   },
   {
     "trial_id": "holdout_hx_data_audit_trail_2",
@@ -3877,7 +3877,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 170
+    "wall_ms": 173
   },
   {
     "trial_id": "holdout_hx_data_audit_trail_3",
@@ -3939,7 +3939,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 174
+    "wall_ms": 168
   },
   {
     "trial_id": "holdout_hx_lang_total_wrong_1",
@@ -3992,7 +3992,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 145
+    "wall_ms": 143
   },
   {
     "trial_id": "holdout_hx_lang_total_wrong_2",
@@ -4045,7 +4045,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 145
+    "wall_ms": 157
   },
   {
     "trial_id": "holdout_hx_lang_total_wrong_3",
@@ -4098,7 +4098,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 143
+    "wall_ms": 158
   },
   {
     "trial_id": "holdout_hx_lang_no_negative_1",
@@ -4155,7 +4155,7 @@
       "taglish": [],
       "equivalent": false
     },
-    "wall_ms": 174
+    "wall_ms": 177
   },
   {
     "trial_id": "holdout_hx_lang_no_negative_2",
@@ -4269,7 +4269,7 @@
       "taglish": [],
       "equivalent": false
     },
-    "wall_ms": 168
+    "wall_ms": 169
   },
   {
     "trial_id": "holdout_hx_lang_slow_checkout_1",
@@ -4334,7 +4334,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 201
+    "wall_ms": 194
   },
   {
     "trial_id": "holdout_hx_lang_slow_checkout_2",
@@ -4399,7 +4399,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 209
+    "wall_ms": 204
   },
   {
     "trial_id": "holdout_hx_lang_slow_checkout_3",
@@ -4464,7 +4464,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 194
+    "wall_ms": 326
   },
   {
     "trial_id": "holdout_hx_lang_button_hidden_1",
@@ -4529,7 +4529,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 192
+    "wall_ms": 384
   },
   {
     "trial_id": "holdout_hx_lang_button_hidden_2",
@@ -4594,7 +4594,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 194
+    "wall_ms": 269
   },
   {
     "trial_id": "holdout_hx_lang_button_hidden_3",
@@ -4659,7 +4659,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 205
+    "wall_ms": 344
   },
   {
     "trial_id": "holdout_hx_lang_wrong_change_1",
@@ -4712,7 +4712,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 194
+    "wall_ms": 241
   },
   {
     "trial_id": "holdout_hx_lang_wrong_change_2",
@@ -4765,7 +4765,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 168
+    "wall_ms": 212
   },
   {
     "trial_id": "holdout_hx_lang_wrong_change_3",
@@ -4818,7 +4818,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 171
+    "wall_ms": 246
   },
   {
     "trial_id": "holdout_hx_lang_double_order_1",
@@ -4877,7 +4877,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 243
+    "wall_ms": 286
   },
   {
     "trial_id": "holdout_hx_lang_double_order_2",
@@ -4936,7 +4936,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 216
+    "wall_ms": 266
   },
   {
     "trial_id": "holdout_hx_lang_double_order_3",
@@ -4995,7 +4995,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 222
+    "wall_ms": 238
   },
   {
     "trial_id": "holdout_hx_lang_price_change_1",
@@ -5063,7 +5063,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 191
+    "wall_ms": 317
   },
   {
     "trial_id": "holdout_hx_lang_price_change_2",
@@ -5131,7 +5131,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 228
+    "wall_ms": 244
   },
   {
     "trial_id": "holdout_hx_lang_price_change_3",
@@ -5258,7 +5258,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 204
+    "wall_ms": 194
   },
   {
     "trial_id": "holdout_hx_lang_receipt_missing_2",
@@ -5317,7 +5317,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 206
+    "wall_ms": 195
   },
   {
     "trial_id": "holdout_hx_lang_receipt_missing_3",
@@ -5376,7 +5376,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 192
+    "wall_ms": 194
   },
   {
     "trial_id": "holdout_hx_lang_login_loop_1",
@@ -5429,7 +5429,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 133
+    "wall_ms": 128
   },
   {
     "trial_id": "holdout_hx_lang_login_loop_2",
@@ -5482,7 +5482,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 147
+    "wall_ms": 128
   },
   {
     "trial_id": "holdout_hx_lang_login_loop_3",
@@ -5535,7 +5535,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 139
+    "wall_ms": 131
   },
   {
     "trial_id": "holdout_hx_lang_stock_wrong_1",
@@ -5590,7 +5590,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 169
+    "wall_ms": 272
   },
   {
     "trial_id": "holdout_hx_lang_stock_wrong_2",
@@ -5645,7 +5645,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 168
+    "wall_ms": 202
   },
   {
     "trial_id": "holdout_hx_lang_stock_wrong_3",
@@ -5700,7 +5700,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 169
+    "wall_ms": 176
   },
   {
     "trial_id": "holdout_hx_lang_address_lost_1",
@@ -5761,7 +5761,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 190
+    "wall_ms": 196
   },
   {
     "trial_id": "holdout_hx_lang_address_lost_2",
@@ -5883,7 +5883,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 191
+    "wall_ms": 199
   },
   {
     "trial_id": "holdout_hx_lang_units_confusing_1",
@@ -5942,7 +5942,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 1870
+    "wall_ms": 2176
   },
   {
     "trial_id": "holdout_hx_lang_units_confusing_2",
@@ -6001,7 +6001,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 1413
+    "wall_ms": 1482
   },
   {
     "trial_id": "holdout_hx_lang_units_confusing_3",
@@ -6060,7 +6060,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 1395
+    "wall_ms": 1463
   },
   {
     "trial_id": "holdout_hx_backend_pricing_service_1",
@@ -6116,7 +6116,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 133
+    "wall_ms": 168
   },
   {
     "trial_id": "holdout_hx_backend_pricing_service_2",
@@ -6172,7 +6172,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 134
+    "wall_ms": 132
   },
   {
     "trial_id": "holdout_hx_backend_pricing_service_3",
@@ -6279,7 +6279,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 174
+    "wall_ms": 185
   },
   {
     "trial_id": "holdout_hx_backend_rounding_2",
@@ -6330,7 +6330,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 176
+    "wall_ms": 177
   },
   {
     "trial_id": "holdout_hx_backend_rounding_3",
@@ -6381,7 +6381,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 182
+    "wall_ms": 178
   },
   {
     "trial_id": "holdout_hx_backend_bulk_order_1",
@@ -6445,7 +6445,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 181
+    "wall_ms": 192
   },
   {
     "trial_id": "holdout_hx_backend_bulk_order_2",
@@ -6509,7 +6509,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 194
+    "wall_ms": 186
   },
   {
     "trial_id": "holdout_hx_backend_bulk_order_3",
@@ -6573,7 +6573,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 183
+    "wall_ms": 175
   },
   {
     "trial_id": "holdout_hx_backend_zero_items_1",
@@ -6628,7 +6628,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 177
+    "wall_ms": 175
   },
   {
     "trial_id": "holdout_hx_backend_zero_items_2",
@@ -6683,7 +6683,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 178
+    "wall_ms": 172
   },
   {
     "trial_id": "holdout_hx_backend_zero_items_3",
@@ -6738,7 +6738,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 174
+    "wall_ms": 173
   },
   {
     "trial_id": "holdout_hx_native_pricing_binary_1",
@@ -6794,7 +6794,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 695
+    "wall_ms": 703
   },
   {
     "trial_id": "holdout_hx_native_pricing_binary_2",
@@ -6850,7 +6850,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 693
+    "wall_ms": 829
   },
   {
     "trial_id": "holdout_hx_native_pricing_binary_3",
@@ -6906,7 +6906,7 @@
     ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 691
+    "wall_ms": 738
   },
   {
     "trial_id": "holdout_hx_native_currency_units_1",
@@ -6957,7 +6957,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1602
+    "wall_ms": 1703
   },
   {
     "trial_id": "holdout_hx_native_currency_units_2",
@@ -7008,7 +7008,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1377
+    "wall_ms": 1550
   },
   {
     "trial_id": "holdout_hx_native_currency_units_3",
@@ -7059,7 +7059,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1403
+    "wall_ms": 1727
   },
   {
     "trial_id": "holdout_hx_native_large_quantity_1",
@@ -7116,7 +7116,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1644
+    "wall_ms": 1713
   },
   {
     "trial_id": "holdout_hx_native_large_quantity_2",
@@ -7173,7 +7173,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1381
+    "wall_ms": 1430
   },
   {
     "trial_id": "holdout_hx_native_large_quantity_3",
@@ -7230,7 +7230,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1397
+    "wall_ms": 1441
   },
   {
     "trial_id": "holdout_hx_native_refuse_negative_1",
@@ -7285,7 +7285,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1410
+    "wall_ms": 1455
   },
   {
     "trial_id": "holdout_hx_native_refuse_negative_2",
@@ -7340,7 +7340,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1411
+    "wall_ms": 1388
   },
   {
     "trial_id": "holdout_hx_native_refuse_negative_3",
@@ -7395,7 +7395,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1365
+    "wall_ms": 1482
   },
   {
     "trial_id": "holdout_hx_systems_parser_bounds_1",
@@ -7444,7 +7444,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 891
+    "wall_ms": 673
   },
   {
     "trial_id": "holdout_hx_systems_parser_bounds_2",
@@ -7493,7 +7493,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 376
+    "wall_ms": 340
   },
   {
     "trial_id": "holdout_hx_systems_parser_bounds_3",
@@ -7542,7 +7542,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 336
+    "wall_ms": 320
   },
   {
     "trial_id": "holdout_hx_systems_parser_total_1",
@@ -7593,7 +7593,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 899
+    "wall_ms": 920
   },
   {
     "trial_id": "holdout_hx_systems_parser_total_2",
@@ -7644,7 +7644,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 693
+    "wall_ms": 694
   },
   {
     "trial_id": "holdout_hx_systems_parser_total_3",
@@ -7695,7 +7695,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 696
+    "wall_ms": 675
   },
   {
     "trial_id": "holdout_hx_systems_parser_unknown_1",
@@ -7752,7 +7752,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 933
+    "wall_ms": 871
   },
   {
     "trial_id": "holdout_hx_systems_parser_unknown_2",
@@ -7809,7 +7809,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 759
+    "wall_ms": 660
   },
   {
     "trial_id": "holdout_hx_systems_parser_unknown_3",
@@ -7866,7 +7866,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 689
+    "wall_ms": 687
   },
   {
     "trial_id": "holdout_hx_polyglot_shared_total_1",
@@ -7921,7 +7921,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 901
+    "wall_ms": 675
   },
   {
     "trial_id": "holdout_hx_polyglot_shared_total_2",
@@ -7976,7 +7976,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 669
+    "wall_ms": 678
   },
   {
     "trial_id": "holdout_hx_polyglot_shared_total_3",
@@ -8031,7 +8031,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 708
+    "wall_ms": 661
   },
   {
     "trial_id": "holdout_hx_llm_grounded_total_1",
@@ -8080,7 +8080,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 146
+    "wall_ms": 132
   },
   {
     "trial_id": "holdout_hx_llm_grounded_total_2",
@@ -8129,7 +8129,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 125
+    "wall_ms": 128
   },
   {
     "trial_id": "holdout_hx_llm_grounded_total_3",
@@ -8178,7 +8178,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 129
+    "wall_ms": 130
   },
   {
     "trial_id": "holdout_hx_llm_refuse_unsupported_1",
@@ -8229,7 +8229,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 171
+    "wall_ms": 170
   },
   {
     "trial_id": "holdout_hx_llm_refuse_unsupported_2",
@@ -8280,7 +8280,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 174
+    "wall_ms": 170
   },
   {
     "trial_id": "holdout_hx_llm_refuse_unsupported_3",
@@ -8331,6 +8331,6 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 186
+    "wall_ms": 172
   }
 ]

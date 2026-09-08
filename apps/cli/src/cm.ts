@@ -8,7 +8,7 @@
  * A zero exit means the command did what it said within its stated scope. It is never a
  * product readiness verdict.
  */
-import { mkdirSync, existsSync, readFileSync, readdirSync, realpathSync, writeFileSync, rmSync } from 'node:fs';
+import { cpSync, mkdirSync, existsSync, readFileSync, readdirSync, realpathSync, writeFileSync, rmSync } from 'node:fs';
 import { execFileSync, spawnSync } from 'node:child_process';
 import os from 'node:os';
 import path from 'node:path';
@@ -29,6 +29,7 @@ import { assessRollback, restore, upgrade } from '../../../packages/packaging/sr
 import { checkInstall } from '../../../packages/packaging/src/install-health.js';
 import { redactValue } from '../../../packages/observability/src/redaction.js';
 import { toolkitRoot } from '../../../packages/contracts/src/toolkit-root.js';
+import { writeConsoleIndex } from './console-page.js';
 import { makePrivateDirectory } from '../../../packages/verifier/src/file-permissions.js';
 
 export type Argv = { command: string; positional: string[]; flags: Record<string, string | true> };
@@ -669,12 +670,21 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     // The console bundler needs esbuild, which a packaged install may not carry. Loading it
     // here rather than at module load keeps every other command working without it, and turns
     // its absence into a reported capability gap instead of a CLI that will not start.
+    const boot = { run_id: run.run_id, status: run.state, bootstrap_secret: bootstrap };
     let consoleDir: string;
     try {
-      const { buildConsole } = await import('./console-bundle.js');
-      consoleDir = await buildConsole(path.join(state_dir, 'console'), {
-        run_id: run.run_id, status: run.state, bootstrap_secret: bootstrap,
-      });
+      // An install ships the console already compiled. A checkout does not, so it is built on
+      // the spot — the same bundler, run at a different time.
+      const shipped = path.join(toolkitRoot(), 'console', 'app.js');
+      if (existsSync(shipped)) {
+        consoleDir = path.join(state_dir, 'console');
+        mkdirSync(consoleDir, { recursive: true });
+        cpSync(path.dirname(shipped), consoleDir, { recursive: true });
+        writeConsoleIndex(consoleDir, boot);
+      } else {
+        const { buildConsole } = await import('./console-bundle.js');
+        consoleDir = await buildConsole(path.join(state_dir, 'console'), boot);
+      }
     } catch (error) {
       process.stderr.write('the console cannot be built on this install: ' +
         `${String((error as Error).message).slice(0, 120)}\n` +

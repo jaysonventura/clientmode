@@ -14,7 +14,7 @@ import { fingerprintTree } from '../../packages/packaging/src/install.js';
 import { install, remove, describePlan } from '../../apps/cli/src/install.js';
 import { activate, deactivate } from '../../apps/cli/src/cm.js';
 import { packageToolkit } from '../harness/package-toolkit.js';
-import { runLauncher, runPackaged } from '../harness/cli.js';
+import { openConsoleThroughLauncher, runLauncher, runPackaged } from '../harness/cli.js';
 import { Evidence, ROOT, attempt } from '../harness/evidence.js';
 import { disposableProject, liveHostAvailable, liveTurn } from '../harness/live-provider.js';
 import { registerScenario } from '../harness/registry.js';
@@ -237,6 +237,30 @@ registerScenario('AT-017', async (): Promise<ScenarioObservation> => {
     ] as const).map(async ([name, argv]) => ({
       name, exit_code: await runLauncher(packaged.launcher!, argv, path.join(sandbox, 'launcher-home'), awayFrom),
     })));
+    // The console is the client's window into a run, and until it was shipped compiled this
+    // was the one command that did not survive leaving the checkout: `cm open` needed a
+    // browser toolchain on the client's machine and reported a capability gap instead of a
+    // URL. Opened here through the installed launcher, from an unrelated directory.
+    const consoleRoot = path.join(sandbox, 'console-project');
+    mkdirSync(consoleRoot, { recursive: true });
+    writeFileSync(path.join(consoleRoot, 'brief.txt'), 'A one-page ordering site. No online payment.\n');
+    const consoleHome = path.join(sandbox, 'console-home');
+    const consoleRunExit = packaged.launcher === null ? 8
+      : await runLauncher(packaged.launcher, ['run', '--root', consoleRoot, '--request-file', path.join(consoleRoot, 'brief.txt')], consoleHome, awayFrom);
+    const served = packaged.launcher === null
+      ? { url: null, page_status: null, boot_present: false, app_status: null, app_bytes: 0, output: '' }
+      : await openConsoleThroughLauncher(packaged.launcher, ['open', '--root', consoleRoot], consoleHome, awayFrom);
+    log['packaged_console'] = {
+      ships_compiled_application: existsSync(path.join(packagedDir, 'console', 'app.js')),
+      run_exit_code: consoleRunExit,
+      url: served.url, page_status: served.page_status, boot_present: served.boot_present,
+      app_status: served.app_status, app_bytes: served.app_bytes,
+      output: served.output.split('\n').slice(0, 6),
+    };
+    const consoleServed = existsSync(path.join(packagedDir, 'console', 'app.js')) &&
+      consoleRunExit === 0 && served.url !== null && served.page_status === 200 &&
+      served.boot_present && served.app_status === 200 && served.app_bytes > 10_000;
+
     const launcherText = packaged.launcher === null ? '' : readFileSync(packaged.launcher, 'utf8');
     log['portable_install'] = {
       ...(log['portable_install'] as Record<string, unknown>),
@@ -253,7 +277,8 @@ registerScenario('AT-017', async (): Promise<ScenarioObservation> => {
       // `doctor` answers `missing_capability` here because the throwaway home has no install —
       // which is the health check being right, not the launcher being broken. AT-018 is what
       // pins the exit codes down.
-      launcherRuns.length === 2 && launcherRuns.every(entry => entry.exit_code === 0 || entry.exit_code === 3);
+      launcherRuns.length === 2 && launcherRuns.every(entry => entry.exit_code === 0 || entry.exit_code === 3) &&
+      consoleServed;
 
     const uninstallRestores = portable && activationRoundTrips &&
       JSON.stringify(before) === JSON.stringify(afterUninstall) &&

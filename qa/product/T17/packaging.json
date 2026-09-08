@@ -54,7 +54,7 @@
     "wrong_location": {
       "ok": false,
       "code": "MANIFEST_WRONG_LOCATION",
-      "message": "MANIFEST_WRONG_LOCATION: /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/dist/codex/client-mode.json"
+      "message": "MANIFEST_WRONG_LOCATION: /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/dist/codex/client-mode.json"
     },
     "skill_without_front_matter": {
       "ok": false,
@@ -64,17 +64,17 @@
   },
   "install": {
     "dry_run_plan": [
-      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/client-mode/.claude-plugin/plugin.json",
-      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/client-mode/CLAUDE.md",
-      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/client-mode/skills/debug/SKILL.md",
-      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/client-mode/skills/delivery/SKILL.md",
-      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/client-mode/skills/grounding/SKILL.md",
-      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/client-mode/skills/handoff/SKILL.md",
-      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/client-mode/skills/intake/SKILL.md",
-      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/client-mode/skills/review/SKILL.md",
-      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/client-mode/skills/ui-ux/SKILL.md",
-      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/client-mode/skills/verify/SKILL.md",
-      "merge  /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/settings.json (adds clientMode; preserves 3 existing key(s))"
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/client-mode/.claude-plugin/plugin.json",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/client-mode/CLAUDE.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/client-mode/skills/debug/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/client-mode/skills/delivery/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/client-mode/skills/grounding/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/client-mode/skills/handoff/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/client-mode/skills/intake/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/client-mode/skills/review/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/client-mode/skills/ui-ux/SKILL.md",
+      "create /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/client-mode/skills/verify/SKILL.md",
+      "merge  /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/settings.json (adds clientMode; preserves 3 existing key(s))"
     ],
     "tree_unchanged_by_dry_run": true,
     "applied_files": 10,
@@ -100,12 +100,12 @@
     "claude": {
       "exit_code": 0,
       "marker_returned": true,
-      "source": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/Client Mode Tëst Config/client-mode/CLAUDE.md"
+      "source": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/Client Mode Tëst Config/client-mode/CLAUDE.md"
     },
     "codex": {
       "exit_code": 0,
       "marker_returned": true,
-      "source": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/codex-config/client-mode/AGENTS.md",
+      "source": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/codex-config/client-mode/AGENTS.md",
       "installed_files": 10
     }
   },
@@ -153,7 +153,7 @@
     "backup_removed": true
   },
   "portable_install": {
-    "bundle_bytes": 470451,
+    "bundle_bytes": 471717,
     "points_at_checkout": false,
     "runs": [
       {
@@ -169,7 +169,7 @@
         "exit_code": 0
       }
     ],
-    "launcher": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-pLPqUs/bin/cm",
+    "launcher": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t17-ViTFkM/bin/cm",
     "launcher_runs": [
       {
         "name": "doctor",
@@ -185,6 +185,20 @@
       "contracts",
       "adapters",
       "skills"
+    ]
+  },
+  "packaged_console": {
+    "ships_compiled_application": true,
+    "run_exit_code": 0,
+    "url": "http://127.0.0.1:53989",
+    "page_status": 200,
+    "boot_present": true,
+    "app_status": 200,
+    "app_bytes": 1089783,
+    "output": [
+      "http://127.0.0.1:53989",
+      "run run_d2d07e2a-b0a4-413b-a547-5d11ee288449 — press Ctrl+C to stop",
+      ""
     ]
   }
 }

@@ -39,6 +39,12 @@ export async function buildPortableToolkit(input: {
     external: ['esbuild', 'playwright', './console-bundle.js'],
     banner: { js: "import { createRequire as __cmRequire } from 'node:module';\nconst require = __cmRequire(import.meta.url);" },
   });
+  // The console is compiled here, where esbuild is available, and shipped compiled. Building
+  // it on the client's machine would have made a browser toolchain a runtime dependency of
+  // opening a run — which is exactly what `cm open` failed on outside a checkout.
+  const { buildConsoleAssets } = await import(path.join(source, 'apps/cli/src/console-bundle.ts'));
+  await (buildConsoleAssets as (out: string) => Promise<string>)(path.join(root, 'console'));
+
   for (const directory of CARRIED_DIRECTORIES) {
     cpSync(path.join(source, directory), path.join(root, directory), { recursive: true });
   }

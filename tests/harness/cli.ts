@@ -72,3 +72,49 @@ export function runLauncher(launcher: string, argv: readonly string[], home: str
     child.on('error', () => { clearTimeout(timer); resolve(8); });
   });
 }
+
+/** Open a run through the packaged launcher and fetch the console it serves.
+ *
+ * The interesting failure is not an exit code: `cm open` stays running, so a console that
+ * cannot be built shows up as a process that printed a capability gap instead of a URL. This
+ * waits for the URL, asks the server for the page and the compiled application, and stops it. */
+export function openConsoleThroughLauncher(launcher: string, argv: readonly string[], home: string, cwd: string):
+Promise<{ url: string | null; page_status: number | null; boot_present: boolean; app_status: number | null; app_bytes: number; output: string }> {
+  return new Promise(resolve => {
+    const child = spawn(launcher, [...argv], {
+      cwd, stdio: ['ignore', 'pipe', 'pipe'],
+      env: { ...process.env, NODE_NO_WARNINGS: '1', CM_HOME: home, CM_CWD: cwd },
+    });
+    let output = '';
+    const collect = (chunk: Buffer): void => { output += chunk.toString(); };
+    child.stdout.on('data', collect);
+    child.stderr.on('data', collect);
+
+    let settled = false;
+    const finish = async (): Promise<void> => {
+      if (settled) return;
+      settled = true;
+      clearInterval(poll);
+      clearTimeout(deadline);
+      const url = /http:\/\/[0-9.]+:\d+/.exec(output)?.[0] ?? null;
+      let page_status: number | null = null; let boot_present = false;
+      let app_status: number | null = null; let app_bytes = 0;
+      if (url !== null) {
+        try {
+          const page = await fetch(url);
+          page_status = page.status;
+          boot_present = (await page.text()).includes('id="boot"');
+          const app = await fetch(new URL('/app.js', url));
+          app_status = app.status;
+          app_bytes = (await app.text()).length;
+        } catch { /* recorded as what was actually reached */ }
+      }
+      try { child.kill('SIGTERM'); } catch { /* already gone */ }
+      resolve({ url, page_status, boot_present, app_status, app_bytes, output });
+    };
+    const poll = setInterval(() => { if (/http:\/\/[0-9.]+:\d+/.test(output)) void finish(); }, 200);
+    const deadline = setTimeout(() => { void finish(); }, 60_000);
+    child.on('close', () => { void finish(); });
+    child.on('error', () => { void finish(); });
+  });
+}

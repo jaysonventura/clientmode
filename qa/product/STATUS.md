@@ -265,6 +265,35 @@ a finished task.
 A folder reached two ways is one project: `/tmp/x` and `/private/tmp/x` used to hash to different
 state, which would have split the very continuity this depends on. Paths are canonicalised now.
 
+## Client-readiness pass — seven TDD rounds after all 33 gates were green
+
+Each round started with a failing assertion and ended with a mutation proving the new assertion
+load-bearing. Every bug below existed in a build where 33 gates were green.
+
+| Round | What was wrong | Mutations |
+|---|---|---|
+| 1 | **Seven of thirteen `cm` commands were declared and unrunnable.** `pause`, `resume`, `cancel`, `verify`, `export-evidence`, `rollback`, `upgrade` had no terminal entry point; the gate checked the surface and never ran a command. | `S1`–`S7` |
+| 1 | **Two terminals in one project crashed one of them.** The state-directory lock was taken on every open, not only by the process that owns the run loop. | `S2` |
+| 1 | **`PRAGMA busy_timeout` was set after `PRAGMA journal_mode = WAL`** — the statement that waits longest ran before the timeout that would have let it wait. Eight processes opening a fresh project at one instant: all eight failed. | `S6` |
+| 2 | **The reader missed three things clients say.** "customer pay when deliver" was not cash on delivery, "kapag ginawa kong zero yung quantity" was not the cart, and a refund raised no money question. | `C1`–`C3` |
+| 3 | **Six runtime file reads assumed a checkout layout**, so a packaged install could not find its own schemas. Two were only found by running the bundle. | `P1`, `P2b` |
+| 3 | **`esbuild` was imported at module load**, so an install without it could not run *any* command. | `P3b` |
+| 3 | **Five gates make live host calls and ran in parallel**, queueing against one account until the host refused — three gates failing for reasons unrelated to what they test. | — |
+| 4 | Both coverage gaps the mutation matrix had left open. | `G1`, `G2` |
+| 5 | **`cm install` did not produce a portable install**; the launcher pointed at the developer's checkout. `writeFileSync`'s `mode` does not apply to an existing file, so a reinstalled launcher was not executable. Repeated install/uninstall pushed the client's own instructions further down the page each cycle. | `Q1`–`Q4` |
+| 6 | **A refusal in the next sentence was not attached to what it refused.** "Kailangan pa ba ng account? Ayaw ko sana." People do not repeat the noun when they reject something they just named. | `R1`–`R3` |
+| 7 | **`cm doctor` said nothing about the install it was running from** — stale toolkit, orphaned launcher, drifted skills, and a broken install still exited 0. | `H1`–`H5` |
+
+The intake corpus is `fixtures/intake/briefs.ts`: 28 briefs of the kind clients actually send,
+each with its expectations declared beside it. It scored 16/20 and then 25/28 against builds that
+had just passed every gate.
+
+Two gates had to be fixed before they could be trusted. The first version of the command sweep
+shared one state home across fourteen invocations, so `rollback` sometimes found a snapshot
+`upgrade` had just taken — an answer that changed between runs. And the unwired check used an
+exit code that `doctor` later started returning for a genuinely broken install, so a wired
+command looked unwired; it reads the dispatcher's own sentence now.
+
 ## Explicitly not proven yet
 
 All 33 gates are green. These are the things that green does **not** cover, stated so nobody has

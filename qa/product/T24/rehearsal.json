@@ -4,14 +4,14 @@
     {
       "provider": "claude",
       "archive": "client-mode-claude-1.3.0-rc1.tar",
-      "archive_digest": "sha256:24f08b0899baf5bc50843eec04e69d033f6e216ea7db950d744e6e3673550e38",
+      "archive_digest": "sha256:b36b849d95795cbe9d17b1a628ed954f99c6b7c3d69e35e4cc4205980b2efaca",
       "distribution_digest": "sha256:7c736fdf7eb5569c78d1e73e512f69969bf293d4c6c4709aef0596a0711bfdcb",
       "self_contained": true
     },
     {
       "provider": "codex",
       "archive": "client-mode-codex-1.3.0-rc1.tar",
-      "archive_digest": "sha256:0bac12e3828f1a14b541d461ee91c4a37de727871cb8d8ac933f30c929047061",
+      "archive_digest": "sha256:0cdf9d41578659b60ca8163b31fa75a644da001f173a7b2244e12c4e17769ced",
       "distribution_digest": "sha256:23a0d3e02c9d17374f3bfbc3a6c6412c20c051aca7671402ad148fa98a012eb3",
       "self_contained": true
     }
@@ -30,7 +30,7 @@
       "installed_files": 10
     }
   ],
-  "install_root": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t24-vAR61w/fresh-machine/Client Mode ñ",
+  "install_root": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t24-IdQs9d/fresh-machine/Client Mode ñ",
   "existing_configuration_survived": true,
   "rolled_back_to_identical_tree": true,
   "tree_files_before": 1,
@@ -53,7 +53,7 @@
     }
   ],
   "client_request": {
-    "run_id": "run_b8cba684-985c-491b-9e76-7d22f5cfcabe",
+    "run_id": "run_eb15b8c2-dbd4-45a1-894d-903d86ec5953",
     "verdict": "VERIFIED_FOR_SCOPE",
     "message": "i want customers to be able to order rice from their phone"
   },
@@ -148,7 +148,7 @@
       "store": "verifier-evidence",
       "granted": true,
       "actor": "verifier_t24",
-      "reference": "evidence_ver_858804f0-5cb7-48b3-bb48-620e81a62fbf"
+      "reference": "evidence_ver_f8dfc4eb-68d0-432a-baa4-d4b162056d24"
     },
     {
       "path": "client_acceptance",
@@ -156,7 +156,7 @@
       "store": "controller-state",
       "granted": true,
       "actor": "owner_1",
-      "reference": "feedback_0be9353b-f343-4087-a4e1-f614ef0f48fe"
+      "reference": "feedback_c4668149-807a-462c-8441-c42d9d7c2762"
     },
     {
       "path": "production_release",
@@ -164,7 +164,7 @@
       "store": "release-authority",
       "granted": true,
       "actor": "release_owner",
-      "reference": "grant_669e6c11-0c0d-479a-a10b-4d582c781ddb"
+      "reference": "grant_0c298c17-c89f-45ae-b655-2f8fe154c84b"
     }
   ],
   "separation": {

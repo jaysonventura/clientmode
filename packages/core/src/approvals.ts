@@ -12,6 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
 import type { Actor, Approval } from '../../../contracts/interfaces.js';
 import { toolkitFile } from '../../contracts/src/toolkit-root.js';
+import { makePrivateDirectory, secureStore } from '../../verifier/src/file-permissions.js';
 
 const RELEASE_SQL = toolkitFile('contracts', 'storage', 'release.sql');
 
@@ -53,11 +54,12 @@ export class ApprovalAuthority {
   /** The approval store is a separate database with a separate principal; co-locating the
    * file is a deployment convenience for v1, not an isolation claim. */
   static open(storeDir: string): ApprovalAuthority {
-    mkdirSync(storeDir, { recursive: true });
+    makePrivateDirectory(storeDir);
     const db = new DatabaseSync(path.join(storeDir, 'approvals.sqlite'));
     db.exec('PRAGMA foreign_keys = ON; PRAGMA journal_mode = WAL;');
     const present = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='approvals'").get();
     if (present === undefined) db.exec(readFileSync(RELEASE_SQL, 'utf8'));
+    secureStore(storeDir);
     return new ApprovalAuthority(db);
   }
 

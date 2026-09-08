@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url';
 import type { CheckDefinition, CheckResult, DocumentEvidence, DocumentPolicy } from '../../../contracts/interfaces.js';
 import { digest } from '../../contracts/src/canonical.js';
 import { toolkitFile } from '../../contracts/src/toolkit-root.js';
+import { makePrivateDirectory, secureStore } from '../../verifier/src/file-permissions.js';
 
 const VERIFIER_SQL = toolkitFile('contracts', 'storage', 'verifier.sql');
 const DOCUMENT_SQL = toolkitFile('contracts', 'storage', 'document-verifier.sql');
@@ -32,7 +33,7 @@ export class DocumentPolicyStore {
   private constructor(db: DatabaseSync) { this.#db = db; }
 
   static open(storeDir: string): DocumentPolicyStore {
-    mkdirSync(storeDir, { recursive: true });
+    makePrivateDirectory(storeDir);
     const db = new DatabaseSync(path.join(storeDir, 'document-verifier.sqlite'));
     db.exec('PRAGMA foreign_keys = ON; PRAGMA journal_mode = WAL;');
     const present = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='document_policy_versions'").get();
@@ -41,6 +42,7 @@ export class DocumentPolicyStore {
       db.exec(readFileSync(VERIFIER_SQL, 'utf8'));
       db.exec(readFileSync(DOCUMENT_SQL, 'utf8').replace(/^PRAGMA.*$/gm, ''));
     }
+    secureStore(storeDir);
     return new DocumentPolicyStore(db);
   }
 

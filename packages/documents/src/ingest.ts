@@ -14,6 +14,7 @@ import { digest as canonicalDigest } from '../../contracts/src/canonical.js';
 import type { ControllerDatabase } from '../../state/src/database.js';
 import { inspectContainer, memberNames, readMember, CONTAINER_LIMITS } from './zip.js';
 import { sniffMediaType } from './image.js';
+import { makePrivateDirectory, PRIVATE_FILE_MODE } from '../../verifier/src/file-permissions.js';
 
 export class IngestError extends Error {
   constructor(public readonly code: string, subject = '') {
@@ -156,7 +157,8 @@ export class DocumentStore {
     this.#db = db;
     this.#root = options.blob_root;
     this.#now = options.clock ?? (() => new Date().toISOString());
-    mkdirSync(this.#root, { recursive: true });
+    // Client documents. Owner-only, like every other store that holds their material.
+    makePrivateDirectory(this.#root);
   }
 
   /** Idempotent by (project, key). A retry after an interrupted parse returns the same source
@@ -207,7 +209,7 @@ export class DocumentStore {
 
     return this.#db.transaction(() => {
       // The bytes are written before the row, and never rewritten: a version is immutable.
-      writeFileSync(storage_ref, input.bytes);
+      writeFileSync(storage_ref, input.bytes, { mode: PRIVATE_FILE_MODE });
       this.#db.run(`INSERT INTO attachments (attachment_id, project_id, media_type, byte_length, content_digest,
         privacy_class, storage_ref, idempotency_key, access_revoked_at, created_at) VALUES (?,?,?,?,?,?,?,?,NULL,?)`,
         attachment_id, input.project_id, input.declared_media_type, input.bytes.byteLength, content_digest,

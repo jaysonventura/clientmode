@@ -29,6 +29,7 @@ import { assessRollback, restore, upgrade } from '../../../packages/packaging/sr
 import { checkInstall } from '../../../packages/packaging/src/install-health.js';
 import { redactValue } from '../../../packages/observability/src/redaction.js';
 import { toolkitRoot } from '../../../packages/contracts/src/toolkit-root.js';
+import { makePrivateDirectory } from '../../../packages/verifier/src/file-permissions.js';
 
 export type Argv = { command: string; positional: string[]; flags: Record<string, string | true> };
 
@@ -79,7 +80,8 @@ function openProject(root: string, options: { exclusive?: boolean } = {}):
   const resolved = canonicalRoot(root);
   if (!existsSync(resolved)) throw new Error(`ROOT_NOT_FOUND: ${resolved}`);
   const state_dir = stateDirFor(resolved);
-  mkdirSync(state_dir, { recursive: true });
+  // Owner-only from $CM_HOME down. Everything the controller writes for a project lands here.
+  makePrivateDirectory(state_dir);
   const db = ControllerDatabase.open(state_dir, { exclusive: options.exclusive === true });
   const service = new LifecycleService(db);
   const project_id = projectIdFor(resolved);
@@ -111,7 +113,7 @@ export function readPreference(): Preference | null {
 
 export function writePreference(host: 'claude' | 'codex'): string {
   const file = configFile();
-  mkdirSync(path.dirname(file), { recursive: true });
+  makePrivateDirectory(path.dirname(file));
   const current = existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) as Record<string, unknown> : {};
   writeFileSync(file, JSON.stringify({ ...current, preferred_host: host }, null, 2) + '\n');
   return file;
@@ -711,7 +713,7 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     const installRoot = typeof flags['install-root'] === 'string'
       ? path.resolve(flags['install-root'])
       : host === 'claude' ? path.join(os.homedir(), '.claude') : path.join(os.homedir(), '.codex');
-    mkdirSync(home, { recursive: true });
+    makePrivateDirectory(home);
     const distribution = buildDistribution({
       provider: host, source_root: REPO_ROOT, out_root: path.join(home, 'dist'), version: '1.3.0',
     });

@@ -12,6 +12,7 @@ import type { CheckDefinition, Policy, ProtectedExecutionDefinition } from '../.
 import { digest } from '../../contracts/src/canonical.js';
 import { validateEntity } from '../../contracts/src/validate.js';
 import { toolkitFile } from '../../contracts/src/toolkit-root.js';
+import { makePrivateDirectory, secureStore } from './file-permissions.js';
 
 const VERIFIER_SQL = toolkitFile('contracts', 'storage', 'verifier.sql');
 
@@ -80,7 +81,8 @@ export class ProtectedPolicyStore {
   /** Separate database and separate schema. Co-locating the file is a v1 deployment
    * convenience; it is not the OS-principal separation the release path requires. */
   static open(storeDir: string): ProtectedPolicyStore {
-    mkdirSync(storeDir, { recursive: true });
+    // Owner only, before anything is written into it.
+    makePrivateDirectory(storeDir);
     const db = new DatabaseSync(path.join(storeDir, 'verifier.sqlite'));
     db.exec('PRAGMA foreign_keys = ON; PRAGMA journal_mode = WAL;');
     const present = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='policy_versions'").get();
@@ -89,6 +91,9 @@ export class ProtectedPolicyStore {
       db.exec(VERIFIER_MIGRATION);
       db.prepare('INSERT INTO schema_migrations (version, applied_at) VALUES (1, ?)').run(new Date().toISOString());
     }
+    // SQLite writes its `-wal` and `-shm` sidecars when the first write happens, not when the
+    // database is created, so the store is tightened again after the schema is in place.
+    secureStore(storeDir);
     return new ProtectedPolicyStore(db);
   }
 

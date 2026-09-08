@@ -7,7 +7,7 @@
  */
 import { createHash } from 'node:crypto';
 import { createServer } from 'node:net';
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -18,6 +18,7 @@ import { snapshot } from '../../packages/workspace/src/snapshot.js';
 import { ProtectedPolicyStore, type EnvironmentProfile } from '../../packages/verifier/src/policy.js';
 import { VerificationCoordinator } from '../../packages/verifier/src/coordinator.js';
 import { Evidence, attempt, attemptAsync, fixedClock } from '../harness/evidence.js';
+import { auditPermissions } from '../../packages/verifier/src/file-permissions.js';
 import { registerScenario } from '../harness/registry.js';
 
 const PROJECT = 'project_t05';
@@ -225,7 +226,29 @@ registerScenario('AT-005', async (): Promise<ScenarioObservation> => {
       status: security?.result.status, reasons: security?.reasons,
       denied_assertions: securityReport, isolation: security?.isolation,
     };
-    const secretDenied = security !== undefined && security.result.status === 'PASSED' &&
+    // The sandbox stops the candidate reaching the authority. It says nothing about what any
+    // other account on this machine can read straight off the disk, and that is a different
+    // question with its own answer: the stores hold signing material, the record of who
+    // approved which deployment, and every client request.
+    const permissionRoots = [path.join(sandbox, 'verifier-authority')];
+    const worldReadable = auditPermissions(permissionRoots);
+    log['file_permissions'] = {
+      roots: permissionRoots,
+      readable_by_other_accounts: worldReadable,
+      modes: permissionRoots.flatMap(root => (existsSync(root) ? readdirSync(root).map(entry => ({
+        path: path.join(root, entry),
+        mode: `0${(statSync(path.join(root, entry)).mode & 0o777).toString(8)}`,
+      })) : [])),
+    };
+
+    // Two properties, not one. The directory keeps other accounts out; the file modes have to
+    // hold on their own as well, because the database and the write-ahead log it creates on
+    // first write get copied into backups and archives where the directory does not follow.
+    const storeFileModes = (log['file_permissions'] as { modes: Array<{ path: string; mode: string }> }).modes;
+    const everyStoreFilePrivate = storeFileModes.length >= 2 && storeFileModes.every(entry => entry.mode === '0600');
+
+    const secretDenied = worldReadable.length === 0 && everyStoreFilePrivate &&
+      security !== undefined && security.result.status === 'PASSED' &&
       ['no_secret_access', 'no_env_secret', 'no_home_read', 'no_network', 'no_unix_socket']
         .every(assertion => security.result.assertion_ids.includes(assertion));
 

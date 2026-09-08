@@ -21,11 +21,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/cm-sandbox-MoxB7x",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/cm-sandbox-JL6Syn",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",
@@ -64,11 +64,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/cm-sandbox-y2SwVo",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/cm-sandbox-D21jIg",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",
@@ -154,11 +154,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/cm-sandbox-HDeNcE",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/cm-sandbox-VKOYc9",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",
@@ -194,11 +194,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/cm-sandbox-TeEO5t",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/cm-sandbox-eFnkGh",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",
@@ -233,11 +233,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/cm-sandbox-6E36tm",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/cm-sandbox-8yovKK",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",
@@ -272,11 +272,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/cm-sandbox-9mjQsW",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/cm-sandbox-d4YaYB",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",
@@ -311,11 +311,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/cm-sandbox-DDkgsv",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-7OY3Gt/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/cm-sandbox-6YVFoX",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-8IV8fD/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",

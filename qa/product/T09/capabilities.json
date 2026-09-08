@@ -240,8 +240,22 @@
         "name": "android_device_bridge",
         "target": "Android",
         "tool_answered": true,
+        "observed_working": true,
+        "limitation": "The target exists and its tool answered. Building and running the actual deliverable is a separate check."
+      },
+      {
+        "name": "android_device_bridge_no_device",
+        "target": "Android-no-device",
+        "tool_answered": true,
         "observed_working": false,
         "limitation": "The tool is installed but reported no usable target on this host; the affected scope stays unverified."
+      },
+      {
+        "name": "toolchain_present_fixture",
+        "target": "fixture-present",
+        "tool_answered": true,
+        "observed_working": true,
+        "limitation": "The target exists and its tool answered. Building and running the actual deliverable is a separate check."
       },
       {
         "name": "authorized_model_runner",
@@ -252,7 +266,7 @@
       }
     ],
     "gaps": [
-      "target Android: android_device_bridge tool installed but no usable target",
+      "target Android-no-device: android_device_bridge_no_device tool installed but no usable target",
       "target model-serving: authorized_model_runner not available"
     ]
   },

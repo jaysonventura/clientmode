@@ -142,21 +142,38 @@ registerScenario('AT-009', async (): Promise<ScenarioObservation> => {
           // adb exits zero with no phone attached. An empty list is an absent target.
           indicates_available: outcome => outcome.stdout.split('\n').slice(1).some(line => /\tdevice$/.test(line.trim())),
         },
+        {
+          // The rule under test is "the tool answered" is not "the target is there", and it has
+          // to hold whatever hardware happens to be plugged into the machine running the gate.
+          // This probe answers successfully and reports nothing attached, every time.
+          name: 'android_device_bridge_no_device', target: 'Android-no-device',
+          probe: () => probeCommand('/usr/bin/printf', ['List of devices attached\n\n']),
+          indicates_available: outcome => outcome.stdout.split('\n').slice(1).some(line => /\tdevice$/.test(line.trim())),
+        },
+        {
+          name: 'toolchain_present_fixture', target: 'fixture-present',
+          probe: () => probeCommand('/usr/bin/printf', ['ready\n']),
+          indicates_available: outcome => outcome.stdout.includes('ready'),
+        },
         { name: 'authorized_model_runner', target: 'model-serving', probe: () => probeCommand('/usr/bin/env', ['authorized-model-runner', '--version']) },
       ],
     });
     log['target_prerequisites'] = { toolkit_node: process.versions.node, targets: targets.report.targets, gaps: targets.report.gaps.filter(gap => gap.startsWith('target ')) };
-    const android = targets.report.targets.find(target => target.target === 'Android');
+    const noDevice = targets.report.targets.find(target => target.target === 'Android-no-device');
     const model = targets.report.targets.find(target => target.target === 'model-serving');
-    const ios = targets.report.targets.find(target => target.target === 'iOS');
-    // Node is present throughout. Each target's verdict comes from its own probe: the Android
-    // tool is installed but has no device, the model runner is absent, iOS has runtimes.
+    const present = targets.report.targets.find(target => target.target === 'fixture-present');
+    // Node is present throughout, and none of the three verdicts may come from that. A tool that
+    // answers but reports nothing attached is an absent target; a tool that is not installed is
+    // an absent target; only a tool that answers *and* reports the thing is working. The live
+    // iOS and Android probes above are recorded as observations — what they find depends on the
+    // machine, so asserting on them would make this gate a report about the operator's desk.
     const toolkitNotTarget =
-      android?.tool_answered === true && android.observed_working === false &&
+      noDevice?.tool_answered === true && noDevice.observed_working === false &&
       model?.tool_answered === false && model.observed_working === false &&
-      ios?.observed_working === true &&
-      targets.report.gaps.some(gap => gap.startsWith('target Android')) &&
-      targets.report.gaps.some(gap => gap.startsWith('target model-serving'));
+      present?.tool_answered === true && present.observed_working === true &&
+      targets.report.gaps.some(gap => gap.startsWith('target Android-no-device')) &&
+      targets.report.gaps.some(gap => gap.startsWith('target model-serving')) &&
+      !targets.report.gaps.some(gap => gap.startsWith('target fixture-present'));
 
     // The real hosts on this machine, probed read-only and reported as found.
     const installedHosts: HostSpec[] = [

@@ -6,7 +6,7 @@
  */
 import { spawn } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import os, { tmpdir } from 'node:os';
 import path from 'node:path';
 import type { ClientRequest, Json, ScenarioObservation } from '../../contracts/interfaces.js';
@@ -26,6 +26,7 @@ import { activate } from '../../apps/cli/src/cm.js';
 import { packageToolkit } from '../harness/package-toolkit.js';
 import { buildDistribution } from '../../packages/packaging/src/build.js';
 import { registerScenario } from '../harness/registry.js';
+import { auditPermissions } from '../../packages/verifier/src/file-permissions.js';
 
 const PROJECT = 'project_t18';
 const NOW = '2026-09-08T20:00:00.000Z';
@@ -113,9 +114,18 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
         distribution_root: entry.host === 'claude' ? distributions.claude.root : distributions.codex.root, lead: true });
     }
     const goodHealth = checkInstall({ home: healthHome, source_root: ROOT, hosts: healthHosts, launcher_path: healthLauncher });
+    // An install made before the stores were tightened, or one restored from a backup, keeps
+    // the modes it was created with. The client's requests and the approval record are in
+    // there, so doctor has to name it rather than call the install healthy.
+    const exposedStore = path.join(healthHome, 'projects', 'p1', 'state');
+    mkdirSync(exposedStore, { recursive: true, mode: 0o755 });
+    writeFileSync(path.join(exposedStore, 'state.sqlite'), 'not a database', { mode: 0o644 });
+    chmodSync(exposedStore, 0o755);
+    const exposedHealth = checkInstall({ home: healthHome, source_root: ROOT, hosts: healthHosts, launcher_path: healthLauncher });
+    rmSync(path.join(healthHome, 'projects'), { recursive: true, force: true });
     rmSync(path.join(healthHome, 'toolkit'), { recursive: true, force: true });
     const orphanedHealth = checkInstall({ home: healthHome, source_root: ROOT, hosts: healthHosts, launcher_path: healthLauncher });
-    log['install_health'] = { empty: emptyHealth, good: goodHealth, orphaned: orphanedHealth };
+    log['install_health'] = { empty: emptyHealth, good: goodHealth, orphaned: orphanedHealth, exposed: exposedHealth };
     const healthReported =
       !emptyHealth.healthy && emptyHealth.findings.some(finding => finding.code === 'TOOLKIT_MISSING') &&
       emptyHealth.findings.some(finding => finding.code === 'INSTRUCTIONS_MISSING') &&
@@ -123,6 +133,9 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
       emptyHealth.findings.some(finding => finding.code === 'SKILLS_MISSING') &&
       emptyHealth.findings.every(finding => finding.remedy.length > 0) &&
       goodHealth.healthy && goodHealth.hosts.every(host => host.skills === 8) &&
+      !exposedHealth.healthy &&
+      exposedHealth.findings.some(finding => finding.code === 'STORE_WORLD_READABLE'
+        && finding.detail.includes(exposedStore) && finding.remedy.startsWith('chmod ')) &&
       !orphanedHealth.healthy &&
       orphanedHealth.findings.some(finding => finding.code === 'LAUNCHER_ORPHANED') &&
       orphanedHealth.findings.every(finding => finding.remedy.startsWith('cm ') || finding.remedy.startsWith('chmod '));
@@ -144,6 +157,10 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
     // schema bootstrap has to survive: all of them find the state ready, none finds it half-made.
     const raced = await raceOpen(path.join(cliRoot, 'raced-state'), 8);
     const raceOk = raced.every(code => code === 0);
+    // What those real invocations left on disk. The state directory holds every client request
+    // and the run record; a mode is not something to assume, so it is read back.
+    const cliExposed = auditPermissions([cliHome, concurrentHome]);
+    log['state_permissions'] = { roots: [cliHome, concurrentHome], readable_by_other_accounts: cliExposed };
     log['cli_invocations'] = {
       runs: runs.map(entry => ({ name: entry.name, exit_code: entry.exit_code })),
       unwired, off_contract: offContract, crashed, home: cliHome,
@@ -153,7 +170,7 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
     rmSync(cliRoot, { recursive: true, force: true });
 
     const commandsMatch = unwired.length === 0 && offContract.length === 0 && crashed.length === 0 &&
-      concurrentOk && raceOk && healthReported && doctorReportsBroken &&
+      concurrentOk && raceOk && healthReported && doctorReportsBroken && cliExposed.length === 0 &&
       missingCommands.length === 0 &&
       describe('verify')?.refuses.includes('accepting a caller-supplied command string') === true &&
       rejectsCallerCommand({ candidate: 'x', argv: ['/bin/sh'] }) &&

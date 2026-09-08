@@ -11,10 +11,12 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
+import { auditPermissions } from '../../verifier/src/file-permissions.js';
 
 export type HealthFinding = {
   code: 'TOOLKIT_MISSING' | 'TOOLKIT_STALE' | 'LAUNCHER_MISSING' | 'LAUNCHER_ORPHANED'
-    | 'LAUNCHER_NOT_EXECUTABLE' | 'SKILLS_DRIFTED' | 'SKILLS_MISSING' | 'INSTRUCTIONS_MISSING';
+    | 'LAUNCHER_NOT_EXECUTABLE' | 'SKILLS_DRIFTED' | 'SKILLS_MISSING' | 'INSTRUCTIONS_MISSING'
+    | 'STORE_WORLD_READABLE';
   detail: string;
   /** What the operator should run. Never empty. */
   remedy: string;
@@ -97,6 +99,19 @@ export function checkInstall(input: {
         remedy: `chmod +x ${input.launcher_path}`,
       });
     }
+  }
+
+  // Installs made before the stores were tightened keep the modes they were created with, and
+  // so does anything restored from a backup or copied off another machine. The project stores
+  // hold every client request, the approval record, and the verifier's signing material.
+  const exposed = auditPermissions([path.join(input.home, 'projects')]);
+  if (exposed.length > 0) {
+    const shown = exposed.slice(0, 3).map(f => `${f.path} is ${f.mode}, expected ${f.expected}`);
+    findings.push({
+      code: 'STORE_WORLD_READABLE',
+      detail: `${String(exposed.length)} path(s) under ${input.home} can be read by other accounts on this machine: ${shown.join('; ')}${exposed.length > 3 ? ', …' : ''}`,
+      remedy: `chmod -R go-rwx ${path.join(input.home, 'projects')}`,
+    });
   }
 
   const hosts = input.hosts.map(entry => {

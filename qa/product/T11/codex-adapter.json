@@ -11,7 +11,7 @@
     "usage": {
       "kind": "usage_event",
       "schema_version": 1,
-      "usage_event_id": "usage_a6c165e1-4b84-4df4-a02f-6cc4c2444114",
+      "usage_event_id": "usage_288c3dd3-dee6-4e1a-aa67-1703541671ce",
       "provider_event_id": "turn:attempt_t11:19023:7",
       "run_id": "run_t11",
       "attempt_id": "attempt_t11",
@@ -123,7 +123,7 @@
   },
   "fresh_session": {
     "exit_code": 0,
-    "thread_id": "01a07f43-fbc2-7ca0-9569-f55db39d7fbc",
+    "thread_id": "01a07f81-f98b-74e1-a6a7-2ee3349d1dbb",
     "claims": [
       "CLIENT_MODE_INSTRUCTIONS_LOADED"
     ],
@@ -131,17 +131,17 @@
       {
         "kind": "usage_event",
         "schema_version": 1,
-        "usage_event_id": "usage_685e5c77-1f4b-4d51-905b-43613251d5fe",
-        "provider_event_id": "turn:attempt_t11_fresh:20526:39",
+        "usage_event_id": "usage_4305bb02-7899-4be8-9ef1-f2782e73d6dd",
+        "provider_event_id": "turn:attempt_t11_fresh:20529:10",
         "run_id": "run_t11",
         "attempt_id": "attempt_t11_fresh",
         "provider": "codex",
         "billing_mode": "native_account",
-        "input_tokens": 20526,
-        "output_tokens": 39,
+        "input_tokens": 20529,
+        "output_tokens": 10,
         "cache_read_tokens": 12160,
         "cache_write_tokens": 0,
-        "reasoning_tokens": 27,
+        "reasoning_tokens": 0,
         "cost_usd": null,
         "coverage": "partial",
         "occurred_at": "2026-09-08T13:00:00.000Z"
@@ -162,7 +162,7 @@
     "exit_code": 0,
     "claims": [
       "I’ll check the workspace handoff and whether file creation is permitted.\n",
-      "CANNOT_WRITE — the workspace is read-only. Creating `permission-probe.txt` failed with “operation not permitted.”"
+      "CANNOT_WRITE — the sandbox is read-only, and permission escalation is disabled."
     ],
     "file_created": false,
     "verified_by": "filesystem check after the turn, not the session transcript"

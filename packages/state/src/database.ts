@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync, type StatementSync } from 'node:sqlite';
 import { toolkitFile } from '../../contracts/src/toolkit-root.js';
+import { makePrivateDirectory, secureStore } from '../../verifier/src/file-permissions.js';
 
 const SCHEMA_SQL = toolkitFile('contracts', 'storage', 'controller.sql');
 export const SCHEMA_VERSION = 6;
@@ -282,7 +283,8 @@ export class ControllerDatabase {
   }
 
   static open(stateDir: string, options: { busyTimeoutMs?: number; exclusive?: boolean } = {}): ControllerDatabase {
-    mkdirSync(stateDir, { recursive: true });
+    // The controller's state holds every client request and contract; it is owner-only.
+    makePrivateDirectory(stateDir);
     // Exclusive by default: a caller that means to own the run loop should not have to ask.
     const release = options.exclusive === false ? () => undefined : acquireDirectoryLock(stateDir);
     try {
@@ -339,6 +341,7 @@ export class ControllerDatabase {
           }
         });
       }
+      secureStore(stateDir);
       return new ControllerDatabase(db, release);
     } catch (error) {
       release();

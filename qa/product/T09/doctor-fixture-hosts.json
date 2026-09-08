@@ -102,7 +102,7 @@
         "report": {
           "kind": "capability_report",
           "schema_version": 1,
-          "report_id": "report_42c9b10873c6fcfd2cb7e10e807d0ea2",
+          "report_id": "report_4ecd535a0156c0f25b2bb39b699fc5d7",
           "provider": "mock",
           "host_surface": "native_cli",
           "host_version": "9.9.9",
@@ -185,7 +185,7 @@
         "report": {
           "kind": "capability_report",
           "schema_version": 1,
-          "report_id": "report_2653d439afb195af3158c56d8cbfdcb8",
+          "report_id": "report_c8cb07cdd042f4baf9343f146c693073",
           "provider": "mock",
           "host_surface": "native_cli",
           "host_version": "unrecognised",
@@ -271,7 +271,7 @@
         "report": {
           "kind": "capability_report",
           "schema_version": 1,
-          "report_id": "report_5824906d579cc01f12634afa36862b36",
+          "report_id": "report_5ad6bfd53e4facd0594628cd436b45e8",
           "provider": "mock",
           "host_surface": "native_cli",
           "host_version": "9.9.9",

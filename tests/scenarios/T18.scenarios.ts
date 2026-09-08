@@ -20,7 +20,11 @@ import { COMMANDS, EXIT_CODES, commandNames, describe } from '../../apps/cli/src
 import { cancelRun, createRun, readAuthorizedRequestFile } from '../../apps/cli/src/run.js';
 import { validate, rejectsCallerCommand } from '../../apps/cli/src/verify.js';
 import { Evidence, ROOT, attempt, fixedClock } from '../harness/evidence.js';
-import { raceOpen, runCli } from '../harness/cli.js';
+import { raceOpen, runCli, runCliDetailed, UNWIRED_MARKER } from '../harness/cli.js';
+import { checkInstall } from '../../packages/packaging/src/install-health.js';
+import { activate } from '../../apps/cli/src/cm.js';
+import { packageToolkit } from '../harness/package-toolkit.js';
+import { buildDistribution } from '../../packages/packaging/src/build.js';
 import { registerScenario } from '../harness/registry.js';
 
 const PROJECT = 'project_t18';
@@ -77,14 +81,58 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
     // command happened to run first — `rollback` finding a snapshot `upgrade` had just taken —
     // and a gate whose answer changes between runs is measuring the scheduler, not the code.
     const runs = await Promise.all(invocations.map(async ([name, argv]) => ({
-      name, exit_code: await runCli(argv, path.join(cliHome, name)),
+      name, ...await runCliDetailed(argv, path.join(cliHome, name)),
     })));
-    const unwired = runs.filter(entry => entry.exit_code === EXIT_CODES.missing_capability).map(entry => entry.name);
+    const unwired = runs.filter(entry => entry.stderr.includes(UNWIRED_MARKER)).map(entry => entry.name);
     // Every exit code has to be one the contract defines, and `internal` is not an answer: each
     // of these is invoked with a well-formed request naming something that does not exist, so
     // the honest reply is "no such thing", not a crash.
     const offContract = runs.filter(entry => !Object.values(EXIT_CODES).includes(entry.exit_code as never));
     const crashed = runs.filter(entry => entry.exit_code === EXIT_CODES.internal).map(entry => entry.name);
+    // The install's own health: a broken install has to be reported as broken, with a remedy
+    // beside each finding. Every one of these is a state a client's machine actually reaches.
+    const healthRoot = path.join(cliRoot, 'health');
+    const healthHosts = [
+      { host: 'claude', install_root: path.join(healthRoot, 'claude') },
+      { host: 'codex', install_root: path.join(healthRoot, 'codex') },
+    ];
+    const emptyHealth = checkInstall({
+      home: path.join(healthRoot, 'home'), source_root: ROOT,
+      hosts: healthHosts, launcher_path: path.join(healthRoot, 'bin', 'cm'),
+    });
+    // A real install, then each way it degrades.
+    const distributions = {
+      claude: buildDistribution({ provider: 'claude', source_root: ROOT, out_root: path.join(healthRoot, 'dist'), version: '0.1.0' }),
+      codex: buildDistribution({ provider: 'codex', source_root: ROOT, out_root: path.join(healthRoot, 'dist'), version: '0.1.0' }),
+    };
+    const healthHome = path.join(healthRoot, 'installed-home');
+    const healthLauncher = path.join(healthRoot, 'installed-bin', 'cm');
+    await packageToolkit({ out_root: path.join(healthHome, 'toolkit'), launcher_path: healthLauncher });
+    for (const entry of healthHosts) {
+      activate({ host: entry.host as 'claude' | 'codex', install_root: entry.install_root,
+        distribution_root: entry.host === 'claude' ? distributions.claude.root : distributions.codex.root, lead: true });
+    }
+    const goodHealth = checkInstall({ home: healthHome, source_root: ROOT, hosts: healthHosts, launcher_path: healthLauncher });
+    rmSync(path.join(healthHome, 'toolkit'), { recursive: true, force: true });
+    const orphanedHealth = checkInstall({ home: healthHome, source_root: ROOT, hosts: healthHosts, launcher_path: healthLauncher });
+    log['install_health'] = { empty: emptyHealth, good: goodHealth, orphaned: orphanedHealth };
+    const healthReported =
+      !emptyHealth.healthy && emptyHealth.findings.some(finding => finding.code === 'TOOLKIT_MISSING') &&
+      emptyHealth.findings.some(finding => finding.code === 'INSTRUCTIONS_MISSING') &&
+      emptyHealth.findings.some(finding => finding.code === 'LAUNCHER_MISSING') &&
+      emptyHealth.findings.some(finding => finding.code === 'SKILLS_MISSING') &&
+      emptyHealth.findings.every(finding => finding.remedy.length > 0) &&
+      goodHealth.healthy && goodHealth.hosts.every(host => host.skills === 8) &&
+      !orphanedHealth.healthy &&
+      orphanedHealth.findings.some(finding => finding.code === 'LAUNCHER_ORPHANED') &&
+      orphanedHealth.findings.every(finding => finding.remedy.startsWith('cm ') || finding.remedy.startsWith('chmod '));
+
+    // And the exit code has to carry it: a `doctor` that reports a broken install and then
+    // exits 0 has told a script everything is fine.
+    const doctorOnBrokenInstall = await runCliDetailed(['doctor', '--json'], path.join(healthRoot, 'no-install-home'));
+    const doctorReportsBroken = doctorOnBrokenInstall.exit_code === EXIT_CODES.missing_capability;
+    log['doctor_on_broken_install'] = doctorOnBrokenInstall.exit_code;
+
     // Two terminals in one project is ordinary. The exclusive state-directory lock belongs to
     // the process that owns the run loop, not to a `status` call — six of those at once must
     // all answer, and none may crash on a lock the other five are holding.
@@ -97,14 +145,15 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
     const raced = await raceOpen(path.join(cliRoot, 'raced-state'), 8);
     const raceOk = raced.every(code => code === 0);
     log['cli_invocations'] = {
-      runs, unwired, off_contract: offContract, crashed, home: cliHome,
+      runs: runs.map(entry => ({ name: entry.name, exit_code: entry.exit_code })),
+      unwired, off_contract: offContract, crashed, home: cliHome,
       concurrent_status_exit_codes: concurrentStatus, concurrent_all_answered: concurrentOk,
       simultaneous_open_exit_codes: raced, simultaneous_open_all_succeeded: raceOk,
     };
     rmSync(cliRoot, { recursive: true, force: true });
 
     const commandsMatch = unwired.length === 0 && offContract.length === 0 && crashed.length === 0 &&
-      concurrentOk && raceOk &&
+      concurrentOk && raceOk && healthReported && doctorReportsBroken &&
       missingCommands.length === 0 &&
       describe('verify')?.refuses.includes('accepting a caller-supplied command string') === true &&
       rejectsCallerCommand({ candidate: 'x', argv: ['/bin/sh'] }) &&

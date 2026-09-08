@@ -5,8 +5,8 @@
     "readable": 24,
     "missing": [],
     "unreadable": [
-      "unit_4e709328c7c8e10d",
-      "unit_4817a03eda68dcc9"
+      "unit_150249768a825ee8",
+      "unit_0463821081649abf"
     ]
   },
   "tools": {
@@ -57,11 +57,11 @@
   ],
   "unreadable": [
     {
-      "unit_id": "unit_4e709328c7c8e10d",
+      "unit_id": "unit_150249768a825ee8",
       "reason": "NO_TEXT_LAYER"
     },
     {
-      "unit_id": "unit_4817a03eda68dcc9",
+      "unit_id": "unit_0463821081649abf",
       "reason": "NO_OCR_ENGINE_INSTALLED"
     }
   ],
@@ -78,31 +78,31 @@
     "attempted": 1,
     "readable": 1,
     "missing": [
-      "unit_0a125fa4f4ab2141",
-      "unit_4e709328c7c8e10d",
-      "unit_b4c4d18339bbb6c7",
-      "unit_63e58b95bbe08af7",
-      "unit_11f95e27480b33dc",
-      "unit_20520f5d79e0679b",
-      "unit_0f3c8dbe8cc657fa",
-      "unit_df803e9766ea07ce",
-      "unit_351c9f5677135b26",
-      "unit_9de301052fca17f9",
-      "unit_5094ac20549f7df3",
-      "unit_4d9da84806f2234e",
-      "unit_7fd8816b93c86613",
-      "unit_7239d4e003995e48",
-      "unit_1474fbd7d396d2cc",
-      "unit_efc720d854be3cd9",
-      "unit_392f732490744346",
-      "unit_14d9be9b19a3286e",
-      "unit_acac533d1bd59ed7",
-      "unit_74a17e3e36126c0f",
-      "unit_2fc63045e1710371",
-      "unit_4e4e372e2deb84fc",
-      "unit_a529b66f58c2ea78",
-      "unit_fb27667baab31ab9",
-      "unit_4817a03eda68dcc9"
+      "unit_3113740e9c02eaf8",
+      "unit_150249768a825ee8",
+      "unit_8002ded2dc02ae3f",
+      "unit_e11fa1b3da5768a5",
+      "unit_c2b2213f34dc497e",
+      "unit_d45da0a6a34b1a60",
+      "unit_fbd7936848ffbfe9",
+      "unit_7a13e3f566286983",
+      "unit_45a9d0761bbca898",
+      "unit_cc55b7c06f336d3f",
+      "unit_39269d7057cc7a7e",
+      "unit_e01dcb95412ed8a8",
+      "unit_01969af2bf29019a",
+      "unit_8ca3d8c73095bb31",
+      "unit_248f74cf3d9cec8d",
+      "unit_b32cea8dedf23113",
+      "unit_2e282d559a94ff31",
+      "unit_ccf5fd7d4b4bf097",
+      "unit_1fc8b0406eff8a36",
+      "unit_b9cf8c83dc285576",
+      "unit_82f86ec6aa24b717",
+      "unit_5d8163f846846403",
+      "unit_1d2ec338fad18617",
+      "unit_b5c008c9759af340",
+      "unit_0463821081649abf"
     ],
     "unreadable": []
   }

@@ -26,6 +26,7 @@ import { applyInstall, approve, planInstall, uninstall, type InstallRecord } fro
 import { cancelRun, createRun } from './run.js';
 import { rejectsCallerCommand } from './verify.js';
 import { assessRollback, restore, upgrade } from '../../../packages/packaging/src/upgrade.js';
+import { checkInstall } from '../../../packages/packaging/src/install-health.js';
 import { redactValue } from '../../../packages/observability/src/redaction.js';
 import { toolkitRoot } from '../../../packages/contracts/src/toolkit-root.js';
 
@@ -394,13 +395,32 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     return EXIT_CODES.ok;
   }
   if (command === 'doctor') {
+    // The install's own health comes first: a client whose launcher points at a deleted folder
+    // does not need a capability report, they need to know that.
+    const health = checkInstall({
+      home: process.env['CM_HOME'] ?? path.join(os.homedir(), '.client-mode'),
+      source_root: REPO_ROOT,
+      hosts: [
+        { host: 'claude', install_root: path.join(os.homedir(), '.claude') },
+        { host: 'codex', install_root: path.join(os.homedir(), '.codex') },
+      ],
+      launcher_path: path.join(os.homedir(), '.local', 'bin', 'cm'),
+    });
     const { report } = await doctor({
       hosts: HOSTS, billing_mode: 'native_account', now: new Date().toISOString(),
       required_capabilities: [],
     });
-    if (json) process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
+    if (json) process.stdout.write(`${JSON.stringify({ install: health, ...report }, null, 2)}\n`);
     else {
       process.stdout.write(`Client Mode doctor — ${report.generated_at}\n`);
+      process.stdout.write(`  install   toolkit ${health.toolkit_root ?? 'not installed'}\n`);
+      process.stdout.write(`            launcher ${health.launcher ?? 'not installed'}\n`);
+      for (const host of health.hosts) {
+        process.stdout.write(`            ${host.host}: ${String(host.skills)} skill(s)\n`);
+      }
+      for (const finding of health.findings) {
+        process.stdout.write(`  ! ${finding.code}: ${finding.detail}\n      fix: ${finding.remedy}\n`);
+      }
       process.stdout.write(`  toolkit   node ${report.toolkit.node} on ${report.toolkit.platform}\n`);
       for (const host of report.hosts) {
         process.stdout.write(`  ${host.provider}/${host.surface}  installed=${String(host.installed)} version=${host.version ?? 'none'}\n`);
@@ -421,7 +441,8 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
         for (const gap of report.gaps) process.stdout.write(`    - ${gap}\n`);
       }
     }
-    return report.exit_code as ExitCode;
+    // A broken install is a missing capability, not a passing report.
+    return (health.healthy ? report.exit_code : EXIT_CODES.missing_capability) as ExitCode;
   }
 
   if (command === 'run') {

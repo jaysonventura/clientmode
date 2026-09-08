@@ -147,11 +147,116 @@
     "verify_refuses_caller_command": true,
     "verify_accepts_candidate_only": true
   },
+  "install_health": {
+    "empty": {
+      "toolkit_root": null,
+      "launcher": null,
+      "hosts": [
+        {
+          "host": "claude",
+          "instructions": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/claude/CLAUDE.md",
+          "skills_dir": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/claude/skills",
+          "skills": 0
+        },
+        {
+          "host": "codex",
+          "instructions": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/codex/AGENTS.md",
+          "skills_dir": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/codex/skills",
+          "skills": 0
+        }
+      ],
+      "findings": [
+        {
+          "code": "TOOLKIT_MISSING",
+          "detail": "no bundled toolkit at /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/home/toolkit",
+          "remedy": "cm install --host claude   (or --host codex)"
+        },
+        {
+          "code": "LAUNCHER_MISSING",
+          "detail": "no launcher at /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/bin/cm",
+          "remedy": "cm install --host claude --bin-dir /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/bin"
+        },
+        {
+          "code": "SKILLS_MISSING",
+          "detail": "claude has no Client Mode skills in /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/claude/skills",
+          "remedy": "cm install --host claude --lead"
+        },
+        {
+          "code": "INSTRUCTIONS_MISSING",
+          "detail": "claude will not load Client Mode: no section in /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/claude/CLAUDE.md",
+          "remedy": "cm install --host claude --lead"
+        },
+        {
+          "code": "SKILLS_MISSING",
+          "detail": "codex has no Client Mode skills in /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/codex/skills",
+          "remedy": "cm install --host codex --lead"
+        },
+        {
+          "code": "INSTRUCTIONS_MISSING",
+          "detail": "codex will not load Client Mode: no section in /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/codex/AGENTS.md",
+          "remedy": "cm install --host codex --lead"
+        }
+      ],
+      "healthy": false
+    },
+    "good": {
+      "toolkit_root": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/installed-home/toolkit",
+      "launcher": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/installed-bin/cm",
+      "hosts": [
+        {
+          "host": "claude",
+          "instructions": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/claude/CLAUDE.md",
+          "skills_dir": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/claude/skills",
+          "skills": 8
+        },
+        {
+          "host": "codex",
+          "instructions": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/codex/AGENTS.md",
+          "skills_dir": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/codex/skills",
+          "skills": 8
+        }
+      ],
+      "findings": [],
+      "healthy": true
+    },
+    "orphaned": {
+      "toolkit_root": null,
+      "launcher": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/installed-bin/cm",
+      "hosts": [
+        {
+          "host": "claude",
+          "instructions": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/claude/CLAUDE.md",
+          "skills_dir": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/claude/skills",
+          "skills": 8
+        },
+        {
+          "host": "codex",
+          "instructions": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/codex/AGENTS.md",
+          "skills_dir": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/codex/skills",
+          "skills": 8
+        }
+      ],
+      "findings": [
+        {
+          "code": "TOOLKIT_MISSING",
+          "detail": "no bundled toolkit at /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/installed-home/toolkit",
+          "remedy": "cm install --host claude   (or --host codex)"
+        },
+        {
+          "code": "LAUNCHER_ORPHANED",
+          "detail": "the launcher points at /var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/health/installed-home/toolkit, which has no toolkit in it",
+          "remedy": "cm install --host claude   (rebuilds the toolkit the launcher names)"
+        }
+      ],
+      "healthy": false
+    }
+  },
+  "doctor_on_broken_install": 3,
   "cli_invocations": {
     "runs": [
       {
         "name": "doctor",
-        "exit_code": 0
+        "exit_code": 3
       },
       {
         "name": "run",
@@ -209,7 +314,7 @@
     "unwired": [],
     "off_contract": [],
     "crashed": [],
-    "home": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-36f2hF/home",
+    "home": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-cli-hQYG44/home",
     "concurrent_status_exit_codes": [
       2,
       2,
@@ -234,14 +339,14 @@
   "run_command": {
     "inside": true,
     "outside": {
-      "error": "REQUEST_FILE_OUTSIDE_AUTHORIZED_ROOT: /private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/elsewhere.txt"
+      "error": "REQUEST_FILE_OUTSIDE_AUTHORIZED_ROOT: /private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/elsewhere.txt"
     },
     "exit_code": 0,
     "run_created": true
   },
   "recovery": {
     "stored_tasks": 1000,
-    "elapsed_ms": 23,
+    "elapsed_ms": 18,
     "expired_leases": 1000,
     "revoked_attempts": 1000,
     "reference_machine": {
@@ -251,7 +356,7 @@
     }
   },
   "cancel": {
-    "acknowledged_in_ms": 0.531042,
+    "acknowledged_in_ms": 0.65125,
     "tree": {
       "terminated": true,
       "quarantined": false,
@@ -270,16 +375,16 @@
       "to": "0.2.0",
       "snapshot": {
         "taken_at": "2026-09-08T20:00:00.000Z",
-        "state_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/backups/state-0.1.0.sqlite",
-        "config_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/backups/config-0.1.0.json",
+        "state_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/backups/state-0.1.0.sqlite",
+        "config_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/backups/config-0.1.0.json",
         "from_version": "0.1.0"
       },
       "failed_at": 3,
       "state_restored": true,
       "reason": "migration 3 failed: power loss during the contract step"
     },
-    "state_digest_before": "70cff7450f490805a77636b699dcdc92c2843a04f105ccf6cae634430c7a1a6d",
-    "state_digest_after_failure": "70cff7450f490805a77636b699dcdc92c2843a04f105ccf6cae634430c7a1a6d",
+    "state_digest_before": "c40bbc11ebb136d23d2e4da6d7cf0f74112a8a70819a008b98aa4825f17940ea",
+    "state_digest_after_failure": "c40bbc11ebb136d23d2e4da6d7cf0f74112a8a70819a008b98aa4825f17940ea",
     "state_identical_after_failed_upgrade": true,
     "version_activated_after_failure": "0.1.0",
     "concurrent_edit": {
@@ -302,7 +407,7 @@
     },
     "rollback_reversible": {
       "rollback_safe": true,
-      "restores_from": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/backups2/state-0.1.0.sqlite"
+      "restores_from": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/backups2/state-0.1.0.sqlite"
     },
     "rollback_irreversible": {
       "rollback_safe": false,
@@ -316,26 +421,26 @@
   },
   "uninstall": {
     "removed": [
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/install/client-mode/.claude-plugin/plugin.json",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/install/client-mode/CLAUDE.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/install/client-mode/skills/debug/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/install/client-mode/skills/delivery/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/install/client-mode/skills/grounding/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/install/client-mode/skills/handoff/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/install/client-mode/skills/intake/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/install/client-mode/skills/review/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/install/client-mode/skills/ui-ux/SKILL.md",
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/install/client-mode/skills/verify/SKILL.md"
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/install/client-mode/.claude-plugin/plugin.json",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/install/client-mode/CLAUDE.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/install/client-mode/skills/debug/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/install/client-mode/skills/delivery/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/install/client-mode/skills/grounding/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/install/client-mode/skills/handoff/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/install/client-mode/skills/intake/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/install/client-mode/skills/review/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/install/client-mode/skills/ui-ux/SKILL.md",
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/install/client-mode/skills/verify/SKILL.md"
     ],
     "restored": [],
     "retained": [
       {
-        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/evidence",
+        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/evidence",
         "reason": "release manifest retention (retained until 2027-01-01T00:00:00.000Z)"
       }
     ],
     "project_work_untouched": [
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-3bOS4d/work (1 file(s) left in place)"
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t18-D51P7s/work (1 file(s) left in place)"
     ],
     "brief_still_present": true
   },

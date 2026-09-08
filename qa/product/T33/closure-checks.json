@@ -107,12 +107,12 @@
     },
     "document_usage_rows": [
       {
-        "attempt_id": "datt_46a7d81a-a109-4992-a17e-f9a0c397f05f",
+        "attempt_id": "datt_75cc5e3a-7e39-426a-af98-2851968d2d19",
         "measured_cost_microusd": 12000,
         "usage_complete": 1
       },
       {
-        "attempt_id": "datt_7b859cbe-43a8-4faf-ba43-b7c20ef68c94",
+        "attempt_id": "datt_76dffba9-8b11-4f7b-a581-e5240d2ceb20",
         "measured_cost_microusd": null,
         "usage_complete": 0
       }
@@ -125,7 +125,7 @@
       "to": "1.3.1",
       "snapshot": {
         "taken_at": "2026-09-09T14:00:00.000Z",
-        "state_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t33-CJub06/backups/state-1.3.0.sqlite",
+        "state_backup": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t33-4gXWW1/backups/state-1.3.0.sqlite",
         "config_backup": null,
         "from_version": "1.3.0"
       },
@@ -158,14 +158,14 @@
     },
     "rollback": {
       "rollback_safe": true,
-      "restores_from": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t33-CJub06/backups/state-1.3.0.sqlite"
+      "restores_from": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t33-4gXWW1/backups/state-1.3.0.sqlite"
     }
   },
   "acceptance": {
     "technically_ready": true,
     "client_feedback": {
       "recorded": true,
-      "feedback_id": "feedback_34d4e4da-f81d-43e9-bb3a-225651f4e141",
+      "feedback_id": "feedback_335efd7a-12cb-480b-ae74-bb69bae56a8e",
       "satisfaction": "needs_changes"
     },
     "agent_satisfaction": {
@@ -182,14 +182,14 @@
       "candidate_id": "candidate_t33",
       "source_digest": "sha256:88884ef2c2fbfa0218de291491062022de290e5f960af0e2d7faccdb08cad773",
       "artifact_digest": "sha256:88884ef2c2fbfa0218de291491062022de290e5f960af0e2d7faccdb08cad773",
-      "policy_digest": "sha256:8d7231b43898013cbf3fcde4234507836e71445ca314156c2b1e098574cb595c",
+      "policy_digest": "sha256:3bfaf925b5a6dd72959d3c46acfafd68cb1fc08ba71786e19825bbbf420d36b8",
       "environment_digest": "sha256:92bb7552797462dba5170337f44bd71e208c45e42f5519b985c8d6134ab99179",
       "requirements_revision": 1,
-      "evidence_id": "devidence_61d666e4-83f9-4dcb-ad45-9c37a09ccfc4",
+      "evidence_id": "devidence_d5f27e4a-ba4f-45d3-a952-26bdf3ec3626",
       "composite_manifest_digest": null,
       "issued_at": "2026-09-09T14:00:00.000Z",
       "issuer_id": "document_verifier_t33",
-      "attestation_id": "att_3dc044eeb6612f518dd0fc1f9875720d"
+      "attestation_id": "att_549056b1c47507bdfad7ce92ad48b4b1"
     },
     "unapproved": {
       "authorized": false,
@@ -198,7 +198,7 @@
     "approved": {
       "authorized": true,
       "reason": "SCOPED_APPROVAL_PRESENT",
-      "approval_id": "grant_fd7ccea9-917b-44d7-9b05-838f3ce5f5a0",
+      "approval_id": "grant_52eb91f6-44f3-4d08-a87e-bb4e82f7b7e7",
       "maximum_spend_microusd": null
     },
     "wrong_artifact": {

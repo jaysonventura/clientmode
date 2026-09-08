@@ -70,3 +70,34 @@ The first version ran all fourteen invocations against one shared state home. `r
 sometimes found a snapshot that the parallel `upgrade` had just taken, and answered 0 instead of
 2. Each command now gets its own home: a gate whose answer changes between runs is measuring the
 scheduler, not the code.
+
+
+## Round 5 — the install's own health
+
+`cm doctor` reported on the hosts and said nothing about the install it was running from. Three
+things go wrong quietly after a successful install, and none of them announce themselves: the
+bundled toolkit falls behind the source it was built from, the launcher points at a directory
+somebody deleted, and the skills copied into the host's directory drift from the ones the toolkit
+ships. Each shows up later as behaviour the client cannot explain.
+
+`checkInstall` now runs first, every finding names a file and the command that fixes it, and a
+broken install makes `doctor` exit `missing_capability` rather than reporting a clean bill.
+
+| # | Mutation | Result | What it proves |
+|---|----------|--------|----------------|
+| `H1` | a missing toolkit is no longer reported | **RED** | the first thing to check is whether there is an install at all |
+| `H2` | a launcher pointing at a deleted toolkit passes | **RED** | the state a client reaches by moving a folder |
+| `H3` | a host with no Client Mode section is called healthy | **RED** | skills present and instructions absent means the host loads none of it |
+| `H4` | findings no longer carry a remedy | **RED** | a check that reports a problem without saying what to run has moved the work, not done it |
+| `H5` | a broken install is still a passing doctor report | **RED** | an exit code that says fine to a script is worse than the text that says otherwise |
+
+`H3` and `H5` were green at first, because nothing asserted them: the fixture did not require
+`INSTRUCTIONS_MISSING`, and no assertion looked at `doctor`'s exit code at all. Both are now
+checked.
+
+### A gate that could not tell two answers apart
+
+The unwired check used exit code `missing_capability` as its signal. Once `doctor` started
+returning that same code for a genuinely broken install, a correctly wired command looked
+unwired. Exit codes cannot carry that distinction — both answers are honest for what they
+describe — so the check now reads the dispatcher's own sentence instead.

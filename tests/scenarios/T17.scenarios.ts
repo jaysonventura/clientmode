@@ -245,9 +245,15 @@ registerScenario('AT-017', async (): Promise<ScenarioObservation> => {
       carried: packaged.carried,
     };
     const portable = !pointsAtCheckout &&
-      portableRuns.every(entry => entry.exit_code === 0 || entry.exit_code === 2) &&
+      // Same reasoning as the launcher runs below: portability is "it runs and answers", and
+      // the answers themselves are AT-018's to pin down.
+      portableRuns.every(entry => [0, 2, 3].includes(entry.exit_code)) &&
       packaged.launcher !== null && !launcherText.includes(ROOT) &&
-      launcherRuns.length === 2 && launcherRuns.every(entry => entry.exit_code === 0);
+      // What this gate proves is that the launcher runs at all from an unrelated directory.
+      // `doctor` answers `missing_capability` here because the throwaway home has no install —
+      // which is the health check being right, not the launcher being broken. AT-018 is what
+      // pins the exit codes down.
+      launcherRuns.length === 2 && launcherRuns.every(entry => entry.exit_code === 0 || entry.exit_code === 3);
 
     const uninstallRestores = portable && activationRoundTrips &&
       JSON.stringify(before) === JSON.stringify(afterUninstall) &&

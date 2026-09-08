@@ -9,14 +9,25 @@ import path from 'node:path';
 import { ROOT } from './evidence.js';
 
 export function runCli(argv: readonly string[], home: string): Promise<number> {
+  return runCliDetailed(argv, home).then(result => result.exit_code);
+}
+
+/** The exit code alone cannot tell an unwired command from a real capability gap: both are
+ * `missing_capability`, and both are the honest answer for what they describe. The dispatcher's
+ * own sentence is what distinguishes them. */
+export const UNWIRED_MARKER = 'has no terminal entry point';
+
+export function runCliDetailed(argv: readonly string[], home: string): Promise<{ exit_code: number; stderr: string }> {
   return new Promise(resolve => {
     const child = spawn(process.execPath, ['--import', 'tsx', path.join(ROOT, 'apps/cli/src/cm.ts'), ...argv], {
-      cwd: ROOT, stdio: ['ignore', 'ignore', 'ignore'],
+      cwd: ROOT, stdio: ['ignore', 'ignore', 'pipe'],
       env: { ...process.env, NODE_NO_WARNINGS: '1', CM_HOME: home },
     });
+    let stderr = '';
+    child.stderr.on('data', chunk => { stderr = (stderr + String(chunk)).slice(-4000); });
     const timer = setTimeout(() => { try { child.kill('SIGKILL'); } catch { /* gone */ } }, 120_000);
-    child.on('close', code => { clearTimeout(timer); resolve(code ?? 8); });
-    child.on('error', () => { clearTimeout(timer); resolve(8); });
+    child.on('close', code => { clearTimeout(timer); resolve({ exit_code: code ?? 8, stderr }); });
+    child.on('error', () => { clearTimeout(timer); resolve({ exit_code: 8, stderr }); });
   });
 }
 

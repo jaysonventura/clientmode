@@ -7,14 +7,14 @@
       "version": "1.3.0-rc1",
       "distribution_digest": "sha256:7c736fdf7eb5569c78d1e73e512f69969bf293d4c6c4709aef0596a0711bfdcb",
       "files": 10,
-      "archive_digest": "sha256:2ce63a11bc24c6e46dc9c93e2f4f6f68e34f0e081dfa7466b238ce57726eaaf6"
+      "archive_digest": "sha256:a2d4ff330331390cb1f6ec4f737cb84a91719b078f609f5ee96c6f92a1a1b417"
     },
     {
       "provider": "codex",
       "version": "1.3.0-rc1",
       "distribution_digest": "sha256:23a0d3e02c9d17374f3bfbc3a6c6412c20c051aca7671402ad148fa98a012eb3",
       "files": 10,
-      "archive_digest": "sha256:fda1aca6cf389795ea25845d311ba4b7c5b85acc129311aa26e7d85b14268dba"
+      "archive_digest": "sha256:7eca03000db66fe9f210dc4eff72eac59fa4b08d7d51da212d2c4481f604cc67"
     }
   ],
   "dependencies": [

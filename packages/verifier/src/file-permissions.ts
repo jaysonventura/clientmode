@@ -20,19 +20,12 @@ export type PermissionFinding = { path: string; kind: 'file' | 'directory'; mode
 
 /** Create a directory that was never briefly world-readable. `mkdirSync`'s mode is masked by
  * the umask, so it is set explicitly afterwards rather than trusted. */
-/** `mkdirSync`'s `mode` applies to the leaf; the parents it creates on the way down take the
- * process umask, which on a default macOS or Linux account is world-readable. Creating
- * `~/.client-mode/projects/<id>/state` at 0700 therefore left three 0755 directories above it,
- * listing one client project per entry. Every directory this call brings into existence is
- * tightened; directories that were already there are left as the operator set them. */
+/** `mkdirSync` applies `mode` to every directory it creates on the way down, so a fresh
+ * `$CM_HOME/projects/<id>` is owner-only the whole way and not just at the leaf. The chmod is
+ * for the other case: a directory that was already there, created at the process umask by an
+ * earlier version or restored from a backup. */
 export function makePrivateDirectory(directory: string): void {
-  const created: string[] = [];
-  for (let current = path.resolve(directory); !existsSync(current); current = path.dirname(current)) {
-    created.push(current);
-    if (path.dirname(current) === current) break;
-  }
   mkdirSync(directory, { recursive: true, mode: PRIVATE_DIRECTORY_MODE });
-  for (const made of created) chmodSync(made, PRIVATE_DIRECTORY_MODE);
   chmodSync(directory, PRIVATE_DIRECTORY_MODE);
 }
 

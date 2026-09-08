@@ -74,10 +74,26 @@
           ],
           "classification": "required",
           "material": true
+        },
+        {
+          "id": "assumption-responsive-approach",
+          "description": "Fit the existing layout to the smallest supported screen rather than building a separate mobile site. (One layout is cheaper to keep correct than two.)",
+          "source_message_ids": [
+            "request_plain_english"
+          ],
+          "classification": "assumption",
+          "material": false
         }
       ],
       "material_questions": [],
-      "internal_decisions": [],
+      "internal_decisions": [
+        {
+          "topic": "responsive-approach",
+          "decision": "Fit the existing layout to the smallest supported screen rather than building a separate mobile site.",
+          "reversible": true,
+          "rationale": "One layout is cheaper to keep correct than two."
+        }
+      ],
       "stack_intents": [],
       "language_hint": "en"
     }
@@ -157,10 +173,26 @@
           ],
           "classification": "required",
           "material": true
+        },
+        {
+          "id": "assumption-responsive-approach",
+          "description": "Fit the existing layout to the smallest supported screen rather than building a separate mobile site. (One layout is cheaper to keep correct than two.)",
+          "source_message_ids": [
+            "request_rough_english"
+          ],
+          "classification": "assumption",
+          "material": false
         }
       ],
       "material_questions": [],
-      "internal_decisions": [],
+      "internal_decisions": [
+        {
+          "topic": "responsive-approach",
+          "decision": "Fit the existing layout to the smallest supported screen rather than building a separate mobile site.",
+          "reversible": true,
+          "rationale": "One layout is cheaper to keep correct than two."
+        }
+      ],
       "stack_intents": [],
       "language_hint": "en"
     }
@@ -240,10 +272,26 @@
           ],
           "classification": "required",
           "material": true
+        },
+        {
+          "id": "assumption-responsive-approach",
+          "description": "Fit the existing layout to the smallest supported screen rather than building a separate mobile site. (One layout is cheaper to keep correct than two.)",
+          "source_message_ids": [
+            "request_taglish"
+          ],
+          "classification": "assumption",
+          "material": false
         }
       ],
       "material_questions": [],
-      "internal_decisions": [],
+      "internal_decisions": [
+        {
+          "topic": "responsive-approach",
+          "decision": "Fit the existing layout to the smallest supported screen rather than building a separate mobile site.",
+          "reversible": true,
+          "rationale": "One layout is cheaper to keep correct than two."
+        }
+      ],
       "stack_intents": [],
       "language_hint": "mixed"
     }

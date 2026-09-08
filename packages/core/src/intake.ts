@@ -52,7 +52,34 @@ const EXCLUSIONS: Array<[RegExp, string, string]> = [
   [/\b(no|without|walang|wala|hindi)\b[^.]{0,30}\b(online payment|card|credit card|gcash|paypal|checkout payment)\b/i, 'no-online-payment', 'Do not add online payment.'],
   [/\bcash on delivery\b|\bcod\b|\bbayad sa pag ?dating\b/i, 'cash-on-delivery', 'Payment happens on delivery, outside the software.'],
   [/\b(no|without|walang)\b[^.]{0,30}\b(subscription|recurring)\b/i, 'no-subscription', 'No recurring billing.'],
+  // A client saying what must not change is the most expensive thing to miss: work that
+  // ignores it has to be undone.
+  [/\b(wag|huwag|don'?t|do not|hindi|no|never)\b[^.]{0,40}\b(bag[au]hin|palitan|change|adjust|touch|raise|update)\b[^.]{0,25}\b(presyo|price|prices|pricing|halaga)\b/i,
+    'keep-prices', 'Prices stay exactly as they are.'],
+  [/\b(walang|wala|no|without)\b[^.]{0,25}\b(delivery fee|shipping fee|bayad sa hatid)\b|\b(delivery fee|shipping fee)\b[^.]{0,25}\b(walang|wala|none|free|libre)\b/i,
+    'no-delivery-fee', 'No delivery fee is charged.'],
 ];
+
+/** Words that turn the phrase after them into the opposite request. */
+const NEGATION = /\b(no|not|without|never|wag|huwag|walang|wala|hindi|ayaw)\b/i;
+
+/** Clause boundaries. A negation belongs to its own clause: in "No online payment, cash on
+ * delivery" the "No" governs the payment, not the delivery. A fixed-width lookback gets this
+ * wrong, and gets it wrong differently in English and in Taglish — which would make the same
+ * request mean two things depending on which language the client wrote it in. */
+const CLAUSE_BOUNDARY = /[.,;!?\n]|\b(then|and|pero|at|tapos)\b/gi;
+
+/** Whether the inclusion matched inside a clause that negates it. "walang delivery fee" is a
+ * client saying there is no delivery fee, and reading it as a delivery feature inverts their
+ * meaning — which is worse than not reading it at all. */
+function negated(message: string, index: number): boolean {
+  const before = message.slice(0, index);
+  let clauseStart = 0;
+  const boundary = new RegExp(CLAUSE_BOUNDARY.source, CLAUSE_BOUNDARY.flags);
+  let found: RegExpExecArray | null;
+  while ((found = boundary.exec(before)) !== null) clauseStart = found.index + found[0].length;
+  return NEGATION.test(before.slice(clauseStart));
+}
 
 const INCLUSIONS: Array<[RegExp, string, string]> = [
   // Singular and plural are the same request here too: "two orders" is an ordering brief.
@@ -91,7 +118,31 @@ const MATERIAL_TOPICS: Array<[RegExp, MaterialQuestion['reason'], string, string
     'Should customer details be shared with anyone outside your shop?'],
   [/\b(delete|erase|wipe|reset).{0,20}\b(orders|data|records)\b/i, 'irreversible_operation', 'destructive-operation',
     'Should existing records be deleted, or kept and hidden?'],
+  // Money that has not already been settled by the client is asked about once.
+  [/\b(presyo|price|prices|pricing|fee|singil|bayad|charge)\b/i, 'payment_behaviour', 'pricing-change',
+    'Should any price or fee change as part of this work, or do they all stay exactly as they are now?'],
 ];
+
+/** The client asking rather than telling: a question mark, or the words people actually use. */
+const INTERROGATIVE = /\?|\b(pwede ba|puwede ba|pwede po ba|dapat ba|kailangan ba|should|could|can we|can you|what if|paano|ano)\b/i;
+
+/** Whether the client raised this topic as a question rather than settling it. */
+function asksAbout(message: string, pattern: RegExp): boolean {
+  const matcher = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`);
+  let found: RegExpExecArray | null;
+  while ((found = matcher.exec(message)) !== null) {
+    const start = Math.max(0, message.lastIndexOf('.', found.index) + 1);
+    const end = message.indexOf('.', found.index);
+    if (INTERROGATIVE.test(message.slice(start, end === -1 ? message.length : end + 1))) return true;
+  }
+  return false;
+}
+
+/** Which stated exclusions settle which material topic, so the client is not asked twice. */
+const SETTLED_BY_EXCLUSION: Record<string, string[]> = {
+  'pricing-change': ['keep-prices', 'no-delivery-fee'],
+  'deposit-policy': ['cash-on-delivery', 'no-online-payment'],
+};
 
 /** A technical topic is decided internally and recorded, never asked about. */
 const INTERNAL_TOPICS: Array<[RegExp, string, string, string]> = [
@@ -99,6 +150,12 @@ const INTERNAL_TOPICS: Array<[RegExp, string, string, string]> = [
   [/\b(framework|react|vue|stack|language)\b/i, 'framework', 'Use the stack the project already declares.', 'Changing it later is a scoped migration, not a rewrite.'],
   [/\b(color|colour|font|theme|design)\b/i, 'visual-direction', 'Choose one coherent direction and show it in the preview.', 'Feedback on the preview is cheaper than a questionnaire.'],
   [/\b(hosting|deploy|server)\b/i, 'hosting', 'Prepare a local preview; publication is a separate authorization.', 'No hosting decision is needed to build.'],
+  [/\b(button|label|wording|caption|text ng|salita)\b/i, 'wording',
+    "Use the client's exact wording and show it in the preview.",
+    'Wording belongs to the client; the preview is where they check it.'],
+  [/\b(cellphone|cellphone ko|phone|mobile|screen|sliding|slide|maliit na screen)\b/i, 'responsive-approach',
+    'Fit the existing layout to the smallest supported screen rather than building a separate mobile site.',
+    'One layout is cheaper to keep correct than two.'],
 ];
 
 export function interpret(input: InterpretationInput): Interpretation {
@@ -112,8 +169,12 @@ export function interpret(input: InterpretationInput): Interpretation {
     }
   }
   for (const [pattern, id, description] of INCLUSIONS) {
-    if (pattern.test(message)) {
+    const matched = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`);
+    let found: RegExpExecArray | null;
+    while ((found = matched.exec(message)) !== null) {
+      if (negated(message, found.index)) continue;
       requirements.push({ id, description, source_message_ids, classification: 'required', material: true });
+      break;
     }
   }
 
@@ -121,6 +182,12 @@ export function interpret(input: InterpretationInput): Interpretation {
   for (const [pattern, reason, topic, prompt] of MATERIAL_TOPICS) {
     if (!pattern.test(message)) continue;
     if ((input.known_facts ?? []).some(fact => fact.statement.toLowerCase().includes(topic))) continue;
+    // A client who has already said what they want on this topic is not asked again — unless
+    // they are the one raising it. "Cash on delivery. Pero pwede ba may deposit?" states a rule
+    // and then questions it, and the question is the part that matters.
+    const settled = SETTLED_BY_EXCLUSION[topic]?.some(id =>
+      requirements.some(entry => entry.id === id && entry.classification === 'excluded')) === true;
+    if (settled && !asksAbout(message, pattern)) continue;
     material_questions.push({ prompt, recommendation: null, reason, blocking_topic: topic });
   }
 

@@ -14,7 +14,8 @@
       "required:ordering",
       "required:cart",
       "required:mobile-friendly",
-      "required:delivery"
+      "required:delivery",
+      "assumption:assumption-responsive-approach"
     ]
   },
   "preview": {
@@ -22,13 +23,13 @@
       "verdict": "VERIFIED_FOR_SCOPE",
       "reasons": [],
       "candidate_id": "candidate_t16_a",
-      "evidence_id": "evidence_ver_ce546da6-0de5-4219-84ab-e1ab31301bf0"
+      "evidence_id": "evidence_ver_45ba5d10-e4bc-492d-84b7-778ab5156efa"
     },
     "bound": {
       "bound": true,
-      "preview_url": "http://127.0.0.1:51999",
+      "preview_url": "http://127.0.0.1:57896",
       "candidate_id": "candidate_t16_a",
-      "evidence_id": "evidence_ver_ce546da6-0de5-4219-84ab-e1ab31301bf0"
+      "evidence_id": "evidence_ver_45ba5d10-e4bc-492d-84b7-778ab5156efa"
     },
     "unverified_refused": {
       "bound": false,
@@ -59,7 +60,7 @@
     },
     "client_feedback": {
       "recorded": true,
-      "feedback_id": "feedback_f6093a62-0a5b-4dbf-a039-9140f77dc169",
+      "feedback_id": "feedback_e21401e5-db0b-4065-b7b8-7557c8da8533",
       "satisfaction": "needs_changes"
     }
   },
@@ -82,10 +83,10 @@
       "verdict": "VERIFIED_FOR_SCOPE",
       "reasons": [],
       "candidate_id": "candidate_t16_b",
-      "evidence_id": "evidence_ver_37da18e8-0731-487c-a3b6-0f56743bff25"
+      "evidence_id": "evidence_ver_64fd458f-f913-4801-9cb0-aa69fe30f44c"
     },
-    "first_evidence_id": "evidence_ver_ce546da6-0de5-4219-84ab-e1ab31301bf0",
-    "second_evidence_id": "evidence_ver_37da18e8-0731-487c-a3b6-0f56743bff25"
+    "first_evidence_id": "evidence_ver_45ba5d10-e4bc-492d-84b7-778ab5156efa",
+    "second_evidence_id": "evidence_ver_64fd458f-f913-4801-9cb0-aa69fe30f44c"
   },
   "cross_stack": {
     "composite_verdict": {
@@ -136,7 +137,7 @@
     "shop_api": {
       "configured": true,
       "label": "sandbox_tested",
-      "evidence": "live requests against http://127.0.0.1:51999"
+      "evidence": "live requests against http://127.0.0.1:57896"
     }
   },
   "resume": {

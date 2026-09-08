@@ -15,7 +15,8 @@
     "typecheck": "tsc --noEmit",
     "test:tasks": "node --import tsx --test tests/tasks/*.test.ts",
     "test:reference": "node --test tests/reference.test.mjs",
-    "test": "npm run typecheck && npm run test:reference && npm run test:tasks"
+    "test": "npm run typecheck && npm run test:reference && npm run test:tasks",
+    "cm": "node --import tsx apps/cli/src/cm.ts"
   },
   "devDependencies": {
     "@types/node": "26.5.0",
@@ -32,5 +33,8 @@
     "ajv-formats": "3.0.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
+  },
+  "bin": {
+    "cm": "./bin/cm.mjs"
   }
 }

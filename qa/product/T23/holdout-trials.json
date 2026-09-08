@@ -46,7 +46,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 375
+    "wall_ms": 377
   },
   {
     "trial_id": "holdout_hx_ui_cart_badge_2",
@@ -95,7 +95,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 298
+    "wall_ms": 257
   },
   {
     "trial_id": "holdout_hx_ui_cart_badge_3",
@@ -144,7 +144,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 316
+    "wall_ms": 294
   },
   {
     "trial_id": "holdout_hx_ui_price_alignment_1",
@@ -192,10 +192,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 533
+    "wall_ms": 461
   },
   {
     "trial_id": "holdout_hx_ui_price_alignment_2",
@@ -243,10 +250,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 312
+    "wall_ms": 305
   },
   {
     "trial_id": "holdout_hx_ui_price_alignment_3",
@@ -294,10 +308,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 355
+    "wall_ms": 349
   },
   {
     "trial_id": "holdout_hx_ui_empty_cart_1",
@@ -354,7 +375,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 325
+    "wall_ms": 320
   },
   {
     "trial_id": "holdout_hx_ui_empty_cart_2",
@@ -411,7 +432,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 307
+    "wall_ms": 317
   },
   {
     "trial_id": "holdout_hx_ui_empty_cart_3",
@@ -468,7 +489,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 347
+    "wall_ms": 335
   },
   {
     "trial_id": "holdout_hx_ui_disabled_submit_1",
@@ -523,7 +544,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 320
+    "wall_ms": 300
   },
   {
     "trial_id": "holdout_hx_ui_disabled_submit_2",
@@ -578,7 +599,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 313
+    "wall_ms": 291
   },
   {
     "trial_id": "holdout_hx_ui_disabled_submit_3",
@@ -633,7 +654,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 310
+    "wall_ms": 318
   },
   {
     "trial_id": "holdout_hx_ui_error_banner_1",
@@ -682,7 +703,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 248
+    "wall_ms": 223
   },
   {
     "trial_id": "holdout_hx_ui_error_banner_2",
@@ -731,7 +752,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 250
+    "wall_ms": 229
   },
   {
     "trial_id": "holdout_hx_ui_error_banner_3",
@@ -780,7 +801,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 248
+    "wall_ms": 222
   },
   {
     "trial_id": "holdout_hx_ui_focus_ring_1",
@@ -831,7 +852,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 329
+    "wall_ms": 300
   },
   {
     "trial_id": "holdout_hx_ui_focus_ring_2",
@@ -882,7 +903,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 339
+    "wall_ms": 291
   },
   {
     "trial_id": "holdout_hx_ui_focus_ring_3",
@@ -933,7 +954,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 300
+    "wall_ms": 303
   },
   {
     "trial_id": "holdout_hx_ui_small_viewport_1",
@@ -990,7 +1011,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 284
+    "wall_ms": 303
   },
   {
     "trial_id": "holdout_hx_ui_small_viewport_2",
@@ -1047,7 +1068,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 301
+    "wall_ms": 400
   },
   {
     "trial_id": "holdout_hx_ui_small_viewport_3",
@@ -1104,7 +1125,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 306
+    "wall_ms": 295
   },
   {
     "trial_id": "holdout_hx_ui_quantity_stepper_1",
@@ -1159,7 +1180,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 319
+    "wall_ms": 291
   },
   {
     "trial_id": "holdout_hx_ui_quantity_stepper_2",
@@ -1214,7 +1235,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 373
+    "wall_ms": 263
   },
   {
     "trial_id": "holdout_hx_ui_quantity_stepper_3",
@@ -1269,7 +1290,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 331
+    "wall_ms": 350
   },
   {
     "trial_id": "holdout_hx_ui_currency_format_1",
@@ -1318,7 +1339,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 241
+    "wall_ms": 235
   },
   {
     "trial_id": "holdout_hx_ui_currency_format_2",
@@ -1367,7 +1388,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 250
+    "wall_ms": 228
   },
   {
     "trial_id": "holdout_hx_ui_currency_format_3",
@@ -1416,7 +1437,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 276
+    "wall_ms": 243
   },
   {
     "trial_id": "holdout_hx_ui_loading_state_1",
@@ -1467,7 +1488,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 348
+    "wall_ms": 316
   },
   {
     "trial_id": "holdout_hx_ui_loading_state_2",
@@ -1518,7 +1539,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 315
+    "wall_ms": 324
   },
   {
     "trial_id": "holdout_hx_ui_loading_state_3",
@@ -1569,7 +1590,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 329
+    "wall_ms": 399
   },
   {
     "trial_id": "holdout_hx_ui_long_product_name_1",
@@ -1623,10 +1644,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 365
+    "wall_ms": 328
   },
   {
     "trial_id": "holdout_hx_ui_long_product_name_2",
@@ -1680,10 +1708,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 324
+    "wall_ms": 352
   },
   {
     "trial_id": "holdout_hx_ui_long_product_name_3",
@@ -1737,10 +1772,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 321
+    "wall_ms": 312
   },
   {
     "trial_id": "holdout_hx_ui_receipt_summary_1",
@@ -1795,7 +1837,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 306
+    "wall_ms": 291
   },
   {
     "trial_id": "holdout_hx_ui_receipt_summary_2",
@@ -1850,7 +1892,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 274
+    "wall_ms": 278
   },
   {
     "trial_id": "holdout_hx_ui_receipt_summary_3",
@@ -1905,7 +1947,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 235
+    "wall_ms": 305
   },
   {
     "trial_id": "holdout_hx_auth_session_scope_1",
@@ -1954,7 +1996,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 157
+    "wall_ms": 218
   },
   {
     "trial_id": "holdout_hx_auth_session_scope_2",
@@ -2003,7 +2045,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 155
+    "wall_ms": 222
   },
   {
     "trial_id": "holdout_hx_auth_session_scope_3",
@@ -2052,7 +2094,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 168
+    "wall_ms": 197
   },
   {
     "trial_id": "holdout_hx_auth_price_authority_1",
@@ -2100,10 +2142,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 259
+    "wall_ms": 258
   },
   {
     "trial_id": "holdout_hx_auth_price_authority_2",
@@ -2151,10 +2200,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 257
+    "wall_ms": 221
   },
   {
     "trial_id": "holdout_hx_auth_price_authority_3",
@@ -2202,10 +2258,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 212
+    "wall_ms": 167
   },
   {
     "trial_id": "holdout_hx_auth_replay_order_1",
@@ -2262,7 +2325,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 202
+    "wall_ms": 167
   },
   {
     "trial_id": "holdout_hx_auth_replay_order_2",
@@ -2319,7 +2382,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 183
+    "wall_ms": 159
   },
   {
     "trial_id": "holdout_hx_auth_replay_order_3",
@@ -2376,7 +2439,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 174
+    "wall_ms": 159
   },
   {
     "trial_id": "holdout_hx_data_quantity_bounds_1",
@@ -2431,7 +2494,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 176
+    "wall_ms": 180
   },
   {
     "trial_id": "holdout_hx_data_quantity_bounds_2",
@@ -2486,7 +2549,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 171
+    "wall_ms": 224
   },
   {
     "trial_id": "holdout_hx_data_quantity_bounds_3",
@@ -2541,7 +2604,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 174
+    "wall_ms": 217
   },
   {
     "trial_id": "holdout_hx_data_unknown_product_1",
@@ -2590,7 +2653,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 130
+    "wall_ms": 151
   },
   {
     "trial_id": "holdout_hx_data_unknown_product_2",
@@ -2639,7 +2702,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 132
+    "wall_ms": 145
   },
   {
     "trial_id": "holdout_hx_data_unknown_product_3",
@@ -2688,7 +2751,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 133
+    "wall_ms": 151
   },
   {
     "trial_id": "holdout_hx_data_total_integrity_1",
@@ -2739,7 +2802,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 175
+    "wall_ms": 200
   },
   {
     "trial_id": "holdout_hx_data_total_integrity_2",
@@ -2790,7 +2853,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 193
+    "wall_ms": 168
   },
   {
     "trial_id": "holdout_hx_data_total_integrity_3",
@@ -2841,7 +2904,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 178
+    "wall_ms": 193
   },
   {
     "trial_id": "holdout_hx_integration_timeout_1",
@@ -2898,7 +2961,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 170
+    "wall_ms": 192
   },
   {
     "trial_id": "holdout_hx_integration_timeout_2",
@@ -2955,7 +3018,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 172
+    "wall_ms": 192
   },
   {
     "trial_id": "holdout_hx_integration_timeout_3",
@@ -3012,7 +3075,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 180
+    "wall_ms": 202
   },
   {
     "trial_id": "holdout_hx_integration_partial_write_1",
@@ -3067,7 +3130,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 175
+    "wall_ms": 190
   },
   {
     "trial_id": "holdout_hx_integration_partial_write_2",
@@ -3122,7 +3185,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 173
+    "wall_ms": 193
   },
   {
     "trial_id": "holdout_hx_integration_partial_write_3",
@@ -3177,7 +3240,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 174
+    "wall_ms": 180
   },
   {
     "trial_id": "holdout_hx_integration_retry_safety_1",
@@ -3223,10 +3286,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 129
+    "wall_ms": 139
   },
   {
     "trial_id": "holdout_hx_integration_retry_safety_2",
@@ -3272,10 +3342,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 130
+    "wall_ms": 148
   },
   {
     "trial_id": "holdout_hx_integration_retry_safety_3",
@@ -3321,10 +3398,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 134
+    "wall_ms": 149
   },
   {
     "trial_id": "holdout_hx_data_currency_units_1",
@@ -3375,7 +3459,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 172
+    "wall_ms": 195
   },
   {
     "trial_id": "holdout_hx_data_currency_units_2",
@@ -3426,7 +3510,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 174
+    "wall_ms": 191
   },
   {
     "trial_id": "holdout_hx_data_currency_units_3",
@@ -3477,7 +3561,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 173
+    "wall_ms": 187
   },
   {
     "trial_id": "holdout_hx_auth_role_separation_1",
@@ -3534,7 +3618,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 171
+    "wall_ms": 194
   },
   {
     "trial_id": "holdout_hx_auth_role_separation_2",
@@ -3591,7 +3675,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 170
+    "wall_ms": 194
   },
   {
     "trial_id": "holdout_hx_auth_role_separation_3",
@@ -3648,7 +3732,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 174
+    "wall_ms": 173
   },
   {
     "trial_id": "holdout_hx_data_audit_trail_1",
@@ -3700,10 +3784,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 172
+    "wall_ms": 190
   },
   {
     "trial_id": "holdout_hx_data_audit_trail_2",
@@ -3755,10 +3846,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 171
+    "wall_ms": 189
   },
   {
     "trial_id": "holdout_hx_data_audit_trail_3",
@@ -3810,10 +3908,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 169
+    "wall_ms": 188
   },
   {
     "trial_id": "holdout_hx_lang_total_wrong_1",
@@ -3866,7 +3971,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 148
+    "wall_ms": 171
   },
   {
     "trial_id": "holdout_hx_lang_total_wrong_2",
@@ -3919,7 +4024,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 147
+    "wall_ms": 165
   },
   {
     "trial_id": "holdout_hx_lang_total_wrong_3",
@@ -3972,7 +4077,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 148
+    "wall_ms": 167
   },
   {
     "trial_id": "holdout_hx_lang_no_negative_1",
@@ -4027,7 +4132,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 171
+    "wall_ms": 190
   },
   {
     "trial_id": "holdout_hx_lang_no_negative_2",
@@ -4082,7 +4187,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 175
+    "wall_ms": 172
   },
   {
     "trial_id": "holdout_hx_lang_no_negative_3",
@@ -4137,7 +4242,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 172
+    "wall_ms": 184
   },
   {
     "trial_id": "holdout_hx_lang_slow_checkout_1",
@@ -4202,7 +4307,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 197
+    "wall_ms": 224
   },
   {
     "trial_id": "holdout_hx_lang_slow_checkout_2",
@@ -4267,7 +4372,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 199
+    "wall_ms": 218
   },
   {
     "trial_id": "holdout_hx_lang_slow_checkout_3",
@@ -4332,7 +4437,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 198
+    "wall_ms": 228
   },
   {
     "trial_id": "holdout_hx_lang_button_hidden_1",
@@ -4397,7 +4502,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 199
+    "wall_ms": 222
   },
   {
     "trial_id": "holdout_hx_lang_button_hidden_2",
@@ -4462,7 +4567,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 206
+    "wall_ms": 233
   },
   {
     "trial_id": "holdout_hx_lang_button_hidden_3",
@@ -4527,7 +4632,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 201
+    "wall_ms": 211
   },
   {
     "trial_id": "holdout_hx_lang_wrong_change_1",
@@ -4580,7 +4685,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 142
+    "wall_ms": 149
   },
   {
     "trial_id": "holdout_hx_lang_wrong_change_2",
@@ -4633,7 +4738,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 135
+    "wall_ms": 152
   },
   {
     "trial_id": "holdout_hx_lang_wrong_change_3",
@@ -4686,7 +4791,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 131
+    "wall_ms": 151
   },
   {
     "trial_id": "holdout_hx_lang_double_order_1",
@@ -4745,7 +4850,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 177
+    "wall_ms": 213
   },
   {
     "trial_id": "holdout_hx_lang_double_order_2",
@@ -4804,7 +4909,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 175
+    "wall_ms": 208
   },
   {
     "trial_id": "holdout_hx_lang_double_order_3",
@@ -4863,7 +4968,7 @@
       ],
       "equivalent": true
     },
-    "wall_ms": 175
+    "wall_ms": 199
   },
   {
     "trial_id": "holdout_hx_lang_price_change_1",
@@ -4917,14 +5022,21 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": {
       "english": [],
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 175
+    "wall_ms": 189
   },
   {
     "trial_id": "holdout_hx_lang_price_change_2",
@@ -4978,14 +5090,21 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": {
       "english": [],
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 182
+    "wall_ms": 171
   },
   {
     "trial_id": "holdout_hx_lang_price_change_3",
@@ -5039,14 +5158,21 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": {
       "english": [],
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 175
+    "wall_ms": 183
   },
   {
     "trial_id": "holdout_hx_lang_receipt_missing_1",
@@ -5105,7 +5231,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 197
+    "wall_ms": 221
   },
   {
     "trial_id": "holdout_hx_lang_receipt_missing_2",
@@ -5164,7 +5290,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 202
+    "wall_ms": 219
   },
   {
     "trial_id": "holdout_hx_lang_receipt_missing_3",
@@ -5223,7 +5349,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 201
+    "wall_ms": 215
   },
   {
     "trial_id": "holdout_hx_lang_login_loop_1",
@@ -5276,7 +5402,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 133
+    "wall_ms": 141
   },
   {
     "trial_id": "holdout_hx_lang_login_loop_2",
@@ -5329,7 +5455,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 130
+    "wall_ms": 140
   },
   {
     "trial_id": "holdout_hx_lang_login_loop_3",
@@ -5382,7 +5508,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 126
+    "wall_ms": 139
   },
   {
     "trial_id": "holdout_hx_lang_stock_wrong_1",
@@ -5437,7 +5563,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 174
+    "wall_ms": 177
   },
   {
     "trial_id": "holdout_hx_lang_stock_wrong_2",
@@ -5492,7 +5618,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 171
+    "wall_ms": 180
   },
   {
     "trial_id": "holdout_hx_lang_stock_wrong_3",
@@ -5547,7 +5673,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 170
+    "wall_ms": 190
   },
   {
     "trial_id": "holdout_hx_lang_address_lost_1",
@@ -5608,7 +5734,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 200
+    "wall_ms": 216
   },
   {
     "trial_id": "holdout_hx_lang_address_lost_2",
@@ -5669,7 +5795,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 199
+    "wall_ms": 218
   },
   {
     "trial_id": "holdout_hx_lang_address_lost_3",
@@ -5730,7 +5856,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 202
+    "wall_ms": 220
   },
   {
     "trial_id": "holdout_hx_lang_units_confusing_1",
@@ -5789,7 +5915,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 1896
+    "wall_ms": 1750
   },
   {
     "trial_id": "holdout_hx_lang_units_confusing_2",
@@ -5848,7 +5974,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 1428
+    "wall_ms": 1630
   },
   {
     "trial_id": "holdout_hx_lang_units_confusing_3",
@@ -5907,7 +6033,7 @@
       "taglish": [],
       "equivalent": true
     },
-    "wall_ms": 1397
+    "wall_ms": 1687
   },
   {
     "trial_id": "holdout_hx_backend_pricing_service_1",
@@ -5953,10 +6079,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 128
+    "wall_ms": 167
   },
   {
     "trial_id": "holdout_hx_backend_pricing_service_2",
@@ -6002,10 +6135,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 130
+    "wall_ms": 154
   },
   {
     "trial_id": "holdout_hx_backend_pricing_service_3",
@@ -6051,10 +6191,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 132
+    "wall_ms": 159
   },
   {
     "trial_id": "holdout_hx_backend_rounding_1",
@@ -6105,7 +6252,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 172
+    "wall_ms": 226
   },
   {
     "trial_id": "holdout_hx_backend_rounding_2",
@@ -6156,7 +6303,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 172
+    "wall_ms": 263
   },
   {
     "trial_id": "holdout_hx_backend_rounding_3",
@@ -6207,7 +6354,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 173
+    "wall_ms": 272
   },
   {
     "trial_id": "holdout_hx_backend_bulk_order_1",
@@ -6261,10 +6408,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 173
+    "wall_ms": 180
   },
   {
     "trial_id": "holdout_hx_backend_bulk_order_2",
@@ -6318,10 +6472,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 173
+    "wall_ms": 160
   },
   {
     "trial_id": "holdout_hx_backend_bulk_order_3",
@@ -6375,10 +6536,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 175
+    "wall_ms": 200
   },
   {
     "trial_id": "holdout_hx_backend_zero_items_1",
@@ -6433,7 +6601,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 177
+    "wall_ms": 201
   },
   {
     "trial_id": "holdout_hx_backend_zero_items_2",
@@ -6488,7 +6656,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 174
+    "wall_ms": 202
   },
   {
     "trial_id": "holdout_hx_backend_zero_items_3",
@@ -6543,7 +6711,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 177
+    "wall_ms": 197
   },
   {
     "trial_id": "holdout_hx_native_pricing_binary_1",
@@ -6589,10 +6757,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 732
+    "wall_ms": 780
   },
   {
     "trial_id": "holdout_hx_native_pricing_binary_2",
@@ -6638,10 +6813,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 712
+    "wall_ms": 803
   },
   {
     "trial_id": "holdout_hx_native_pricing_binary_3",
@@ -6687,10 +6869,17 @@
       }
     ],
     "escaped_defects": [],
-    "material_questions": [],
+    "material_questions": [
+      {
+        "prompt": "Should any price or fee change as part of this work, or do they all stay exactly as they are now?",
+        "recommendation": null,
+        "reason": "payment_behaviour",
+        "blocking_topic": "pricing-change"
+      }
+    ],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 726
+    "wall_ms": 802
   },
   {
     "trial_id": "holdout_hx_native_currency_units_1",
@@ -6741,7 +6930,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1661
+    "wall_ms": 1803
   },
   {
     "trial_id": "holdout_hx_native_currency_units_2",
@@ -6792,7 +6981,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1411
+    "wall_ms": 1657
   },
   {
     "trial_id": "holdout_hx_native_currency_units_3",
@@ -6843,7 +7032,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1431
+    "wall_ms": 1659
   },
   {
     "trial_id": "holdout_hx_native_large_quantity_1",
@@ -6900,7 +7089,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1635
+    "wall_ms": 1840
   },
   {
     "trial_id": "holdout_hx_native_large_quantity_2",
@@ -6957,7 +7146,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1440
+    "wall_ms": 1558
   },
   {
     "trial_id": "holdout_hx_native_large_quantity_3",
@@ -7014,7 +7203,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1417
+    "wall_ms": 1606
   },
   {
     "trial_id": "holdout_hx_native_refuse_negative_1",
@@ -7069,7 +7258,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1455
+    "wall_ms": 1643
   },
   {
     "trial_id": "holdout_hx_native_refuse_negative_2",
@@ -7124,7 +7313,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1412
+    "wall_ms": 1561
   },
   {
     "trial_id": "holdout_hx_native_refuse_negative_3",
@@ -7179,7 +7368,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 1409
+    "wall_ms": 1560
   },
   {
     "trial_id": "holdout_hx_systems_parser_bounds_1",
@@ -7228,7 +7417,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 870
+    "wall_ms": 682
   },
   {
     "trial_id": "holdout_hx_systems_parser_bounds_2",
@@ -7277,7 +7466,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 324
+    "wall_ms": 335
   },
   {
     "trial_id": "holdout_hx_systems_parser_bounds_3",
@@ -7326,7 +7515,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 312
+    "wall_ms": 356
   },
   {
     "trial_id": "holdout_hx_systems_parser_total_1",
@@ -7377,7 +7566,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 844
+    "wall_ms": 894
   },
   {
     "trial_id": "holdout_hx_systems_parser_total_2",
@@ -7428,7 +7617,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 615
+    "wall_ms": 664
   },
   {
     "trial_id": "holdout_hx_systems_parser_total_3",
@@ -7479,7 +7668,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 614
+    "wall_ms": 668
   },
   {
     "trial_id": "holdout_hx_systems_parser_unknown_1",
@@ -7536,7 +7725,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 844
+    "wall_ms": 873
   },
   {
     "trial_id": "holdout_hx_systems_parser_unknown_2",
@@ -7593,7 +7782,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 594
+    "wall_ms": 662
   },
   {
     "trial_id": "holdout_hx_systems_parser_unknown_3",
@@ -7650,7 +7839,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 580
+    "wall_ms": 667
   },
   {
     "trial_id": "holdout_hx_polyglot_shared_total_1",
@@ -7705,7 +7894,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 804
+    "wall_ms": 687
   },
   {
     "trial_id": "holdout_hx_polyglot_shared_total_2",
@@ -7760,7 +7949,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 623
+    "wall_ms": 664
   },
   {
     "trial_id": "holdout_hx_polyglot_shared_total_3",
@@ -7815,7 +8004,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 596
+    "wall_ms": 660
   },
   {
     "trial_id": "holdout_hx_llm_grounded_total_1",
@@ -7864,7 +8053,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 127
+    "wall_ms": 147
   },
   {
     "trial_id": "holdout_hx_llm_grounded_total_2",
@@ -7913,7 +8102,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 129
+    "wall_ms": 149
   },
   {
     "trial_id": "holdout_hx_llm_grounded_total_3",
@@ -7962,7 +8151,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 130
+    "wall_ms": 150
   },
   {
     "trial_id": "holdout_hx_llm_refuse_unsupported_1",
@@ -8013,7 +8202,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 171
+    "wall_ms": 195
   },
   {
     "trial_id": "holdout_hx_llm_refuse_unsupported_2",
@@ -8064,7 +8253,7 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 170
+    "wall_ms": 174
   },
   {
     "trial_id": "holdout_hx_llm_refuse_unsupported_3",
@@ -8115,6 +8304,6 @@
     "material_questions": [],
     "continue_prompts": 0,
     "paired_language": null,
-    "wall_ms": 171
+    "wall_ms": 200
   }
 ]

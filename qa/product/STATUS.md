@@ -217,6 +217,28 @@ confirm the gates now go red. Two narrow gaps remain open and are named in the m
 - the job is technically READY and the client records `needs_changes` on the same work. Neither
   changes the other, which is the whole point of four separate signoffs
 
+## Found by the demo project, after the gates were green
+
+`~/Desktop/client-mode-demo/` is a client project — a working site with three real defects and a
+request written in mixed English and Filipino — with an acceptance suite that checks the business
+requirements rather than the internals. It found two things 33 green gates had not:
+
+- **`interpret()` dropped the client's exclusions.** "Wag niyo pong baguhin yung presyo" and
+  "walang delivery fee" produced no excluded requirement, and worse, "walang delivery fee" was
+  read as a *delivery* requirement — the client's meaning inverted. Fixed with the two exclusion
+  patterns and clause-scoped negation; a fixed-width lookback made the same sentence mean two
+  different things in English and in Taglish, which is why the clause is the unit.
+- **A money topic was neither asked about nor recorded.** Now a topic the client settled is not
+  asked again, and the same topic left open raises exactly one question. Both directions are
+  gated, because asserting only one passes on a build that asks nothing at all.
+
+Five mutations (`Q1`–`Q5`) confirm AT-013 goes red on each.
+
+`cm` also had no executable entry point: AT-018 checked that the command surface matches the
+operations contract, and nothing ran it. `bin/cm.mjs` now dispatches `doctor`, `run`, `status`,
+`open`, `install` and `uninstall` to the modules the gates already exercise, and `activate` /
+`deactivate` are gated by AT-017 with four mutations (`R1`–`R4`).
+
 ## Explicitly not proven yet
 
 All 33 gates are green. These are the things that green does **not** cover, stated so nobody has

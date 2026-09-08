@@ -63,10 +63,21 @@ registerScenario('AT-013', async (): Promise<ScenarioObservation> => {
       assumptions: entry.result.internal_decisions.map(decision => decision.topic),
       questions: entry.result.material_questions,
     }));
+    // A client saying what must NOT change is the most expensive thing to lose, and reading a
+    // negated phrase as a feature is worse than losing it: "walang delivery fee" must never
+    // become a delivery requirement.
+    const negatedBrief = interpret({
+      request: clientRequest('Ayusin niyo yung ordering page. Wag niyo pong baguhin yung presyo, tama na yun. Walang delivery fee for now.', 'mixed', 'request_negated'),
+    });
+    const negatedExcluded = negatedBrief.requirements.filter(entry => entry.classification === 'excluded').map(entry => entry.id);
+    const negatedRequired = negatedBrief.requirements.filter(entry => entry.classification === 'required').map(entry => entry.id);
+    log['negated_exclusions'] = { excluded: negatedExcluded, required: negatedRequired };
     const exclusionsPreserved =
       excludedIds.every(ids => ids.includes('no-account') && ids.includes('no-online-payment') && ids.includes('cash-on-delivery')) &&
       new Set(excludedIds.map(ids => ids.join('|'))).size === 1 &&
-      new Set(requiredIds.map(ids => ids.join('|'))).size === 1;
+      new Set(requiredIds.map(ids => ids.join('|'))).size === 1 &&
+      negatedExcluded.includes('keep-prices') && negatedExcluded.includes('no-delivery-fee') &&
+      !negatedRequired.includes('delivery');
 
     // 2. Technical details are decided internally; the client is asked nothing technical.
     const technicalBrief = interpret({
@@ -78,8 +89,23 @@ registerScenario('AT-013', async (): Promise<ScenarioObservation> => {
       questions_asked: technicalBrief.material_questions,
       decided_internally: technicalBrief.internal_decisions,
     };
+    // A topic the client already settled is not asked about again; the same topic left open is.
+    // Both directions are checked, because only asserting one of them would pass on a build
+    // that asks nothing at all.
+    const settledMoney = interpret({
+      request: clientRequest('Ayusin ang ordering page. Wag baguhin ang presyo. Walang delivery fee for now.', 'mixed', 'request_settled_money'),
+    });
+    const openMoney = interpret({
+      request: clientRequest('Pwede po bang mag add ng delivery fee sa mga malalayong address?', 'mixed', 'request_open_money'),
+    });
+    log['money_topics'] = {
+      settled: settledMoney.material_questions.map(question => question.blocking_topic),
+      open: openMoney.material_questions.map(question => question.blocking_topic),
+    };
     const materialNotInvented = interpretations.every(entry => entry.result.material_questions.length === 0) &&
-      technicalBrief.internal_decisions.length > 0;
+      technicalBrief.internal_decisions.length > 0 &&
+      settledMoney.material_questions.length === 0 &&
+      openMoney.material_questions.some(question => question.blocking_topic === 'pricing-change');
 
     // A genuinely material ambiguity does produce exactly one visible question.
     const ambiguous = interpret({

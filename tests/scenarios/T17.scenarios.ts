@@ -5,13 +5,14 @@
  * sessions of both installed hosts load the installed package, and uninstall is compared
  * against a byte fingerprint taken before anything was written.
  */
-import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import type { Json, ScenarioObservation } from '../../contracts/interfaces.js';
 import { buildDistribution, validateManifest, PackagingError } from '../../packages/packaging/src/build.js';
 import { fingerprintTree } from '../../packages/packaging/src/install.js';
 import { install, remove, describePlan } from '../../apps/cli/src/install.js';
+import { activate, deactivate } from '../../apps/cli/src/cm.js';
 import { Evidence, ROOT, attempt } from '../harness/evidence.js';
 import { disposableProject, liveHostAvailable, liveTurn } from '../harness/live-provider.js';
 import { registerScenario } from '../harness/registry.js';
@@ -154,7 +155,49 @@ registerScenario('AT-017', async (): Promise<ScenarioObservation> => {
       tree_matches_original: JSON.stringify(before) === JSON.stringify(afterUninstall),
       client_mode_directory_present: readdirSync(installRoot).includes('client-mode'),
     };
-    const uninstallRestores = JSON.stringify(before) === JSON.stringify(afterUninstall) &&
+    // The CLI's activation is what actually makes a host load the package: skills into the
+    // host's own skills directory, and rules appended to the instructions file it reads. That
+    // round trip has to be byte-clean too, including a reinstall over an existing install —
+    // which is where a naive backup captures our own text as "the original".
+    const activationRoot = path.join(sandbox, 'activation-host');
+    mkdirSync(activationRoot, { recursive: true });
+    const ownInstructions = '# My own operating notes\n\nKeep these.\n';
+    writeFileSync(path.join(activationRoot, 'CLAUDE.md'), ownInstructions);
+    const distributionRoot = claude.root;
+    activate({ host: 'claude', install_root: activationRoot, distribution_root: distributionRoot });
+    const afterActivate = readFileSync(path.join(activationRoot, 'CLAUDE.md'), 'utf8');
+    activate({ host: 'claude', install_root: activationRoot, distribution_root: distributionRoot });
+    // Counting directories would pass on a build that creates empty ones, so the file has to
+    // be there and has to carry the skill's front matter.
+    const skillsInstalled = readdirSync(path.join(activationRoot, 'skills'))
+      .filter(entry => entry.startsWith('cm-'))
+      .filter(entry => {
+        const file = path.join(activationRoot, 'skills', entry, 'SKILL.md');
+        return existsSync(file) && /^---\r?\nname:/m.test(readFileSync(file, 'utf8'));
+      });
+    // The safety-net backup must hold the client's own file, never our own text: reinstalling
+    // over an existing install is exactly where that goes wrong.
+    const backupContent = existsSync(path.join(activationRoot, 'CLAUDE.md.client-mode-backup'))
+      ? readFileSync(path.join(activationRoot, 'CLAUDE.md.client-mode-backup'), 'utf8') : '';
+    deactivate({ host: 'claude', install_root: activationRoot });
+    const afterDeactivate = readFileSync(path.join(activationRoot, 'CLAUDE.md'), 'utf8');
+    log['activation'] = {
+      own_instructions_kept: afterActivate.includes('Keep these.'),
+      block_added: afterActivate.includes('<!-- client-mode:start -->'),
+      skills_installed: skillsInstalled,
+      backup_is_the_clients_own_file: backupContent === ownInstructions,
+      restored_identical: afterDeactivate === ownInstructions,
+      skills_directory_gone: !existsSync(path.join(activationRoot, 'skills')),
+      backup_removed: !existsSync(path.join(activationRoot, 'CLAUDE.md.client-mode-backup')),
+    };
+    const activationRoundTrips = afterActivate.includes('Keep these.') &&
+      afterActivate.includes('<!-- client-mode:start -->') && skillsInstalled.length === 8 &&
+      backupContent === ownInstructions &&
+      afterDeactivate === ownInstructions && !existsSync(path.join(activationRoot, 'skills')) &&
+      !existsSync(path.join(activationRoot, 'CLAUDE.md.client-mode-backup'));
+
+    const uninstallRestores = activationRoundTrips &&
+      JSON.stringify(before) === JSON.stringify(afterUninstall) &&
       settingsRestored['clientMode'] === undefined &&
       settingsRestored['theme'] === 'dark' &&
       !readdirSync(installRoot).includes('client-mode');

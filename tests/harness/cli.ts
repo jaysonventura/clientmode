@@ -31,6 +31,26 @@ export function runCliDetailed(argv: readonly string[], home: string): Promise<{
   });
 }
 
+/** Run a command that answers in JSON and read the answer, so a gate can assert on what the
+ * client is actually shown rather than on an exit code that says only "it ran". */
+export function runCliJson(argv: readonly string[], home: string): Promise<unknown> {
+  return new Promise(resolve => {
+    const child = spawn(process.execPath, ['--import', 'tsx', path.join(ROOT, 'apps/cli/src/cm.ts'), ...argv], {
+      cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'],
+      env: { ...process.env, NODE_NO_WARNINGS: '1', CM_HOME: home },
+    });
+    let stdout = '';
+    child.stdout.on('data', chunk => { stdout += String(chunk); });
+    const timer = setTimeout(() => { try { child.kill('SIGKILL'); } catch { /* gone */ } }, 120_000);
+    const finish = (): void => {
+      clearTimeout(timer);
+      try { resolve(JSON.parse(stdout)); } catch { resolve(null); }
+    };
+    child.on('close', finish);
+    child.on('error', finish);
+  });
+}
+
 /** Open the same fresh state directory from several processes at one instant.
  *
  * The barrier is what makes this a race rather than a queue: without it, process startup

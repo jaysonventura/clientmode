@@ -20,7 +20,7 @@ import { COMMANDS, EXIT_CODES, commandNames, describe } from '../../apps/cli/src
 import { cancelRun, createRun, readAuthorizedRequestFile } from '../../apps/cli/src/run.js';
 import { validate, rejectsCallerCommand } from '../../apps/cli/src/verify.js';
 import { Evidence, ROOT, attempt, fixedClock } from '../harness/evidence.js';
-import { raceOpen, runCli, runCliDetailed, UNWIRED_MARKER } from '../harness/cli.js';
+import { raceOpen, runCli, runCliDetailed, runCliJson, UNWIRED_MARKER } from '../harness/cli.js';
 import { checkInstall } from '../../packages/packaging/src/install-health.js';
 import { activate } from '../../apps/cli/src/cm.js';
 import { packageToolkit } from '../harness/package-toolkit.js';
@@ -157,6 +157,21 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
     // schema bootstrap has to survive: all of them find the state ready, none finds it half-made.
     const raced = await raceOpen(path.join(cliRoot, 'raced-state'), 8);
     const raceOk = raced.every(code => code === 0);
+    // A second machine, installed with --bin-dir somewhere other than the default. `doctor`
+    // has to report on the launcher this install wrote, not the one at the path it would have
+    // used — checking the default means reporting on a file belonging to another install.
+    const elsewhereHome = path.join(cliRoot, 'elsewhere-home');
+    const elsewhereBin = path.join(cliRoot, 'elsewhere-bin');
+    await runCli(['install', '--host', 'claude', '--lead',
+      '--install-root', path.join(cliRoot, 'elsewhere-claude'), '--bin-dir', elsewhereBin], elsewhereHome);
+    const elsewhereDoctor = await runCliJson(['doctor', '--json'], elsewhereHome);
+    const reportedLauncher = (elsewhereDoctor as { install?: { launcher?: string | null } } | null)
+      ?.install?.launcher ?? null;
+    log['doctor_reports_the_installed_launcher'] = {
+      installed_at: path.join(elsewhereBin, 'cm'), reported: reportedLauncher,
+    };
+    const launcherReportedCorrectly = reportedLauncher === path.join(elsewhereBin, 'cm');
+
     // The upgrade case, which is every install that exists today: $CM_HOME and its projects
     // directory are already there at the process umask, so creating the state directory
     // owner-only is not enough on its own — the two above it have to be brought down too.
@@ -189,7 +204,7 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
 
     const commandsMatch = unwired.length === 0 && offContract.length === 0 && crashed.length === 0 &&
       concurrentOk && raceOk && healthReported && doctorReportsBroken && cliExposed.length === 0 &&
-      legacyExposed.length === 0 &&
+      legacyExposed.length === 0 && launcherReportedCorrectly &&
       briefings.length > 0 && briefings.every(entry => entry.mode === '0600') &&
       missingCommands.length === 0 &&
       describe('verify')?.refuses.includes('accepting a caller-supplied command string') === true &&

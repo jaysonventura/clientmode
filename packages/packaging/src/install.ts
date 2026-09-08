@@ -41,6 +41,11 @@ export type InstallRecord = {
   backups: Array<{ target: string; backup: string }>;
   created: string[];
   merged: Array<{ target: string; keys: string[] }>;
+  /** Where this install actually put the launcher and the toolkit. Recorded because `doctor`
+   * has no other way to know: `--bin-dir` moves the launcher, and a health check that inspects
+   * the default path instead reports on a file this install never wrote. */
+  launcher?: string | null;
+  toolkit_root?: string | null;
 };
 
 const SETTINGS_FILE = 'settings.json';

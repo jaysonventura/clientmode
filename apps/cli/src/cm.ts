@@ -62,6 +62,21 @@ export function canonicalRoot(root: string): string {
 
 /** Where the controller keeps its state. One directory per authorized project root, derived
  * from the root itself so two projects never share a database. */
+/** The launcher this machine's install actually wrote, from the record it left behind.
+ * `--bin-dir` puts it somewhere other than the default, and checking the default instead means
+ * reporting on a file that belongs to a different install — or to a different person. */
+export function installedLauncher(home: string): string | null {
+  for (const host of ['claude', 'codex'] as const) {
+    const recordFile = path.join(home, `install-${host}.json`);
+    if (!existsSync(recordFile)) continue;
+    try {
+      const record = JSON.parse(readFileSync(recordFile, 'utf8')) as { launcher?: string | null };
+      if (typeof record.launcher === 'string') return record.launcher;
+    } catch { /* an unreadable record is not a launcher */ }
+  }
+  return null;
+}
+
 export function cmHome(): string {
   return process.env['CM_HOME'] ?? path.join(os.homedir(), '.client-mode');
 }
@@ -422,7 +437,7 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
         { host: 'claude', install_root: path.join(os.homedir(), '.claude') },
         { host: 'codex', install_root: path.join(os.homedir(), '.codex') },
       ],
-      launcher_path: path.join(os.homedir(), '.local', 'bin', 'cm'),
+      launcher_path: installedLauncher(cmHome()) ?? path.join(os.homedir(), '.local', 'bin', 'cm'),
     });
     const { report } = await doctor({
       hosts: HOSTS, billing_mode: 'native_account', now: new Date().toISOString(),
@@ -780,6 +795,8 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     if (portable !== null) {
       record.created.push(portable.root);
       if (portable.launcher !== null) record.created.push(portable.launcher);
+      record.launcher = portable.launcher;
+      record.toolkit_root = portable.root;
     }
     record.created.push(...activated.created);
     record.backups.push(...activated.backups);

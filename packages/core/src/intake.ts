@@ -48,8 +48,8 @@ export type Interpretation = {
 
 /** Exclusions, in the words clients actually use, English and Taglish. */
 const EXCLUSIONS: Array<[RegExp, string, string]> = [
-  [/\b(no|without|walang|wala|hindi kailangan)\b[^.]{0,30}\b(account|sign ?up|register|registration|log ?in)\b/i, 'no-account', 'Customers order without registering or logging in.'],
-  [/\b(no|without|walang|wala|hindi)\b[^.]{0,30}\b(online payment|card|credit card|gcash|paypal|checkout payment)\b/i, 'no-online-payment', 'Do not add online payment.'],
+  [/\b(no|without|walang|wala|hindi kailangan|wag|huwag|ayaw)\b[^.]{0,30}\b(account|sign ?up|register|registration|log ?in)\b/i, 'no-account', 'Customers order without registering or logging in.'],
+  [/\b(no|without|walang|wala|hindi|wag|huwag|ayaw)\b[^.]{0,30}\b(online payment|card|credit card|gcash|paypal|checkout payment)\b/i, 'no-online-payment', 'Do not add online payment.'],
   // Few clients write "cash on delivery". They write "pay when it arrives", "bayad pagdating",
   // "COD lang". Missing it means proposing an online payment they told us they do not want.
   [/\bcash on delivery\b|\bcod\b|\bbayad sa pag ?dating\b|\bbayad pag ?dating\b|\bpay (when|on|upon)\b[^.]{0,20}\b(deliver|delivery|arrive|arrives|receive)\b|\bbayad (kapag|pag)\b[^.]{0,20}\b(dating|hatid|deliver)\b/i,
@@ -65,6 +65,39 @@ const EXCLUSIONS: Array<[RegExp, string, string]> = [
 
 /** Words that turn the phrase after them into the opposite request. */
 const NEGATION = /\b(no|not|without|never|wag|huwag|walang|wala|hindi|ayaw)\b/i;
+
+/** A refusal with nothing after it: "ayaw ko sana", "wag na", "pero wag muna", "no thanks".
+ *
+ * People do not repeat the noun when they reject something they have just named. The refusal
+ * lands in its own sentence and refers back, and a reader that only looks inside one sentence
+ * misses the most important word in the message. */
+const BARE_REJECTION = /^(?:[^a-z0-9]*)(pero\s+)?(ayaw(\s+ko)?(\s+sana)?|wag(\s+na|\s+muna)?|huwag(\s+na|\s+muna)?|hindi\s+na|no\s+thanks?|not\s+(that|those)|skip\s+(it|that))\b/i;
+
+/** What a topic named in one sentence excludes when the next sentence rejects it. */
+const REJECTABLE_TOPICS: Array<[RegExp, string, string]> = [
+  [/\b(account|sign ?up|register|registration|log ?in)\b/i, 'no-account', 'Customers order without registering or logging in.'],
+  [/\b(online payment|card|credit card|gcash|paypal|checkout payment)\b/i, 'no-online-payment', 'Do not add online payment.'],
+  [/\b(delivery fee|shipping fee)\b/i, 'no-delivery-fee', 'No delivery fee is charged.'],
+  [/\b(subscription|recurring)\b/i, 'no-subscription', 'No recurring billing.'],
+];
+
+/** Exclusions the client expressed by naming a thing and then refusing it in the next breath. */
+function trailingRejections(message: string): Array<{ id: string; description: string }> {
+  const sentences = message.split(/(?<=[.!?])\s+/).filter(part => part.trim() !== '');
+  const found: Array<{ id: string; description: string }> = [];
+  sentences.forEach((sentence, index) => {
+    if (!BARE_REJECTION.test(sentence.trim())) return;
+    // Look back for the nearest sentence that named something rejectable.
+    for (let back = index - 1; back >= 0 && back >= index - 2; back -= 1) {
+      const previous = sentences[back]!;
+      const topic = REJECTABLE_TOPICS.find(([pattern]) => pattern.test(previous));
+      if (topic === undefined) continue;
+      found.push({ id: topic[1], description: topic[2] });
+      break;
+    }
+  });
+  return found;
+}
 
 /** Clause boundaries. A negation belongs to its own clause: in "No online payment, cash on
  * delivery" the "No" governs the payment, not the delivery. A fixed-width lookback gets this
@@ -176,6 +209,11 @@ export function interpret(input: InterpretationInput): Interpretation {
       requirements.push({ id, description, source_message_ids, classification: 'excluded', material: true });
     }
   }
+  for (const rejection of trailingRejections(message)) {
+    if (requirements.some(entry => entry.id === rejection.id)) continue;
+    requirements.push({ id: rejection.id, description: rejection.description, source_message_ids, classification: 'excluded', material: true });
+  }
+
   for (const [pattern, id, description] of INCLUSIONS) {
     const matched = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`);
     let found: RegExpExecArray | null;

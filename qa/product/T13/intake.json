@@ -68,7 +68,7 @@
     ]
   },
   "brief_corpus": {
-    "total": 20,
+    "total": 28,
     "failures": [],
     "entries": [
       {
@@ -314,6 +314,98 @@
         ],
         "asked": [],
         "problems": []
+      },
+      {
+        "id": "negation_next_sentence",
+        "language": "mixed",
+        "required": [
+          "ordering"
+        ],
+        "excluded": [
+          "no-online-payment"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "exclusion_as_question",
+        "language": "mixed",
+        "required": [
+          "ordering"
+        ],
+        "excluded": [
+          "no-account"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "pure_question",
+        "language": "en",
+        "required": [],
+        "excluded": [],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "contradiction_in_one_message",
+        "language": "mixed",
+        "required": [
+          "delivery"
+        ],
+        "excluded": [
+          "cash-on-delivery",
+          "no-online-payment"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "code_switch_midsentence",
+        "language": "mixed",
+        "required": [
+          "cart"
+        ],
+        "excluded": [
+          "no-delivery-fee"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "money_and_exclusion_together",
+        "language": "mixed",
+        "required": [],
+        "excluded": [
+          "keep-prices"
+        ],
+        "asked": [
+          "pricing-change",
+          "refund-policy"
+        ],
+        "problems": []
+      },
+      {
+        "id": "polite_padding",
+        "language": "mixed",
+        "required": [
+          "ordering"
+        ],
+        "excluded": [
+          "no-account"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "complaint_not_request",
+        "language": "mixed",
+        "required": [
+          "mobile-friendly"
+        ],
+        "excluded": [],
+        "asked": [],
+        "problems": []
       }
     ]
   },
@@ -411,7 +503,7 @@
             "updated_at": "2026-09-08T15:00:03.000Z",
             "question_id": "question_t13",
             "project_id": "project_t13",
-            "run_id": "run_8e718c68-d84b-42ea-bfa2-3368a1537ad9",
+            "run_id": "run_70f137a6-3a77-4251-b8f5-0341cbbf4f71",
             "requirements_revision": 0,
             "prompt": "Should a partial payment be recorded, or is the whole amount always collected on delivery?",
             "recommendation": "Start with payment on delivery only.",

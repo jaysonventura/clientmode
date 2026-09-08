@@ -94,7 +94,7 @@ registerScenario('AT-013', async (): Promise<ScenarioObservation> => {
     const corpusFailures = corpus.filter(entry => entry.problems.length > 0);
     log['brief_corpus'] = { total: corpus.length, failures: corpusFailures, entries: corpus };
 
-    const exclusionsPreserved = corpusFailures.length === 0 && corpus.length >= 20 &&
+    const exclusionsPreserved = corpusFailures.length === 0 && corpus.length >= 28 &&
       excludedIds.every(ids => ids.includes('no-account') && ids.includes('no-online-payment') && ids.includes('cash-on-delivery')) &&
       new Set(excludedIds.map(ids => ids.join('|'))).size === 1 &&
       new Set(requiredIds.map(ids => ids.join('|'))).size === 1 &&

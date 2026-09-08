@@ -57,3 +57,32 @@ recorded beside the brief.
 `C4` — removing the "all twenty must pass" clause — is not a meaningful mutation and is recorded
 as such: weakening an assertion never fails a build. `C1` is what proves the clause bites, because
 it makes the corpus fail and the gate goes red.
+
+
+## Round 3 — the eight briefs that were actually hard
+
+Once the reader was fixed the first twenty all passed, which meant the corpus had stopped telling
+us anything. Eight harder briefs were added: negation that lands in the next sentence, a
+constraint phrased as a question, a contradiction inside one message, code-switching mid-sentence,
+polite padding around a single requirement, a complaint that is not a request, and a pure question
+that should produce no requirements at all.
+
+**25 of 28.** Three failed, and two of them for the same reason:
+
+| Brief | What went wrong |
+|---|---|
+| `negation_next_sentence` | "Wag na yung online payment ha" — `wag` was not among the words the exclusion patterns recognised as a refusal, though it is the most common one in the language the client wrote in. |
+| `exclusion_as_question` | "Kailangan pa ba ng account? **Ayaw ko sana.**" |
+| `contradiction_in_one_message` | "Kailangan namin ng online payment... **Pero wag muna**, cash on delivery lang." |
+
+The last two are the same shape and the interesting one: **people do not repeat the noun when
+they reject something they have just named.** The refusal lands in its own sentence and refers
+back, and a reader that only looks inside one sentence misses the most important word in the
+message. `trailingRejections` attaches a bare refusal to the nearest thing named in the two
+sentences before it.
+
+| # | Mutation | Result | Observation |
+|---|----------|--------|-------------|
+| `R1` | a refusal in the next sentence is no longer attached to what it refuses | **RED** | `excluded_business_rules_preserved` |
+| `R2` | the refusal only looks inside its own sentence | **RED** | `excluded_business_rules_preserved` |
+| `R3` | `wag` and `ayaw` are no longer refusal words | **RED** | `excluded_business_rules_preserved` |

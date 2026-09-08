@@ -12,7 +12,7 @@
     "usage": {
       "kind": "usage_event",
       "schema_version": 1,
-      "usage_event_id": "usage_330c603e-7769-47f2-b1b1-7edb29908de1",
+      "usage_event_id": "usage_f8c4d5d7-d3ec-4dce-bb36-56aa5369c5f4",
       "provider_event_id": "103b201b-a9b8-4bd9-b83b-a421ca6cc6ce",
       "run_id": "run_t10",
       "attempt_id": "attempt_t10",
@@ -69,7 +69,7 @@
       "--permission-mode",
       "plan",
       "--session-id",
-      "3625ae2a-06d7-45ce-b187-289b3b794379",
+      "5f89369b-e544-4cf9-8632-b304d8a2f0b9",
       "--disallowedTools",
       "Bash",
       "Write",
@@ -83,7 +83,7 @@
   },
   "fresh_session": {
     "exit_code": 0,
-    "session_id": "5e1854f1-199d-4fbf-b040-43301ddeac63",
+    "session_id": "68fc4ffb-fc48-4541-ba0d-a13956e25535",
     "claims": [
       "CLIENT_MODE_INSTRUCTIONS_LOADED"
     ],
@@ -91,8 +91,8 @@
       {
         "kind": "usage_event",
         "schema_version": 1,
-        "usage_event_id": "usage_127fcbeb-f028-46da-b586-9b51eae45d9f",
-        "provider_event_id": "27ec57f5-4198-404f-9637-69a7866b4b56",
+        "usage_event_id": "usage_6a206211-f6f4-44dc-8d29-6882aa67fefe",
+        "provider_event_id": "43cfa493-6221-44f4-9944-dcb49b4b4cd5",
         "run_id": "run_t10",
         "attempt_id": "attempt_t10_fresh",
         "provider": "claude",
@@ -100,9 +100,9 @@
         "input_tokens": 2,
         "output_tokens": 27,
         "cache_read_tokens": 10248,
-        "cache_write_tokens": 28791,
+        "cache_write_tokens": 28796,
         "reasoning_tokens": 0,
-        "cost_usd": 0.293719,
+        "cost_usd": 0.293769,
         "coverage": "complete",
         "occurred_at": "2026-09-08T12:00:00.000Z"
       }
@@ -113,13 +113,13 @@
   },
   "resume": {
     "codeword_length": 15,
-    "first_session": "1497f099-3b9f-4f15-b969-68b0373babc2",
+    "first_session": "9c688235-d9d2-493f-98bf-941f09e0e022",
     "first_claims": [
       "STORED"
     ],
-    "resumed_session": "1497f099-3b9f-4f15-b969-68b0373babc2",
+    "resumed_session": "9c688235-d9d2-493f-98bf-941f09e0e022",
     "resumed_claims": [
-      "ORCHID-396739E2"
+      "ORCHID-74B7E4AE"
     ],
     "resumed_exit": 0,
     "continuity": true,
@@ -128,13 +128,13 @@
         "coverage": "complete",
         "input_tokens": 2,
         "output_tokens": 5,
-        "cost_usd": 0.295729
+        "cost_usd": 0.307509
       },
       {
         "coverage": "complete",
         "input_tokens": 2,
-        "output_tokens": 12,
-        "cost_usd": 0.31552399999999997
+        "output_tokens": 15,
+        "cost_usd": 0.316859
       }
     ]
   },

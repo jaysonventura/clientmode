@@ -135,4 +135,58 @@ export const BRIEFS: readonly Brief[] = [
     must_exclude: ['no-account', 'no-online-payment', 'no-delivery-fee', 'keep-prices'],
     must_not_include: ['delivery'], must_ask: [], must_not_ask: [],
   },
+
+  // ---- Harder cases -------------------------------------------------------------------------
+  // The first twenty all passed once the reader was fixed, which means they stopped telling us
+  // anything. These are the ones that are genuinely hard: negation that spans a sentence, a
+  // constraint phrased as a question, a contradiction inside one message, and briefs that should
+  // produce nothing at all.
+  {
+    id: 'negation_next_sentence', language: 'mixed',
+    message: 'Gawa kayo ng ordering page. Wag na yung online payment ha. Cash lang.',
+    must_include: ['ordering'], must_exclude: ['no-online-payment'], must_not_include: [],
+    must_ask: [], must_not_ask: [],
+  },
+  {
+    id: 'exclusion_as_question', language: 'mixed',
+    message: 'Ordering site po. Kailangan pa ba ng account? Ayaw ko sana.',
+    must_include: ['ordering'], must_exclude: ['no-account'], must_not_include: [],
+    must_ask: [], must_not_ask: [],
+  },
+  {
+    id: 'pure_question', language: 'en',
+    message: 'How long would something like this usually take?',
+    must_include: [], must_exclude: [], must_not_include: ['ordering', 'cart', 'catalog', 'delivery'],
+    must_ask: [], must_not_ask: [],
+  },
+  {
+    id: 'contradiction_in_one_message', language: 'mixed',
+    message: 'Kailangan namin ng online payment para mabilis. Pero wag muna, cash on delivery lang for now.',
+    must_include: [], must_exclude: ['no-online-payment', 'cash-on-delivery'], must_not_include: [],
+    must_ask: [], must_not_ask: [],
+  },
+  {
+    id: 'code_switch_midsentence', language: 'mixed',
+    message: 'Yung cart namin hindi mag-update ng quantity, and walang delivery fee dapat.',
+    must_include: ['cart'], must_exclude: ['no-delivery-fee'], must_not_include: [],
+    must_ask: [], must_not_ask: [],
+  },
+  {
+    id: 'money_and_exclusion_together', language: 'mixed',
+    message: 'Pwede bang mag refund ang staff? Pero wag baguhin ang presyo ha.',
+    must_include: [], must_exclude: ['keep-prices'], must_not_include: [],
+    must_ask: ['refund-policy'], must_not_ask: [],
+  },
+  {
+    id: 'polite_padding', language: 'mixed',
+    message: 'Good morning po! Sana po makatulong kayo. Ang kailangan lang po namin ay makapag-order online ang customers namin, walang account kailangan. Maraming salamat po!',
+    must_include: ['ordering'], must_exclude: ['no-account'], must_not_include: [],
+    must_ask: [], must_not_ask: [],
+  },
+  {
+    id: 'complaint_not_request', language: 'mixed',
+    message: 'Ang bagal po ng site niyo sa cellphone, nakakainis.',
+    must_include: ['mobile-friendly'], must_exclude: [], must_not_include: ['ordering', 'cart'],
+    must_ask: [], must_not_ask: [],
+  },
 ];

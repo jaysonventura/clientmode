@@ -2,21 +2,21 @@
   "scope": {
     "kind": "document_scope",
     "schema_version": 1,
-    "scope_id": "scope_09662e1a-98fb-4632-a72c-8ed12b78ac2a",
+    "scope_id": "scope_be9d7e52-d5c5-4594-887f-59189af176a0",
     "job_id": "job_t26",
     "project_id": "project_t26",
     "scope_mode": "entire_inputs",
     "source_version_ids": [
-      "ver_e5c3e3c1-2ec6-47a2-9c40-385dbf9369cb",
-      "ver_60b69de3-23b4-49c4-b011-5a4708576142",
-      "ver_ae625dbb-f58f-4907-8660-46cec04993c9",
-      "ver_729609c5-13f1-4c9b-ac10-4af7b2aef76c",
-      "ver_79134a1f-07b2-49df-9e7c-32d45943e3f5"
+      "ver_b63a5db4-e39c-444f-a013-4f72e1d175ba",
+      "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
+      "ver_f21f8ebf-cfde-426e-af92-fcaa414c97cf",
+      "ver_2ac57089-322a-4108-924d-6105e3f4b18f",
+      "ver_76021fb9-79dc-4cdc-9e73-d158b6e4e057"
     ],
     "units": [
       {
-        "unit_id": "unit_793cc1107a889182",
-        "version_id": "ver_e5c3e3c1-2ec6-47a2-9c40-385dbf9369cb",
+        "unit_id": "unit_19311b1687afcaf2",
+        "version_id": "ver_b63a5db4-e39c-444f-a013-4f72e1d175ba",
         "locator": {
           "type": "page",
           "page_number": 1
@@ -25,8 +25,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_0e366ea0a2cfd968",
-        "version_id": "ver_e5c3e3c1-2ec6-47a2-9c40-385dbf9369cb",
+        "unit_id": "unit_3152e3a54e5b2d11",
+        "version_id": "ver_b63a5db4-e39c-444f-a013-4f72e1d175ba",
         "locator": {
           "type": "page",
           "page_number": 2
@@ -35,8 +35,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_1734e572a9712a69",
-        "version_id": "ver_e5c3e3c1-2ec6-47a2-9c40-385dbf9369cb",
+        "unit_id": "unit_2879d0598ca725ca",
+        "version_id": "ver_b63a5db4-e39c-444f-a013-4f72e1d175ba",
         "locator": {
           "type": "page",
           "page_number": 3
@@ -45,8 +45,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_de58638a20ea43e2",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_0b16b0221668ebff",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/document.xml",
@@ -56,8 +56,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_3e1b902783f3abd3",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_0617acd894dda9e5",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/document.xml",
@@ -67,8 +67,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_2da8027fb8ba7f93",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_5827609ae5b5ec44",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/document.xml",
@@ -78,8 +78,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_8d7cae7078ab3f1f",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_ba3c8ffca2b27032",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/document.xml",
@@ -89,8 +89,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_4e8598057f759d42",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_3121709cfd3b024b",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/document.xml",
@@ -100,8 +100,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_f0e85ffc8fe094c2",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_5a5f0bbbd02a45ac",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/document.xml",
@@ -111,8 +111,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_17e7e4fbd13ebe19",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_924e943da298d39f",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/document.xml",
@@ -122,8 +122,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_45941d057af6dab6",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_a291fce2ad6926bf",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/document.xml",
@@ -133,8 +133,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_c3fe95133ffb3038",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_14ed2a026aa9e992",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/header1.xml",
@@ -144,8 +144,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_f1fdd56481f5add7",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_df17cf3a3b4e9054",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/footer1.xml",
@@ -155,8 +155,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_9a9df2ab1123b388",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_fe820c9f79d6cdc2",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/footnotes.xml",
@@ -166,8 +166,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_d92285a22a1ca4ff",
-        "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+        "unit_id": "unit_0b50ab66200c3b6d",
+        "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
         "locator": {
           "type": "paragraph",
           "part_name": "word/comments.xml",
@@ -177,8 +177,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_42d74067e15a484c",
-        "version_id": "ver_ae625dbb-f58f-4907-8660-46cec04993c9",
+        "unit_id": "unit_eb915804d8131efd",
+        "version_id": "ver_f21f8ebf-cfde-426e-af92-fcaa414c97cf",
         "locator": {
           "type": "sheet",
           "sheet_name": "Items",
@@ -188,8 +188,8 @@
         "numeric_required": true
       },
       {
-        "unit_id": "unit_0e076c9cd48d4c93",
-        "version_id": "ver_ae625dbb-f58f-4907-8660-46cec04993c9",
+        "unit_id": "unit_fcb51c9b9d6d19a0",
+        "version_id": "ver_f21f8ebf-cfde-426e-af92-fcaa414c97cf",
         "locator": {
           "type": "sheet",
           "sheet_name": "Items",
@@ -199,8 +199,8 @@
         "numeric_required": true
       },
       {
-        "unit_id": "unit_2c82cf6336fabd5e",
-        "version_id": "ver_ae625dbb-f58f-4907-8660-46cec04993c9",
+        "unit_id": "unit_ae5af579d5da301f",
+        "version_id": "ver_f21f8ebf-cfde-426e-af92-fcaa414c97cf",
         "locator": {
           "type": "sheet",
           "sheet_name": "Items",
@@ -210,8 +210,8 @@
         "numeric_required": true
       },
       {
-        "unit_id": "unit_ccf07d4643cfbb70",
-        "version_id": "ver_ae625dbb-f58f-4907-8660-46cec04993c9",
+        "unit_id": "unit_0d1ac17b33bf81ec",
+        "version_id": "ver_f21f8ebf-cfde-426e-af92-fcaa414c97cf",
         "locator": {
           "type": "sheet",
           "sheet_name": "Items",
@@ -221,8 +221,8 @@
         "numeric_required": true
       },
       {
-        "unit_id": "unit_fe529457ec8d05d2",
-        "version_id": "ver_ae625dbb-f58f-4907-8660-46cec04993c9",
+        "unit_id": "unit_6b369e246a40281a",
+        "version_id": "ver_f21f8ebf-cfde-426e-af92-fcaa414c97cf",
         "locator": {
           "type": "sheet",
           "sheet_name": "Adjustments",
@@ -232,8 +232,8 @@
         "numeric_required": true
       },
       {
-        "unit_id": "unit_a55e2eef72a8fb40",
-        "version_id": "ver_729609c5-13f1-4c9b-ac10-4af7b2aef76c",
+        "unit_id": "unit_6ec328ddab2c20f7",
+        "version_id": "ver_2ac57089-322a-4108-924d-6105e3f4b18f",
         "locator": {
           "type": "slide",
           "slide_number": 1,
@@ -243,8 +243,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_e7d62043a47145db",
-        "version_id": "ver_729609c5-13f1-4c9b-ac10-4af7b2aef76c",
+        "unit_id": "unit_e00816f6225694dd",
+        "version_id": "ver_2ac57089-322a-4108-924d-6105e3f4b18f",
         "locator": {
           "type": "slide",
           "slide_number": 1,
@@ -254,8 +254,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_7e32eb6ed06c7dbe",
-        "version_id": "ver_729609c5-13f1-4c9b-ac10-4af7b2aef76c",
+        "unit_id": "unit_1c29efca353bbede",
+        "version_id": "ver_2ac57089-322a-4108-924d-6105e3f4b18f",
         "locator": {
           "type": "slide",
           "slide_number": 1,
@@ -265,8 +265,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_0610f00133e278d2",
-        "version_id": "ver_729609c5-13f1-4c9b-ac10-4af7b2aef76c",
+        "unit_id": "unit_66f0f01b605b1911",
+        "version_id": "ver_2ac57089-322a-4108-924d-6105e3f4b18f",
         "locator": {
           "type": "slide",
           "slide_number": 2,
@@ -276,8 +276,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_c025899c37cf68c7",
-        "version_id": "ver_729609c5-13f1-4c9b-ac10-4af7b2aef76c",
+        "unit_id": "unit_3602ad8d637f0a95",
+        "version_id": "ver_2ac57089-322a-4108-924d-6105e3f4b18f",
         "locator": {
           "type": "slide",
           "slide_number": 2,
@@ -287,8 +287,8 @@
         "numeric_required": false
       },
       {
-        "unit_id": "unit_ffdc472139644de6",
-        "version_id": "ver_79134a1f-07b2-49df-9e7c-32d45943e3f5",
+        "unit_id": "unit_f5df8b5ae2882924",
+        "version_id": "ver_76021fb9-79dc-4cdc-9e73-d158b6e4e057",
         "locator": {
           "type": "image",
           "box": [
@@ -302,13 +302,13 @@
         "numeric_required": false
       }
     ],
-    "scope_digest": "sha256:504ff70b1dd9cfe9ba62ea7cdbd46ce5242e8ea1f0fca36eb8f0c5fc661e8906",
-    "inventory_digest": "sha256:440ccc0ff18d20334d676c6d2bc639a9658ff7bd58fb4289c07945a81bf55b69",
+    "scope_digest": "sha256:60e58a8c2985fcfcf40b1b35bbc116bc0859315af76b8e6ba74c99cf77dd2cb8",
+    "inventory_digest": "sha256:2e4998b027aa43ce5a23d2de88413325b533dec36825bd4e2fc336e3a47e5a01",
     "created_at": "2026-09-09T07:00:00.000Z"
   },
   "inventories": [
     {
-      "version_id": "ver_e5c3e3c1-2ec6-47a2-9c40-385dbf9369cb",
+      "version_id": "ver_b63a5db4-e39c-444f-a013-4f72e1d175ba",
       "format": "pdf",
       "totals": {
         "pages": 3
@@ -317,7 +317,7 @@
       "unhandled": []
     },
     {
-      "version_id": "ver_60b69de3-23b4-49c4-b011-5a4708576142",
+      "version_id": "ver_c1c8d601-e963-4291-9ee5-0c8f0678740b",
       "format": "docx",
       "totals": {
         "blocks": 12,
@@ -328,7 +328,7 @@
       "unhandled": []
     },
     {
-      "version_id": "ver_ae625dbb-f58f-4907-8660-46cec04993c9",
+      "version_id": "ver_f21f8ebf-cfde-426e-af92-fcaa414c97cf",
       "format": "xlsx",
       "totals": {
         "sheets": 2,
@@ -342,7 +342,7 @@
       "unhandled": []
     },
     {
-      "version_id": "ver_729609c5-13f1-4c9b-ac10-4af7b2aef76c",
+      "version_id": "ver_2ac57089-322a-4108-924d-6105e3f4b18f",
       "format": "pptx",
       "totals": {
         "slides": 2,
@@ -354,7 +354,7 @@
       ]
     },
     {
-      "version_id": "ver_79134a1f-07b2-49df-9e7c-32d45943e3f5",
+      "version_id": "ver_76021fb9-79dc-4cdc-9e73-d158b6e4e057",
       "format": "image",
       "totals": {
         "images": 1,
@@ -381,8 +381,8 @@
     }
   },
   "late_row_unit": {
-    "unit_id": "unit_ccf07d4643cfbb70",
-    "version_id": "ver_ae625dbb-f58f-4907-8660-46cec04993c9",
+    "unit_id": "unit_0d1ac17b33bf81ec",
+    "version_id": "ver_f21f8ebf-cfde-426e-af92-fcaa414c97cf",
     "locator": {
       "type": "sheet",
       "sheet_name": "Items",

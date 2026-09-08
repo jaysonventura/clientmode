@@ -7,7 +7,7 @@
     ],
     "citations": [
       {
-        "version_id": "ver_b6451763-6a58-4f38-ae0d-5f83e5c9bb26",
+        "version_id": "ver_5ab5b77c-7ee8-40ed-993b-8a939fcbac3e",
         "content_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
         "locator": {
           "type": "page",
@@ -16,7 +16,7 @@
         "excerpt": "within 24 hours of confirmation"
       },
       {
-        "version_id": "ver_25411856-e540-4879-81e1-d2879cd79efa",
+        "version_id": "ver_0e5b476a-0286-49fd-a865-737d8070a688",
         "content_digest": "sha256:ad79c4c8019875183dfda36bf148c507a861bdb9afad3430670c805da4c7f7fa",
         "locator": {
           "type": "paragraph",
@@ -26,7 +26,7 @@
         "excerpt": "within 48 hours of confirmation"
       },
       {
-        "version_id": "ver_c63be332-3807-4427-88f6-ebc3c448b8cc",
+        "version_id": "ver_3254fd10-3a46-4a64-98fc-22e68b136fc6",
         "content_digest": "sha256:33208a33e129857ec7e27539252afca766dd3e4bcc705d65af91da842df31e0a",
         "locator": {
           "type": "slide",
@@ -59,15 +59,15 @@
     "conflict": {
       "kind": "document_finding",
       "schema_version": 1,
-      "finding_id": "df_bbe3c151-4e9f-429b-8ece-18dd53ec9e0b",
-      "job_id": "djob_c83b27d5-4b8e-4d16-9270-405615bac94f",
+      "finding_id": "df_d519ddaf-6891-4f49-8990-05dd6c2cb292",
+      "job_id": "djob_531ec29d-ad9c-4db7-9091-53ba6bbaf5ee",
       "project_id": "project_t27",
       "classification": "conflict",
       "material": true,
       "statement": "The cancellation window is stated as 24 hours in one source and 48 hours in two others.",
       "citations": [
         {
-          "version_id": "ver_b6451763-6a58-4f38-ae0d-5f83e5c9bb26",
+          "version_id": "ver_5ab5b77c-7ee8-40ed-993b-8a939fcbac3e",
           "content_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
           "locator": {
             "type": "page",
@@ -76,7 +76,7 @@
           "excerpt": "within 24 hours of confirmation"
         },
         {
-          "version_id": "ver_25411856-e540-4879-81e1-d2879cd79efa",
+          "version_id": "ver_0e5b476a-0286-49fd-a865-737d8070a688",
           "content_digest": "sha256:ad79c4c8019875183dfda36bf148c507a861bdb9afad3430670c805da4c7f7fa",
           "locator": {
             "type": "paragraph",
@@ -86,7 +86,7 @@
           "excerpt": "within 48 hours of confirmation"
         },
         {
-          "version_id": "ver_c63be332-3807-4427-88f6-ebc3c448b8cc",
+          "version_id": "ver_3254fd10-3a46-4a64-98fc-22e68b136fc6",
           "content_digest": "sha256:33208a33e129857ec7e27539252afca766dd3e4bcc705d65af91da842df31e0a",
           "locator": {
             "type": "slide",
@@ -102,15 +102,15 @@
     "fact": {
       "kind": "document_finding",
       "schema_version": 1,
-      "finding_id": "df_a29e4884-5fa7-4074-afe9-ffd95c69c907",
-      "job_id": "djob_c83b27d5-4b8e-4d16-9270-405615bac94f",
+      "finding_id": "df_4d028b00-e102-4a63-b296-fa75f1453089",
+      "job_id": "djob_531ec29d-ad9c-4db7-9091-53ba6bbaf5ee",
       "project_id": "project_t27",
       "classification": "observed",
       "material": true,
       "statement": "The PDF states a 24 hour cancellation window.",
       "citations": [
         {
-          "version_id": "ver_b6451763-6a58-4f38-ae0d-5f83e5c9bb26",
+          "version_id": "ver_5ab5b77c-7ee8-40ed-993b-8a939fcbac3e",
           "content_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
           "locator": {
             "type": "page",
@@ -125,8 +125,8 @@
     "inference": {
       "kind": "document_finding",
       "schema_version": 1,
-      "finding_id": "df_ea4ee26c-31c3-4559-aaa5-eb413ad82e52",
-      "job_id": "djob_c83b27d5-4b8e-4d16-9270-405615bac94f",
+      "finding_id": "df_883daf75-aef6-4d8c-bd11-14bf563026c5",
+      "job_id": "djob_531ec29d-ad9c-4db7-9091-53ba6bbaf5ee",
       "project_id": "project_t27",
       "classification": "inference",
       "material": false,
@@ -138,8 +138,8 @@
     "suggestion": {
       "kind": "document_finding",
       "schema_version": 1,
-      "finding_id": "df_8afab7ee-76b0-47af-9440-adab9d2fb535",
-      "job_id": "djob_c83b27d5-4b8e-4d16-9270-405615bac94f",
+      "finding_id": "df_efd53a31-5a54-4ced-9118-411d9dfe3281",
+      "job_id": "djob_531ec29d-ad9c-4db7-9091-53ba6bbaf5ee",
       "project_id": "project_t27",
       "classification": "suggestion",
       "material": false,
@@ -170,15 +170,15 @@
     "question": {
       "kind": "document_question",
       "schema_version": 1,
-      "question_id": "dq_b7572f86-62c0-463e-88e8-d6e726c46a42",
-      "job_id": "djob_c83b27d5-4b8e-4d16-9270-405615bac94f",
+      "question_id": "dq_ffe6d901-33d4-4247-ba51-d7a891bc01c1",
+      "job_id": "djob_531ec29d-ad9c-4db7-9091-53ba6bbaf5ee",
       "project_id": "project_t27",
       "instruction_revision": 1,
       "prompt": "Your published terms say a booking can be cancelled within 24 hours, and the operations manual says 48. Which one should we build to?",
       "recommendation": null,
       "citations": [
         {
-          "version_id": "ver_b6451763-6a58-4f38-ae0d-5f83e5c9bb26",
+          "version_id": "ver_5ab5b77c-7ee8-40ed-993b-8a939fcbac3e",
           "content_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
           "locator": {
             "type": "page",
@@ -187,7 +187,7 @@
           "excerpt": "within 24 hours of confirmation"
         },
         {
-          "version_id": "ver_25411856-e540-4879-81e1-d2879cd79efa",
+          "version_id": "ver_0e5b476a-0286-49fd-a865-737d8070a688",
           "content_digest": "sha256:ad79c4c8019875183dfda36bf148c507a861bdb9afad3430670c805da4c7f7fa",
           "locator": {
             "type": "paragraph",
@@ -197,7 +197,7 @@
           "excerpt": "within 48 hours of confirmation"
         },
         {
-          "version_id": "ver_c63be332-3807-4427-88f6-ebc3c448b8cc",
+          "version_id": "ver_3254fd10-3a46-4a64-98fc-22e68b136fc6",
           "content_digest": "sha256:33208a33e129857ec7e27539252afca766dd3e4bcc705d65af91da842df31e0a",
           "locator": {
             "type": "slide",
@@ -210,7 +210,7 @@
       "status": "OPEN",
       "created_at": "2026-09-09T08:00:09.000Z"
     },
-    "second_question_refused": "ONE_OPEN_QUESTION_PER_JOB: dq_b7572f86-62c0-463e-88e8-d6e726c46a42",
+    "second_question_refused": "ONE_OPEN_QUESTION_PER_JOB: dq_ffe6d901-33d4-4247-ba51-d7a891bc01c1",
     "worker_answer": {
       "recorded": false,
       "reason": "DOCUMENT_ANSWER_IS_CLIENT_AUTHORED_ONLY"
@@ -218,9 +218,9 @@
     "client_answer": {
       "kind": "document_answer",
       "schema_version": 1,
-      "answer_id": "da_1ea8c93d-4d1b-496e-b2b4-a5d91698227a",
-      "question_id": "dq_b7572f86-62c0-463e-88e8-d6e726c46a42",
-      "job_id": "djob_c83b27d5-4b8e-4d16-9270-405615bac94f",
+      "answer_id": "da_2ef6e3ed-e8f0-41ef-a66c-05803b1ba089",
+      "question_id": "dq_ffe6d901-33d4-4247-ba51-d7a891bc01c1",
+      "job_id": "djob_531ec29d-ad9c-4db7-9091-53ba6bbaf5ee",
       "project_id": "project_t27",
       "request_id": "request_t27",
       "actor_id": "owner_1",
@@ -238,7 +238,7 @@
         "origin": "client_answer",
         "citations": [
           {
-            "version_id": "ver_b6451763-6a58-4f38-ae0d-5f83e5c9bb26",
+            "version_id": "ver_5ab5b77c-7ee8-40ed-993b-8a939fcbac3e",
             "content_digest": "sha256:65d3d36733aabcde988272b5acdc740473085743db7415b3b25ec9d78b6df5cf",
             "locator": {
               "type": "page",
@@ -247,7 +247,7 @@
             "excerpt": "within 24 hours of confirmation"
           },
           {
-            "version_id": "ver_25411856-e540-4879-81e1-d2879cd79efa",
+            "version_id": "ver_0e5b476a-0286-49fd-a865-737d8070a688",
             "content_digest": "sha256:ad79c4c8019875183dfda36bf148c507a861bdb9afad3430670c805da4c7f7fa",
             "locator": {
               "type": "paragraph",
@@ -257,7 +257,7 @@
             "excerpt": "within 48 hours of confirmation"
           },
           {
-            "version_id": "ver_c63be332-3807-4427-88f6-ebc3c448b8cc",
+            "version_id": "ver_3254fd10-3a46-4a64-98fc-22e68b136fc6",
             "content_digest": "sha256:33208a33e129857ec7e27539252afca766dd3e4bcc705d65af91da842df31e0a",
             "locator": {
               "type": "slide",
@@ -267,7 +267,7 @@
             "excerpt": "cancellation window is 48 hours"
           }
         ],
-        "answer_id": "da_1ea8c93d-4d1b-496e-b2b4-a5d91698227a"
+        "answer_id": "da_2ef6e3ed-e8f0-41ef-a66c-05803b1ba089"
       }
     },
     "before_answer": {

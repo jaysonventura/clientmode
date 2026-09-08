@@ -1,8 +1,8 @@
 [
   {
-    "artifact_id": "sha256:00d6d7ea7cfd2ca5e40e8c37b92fb0186fed2bdb57f66f79742cb905711652bb",
+    "artifact_id": "sha256:d3e09c139533632da5a11a9f834d33aeb82a61e4de850db36875d52c0cdbbc55",
     "media_type": "image/png",
-    "byte_length": 54964
+    "byte_length": 54700
   },
   {
     "artifact_id": "sha256:5e3e258d50f0708275423daee09b21be787bf4e4c9f09303de0bce0694569c8d",
@@ -35,9 +35,9 @@
     "byte_length": 41854
   },
   {
-    "artifact_id": "sha256:b840fc10c16f2bc8c1e5122a7f0504e7fd6cc87be81c15901ebf82773ca1a263",
+    "artifact_id": "sha256:6c3a971052744032765c7249e10a8d74a2b838a9a6a324284ff1f9acd1814c1e",
     "media_type": "image/png",
-    "byte_length": 44514
+    "byte_length": 44535
   },
   {
     "artifact_id": "sha256:bb5f0c526a373ede6a039bf5f0fbfe8573b47a8741fa0f5240c29ed9e88c802b",

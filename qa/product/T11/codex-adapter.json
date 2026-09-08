@@ -11,7 +11,7 @@
     "usage": {
       "kind": "usage_event",
       "schema_version": 1,
-      "usage_event_id": "usage_48accf6a-97cc-4c4a-80b6-e6c3f24aea2d",
+      "usage_event_id": "usage_e65af7c1-5efa-4eed-b436-05050d362c51",
       "provider_event_id": "turn:attempt_t11:19023:7",
       "run_id": "run_t11",
       "attempt_id": "attempt_t11",
@@ -123,7 +123,7 @@
   },
   "fresh_session": {
     "exit_code": 0,
-    "thread_id": "01a07f96-964e-7c41-885d-d94301bfd8cf",
+    "thread_id": "01a07f9c-da83-77b0-9f49-5c26112be49a",
     "claims": [
       "CLIENT_MODE_INSTRUCTIONS_LOADED"
     ],
@@ -131,13 +131,13 @@
       {
         "kind": "usage_event",
         "schema_version": 1,
-        "usage_event_id": "usage_b333e09d-9c94-43c7-9713-32e553eaf542",
-        "provider_event_id": "turn:attempt_t11_fresh:20529:10",
+        "usage_event_id": "usage_0424e03e-cd64-4002-8698-7317eaea7bfc",
+        "provider_event_id": "turn:attempt_t11_fresh:20526:10",
         "run_id": "run_t11",
         "attempt_id": "attempt_t11_fresh",
         "provider": "codex",
         "billing_mode": "native_account",
-        "input_tokens": 20529,
+        "input_tokens": 20526,
         "output_tokens": 10,
         "cache_read_tokens": 15744,
         "cache_write_tokens": 0,
@@ -161,8 +161,8 @@
     ],
     "exit_code": 0,
     "claims": [
-      "I’ll check the required project handoff, then attempt to create the file.",
-      "CANNOT_WRITE — the filesystem is read-only; creating `permission-probe.txt` failed with “operation not permitted.”"
+      "I’ll check the required handoff; file creation is blocked by this session’s read-only permissions.\n",
+      "CANNOT_WRITE — this session has read-only filesystem permissions, and write approval is unavailable."
     ],
     "file_created": false,
     "verified_by": "filesystem check after the turn, not the session transcript"

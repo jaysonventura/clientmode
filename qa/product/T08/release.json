@@ -1,6 +1,6 @@
 {
   "authentication": {
-    "cookie_header": "cm_session=bbUYrY55EKhzkiMXweWavlnhCjBh2F53; HttpOnly; SameSite=Strict; Path=/; Max-Age=900",
+    "cookie_header": "cm_session=QyB79bea49gghJCH40AWUcIdd8aWTLol; HttpOnly; SameSite=Strict; Path=/; Max-Age=900",
     "cookie_notes": [
       "Secure is intentionally absent: the controller listens on loopback HTTP and a Secure cookie would never be sent.",
       "Protection is HttpOnly + SameSite=Strict + origin check + per-session CSRF token + 900s TTL.",
@@ -35,10 +35,10 @@
       "valid": {
         "authenticated": true,
         "session": {
-          "session_id": "bbUYrY55EKhzkiMXweWavlnhCjBh2F53",
+          "session_id": "QyB79bea49gghJCH40AWUcIdd8aWTLol",
           "actor": "client",
           "actor_id": "owner_1",
-          "csrf_token": "R-wU-us7g7zLgvWfHAmMvnKe_PA37cx8",
+          "csrf_token": "zMCLPZhZv64rEfrNpuUaxND0Oi04Zf8F",
           "expires_at": "2026-09-08T10:15:00.000Z",
           "origin": "http://127.0.0.1:7788"
         }
@@ -61,7 +61,7 @@
       "in_scope": {
         "authorized": true,
         "reason": "SCOPED_APPROVAL_PRESENT",
-        "approval_id": "grant_1d58d974-5572-4d0e-b48a-c39389908783",
+        "approval_id": "grant_f93a3903-5160-41dc-b007-fd31519fcc2e",
         "maximum_spend_microusd": null
       }
     }
@@ -90,28 +90,28 @@
     "crash": {
       "ok": false,
       "code": "SIMULATED_CRASH_AFTER_INTENT",
-      "message": "SIMULATED_CRASH_AFTER_INTENT: dep_466311b1-8e06-4dc9-be6a-3c2f9e8f25e3"
+      "message": "SIMULATED_CRASH_AFTER_INTENT: dep_c54b2417-e107-4531-b2e8-837bf9875aab"
     },
     "interrupted_row": {
-      "deployment_id": "dep_466311b1-8e06-4dc9-be6a-3c2f9e8f25e3",
+      "deployment_id": "dep_c54b2417-e107-4531-b2e8-837bf9875aab",
       "status": "DEPLOYING",
       "provider_operation_id": null
     },
     "reconciliation": {
-      "deployment_id": "dep_466311b1-8e06-4dc9-be6a-3c2f9e8f25e3",
+      "deployment_id": "dep_c54b2417-e107-4531-b2e8-837bf9875aab",
       "destination_state": "ABSENT",
       "action": "SAFE_TO_RETRY",
       "status": "DEPLOYING"
     },
     "retried": {
       "started": true,
-      "deployment_id": "dep_466311b1-8e06-4dc9-be6a-3c2f9e8f25e3",
+      "deployment_id": "dep_c54b2417-e107-4531-b2e8-837bf9875aab",
       "operation_id": "op_1",
       "replayed": false
     },
     "replayed": {
       "started": true,
-      "deployment_id": "dep_466311b1-8e06-4dc9-be6a-3c2f9e8f25e3",
+      "deployment_id": "dep_c54b2417-e107-4531-b2e8-837bf9875aab",
       "operation_id": "op_1",
       "replayed": true
     },
@@ -146,7 +146,7 @@
   "smoke": {
     "failing": {
       "deployment": {
-        "deployment_id": "dep_466311b1-8e06-4dc9-be6a-3c2f9e8f25e3",
+        "deployment_id": "dep_c54b2417-e107-4531-b2e8-837bf9875aab",
         "status": "FAILED",
         "provider_operation_id": "op_1",
         "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -174,7 +174,7 @@
     },
     "empty": {
       "deployment": {
-        "deployment_id": "dep_466311b1-8e06-4dc9-be6a-3c2f9e8f25e3",
+        "deployment_id": "dep_c54b2417-e107-4531-b2e8-837bf9875aab",
         "status": "FAILED",
         "provider_operation_id": "op_1",
         "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -189,7 +189,7 @@
     },
     "passing": {
       "deployment": {
-        "deployment_id": "dep_466311b1-8e06-4dc9-be6a-3c2f9e8f25e3",
+        "deployment_id": "dep_c54b2417-e107-4531-b2e8-837bf9875aab",
         "status": "RELEASED",
         "provider_operation_id": "op_1",
         "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -225,7 +225,7 @@
     "authorised": {
       "rolled_back": true,
       "deployment": {
-        "deployment_id": "dep_466311b1-8e06-4dc9-be6a-3c2f9e8f25e3",
+        "deployment_id": "dep_c54b2417-e107-4531-b2e8-837bf9875aab",
         "status": "ROLLED_BACK",
         "provider_operation_id": "op_1",
         "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -239,7 +239,7 @@
       {
         "actor_id": "release_owner_1",
         "operation": "rollback",
-        "target_ref": "dep_466311b1-8e06-4dc9-be6a-3c2f9e8f25e3",
+        "target_ref": "dep_c54b2417-e107-4531-b2e8-837bf9875aab",
         "decision": "allow"
       }
     ]
@@ -248,7 +248,7 @@
     "question_status_after_answer": {
       "status": "ANSWERED"
     },
-    "answer_id": "ans_8aa7668e-13b2-4776-a378-c4ee4f784273",
+    "answer_id": "ans_ab5698ad-3816-4f90-af4e-9f78255ff327",
     "answer_actor": "owner_1",
     "worker_answer": {
       "ok": false,

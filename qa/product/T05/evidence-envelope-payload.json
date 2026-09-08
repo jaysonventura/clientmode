@@ -1,12 +1,12 @@
 {
   "kind": "evidence",
   "schema_version": 1,
-  "evidence_id": "evidence_ver_66bb80f6-264e-4ca7-bb28-0c365283022d",
+  "evidence_id": "evidence_ver_798a142e-fd1b-4afe-bdaa-54283ff3a216",
   "candidate_id": "candidate_t05",
   "project_id": "project_t05",
   "run_id": "run_t05",
   "attempt_id": "attempt_t05",
-  "source_digest": "sha256:78652bcb38b6cd3bfdb5c02dfbb87800c68da8fc70adaed7df7560c65ba4caeb",
+  "source_digest": "sha256:c6c629505cae2c157561b5e502939a57fb7e612e346a8d50c20891d964a01ca4",
   "artifact_digest": "sha256:490172d70fd84ea31985b4583660b4016114c13ea6d4cf345728cafd60233272",
   "requirements_revision": 1,
   "policy_digest": "sha256:6290d6fe0ac39ef403353d6d3fb4e223b1ae981d2709fd5fee4f5f3e5dbbc4fe",
@@ -110,7 +110,7 @@
       "tests_skipped": 0,
       "assertion_ids": [],
       "observer_id": "verifier_t05",
-      "log_digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "log_digest": "sha256:ff735e9f0bae012c85f49d496d5cb8e7a7834736240c73421e998c07eac23308"
     },
     {
       "check_id": "exit-zero-no-report",

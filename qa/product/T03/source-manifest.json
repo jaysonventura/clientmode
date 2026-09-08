@@ -1,6 +1,6 @@
 {
   "manifest_version": 1,
-  "root_ref": "file:///private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t03-AZWIJJ/authorized/shop",
+  "root_ref": "file:///private/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t03-HPCy6E/authorized/shop",
   "entry_count": 5,
   "entries": [
     {
@@ -39,5 +39,5 @@
       "content_digest": "sha256:a1975cc4b29a309e1fa5d997712e0b7488aa2ad30ded09f1ccc8b5479daddf1d"
     }
   ],
-  "source_digest": "sha256:9bda0f13edffca2ccc597f0b361941f49425109586dbe80e2478dfbe166c3851"
+  "source_digest": "sha256:0fe909eaf8edb67f37fc4eb68a37d9a27e03a2aa070497d7a6d14bc09f93146f"
 }

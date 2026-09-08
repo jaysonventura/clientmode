@@ -11,7 +11,7 @@
     "usage": {
       "kind": "usage_event",
       "schema_version": 1,
-      "usage_event_id": "usage_8840c856-9739-45ed-b1b8-a07f0e0b765b",
+      "usage_event_id": "usage_12db348e-a51a-4792-bc2e-0bd9b82c0153",
       "provider_event_id": "turn:attempt_t11:19023:7",
       "run_id": "run_t11",
       "attempt_id": "attempt_t11",
@@ -123,7 +123,7 @@
   },
   "fresh_session": {
     "exit_code": 0,
-    "thread_id": "01a07f87-d0b1-7b30-b25a-5d10a6e78994",
+    "thread_id": "01a07f91-957a-7e53-9f94-f80ba0025079",
     "claims": [
       "CLIENT_MODE_INSTRUCTIONS_LOADED"
     ],
@@ -131,17 +131,17 @@
       {
         "kind": "usage_event",
         "schema_version": 1,
-        "usage_event_id": "usage_b79dc322-0728-416c-aeec-782b2a404765",
-        "provider_event_id": "turn:attempt_t11_fresh:21392:38",
+        "usage_event_id": "usage_6b5de640-da0e-4180-855f-863d66b08eba",
+        "provider_event_id": "turn:attempt_t11_fresh:20526:35",
         "run_id": "run_t11",
         "attempt_id": "attempt_t11_fresh",
         "provider": "codex",
         "billing_mode": "native_account",
-        "input_tokens": 21392,
-        "output_tokens": 38,
-        "cache_read_tokens": 12160,
+        "input_tokens": 20526,
+        "output_tokens": 35,
+        "cache_read_tokens": 15744,
         "cache_write_tokens": 0,
-        "reasoning_tokens": 26,
+        "reasoning_tokens": 23,
         "cost_usd": null,
         "coverage": "partial",
         "occurred_at": "2026-09-08T13:00:00.000Z"
@@ -161,8 +161,8 @@
     ],
     "exit_code": 0,
     "claims": [
-      "I’ll check whether the file can be created with the current permissions.\n",
-      "CANNOT_WRITE: The filesystem is read-only. Creating `permission-probe.txt` failed with “operation not permitted.”"
+      "I’ll check the workspace handoff and whether file creation is permitted.\n",
+      "CANNOT_WRITE — the filesystem is read-only, and permission escalation is disabled."
     ],
     "file_created": false,
     "verified_by": "filesystem check after the turn, not the session transcript"

@@ -78,3 +78,47 @@ contains no reference to the checkout.
 hid the accumulation. It now runs three more cycles and requires the file to come back
 byte-identical with no run of blank lines introduced — which is what actually happens on a
 client's machine when they reinstall.
+
+## Round 9 — `cm open` did not work on any packaged install
+
+Found by running the installed launcher outside the checkout, which is what a client has:
+
+```
+$ cm run --root . --request-file brief.txt
+run run_c3f7914b-17b3-4880-8072-407a78537275
+$ cm open --root .
+the console cannot be built on this install: Cannot find module
+  '/Users/viscion/.client-mode/toolkit/console-bundle.js'
+Everything else still works; `cm status` and `cm handoff` do not need it.
+```
+
+The console was compiled on demand, and the module that compiles it was marked external in the
+bundle so `esbuild` would not become a load-time dependency of the CLI. Marking it external
+also meant it was never copied, so the console — the client's only window into a run — worked
+in the checkout and nowhere else. Every portability assertion in this gate passed while it was
+broken, because all of them ran commands that do not need it.
+
+It is now compiled at install time, where the bundler is already in hand, and shipped as
+`console/app.js`. The per-run boot data moved to `console-page.ts`, which has no bundler import,
+so writing the page costs nothing at open time.
+
+The gate opens a run through the installed launcher from an unrelated directory and asks the
+server it starts for the page and the compiled application:
+
+```
+"ships_compiled_application": true, "run_exit_code": 0,
+"url": "http://127.0.0.1:53989", "page_status": 200, "boot_present": true,
+"app_status": 200, "app_bytes": 1089783
+```
+
+### Mutation
+
+| # | Mutation | Result |
+|---|----------|--------|
+| P9 | the toolkit ships without a compiled console, as it did before | **red**, reproducing the original message verbatim |
+
+### What this does not cover
+
+The page is served and the application is fetched. Nothing here renders it: whether the console
+is usable in a browser is AT-015's scope, and that gate builds its own bundle rather than the
+shipped one.

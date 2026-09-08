@@ -70,11 +70,11 @@
       "kind": "macos_seatbelt",
       "network": "denied",
       "denied_read_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-yJmobr/protected-secrets"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/protected-secrets"
       ],
       "allowed_write_paths": [
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-yJmobr/cm-sandbox-CIEUo8",
-        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-yJmobr/candidate"
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/cm-sandbox-12n0JC",
+        "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/candidate"
       ],
       "limitations": [
         "Same OS user as the coordinator: this is a kernel sandbox, not a separate principal.",
@@ -85,20 +85,20 @@
   },
   "file_permissions": {
     "roots": [
-      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-yJmobr/verifier-authority"
+      "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/verifier-authority"
     ],
     "readable_by_other_accounts": [],
     "modes": [
       {
-        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-yJmobr/verifier-authority/verifier.sqlite",
+        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/verifier-authority/verifier.sqlite",
         "mode": "0600"
       },
       {
-        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-yJmobr/verifier-authority/verifier.sqlite-shm",
+        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/verifier-authority/verifier.sqlite-shm",
         "mode": "0600"
       },
       {
-        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-yJmobr/verifier-authority/verifier.sqlite-wal",
+        "path": "/var/folders/rm/1p8k5565461_h64wr236zg2r0000gn/T/cm-t05-TGybqd/verifier-authority/verifier.sqlite-wal",
         "mode": "0600"
       }
     ]
@@ -112,8 +112,8 @@
     ],
     "process_tree_terminated": true,
     "quarantined": false,
-    "heartbeat_bytes_at_kill": 37,
-    "heartbeat_bytes_500ms_later": 37,
+    "heartbeat_bytes_at_kill": 36,
+    "heartbeat_bytes_500ms_later": 36,
     "forked_child_stopped_writing": true
   },
   "reports": {

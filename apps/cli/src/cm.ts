@@ -200,7 +200,10 @@ export function activate(input: {
     // cannot turn our own text into "the user's original".
     if (!existsSync(backup)) { writeFileSync(backup, `${without}\n`); backups.push({ target: instructions, backup }); }
     // Lead mode goes first and says so; nothing that was there is deleted.
-    writeFileSync(instructions, input.lead === true ? `${block}\n${without}\n` : `${without}\n\n${block}`);
+    // `without` is empty when the file holds nothing but our block, and appending a blank line
+    // to nothing leaves the file with a trailing gap that grows on the eye if not on disk.
+    writeFileSync(instructions, without === '' ? block
+      : input.lead === true ? `${block}\n${without}\n` : `${without}\n\n${block}`);
   } else {
     mkdirSync(path.dirname(instructions), { recursive: true });
     writeFileSync(instructions, block);

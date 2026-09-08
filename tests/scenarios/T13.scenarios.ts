@@ -16,6 +16,7 @@ import { interpret, selectVisibleQuestion, ingestTextReference, AttachmentError,
 import { SessionStore } from '../../apps/controller/src/auth.js';
 import { answerQuestion, listQuestions, submitMessage, CLIENT_ROUTES } from '../../apps/controller/src/routes.js';
 import { Evidence, attempt, fixedClock } from '../harness/evidence.js';
+import { BRIEFS as CORPUS } from '../../fixtures/intake/briefs.js';
 import { registerScenario } from '../harness/registry.js';
 
 const PROJECT = 'project_t13';
@@ -72,7 +73,28 @@ registerScenario('AT-013', async (): Promise<ScenarioObservation> => {
     const negatedExcluded = negatedBrief.requirements.filter(entry => entry.classification === 'excluded').map(entry => entry.id);
     const negatedRequired = negatedBrief.requirements.filter(entry => entry.classification === 'required').map(entry => entry.id);
     log['negated_exclusions'] = { excluded: negatedExcluded, required: negatedRequired };
-    const exclusionsPreserved =
+    // The corpus: twenty briefs of the kind clients actually send, each with its expectations
+    // declared beside it. `must_not_include` is the column that matters most — it catches a
+    // negated phrase being read as a feature, which is worse than missing it, because the
+    // client's meaning comes out backwards.
+    const corpus = CORPUS.map(brief => {
+      const result = interpret({ request: clientRequest(brief.message, brief.language === 'mixed' ? 'mixed' : 'en', `request_corpus_${brief.id}`) });
+      const required = result.requirements.filter(entry => entry.classification === 'required').map(entry => entry.id);
+      const excluded = result.requirements.filter(entry => entry.classification === 'excluded').map(entry => entry.id);
+      const asked = result.material_questions.map(question => question.blocking_topic);
+      const problems = [
+        ...brief.must_include.filter(id => !required.includes(id)).map(id => `missing required ${id}`),
+        ...brief.must_exclude.filter(id => !excluded.includes(id)).map(id => `missing exclusion ${id}`),
+        ...brief.must_not_include.filter(id => required.includes(id)).map(id => `INVERTED ${id}`),
+        ...brief.must_ask.filter(topic => !asked.includes(topic)).map(topic => `did not ask ${topic}`),
+        ...brief.must_not_ask.filter(topic => asked.includes(topic)).map(topic => `asked ${topic}`),
+      ];
+      return { id: brief.id, language: brief.language, required, excluded, asked, problems };
+    });
+    const corpusFailures = corpus.filter(entry => entry.problems.length > 0);
+    log['brief_corpus'] = { total: corpus.length, failures: corpusFailures, entries: corpus };
+
+    const exclusionsPreserved = corpusFailures.length === 0 && corpus.length >= 20 &&
       excludedIds.every(ids => ids.includes('no-account') && ids.includes('no-online-payment') && ids.includes('cash-on-delivery')) &&
       new Set(excludedIds.map(ids => ids.join('|'))).size === 1 &&
       new Set(requiredIds.map(ids => ids.join('|'))).size === 1 &&

@@ -272,7 +272,7 @@
         {
           "name": "mcp_registry",
           "configured": true,
-          "observed_working": true
+          "observed_working": false
         },
         {
           "name": "sdk_transport",

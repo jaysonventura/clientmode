@@ -35,7 +35,7 @@
         "high": 0.7143069699623449
       },
       "median_client_questions": 0,
-      "median_wall_ms": 370,
+      "median_wall_ms": 389,
       "cost": {
         "known_microusd": 59376,
         "unknown_events": 21,
@@ -67,7 +67,7 @@
         "high": 0.7583239827618451
       },
       "median_client_questions": 0,
-      "median_wall_ms": 396,
+      "median_wall_ms": 419,
       "cost": {
         "known_microusd": 124461,
         "unknown_events": 17,
@@ -95,7 +95,7 @@
         "high": 0.8817161026314104
       },
       "median_client_questions": 0,
-      "median_wall_ms": 417,
+      "median_wall_ms": 449.5,
       "cost": {
         "known_microusd": 136260,
         "unknown_events": 18,

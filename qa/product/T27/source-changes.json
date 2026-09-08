@@ -3,31 +3,31 @@
   "result_current_after": false,
   "invalidation": {
     "results": [
-      "dres_djob_e892c36c-4580-4631-9812-1b2dc67c83f0"
+      "dres_djob_820b1005-f42b-4308-8a85-8e8086faf246"
     ],
     "jobs": [
-      "djob_e892c36c-4580-4631-9812-1b2dc67c83f0"
+      "djob_820b1005-f42b-4308-8a85-8e8086faf246"
     ]
   },
   "job_state": "STALE",
-  "new_version": "ver_9da966dc-5fd7-4c9e-8cfe-35813dd56404",
+  "new_version": "ver_4b5b1d6b-fbe9-454b-81bd-aac8833820d6",
   "old_version_still_stored": true,
   "revocation": {
     "before": true,
     "after_read": {
       "ok": false,
       "code": "ACCESS_REVOKED",
-      "message": "ACCESS_REVOKED: ver_345ac9c9-bd2a-40b2-bd14-bb2aaec1bc79"
+      "message": "ACCESS_REVOKED: ver_fe751d4a-51c8-4cd2-9553-283a6a583e35"
     },
     "live_resolve": {
       "ok": false,
       "code": "ACCESS_REVOKED",
-      "message": "ACCESS_REVOKED: ver_345ac9c9-bd2a-40b2-bd14-bb2aaec1bc79"
+      "message": "ACCESS_REVOKED: ver_fe751d4a-51c8-4cd2-9553-283a6a583e35"
     },
     "cross_project": {
       "ok": false,
       "code": "VERSION_NOT_FOUND_IN_PROJECT",
-      "message": "VERSION_NOT_FOUND_IN_PROJECT: ver_b067eec9-d026-47be-a8b7-1d9ec932bdeb"
+      "message": "VERSION_NOT_FOUND_IN_PROJECT: ver_664fc64d-04ac-454b-8714-a33133b3916b"
     }
   },
   "events": [
@@ -53,7 +53,7 @@
       "sequence": 3,
       "kind": "job.question_answered",
       "payload": {
-        "question_id": "dq_f3189124-5f3b-4878-9925-94babef2b582",
+        "question_id": "dq_07f077bf-aae7-48b7-b384-75686f9caa13",
         "actor_id": "owner_1"
       }
     },
@@ -93,7 +93,7 @@
         "from": "PARTIAL",
         "to": "STALE",
         "actor": "controller",
-        "reason": "source ver_345ac9c9-bd2a-40b2-bd14-bb2aaec1bc79 was revised"
+        "reason": "source ver_fe751d4a-51c8-4cd2-9553-283a6a583e35 was revised"
       }
     }
   ]

@@ -14,7 +14,7 @@
   },
   "holdout_opened_at": "2026-09-09T02:00:01.000Z",
   "leak_scan": {
-    "scanned_files": 102,
+    "scanned_files": 103,
     "roots": [
       "/Users/viscion/Documents/clientmode/skills",
       "/Users/viscion/Documents/clientmode/adapters",
@@ -139,7 +139,7 @@
   },
   "paired_language": {
     "pairs": 36,
-    "equivalent": 36
+    "equivalent": 33
   },
   "continue_prompts": {
     "median": 0,

@@ -15,7 +15,7 @@
       "report": {
         "kind": "capability_report",
         "schema_version": 1,
-        "report_id": "report_5da304f1c7f91daacc75cd782a2f5113",
+        "report_id": "report_5d7d36df519b8cabdee0f8ff30339518",
         "provider": "claude",
         "host_surface": "native_cli",
         "host_version": "2.1.263",
@@ -37,9 +37,9 @@
             "name": "mcp_registry",
             "documented": true,
             "configured": true,
-            "observed_working": true,
+            "observed_working": false,
             "evidence_refs": [
-              "probe:mcp_registry:exit0"
+              "probe:mcp_registry:exit143"
             ],
             "limitation": "Listing the registry is not permission to enable a server; optional MCP stays disabled until an approval names a capability."
           },
@@ -141,6 +141,7 @@
   ],
   "targets": [],
   "gaps": [
+    "claude.mcp_registry: configured but not observed working",
     "claude.sdk_transport: unavailable",
     "claude.browser_control: unavailable",
     "claude.goal_continuation: unavailable",

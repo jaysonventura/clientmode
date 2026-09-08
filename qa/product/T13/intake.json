@@ -67,6 +67,256 @@
       "ordering"
     ]
   },
+  "brief_corpus": {
+    "total": 20,
+    "failures": [],
+    "entries": [
+      {
+        "id": "ordering_basic",
+        "language": "en",
+        "required": [
+          "ordering",
+          "cart",
+          "catalog",
+          "delivery"
+        ],
+        "excluded": [
+          "no-account",
+          "cash-on-delivery"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "ordering_taglish",
+        "language": "mixed",
+        "required": [
+          "ordering",
+          "cart",
+          "catalog",
+          "delivery"
+        ],
+        "excluded": [
+          "no-account",
+          "cash-on-delivery"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "keep_prices",
+        "language": "mixed",
+        "required": [],
+        "excluded": [
+          "keep-prices"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "no_delivery_fee",
+        "language": "mixed",
+        "required": [
+          "ordering",
+          "delivery"
+        ],
+        "excluded": [
+          "no-delivery-fee"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "no_online_payment",
+        "language": "rough_en",
+        "required": [
+          "ordering",
+          "delivery"
+        ],
+        "excluded": [
+          "no-online-payment",
+          "cash-on-delivery"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "deposit_question",
+        "language": "mixed",
+        "required": [
+          "ordering",
+          "delivery"
+        ],
+        "excluded": [
+          "no-account",
+          "cash-on-delivery"
+        ],
+        "asked": [
+          "deposit-policy"
+        ],
+        "problems": []
+      },
+      {
+        "id": "delete_records",
+        "language": "en",
+        "required": [
+          "ordering"
+        ],
+        "excluded": [],
+        "asked": [
+          "destructive-operation"
+        ],
+        "problems": []
+      },
+      {
+        "id": "share_data",
+        "language": "en",
+        "required": [
+          "delivery"
+        ],
+        "excluded": [],
+        "asked": [
+          "data-sharing"
+        ],
+        "problems": []
+      },
+      {
+        "id": "mobile_only",
+        "language": "mixed",
+        "required": [
+          "mobile-friendly"
+        ],
+        "excluded": [],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "no_subscription",
+        "language": "en",
+        "required": [
+          "ordering"
+        ],
+        "excluded": [
+          "no-subscription"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "technical_noise",
+        "language": "mixed",
+        "required": [
+          "ordering"
+        ],
+        "excluded": [
+          "no-account"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "price_change_open",
+        "language": "mixed",
+        "required": [],
+        "excluded": [],
+        "asked": [
+          "pricing-change"
+        ],
+        "problems": []
+      },
+      {
+        "id": "catalog_only",
+        "language": "en",
+        "required": [
+          "ordering",
+          "catalog"
+        ],
+        "excluded": [],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "delivery_wanted",
+        "language": "mixed",
+        "required": [
+          "ordering",
+          "delivery"
+        ],
+        "excluded": [],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "no_delivery_at_all",
+        "language": "rough_en",
+        "required": [
+          "ordering"
+        ],
+        "excluded": [],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "refund_permission",
+        "language": "en",
+        "required": [
+          "ordering"
+        ],
+        "excluded": [],
+        "asked": [
+          "refund-policy"
+        ],
+        "problems": []
+      },
+      {
+        "id": "quantity_bug",
+        "language": "mixed",
+        "required": [
+          "cart"
+        ],
+        "excluded": [],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "wording_change",
+        "language": "en",
+        "required": [
+          "ordering"
+        ],
+        "excluded": [],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "hosting_question",
+        "language": "mixed",
+        "required": [
+          "ordering"
+        ],
+        "excluded": [
+          "no-online-payment"
+        ],
+        "asked": [],
+        "problems": []
+      },
+      {
+        "id": "multiple_exclusions",
+        "language": "mixed",
+        "required": [
+          "ordering"
+        ],
+        "excluded": [
+          "no-account",
+          "no-online-payment",
+          "keep-prices",
+          "no-delivery-fee"
+        ],
+        "asked": [],
+        "problems": []
+      }
+    ]
+  },
   "technical_decisions": {
     "questions_asked": [],
     "decided_internally": [
@@ -161,7 +411,7 @@
             "updated_at": "2026-09-08T15:00:03.000Z",
             "question_id": "question_t13",
             "project_id": "project_t13",
-            "run_id": "run_4dd14723-70e1-4ad1-a687-93de8d319cac",
+            "run_id": "run_acd48c9e-52fe-42a4-a891-ed296999e8eb",
             "requirements_revision": 0,
             "prompt": "Should a partial payment be recorded, or is the whole amount always collected on delivery?",
             "recommendation": "Start with payment on delivery only.",

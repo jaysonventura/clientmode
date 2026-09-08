@@ -50,7 +50,10 @@ export type Interpretation = {
 const EXCLUSIONS: Array<[RegExp, string, string]> = [
   [/\b(no|without|walang|wala|hindi kailangan)\b[^.]{0,30}\b(account|sign ?up|register|registration|log ?in)\b/i, 'no-account', 'Customers order without registering or logging in.'],
   [/\b(no|without|walang|wala|hindi)\b[^.]{0,30}\b(online payment|card|credit card|gcash|paypal|checkout payment)\b/i, 'no-online-payment', 'Do not add online payment.'],
-  [/\bcash on delivery\b|\bcod\b|\bbayad sa pag ?dating\b/i, 'cash-on-delivery', 'Payment happens on delivery, outside the software.'],
+  // Few clients write "cash on delivery". They write "pay when it arrives", "bayad pagdating",
+  // "COD lang". Missing it means proposing an online payment they told us they do not want.
+  [/\bcash on delivery\b|\bcod\b|\bbayad sa pag ?dating\b|\bbayad pag ?dating\b|\bpay (when|on|upon)\b[^.]{0,20}\b(deliver|delivery|arrive|arrives|receive)\b|\bbayad (kapag|pag)\b[^.]{0,20}\b(dating|hatid|deliver)\b/i,
+    'cash-on-delivery', 'Payment happens on delivery, outside the software.'],
   [/\b(no|without|walang)\b[^.]{0,30}\b(subscription|recurring)\b/i, 'no-subscription', 'No recurring billing.'],
   // A client saying what must not change is the most expensive thing to miss: work that
   // ignores it has to be undone.
@@ -84,7 +87,8 @@ function negated(message: string, index: number): boolean {
 const INCLUSIONS: Array<[RegExp, string, string]> = [
   // Singular and plural are the same request here too: "two orders" is an ordering brief.
   [/\b(orders?|ordering|mag ?order|bumili|buy)\b/i, 'ordering', 'Customers can place an order.'],
-  [/\b(cart|basket)\b/i, 'cart', 'Customers can add items to a cart and change quantities.'],
+  // A client reporting "the quantity is wrong" is describing the cart, whatever they call it.
+  [/\b(cart|basket|quantity|quantities|dami|bilang)\b/i, 'cart', 'Customers can add items to a cart and change quantities.'],
   [/\b(phone|mobile|cellphone|sa phone|android|iphone)\b/i, 'mobile-friendly', 'The experience works on a phone.'],
   // Singular and plural are the same request; grammar never changes the approved scope.
   [/\b(catalog|products?|produkto|items?|menu)\b/i, 'catalog', 'Customers can browse the available products.'],
@@ -121,6 +125,10 @@ const MATERIAL_TOPICS: Array<[RegExp, MaterialQuestion['reason'], string, string
   // Money that has not already been settled by the client is asked about once.
   [/\b(presyo|price|prices|pricing|fee|singil|bayad|charge)\b/i, 'payment_behaviour', 'pricing-change',
     'Should any price or fee change as part of this work, or do they all stay exactly as they are now?'],
+  // A refund is money leaving the account, which is the client's decision every time.
+  [/\b(refund|refunds|refunded|reimburse|sauli|ibalik ang bayad|return the money|chargeback)\b/i,
+    'payment_behaviour', 'refund-policy',
+    'Refunds move money out. Who should be allowed to issue one, and does it need a second person to approve?'],
 ];
 
 /** The client asking rather than telling: a question mark, or the words people actually use. */

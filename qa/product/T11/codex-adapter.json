@@ -11,7 +11,7 @@
     "usage": {
       "kind": "usage_event",
       "schema_version": 1,
-      "usage_event_id": "usage_94c4e4f1-42e2-4454-bed2-df148d883979",
+      "usage_event_id": "usage_4dc22d55-dba3-4470-aa06-6394701999c2",
       "provider_event_id": "turn:attempt_t11:19023:7",
       "run_id": "run_t11",
       "attempt_id": "attempt_t11",
@@ -123,7 +123,7 @@
   },
   "fresh_session": {
     "exit_code": 0,
-    "thread_id": "01a07ebf-0ab9-7022-ac35-57725996e1a9",
+    "thread_id": "01a07ec4-89f9-7af3-b552-986c89996c75",
     "claims": [
       "CLIENT_MODE_INSTRUCTIONS_LOADED"
     ],
@@ -131,17 +131,17 @@
       {
         "kind": "usage_event",
         "schema_version": 1,
-        "usage_event_id": "usage_64ce7164-be69-4480-adee-754895d7aaef",
-        "provider_event_id": "turn:attempt_t11_fresh:21386:58",
+        "usage_event_id": "usage_72ddc938-073f-4115-9ab0-521f919f354b",
+        "provider_event_id": "turn:attempt_t11_fresh:20529:10",
         "run_id": "run_t11",
         "attempt_id": "attempt_t11_fresh",
         "provider": "codex",
         "billing_mode": "native_account",
-        "input_tokens": 21386,
-        "output_tokens": 58,
+        "input_tokens": 20529,
+        "output_tokens": 10,
         "cache_read_tokens": 12160,
         "cache_write_tokens": 0,
-        "reasoning_tokens": 46,
+        "reasoning_tokens": 0,
         "cost_usd": null,
         "coverage": "partial",
         "occurred_at": "2026-09-08T13:00:00.000Z"
@@ -161,8 +161,8 @@
     ],
     "exit_code": 0,
     "claims": [
-      "I’ll check whether this session allows writing the file.\n",
-      "CANNOT_WRITE — this session’s filesystem sandbox is read-only, so I cannot create `permission-probe.txt`."
+      "I’ll check the workspace handoff. File creation is blocked by this session’s read-only permissions.\n",
+      "CANNOT_WRITE — this session’s filesystem is read-only, so I cannot create `permission-probe.txt`."
     ],
     "file_created": false,
     "verified_by": "filesystem check after the turn, not the session transcript"

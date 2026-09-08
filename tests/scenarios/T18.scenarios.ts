@@ -20,6 +20,7 @@ import { COMMANDS, EXIT_CODES, commandNames, describe } from '../../apps/cli/src
 import { cancelRun, createRun, readAuthorizedRequestFile } from '../../apps/cli/src/run.js';
 import { validate, rejectsCallerCommand } from '../../apps/cli/src/verify.js';
 import { Evidence, ROOT, attempt, fixedClock } from '../harness/evidence.js';
+import { raceOpen, runCli } from '../harness/cli.js';
 import { registerScenario } from '../harness/registry.js';
 
 const PROJECT = 'project_t18';
@@ -50,7 +51,61 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
       verify_refuses_caller_command: rejectsCallerCommand({ candidate: 'x', argv: ['/bin/sh'] }),
       verify_accepts_candidate_only: !rejectsCallerCommand({ candidate: 'x', policy_digest: 'y' }),
     };
-    const commandsMatch = missingCommands.length === 0 &&
+    // A command that is declared and cannot be run is a promise the operator cannot keep. Each
+    // one is invoked for real against a disposable project; `missing_capability` from the
+    // dispatcher means it was never wired to an entry point.
+    const cliRoot = mkdtempSync(path.join(tmpdir(), 'cm-cli-'));
+    const cliHome = path.join(cliRoot, 'home');
+    const invocations = [
+      ['doctor', ['doctor', '--json']],
+      ['run', ['run', '--root', cliRoot, '--request-file', path.join(cliRoot, 'request.txt')]],
+      ['status', ['status', 'run_that_does_not_exist', '--root', cliRoot]],
+      ['pause', ['pause', 'run_that_does_not_exist', '--root', cliRoot]],
+      ['resume', ['resume', 'run_that_does_not_exist', '--root', cliRoot]],
+      ['cancel', ['cancel', 'run_that_does_not_exist', '--root', cliRoot]],
+      ['verify', ['verify', '--candidate', 'candidate_that_does_not_exist', '--root', cliRoot]],
+      ['export-evidence', ['export-evidence', '--candidate', 'candidate_that_does_not_exist', '--root', cliRoot]],
+      ['rollback', ['rollback', '--toolkit-version', '0.0.0', '--root', cliRoot]],
+      ['upgrade', ['upgrade', '--version', '0.0.0', '--root', cliRoot]],
+      ['install', ['install', '--host', 'claude', '--dry-run', '--install-root', path.join(cliRoot, 'host')]],
+      ['uninstall', ['uninstall', '--host', 'claude']],
+      ['handoff', ['handoff', '--root', cliRoot, '--json']],
+      ['use', ['use', 'claude']],
+    ] as const;
+    writeFileSync(path.join(cliRoot, 'request.txt'), 'a small ordering page for my shop\n');
+    // Each command gets its own state home. Sharing one made the result depend on which
+    // command happened to run first — `rollback` finding a snapshot `upgrade` had just taken —
+    // and a gate whose answer changes between runs is measuring the scheduler, not the code.
+    const runs = await Promise.all(invocations.map(async ([name, argv]) => ({
+      name, exit_code: await runCli(argv, path.join(cliHome, name)),
+    })));
+    const unwired = runs.filter(entry => entry.exit_code === EXIT_CODES.missing_capability).map(entry => entry.name);
+    // Every exit code has to be one the contract defines, and `internal` is not an answer: each
+    // of these is invoked with a well-formed request naming something that does not exist, so
+    // the honest reply is "no such thing", not a crash.
+    const offContract = runs.filter(entry => !Object.values(EXIT_CODES).includes(entry.exit_code as never));
+    const crashed = runs.filter(entry => entry.exit_code === EXIT_CODES.internal).map(entry => entry.name);
+    // Two terminals in one project is ordinary. The exclusive state-directory lock belongs to
+    // the process that owns the run loop, not to a `status` call — six of those at once must
+    // all answer, and none may crash on a lock the other five are holding.
+    const concurrentHome = path.join(cliRoot, 'concurrent-home');
+    const concurrentStatus = await Promise.all(Array.from({ length: 6 }, () =>
+      runCli(['status', 'run_that_does_not_exist', '--root', cliRoot], concurrentHome)));
+    const concurrentOk = concurrentStatus.every(code => code === EXIT_CODES.input_or_contract_error);
+    // And the same directory opened by eight processes at one instant, which is the case the
+    // schema bootstrap has to survive: all of them find the state ready, none finds it half-made.
+    const raced = await raceOpen(path.join(cliRoot, 'raced-state'), 8);
+    const raceOk = raced.every(code => code === 0);
+    log['cli_invocations'] = {
+      runs, unwired, off_contract: offContract, crashed, home: cliHome,
+      concurrent_status_exit_codes: concurrentStatus, concurrent_all_answered: concurrentOk,
+      simultaneous_open_exit_codes: raced, simultaneous_open_all_succeeded: raceOk,
+    };
+    rmSync(cliRoot, { recursive: true, force: true });
+
+    const commandsMatch = unwired.length === 0 && offContract.length === 0 && crashed.length === 0 &&
+      concurrentOk && raceOk &&
+      missingCommands.length === 0 &&
       describe('verify')?.refuses.includes('accepting a caller-supplied command string') === true &&
       rejectsCallerCommand({ candidate: 'x', argv: ['/bin/sh'] }) &&
       Object.keys(EXIT_CODES).length === 8;

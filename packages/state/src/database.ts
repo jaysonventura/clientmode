@@ -211,7 +211,35 @@ export class ControllerDatabaseError extends Error {
   }
 }
 
-/** Refuse a second controller on the same state directory; take over only a dead owner's lock. */
+/** Retry a write transaction that lost a race for the database lock.
+ *
+ * `PRAGMA busy_timeout` does not cover every path into SQLITE_BUSY, and schema work at first
+ * open is exactly where several processes collide. The retry is bounded and the delay grows,
+ * so a genuinely stuck lock still surfaces as an error rather than a hang. */
+function withBusyRetry<T>(attempt: () => T, attempts = 8): T {
+  let lastError: unknown;
+  for (let index = 0; index < attempts; index += 1) {
+    try {
+      return attempt();
+    } catch (error) {
+      lastError = error;
+      if (!/database is locked|SQLITE_BUSY/i.test(String((error as Error).message))) throw error;
+      // A short synchronous wait: these are sub-millisecond DDL statements, and the caller is
+      // a command-line invocation that has nothing else to do meanwhile.
+      const until = Date.now() + 25 * (index + 1);
+      while (Date.now() < until) { /* wait for the writer ahead of us */ }
+    }
+  }
+  throw lastError;
+}
+
+/** Refuse a second **controller** on the same state directory; take over only a dead owner's
+ * lock.
+ *
+ * The lock is about owning the run loop, not about touching the database. Two terminals asking
+ * for status in one project is ordinary, and SQLite in WAL mode with a busy timeout is what
+ * makes that safe — so short-lived readers open shared and only the process that dispatches
+ * work takes the lock. */
 function acquireDirectoryLock(stateDir: string): () => void {
   const lockPath = path.join(stateDir, 'controller.lock');
   const claim = (): number => openSync(lockPath, 'wx');
@@ -252,35 +280,63 @@ export class ControllerDatabase {
     this.#release = release;
   }
 
-  static open(stateDir: string, options: { busyTimeoutMs?: number } = {}): ControllerDatabase {
+  static open(stateDir: string, options: { busyTimeoutMs?: number; exclusive?: boolean } = {}): ControllerDatabase {
     mkdirSync(stateDir, { recursive: true });
-    const release = acquireDirectoryLock(stateDir);
+    // Exclusive by default: a caller that means to own the run loop should not have to ask.
+    const release = options.exclusive === false ? () => undefined : acquireDirectoryLock(stateDir);
     try {
       const db = new DatabaseSync(path.join(stateDir, 'state.sqlite'));
-      db.exec(`PRAGMA journal_mode = WAL;
-               PRAGMA foreign_keys = ON;
-               PRAGMA busy_timeout = ${Math.max(0, options.busyTimeoutMs ?? 5000)};
-               PRAGMA synchronous = FULL;`);
-      const bootstrapped = db.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = ?")
-        .get('schema_migrations') as Row | undefined;
-      if (bootstrapped === undefined) {
-        db.exec(readFileSync(SCHEMA_SQL, 'utf8'));
-        db.prepare('INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)')
-          .run(1, new Date().toISOString());
-      }
-      const at = db.prepare('SELECT MAX(version) AS version FROM schema_migrations').get() as Row;
-      for (const migration of MIGRATIONS) {
-        if (migration.version <= Number(at['version'] ?? 0)) continue;
+      // busy_timeout comes first and alone. Every statement after it may have to wait for
+      // another process, and a timeout set afterwards would not cover the one that waits
+      // longest — switching the journal to WAL, which needs the database briefly to itself.
+      db.exec(`PRAGMA busy_timeout = ${Math.max(0, options.busyTimeoutMs ?? 10_000)};`);
+      withBusyRetry(() => {
+        db.exec(`PRAGMA journal_mode = WAL;
+                 PRAGMA foreign_keys = ON;
+                 PRAGMA synchronous = FULL;`);
+      });
+      // Bootstrap and migration both re-check inside the write transaction. Two processes
+      // opening a fresh state directory at the same moment is ordinary — a client with two
+      // terminals — and the loser of the race has to find the work already done rather than
+      // fail on a table that now exists.
+      const bootstrapped = (): boolean => db.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = ?")
+        .get('schema_migrations') !== undefined;
+      if (!bootstrapped()) {
+        withBusyRetry(() => {
         db.exec('BEGIN IMMEDIATE');
         try {
-          db.exec(migration.sql);
-          db.prepare('INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)')
-            .run(migration.version, new Date().toISOString());
-          db.exec('COMMIT');
+          if (bootstrapped()) db.exec('ROLLBACK');
+          else {
+            db.exec(readFileSync(SCHEMA_SQL, 'utf8'));
+            db.prepare('INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)')
+              .run(1, new Date().toISOString());
+            db.exec('COMMIT');
+          }
         } catch (error) {
-          db.exec('ROLLBACK');
-          throw error;
+          try { db.exec('ROLLBACK'); } catch { /* already rolled back */ }
+          if (!bootstrapped()) throw error;
         }
+        });
+      }
+      const appliedVersion = (): number =>
+        Number((db.prepare('SELECT MAX(version) AS version FROM schema_migrations').get() as Row)['version'] ?? 0);
+      for (const migration of MIGRATIONS) {
+        withBusyRetry(() => {
+          if (migration.version <= appliedVersion()) return;
+          db.exec('BEGIN IMMEDIATE');
+          try {
+            // Re-read inside the write transaction: another process may have applied it while
+            // this one was waiting for the lock.
+            if (migration.version <= appliedVersion()) { db.exec('ROLLBACK'); return; }
+            db.exec(migration.sql);
+            db.prepare('INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)')
+              .run(migration.version, new Date().toISOString());
+            db.exec('COMMIT');
+          } catch (error) {
+            try { db.exec('ROLLBACK'); } catch { /* already rolled back */ }
+            if (migration.version > appliedVersion()) throw error;
+          }
+        });
       }
       return new ControllerDatabase(db, release);
     } catch (error) {

@@ -23,13 +23,13 @@
       "verdict": "VERIFIED_FOR_SCOPE",
       "reasons": [],
       "candidate_id": "candidate_t16_a",
-      "evidence_id": "evidence_ver_19c07e24-9139-45cb-abcf-78f615b50262"
+      "evidence_id": "evidence_ver_17efe61a-fe4a-4bde-9ff5-8a366b081ddc"
     },
     "bound": {
       "bound": true,
-      "preview_url": "http://127.0.0.1:59990",
+      "preview_url": "http://127.0.0.1:62214",
       "candidate_id": "candidate_t16_a",
-      "evidence_id": "evidence_ver_19c07e24-9139-45cb-abcf-78f615b50262"
+      "evidence_id": "evidence_ver_17efe61a-fe4a-4bde-9ff5-8a366b081ddc"
     },
     "unverified_refused": {
       "bound": false,
@@ -60,7 +60,7 @@
     },
     "client_feedback": {
       "recorded": true,
-      "feedback_id": "feedback_69414af8-728e-4ebe-9d97-54ed076e47c3",
+      "feedback_id": "feedback_b1b55660-e9bf-43d4-bf65-668064ef9258",
       "satisfaction": "needs_changes"
     }
   },
@@ -83,10 +83,10 @@
       "verdict": "VERIFIED_FOR_SCOPE",
       "reasons": [],
       "candidate_id": "candidate_t16_b",
-      "evidence_id": "evidence_ver_53fd0f0a-8f37-40b3-80f6-2e76f909c431"
+      "evidence_id": "evidence_ver_677180b2-791a-436e-9ddb-3de9d8156996"
     },
-    "first_evidence_id": "evidence_ver_19c07e24-9139-45cb-abcf-78f615b50262",
-    "second_evidence_id": "evidence_ver_53fd0f0a-8f37-40b3-80f6-2e76f909c431"
+    "first_evidence_id": "evidence_ver_17efe61a-fe4a-4bde-9ff5-8a366b081ddc",
+    "second_evidence_id": "evidence_ver_677180b2-791a-436e-9ddb-3de9d8156996"
   },
   "cross_stack": {
     "composite_verdict": {
@@ -137,7 +137,7 @@
     "shop_api": {
       "configured": true,
       "label": "sandbox_tested",
-      "evidence": "live requests against http://127.0.0.1:59990"
+      "evidence": "live requests against http://127.0.0.1:62214"
     }
   },
   "resume": {
@@ -170,7 +170,7 @@
     },
     "tasks": [
       {
-        "run_id": "run_4ee2e4ac-7f3f-49f6-bb95-dc8848bb19c2",
+        "run_id": "run_c8e821b1-2d79-41ee-8df4-049cbdfb101b",
         "task_id": "A",
         "sequence": 1,
         "title": "Letter A",
@@ -181,7 +181,7 @@
         "updated_at": "2026-09-08T18:00:01.000Z"
       },
       {
-        "run_id": "run_4ee2e4ac-7f3f-49f6-bb95-dc8848bb19c2",
+        "run_id": "run_c8e821b1-2d79-41ee-8df4-049cbdfb101b",
         "task_id": "B",
         "sequence": 2,
         "title": "Letter B",
@@ -192,7 +192,7 @@
         "updated_at": "2026-09-08T18:00:02.000Z"
       },
       {
-        "run_id": "run_4ee2e4ac-7f3f-49f6-bb95-dc8848bb19c2",
+        "run_id": "run_c8e821b1-2d79-41ee-8df4-049cbdfb101b",
         "task_id": "C",
         "sequence": 3,
         "title": "Letter C",
@@ -203,7 +203,7 @@
         "updated_at": "2026-09-08T18:00:05.000Z"
       },
       {
-        "run_id": "run_4ee2e4ac-7f3f-49f6-bb95-dc8848bb19c2",
+        "run_id": "run_c8e821b1-2d79-41ee-8df4-049cbdfb101b",
         "task_id": "D",
         "sequence": 4,
         "title": "Letter D",

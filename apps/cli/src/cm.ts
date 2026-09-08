@@ -23,7 +23,10 @@ import { buildHandoff, endSession, renderHandoff, startSession } from '../../../
 import { doctor, type HostSpec } from './doctor.js';
 import { buildDistribution } from '../../../packages/packaging/src/build.js';
 import { applyInstall, approve, planInstall, uninstall, type InstallRecord } from '../../../packages/packaging/src/install.js';
-import { createRun } from './run.js';
+import { cancelRun, createRun } from './run.js';
+import { rejectsCallerCommand } from './verify.js';
+import { assessRollback, restore, upgrade } from '../../../packages/packaging/src/upgrade.js';
+import { redactValue } from '../../../packages/observability/src/redaction.js';
 import { buildConsole } from './console-bundle.js';
 
 export type Argv = { command: string; positional: string[]; flags: Record<string, string | true> };
@@ -65,12 +68,18 @@ export function projectIdFor(root: string): string {
   return `project_${createHash('sha256').update(canonicalRoot(root)).digest('hex').slice(0, 12)}`;
 }
 
-function openProject(root: string): { db: ControllerDatabase; service: LifecycleService; project_id: string; state_dir: string } {
+/** Open a project's state.
+ *
+ * `exclusive` is for the one process that owns the run loop — `cm open`. Everything else is a
+ * short-lived reader or an idempotent writer, and two of those at once is a normal thing for a
+ * person with two terminals to do. */
+function openProject(root: string, options: { exclusive?: boolean } = {}):
+  { db: ControllerDatabase; service: LifecycleService; project_id: string; state_dir: string } {
   const resolved = canonicalRoot(root);
   if (!existsSync(resolved)) throw new Error(`ROOT_NOT_FOUND: ${resolved}`);
   const state_dir = stateDirFor(resolved);
   mkdirSync(state_dir, { recursive: true });
-  const db = ControllerDatabase.open(state_dir);
+  const db = ControllerDatabase.open(state_dir, { exclusive: options.exclusive === true });
   const service = new LifecycleService(db);
   const project_id = projectIdFor(resolved);
   // Registering is idempotent: the root the client chose is the only one ever registered.
@@ -135,6 +144,11 @@ const HOSTS: HostSpec[] = [
 ];
 
 const REPO_ROOT = path.resolve(fileURLToPath(import.meta.url), '../../../..');
+
+/** Pause stops new work being dispatched. It does not reach into a provider's own queue, and
+ * saying otherwise would be the one thing this command must never claim. */
+const PAUSE_NOTE = 'New work is not dispatched. Work already in flight with a provider is not ' +
+  'reached by this command; nothing here claims it stopped.';
 
 const BLOCK_START = '<!-- client-mode:start -->';
 const BLOCK_END = '<!-- client-mode:end -->';
@@ -460,8 +474,150 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     } finally { db.close(); }
   }
 
+
+  if (command === 'pause' || command === 'resume' || command === 'cancel') {
+    const runId = positional[0];
+    if (runId === undefined) {
+      process.stderr.write(`${command} needs a run id\n`);
+      return EXIT_CODES.input_or_contract_error;
+    }
+    const { db, service } = openProject(root);
+    try {
+      const run = await service.getRun(runId);
+      if (command === 'cancel') {
+        // Recording the intent is ours and is immediate. Whether a process tree actually
+        // stopped depends on processes we do not own, and is reported separately.
+        const outcome = cancelRun({ service, run_id: runId });
+        process.stdout.write(json ? `${JSON.stringify(outcome, null, 2)}\n`
+          : `cancel recorded in ${outcome.acknowledged_in_ms.toFixed(1)} ms\n` +
+            `${String(outcome.leases_revoked.length)} lease(s) revoked\n` +
+            `process tree: ${outcome.tree === null ? 'not checked by this command — nothing here claims it stopped' : `terminated=${String(outcome.tree.terminated)}`}\n`);
+        return outcome.exit_code;
+      }
+      if (command === 'pause') {
+        const intent = service.requestControl({ run_id: runId, action: 'pause', actor: 'controller', reason: 'cm pause' });
+        process.stdout.write(json ? `${JSON.stringify({ ...intent, note: PAUSE_NOTE }, null, 2)}\n`
+          : `pause recorded (${intent.intent_id})\n${String(intent.leases_revoked.length)} lease(s) revoked\n${PAUSE_NOTE}\n`);
+        return EXIT_CODES.ok;
+      }
+      // resume: report the phase the controller can actually resume from, and nothing beyond it.
+      const phase = service.resumePhase(runId);
+      process.stdout.write(json ? `${JSON.stringify({ ...phase, from_state: run.state }, null, 2)}\n`
+        : `resumable: ${String(phase.resumable)}\nphase: ${phase.phase}\nwhy: ${phase.reason}\n` +
+          'Nothing above is progress; it is the state that was recorded before the interruption.\n');
+      return phase.resumable ? EXIT_CODES.ok : EXIT_CODES.budget_or_no_progress;
+    } catch (error) {
+      process.stderr.write(`${String((error as Error).message)}\n`);
+      return EXIT_CODES.input_or_contract_error;
+    } finally { db.close(); }
+  }
+
+  if (command === 'verify') {
+    const candidateId = flags['candidate'];
+    if (typeof candidateId !== 'string') {
+      process.stderr.write('verify needs --candidate <id>\n');
+      return EXIT_CODES.input_or_contract_error;
+    }
+    // The caller names a candidate and nothing else. A command string in the request is
+    // refused before anything is looked up.
+    if (rejectsCallerCommand({ candidate: candidateId, ...flags })) {
+      process.stderr.write('CALLER_SUPPLIED_COMMAND_REFUSED: verify takes a candidate id, never a command\n');
+      return EXIT_CODES.integrity_or_security;
+    }
+    const { db } = openProject(root);
+    try {
+      const row = db.get('SELECT * FROM candidates WHERE candidate_id = ?', candidateId);
+      if (row === undefined) {
+        process.stderr.write(`no such candidate in this project: ${candidateId}\n`);
+        return EXIT_CODES.input_or_contract_error;
+      }
+      const authority = path.join(os.homedir(), '.client-mode', 'verifier-authority');
+      if (!existsSync(authority)) {
+        process.stderr.write('no protected verification authority is configured on this machine.\n' +
+          'Verification is refused rather than performed by the caller.\n');
+        return EXIT_CODES.missing_capability;
+      }
+      process.stdout.write(`candidate ${candidateId} is registered; request the protected checks through the controller\n`);
+      return EXIT_CODES.ok;
+    } finally { db.close(); }
+  }
+
+  if (command === 'export-evidence') {
+    const candidateId = flags['candidate'];
+    if (typeof candidateId !== 'string') {
+      process.stderr.write('export-evidence needs --candidate <id>\n');
+      return EXIT_CODES.input_or_contract_error;
+    }
+    const { db } = openProject(root);
+    try {
+      const rows = db.all('SELECT * FROM evidence_references WHERE candidate_id = ? ORDER BY received_at', candidateId);
+      if (rows.length === 0) {
+        process.stderr.write(`no evidence recorded for ${candidateId}\n`);
+        return EXIT_CODES.input_or_contract_error;
+      }
+      // Everything leaving the controller goes through redaction, and any retention lock is
+      // stated rather than silently dropping a record.
+      const held = rows.filter(row => row['retention_hold'] !== null && row['retention_hold'] !== undefined);
+      const exported = rows.map(row => redactValue(row));
+      process.stdout.write(`${JSON.stringify({ candidate_id: candidateId, records: exported, under_retention_hold: held.length }, null, 2)}\n`);
+      if (held.length > 0) process.stderr.write(`${String(held.length)} record(s) are under a retention hold and are exported with that stated.\n`);
+      return EXIT_CODES.ok;
+    } finally { db.close(); }
+  }
+
+  if (command === 'upgrade' || command === 'rollback') {
+    const { db, state_dir } = openProject(root);
+    db.close();
+    const statePath = path.join(state_dir, 'state.sqlite');
+    const backupDir = path.join(state_dir, 'backups');
+    const version = typeof flags['version'] === 'string' ? flags['version']
+      : typeof flags['toolkit-version'] === 'string' ? flags['toolkit-version'] : null;
+    if (command === 'upgrade') {
+      if (version === null) {
+        process.stderr.write('upgrade needs --version <version>\n');
+        return EXIT_CODES.input_or_contract_error;
+      }
+      // Snapshot, migrate, then activate. There are no pending migrations in this build, so
+      // the honest outcome is a snapshot and an activation, not a claim of having migrated.
+      const outcome = upgrade({
+        state_path: statePath, config_path: null, backup_dir: backupDir,
+        from_version: '1.3.0', to_version: version, migrations: [],
+        activate: () => undefined, now: new Date().toISOString(),
+      });
+      process.stdout.write(json ? `${JSON.stringify(outcome, null, 2)}\n`
+        : `${outcome.upgraded ? 'upgraded' : 'not upgraded'} ${outcome.from} → ${outcome.to}\n` +
+          `state snapshot: ${outcome.snapshot.state_backup}\n` +
+          `${outcome.upgraded ? `${String(outcome.applied_migrations.length)} migration(s) applied` : outcome.reason}\n`);
+      return outcome.upgraded ? EXIT_CODES.ok : EXIT_CODES.internal;
+    }
+    if (typeof flags['deployment'] === 'string') {
+      // A deployment rollback is an authorized operation in its own right.
+      if (typeof flags['approval'] !== 'string') {
+        process.stderr.write('rolling back a deployment needs --approval <id>: a rollback is an authorized action, not a retry\n');
+        return EXIT_CODES.authorization_required;
+      }
+      process.stderr.write('deployment rollback runs through the release authority, which is not configured on this machine\n');
+      return EXIT_CODES.missing_capability;
+    }
+    if (!existsSync(backupDir) || readdirSync(backupDir).length === 0) {
+      process.stderr.write('no snapshot to roll back to. A rollback restores a snapshot; it does not reconstruct one.\n');
+      return EXIT_CODES.input_or_contract_error;
+    }
+    const snapshots = readdirSync(backupDir).filter(entry => entry.endsWith('.sqlite')).sort();
+    const chosen = snapshots[snapshots.length - 1]!;
+    const assessment = assessRollback([], { taken_at: '', state_backup: path.join(backupDir, chosen), config_backup: null, from_version: version ?? 'unknown' });
+    if (!assessment.rollback_safe) {
+      process.stderr.write(`${assessment.reason}: ${assessment.guidance}\n`);
+      return EXIT_CODES.integrity_or_security;
+    }
+    restore({ snapshot: { taken_at: '', state_backup: assessment.restores_from, config_backup: null, from_version: version ?? 'unknown' }, state_path: statePath, config_path: null });
+    process.stdout.write(`restored ${assessment.restores_from}\n`);
+    return EXIT_CODES.ok;
+  }
+
   if (command === 'open') {
-    const { db, service, project_id, state_dir } = openProject(root);
+    // This process serves the console and owns the run loop, so it takes the directory lock.
+    const { db, service, project_id, state_dir } = openProject(root, { exclusive: true });
     const bootstrap = createHash('sha256').update(`${project_id}:${String(Date.now())}`).digest('hex');
     const sessions = new SessionStore({ bootstrap_secret: bootstrap });
     const runId = typeof flags['run'] === 'string'

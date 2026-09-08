@@ -11,8 +11,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
 import type { Actor, Approval } from '../../../contracts/interfaces.js';
+import { toolkitFile } from '../../contracts/src/toolkit-root.js';
 
-const RELEASE_SQL = path.resolve(fileURLToPath(import.meta.url), '../../../../contracts/storage/release.sql');
+const RELEASE_SQL = toolkitFile('contracts', 'storage', 'release.sql');
 
 export class AuthorityError extends Error {
   constructor(public readonly code: string, message?: string) {

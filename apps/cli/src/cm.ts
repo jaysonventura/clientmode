@@ -27,7 +27,7 @@ import { cancelRun, createRun } from './run.js';
 import { rejectsCallerCommand } from './verify.js';
 import { assessRollback, restore, upgrade } from '../../../packages/packaging/src/upgrade.js';
 import { redactValue } from '../../../packages/observability/src/redaction.js';
-import { buildConsole } from './console-bundle.js';
+import { toolkitRoot } from '../../../packages/contracts/src/toolkit-root.js';
 
 export type Argv = { command: string; positional: string[]; flags: Record<string, string | true> };
 
@@ -143,7 +143,7 @@ const HOSTS: HostSpec[] = [
   { provider: 'codex', surface: 'native_cli', executable: 'codex' },
 ];
 
-const REPO_ROOT = path.resolve(fileURLToPath(import.meta.url), '../../../..');
+const REPO_ROOT = toolkitRoot();
 
 /** Pause stops new work being dispatched. It does not reach into a provider's own queue, and
  * saying otherwise would be the one thing this command must never claim. */
@@ -629,9 +629,22 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
       return EXIT_CODES.input_or_contract_error;
     }
     const run = await service.getRun(String(runId));
-    const consoleDir = await buildConsole(path.join(state_dir, 'console'), {
-      run_id: run.run_id, status: run.state, bootstrap_secret: bootstrap,
-    });
+    // The console bundler needs esbuild, which a packaged install may not carry. Loading it
+    // here rather than at module load keeps every other command working without it, and turns
+    // its absence into a reported capability gap instead of a CLI that will not start.
+    let consoleDir: string;
+    try {
+      const { buildConsole } = await import('./console-bundle.js');
+      consoleDir = await buildConsole(path.join(state_dir, 'console'), {
+        run_id: run.run_id, status: run.state, bootstrap_secret: bootstrap,
+      });
+    } catch (error) {
+      process.stderr.write('the console cannot be built on this install: ' +
+        `${String((error as Error).message).slice(0, 120)}\n` +
+        'Everything else still works; `cm status` and `cm handoff` do not need it.\n');
+      db.close();
+      return EXIT_CODES.missing_capability;
+    }
     const server = createControllerServer({ db, service, sessions, console_dir: consoleDir, project_id });
     const listening = await listenLoopback(server);
     process.stdout.write(`${listening.url}\n`);

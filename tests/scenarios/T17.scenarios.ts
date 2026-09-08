@@ -13,6 +13,8 @@ import { buildDistribution, validateManifest, PackagingError } from '../../packa
 import { fingerprintTree } from '../../packages/packaging/src/install.js';
 import { install, remove, describePlan } from '../../apps/cli/src/install.js';
 import { activate, deactivate } from '../../apps/cli/src/cm.js';
+import { packageToolkit } from '../harness/package-toolkit.js';
+import { runPackaged } from '../harness/cli.js';
 import { Evidence, ROOT, attempt } from '../harness/evidence.js';
 import { disposableProject, liveHostAvailable, liveTurn } from '../harness/live-provider.js';
 import { registerScenario } from '../harness/registry.js';
@@ -196,7 +198,30 @@ registerScenario('AT-017', async (): Promise<ScenarioObservation> => {
       afterDeactivate === ownInstructions && !existsSync(path.join(activationRoot, 'skills')) &&
       !existsSync(path.join(activationRoot, 'CLAUDE.md.client-mode-backup'));
 
-    const uninstallRestores = activationRoundTrips &&
+    // Portability: the installed toolkit has to work with the checkout out of the picture. A
+    // client's machine has no `/Users/<someone>/Documents/clientmode`, and a launcher that
+    // points at one is a tool that breaks the moment the developer moves a folder.
+    const packagedDir = path.join(sandbox, 'packaged');
+    const packaged = await packageToolkit(packagedDir);
+    const bundleText = readFileSync(packaged.entry, 'utf8');
+    const pointsAtCheckout = bundleText.includes(ROOT);
+    // Run it from a directory that is not the checkout, with the checkout not on any path.
+    const awayFrom = path.join(sandbox, 'elsewhere');
+    mkdirSync(awayFrom, { recursive: true });
+    const portableRuns = await Promise.all(([
+      ['doctor', ['doctor', '--json']],
+      ['status', ['status', 'run_that_does_not_exist', '--root', awayFrom]],
+      ['handoff', ['handoff', '--root', awayFrom, '--json']],
+    ] as const).map(async ([name, argv]) => ({
+      name, exit_code: await runPackaged(packaged.entry, argv, path.join(sandbox, 'packaged-home'), awayFrom),
+    })));
+    log['portable_install'] = {
+      bundle_bytes: packaged.bytes, points_at_checkout: pointsAtCheckout, runs: portableRuns,
+    };
+    const portable = !pointsAtCheckout &&
+      portableRuns.every(entry => entry.exit_code === 0 || entry.exit_code === 2);
+
+    const uninstallRestores = portable && activationRoundTrips &&
       JSON.stringify(before) === JSON.stringify(afterUninstall) &&
       settingsRestored['clientMode'] === undefined &&
       settingsRestored['theme'] === 'dark' &&

@@ -35,3 +35,16 @@ export function raceOpen(stateDir: string, workers: number): Promise<number[]> {
     child.on('error', () => { clearTimeout(timer); resolve(1); });
   })));
 }
+
+/** Run the packaged toolkit's own entry point, from a directory that is not the checkout. */
+export function runPackaged(entry: string, argv: readonly string[], home: string, cwd: string): Promise<number> {
+  return new Promise(resolve => {
+    const child = spawn(process.execPath, [entry, ...argv], {
+      cwd, stdio: ['ignore', 'ignore', 'ignore'],
+      env: { ...process.env, NODE_NO_WARNINGS: '1', CM_HOME: home, CM_CWD: cwd },
+    });
+    const timer = setTimeout(() => { try { child.kill('SIGKILL'); } catch { /* gone */ } }, 120_000);
+    child.on('close', code => { clearTimeout(timer); resolve(code ?? 8); });
+    child.on('error', () => { clearTimeout(timer); resolve(8); });
+  });
+}

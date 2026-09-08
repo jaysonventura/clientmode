@@ -16,8 +16,9 @@ import { appendEvent } from '../../state/src/events.js';
 import { acquire, revokeForAttempts, type Lease } from '../../state/src/leases.js';
 import { enqueue } from '../../state/src/outbox.js';
 import type { ControllerDatabase } from '../../state/src/database.js';
+import { toolkitFile } from '../../contracts/src/toolkit-root.js';
 
-const MACHINE_PATH = path.resolve(fileURLToPath(import.meta.url), '../../../../contracts/state-machine.json');
+const MACHINE_PATH = toolkitFile('contracts', 'state-machine.json');
 type Rule = { from: Run['state']; to: Run['state']; actor: Actor; guard: string };
 const MACHINE = JSON.parse(readFileSync(MACHINE_PATH, 'utf8')) as { states: Run['state'][]; transitions: Rule[] };
 

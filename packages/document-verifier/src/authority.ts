@@ -12,10 +12,10 @@ import { DatabaseSync } from 'node:sqlite';
 import { fileURLToPath } from 'node:url';
 import type { CheckDefinition, CheckResult, DocumentEvidence, DocumentPolicy } from '../../../contracts/interfaces.js';
 import { digest } from '../../contracts/src/canonical.js';
+import { toolkitFile } from '../../contracts/src/toolkit-root.js';
 
-const ROOT = path.resolve(fileURLToPath(import.meta.url), '../../../..');
-const VERIFIER_SQL = path.join(ROOT, 'contracts/storage/verifier.sql');
-const DOCUMENT_SQL = path.join(ROOT, 'contracts/storage/document-verifier.sql');
+const VERIFIER_SQL = toolkitFile('contracts', 'storage', 'verifier.sql');
+const DOCUMENT_SQL = toolkitFile('contracts', 'storage', 'document-verifier.sql');
 
 export class DocumentAuthorityError extends Error {
   constructor(public readonly code: string, subject = '') {

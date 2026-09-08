@@ -11,8 +11,9 @@ import { DatabaseSync } from 'node:sqlite';
 import type { CheckDefinition, Policy, ProtectedExecutionDefinition } from '../../../contracts/interfaces.js';
 import { digest } from '../../contracts/src/canonical.js';
 import { validateEntity } from '../../contracts/src/validate.js';
+import { toolkitFile } from '../../contracts/src/toolkit-root.js';
 
-const VERIFIER_SQL = path.resolve(fileURLToPath(import.meta.url), '../../../../contracts/storage/verifier.sql');
+const VERIFIER_SQL = toolkitFile('contracts', 'storage', 'verifier.sql');
 
 /** Product extension of the reference verifier schema: the execution definitions and the
  * environment/network profiles they name. Added by migration, not by editing the reference. */

@@ -8,10 +8,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Ajv2020, type ErrorObject, type ValidateFunction } from 'ajv/dist/2020.js';
 import ajvFormats from 'ajv-formats';
+import { toolkitFile } from './toolkit-root.js';
 
 export type ValidationResult = { valid: boolean; errors: string[] };
 
-const SCHEMA_PATH = path.resolve(fileURLToPath(import.meta.url), '../../../../contracts/domain.schema.json');
+const SCHEMA_PATH = toolkitFile('contracts', 'domain.schema.json');
 
 type SchemaObject = Record<string, unknown>;
 const schema = JSON.parse(readFileSync(SCHEMA_PATH, 'utf8')) as SchemaObject & { $defs: Record<string, SchemaObject> };

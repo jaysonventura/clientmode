@@ -7,8 +7,9 @@ import { closeSync, mkdirSync, openSync, readFileSync, rmSync, writeSync } from 
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync, type StatementSync } from 'node:sqlite';
+import { toolkitFile } from '../../contracts/src/toolkit-root.js';
 
-const SCHEMA_SQL = path.resolve(fileURLToPath(import.meta.url), '../../../../contracts/storage/controller.sql');
+const SCHEMA_SQL = toolkitFile('contracts', 'storage', 'controller.sql');
 export const SCHEMA_VERSION = 6;
 
 /** Product migrations layered on the reference DDL. The reference file stays unmodified;

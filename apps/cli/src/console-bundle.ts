@@ -6,9 +6,9 @@
 import { build } from 'esbuild';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { toolkitRoot } from '../../../packages/contracts/src/toolkit-root.js';
 
-const ROOT = path.resolve(fileURLToPath(import.meta.url), '../../../..');
+const ROOT = toolkitRoot();
 
 export async function buildConsole(outdir: string, boot: Record<string, unknown>): Promise<string> {
   mkdirSync(outdir, { recursive: true });

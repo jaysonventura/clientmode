@@ -53,14 +53,18 @@ test('once claude is on PATH the pending plugin is installed with the CLI and th
   assert.equal(completePendingClaudePlugin({ cm_home: cmHome, env, claude: '/bin/claude', run: () => ({ status: 0, stdout: '', stderr: '' }) }), 'nothing-pending');
 });
 
-test('the last uninstall also removes the PATH lines, the downloaded Node and the source it was built from', async () => {
+test('the last uninstall removes the downloaded Node and the source, and leaves the shared PATH line alone', async () => {
   const { home, cmHome, env } = await installClaudeWithoutCli();
   const zshrc = path.join(home, '.zshrc');
   writeFileSync(zshrc, '# mine\nalias ll="ls -l"\n\nexport PATH="/x/.local/bin:$PATH" # client-mode:path\n');
   for (const dir of ['runtime/node/bin', 'src/apps']) mkdirSync(path.join(cmHome, dir), { recursive: true });
   mkdirSync(path.join(cmHome, 'projects', 'p1'), { recursive: true });
-  uninstallHosts({ cm_home: cmHome, env, platform: 'darwin' });
-  assert.equal(readFileSync(zshrc, 'utf8'), '# mine\nalias ll="ls -l"\n');
+  const before = readFileSync(zshrc, 'utf8');
+  const outcome = uninstallHosts({ cm_home: cmHome, env, platform: 'darwin' });
+  // ~/.local/bin is where the native Claude Code and Codex installers put their binaries too; one of
+  // them may rely on the line being there, so it stays, and the person is told.
+  assert.equal(readFileSync(zshrc, 'utf8'), before);
+  assert.ok(outcome.notes.some(note => note.includes('.local') && note.includes('PATH')), JSON.stringify(outcome.notes));
   assert.equal(existsSync(path.join(cmHome, 'runtime')), false);
   assert.equal(existsSync(path.join(cmHome, 'src')), false);
   assert.ok(existsSync(path.join(cmHome, 'projects', 'p1')), 'client work is never removed');

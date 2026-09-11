@@ -1,13 +1,20 @@
-name: validate
+# The cm plugin's own checks (formerly claude-dev-team's CI), run from plugin/.
+name: plugin-ci
 
 on:
   push:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: plugin
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

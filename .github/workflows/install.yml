@@ -1,0 +1,168 @@
+# The one-line install, run for real on fresh macOS, Linux and Windows machines.
+#
+# Each job packages this commit exactly as GitHub's download would serve it, strips Node from PATH
+# so the installer has to fetch and verify its own, installs, checks what landed in every host's
+# configuration, uses `cm`, and uninstalls. No secrets: nothing here needs an account.
+name: install
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: install-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unix:
+    name: one-liner on ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Package this commit as the download
+        run: git archive --format=tar.gz --prefix=clientmode-main/ -o "$RUNNER_TEMP/src.tar.gz" HEAD
+
+      - name: Install with the one-liner, no Node on PATH
+        run: |
+          mkdir -p "$RUNNER_TEMP/home"
+          env -i HOME="$RUNNER_TEMP/home" PATH=/usr/bin:/bin:/usr/sbin:/sbin SHELL=/bin/bash \
+            TMPDIR="$RUNNER_TEMP" CM_SOURCE_TARBALL="$RUNNER_TEMP/src.tar.gz" sh ./install.sh
+
+      - name: Check every host's configuration and use cm
+        run: |
+          export HOME="$RUNNER_TEMP/home" PATH="$RUNNER_TEMP/home/.local/bin:/usr/bin:/bin"
+          grep -q 'client-mode:path' "$HOME/.bashrc"
+          cm --version
+          cm doctor --json > "$RUNNER_TEMP/doctor.json" || true
+          python3 - "$RUNNER_TEMP/doctor.json" <<'PY'
+          import json, os, sys
+          report = json.load(open(sys.argv[1]))["install"]
+          hosts = [h["host"] for h in report["hosts"]]
+          codes = [f["code"] for f in report["findings"] if f["code"] != "STORE_WORLD_READABLE"]
+          assert hosts == ["claude", "codex", "gemini", "cursor"], hosts
+          assert codes == ["CLAUDE_PLUGIN_PENDING"], codes
+          home = os.environ["HOME"]
+          claude = json.load(open(f"{home}/.claude/settings.json"))
+          assert claude["permissions"]["defaultMode"] == "auto", claude
+          assert claude["enabledPlugins"]["cm@clientmode"] is True, claude
+          assert 'sandbox_mode = "danger-full-access"' in open(f"{home}/.codex/config.toml").read()
+          assert "## Test first, always" in open(f"{home}/.gemini/GEMINI.md").read()
+          assert json.load(open(f"{home}/.cursor/cli-config.json"))["approvalMode"] == "unrestricted"
+          assert len(os.listdir(f"{home}/.agents/skills")) == 20
+          print("hosts configured:", hosts)
+          PY
+          mkdir -p "$RUNNER_TEMP/project" && cd "$RUNNER_TEMP/project" && cm handoff
+
+      - name: Uninstall leaves nothing of ours
+        run: |
+          export HOME="$RUNNER_TEMP/home" PATH="$RUNNER_TEMP/home/.local/bin:/usr/bin:/bin"
+          cm uninstall
+          for gone in .claude .codex .gemini .cursor .agents .client-mode/toolkit .client-mode/src .client-mode/runtime .local/bin/cm; do
+            if [ -e "$HOME/$gone" ]; then echo "left behind: $gone"; exit 1; fi
+          done
+
+  unix-tests:
+    name: installer tests on macos-latest
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.17.0'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run test:install
+
+  windows:
+    name: one-liner on windows-latest (PowerShell 5.1)
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Package this commit as the download
+        shell: bash
+        run: git archive --format=zip --prefix=clientmode-main/ -o "$RUNNER_TEMP/src.zip" HEAD
+
+      - name: Install with the one-liner, no Node on PATH
+        shell: powershell
+        run: |
+          $env:USERPROFILE = Join-Path $env:RUNNER_TEMP 'home'
+          New-Item -ItemType Directory -Force $env:USERPROFILE | Out-Null
+          $env:CM_SOURCE_ZIP = Join-Path $env:RUNNER_TEMP 'src.zip'
+          $env:Path = (($env:Path -split ';') | Where-Object { $_ -and -not (Test-Path (Join-Path $_ 'node.exe')) }) -join ';'
+          if (Get-Command node -ErrorAction SilentlyContinue) { throw 'node is still on PATH' }
+          Get-Content -Raw .\install.ps1 | Invoke-Expression
+
+      - name: Check every host's configuration and use cm
+        shell: powershell
+        run: |
+          $env:USERPROFILE = Join-Path $env:RUNNER_TEMP 'home'
+          $stripped = (($env:Path -split ';') | Where-Object { $_ -and -not (Test-Path (Join-Path $_ 'node.exe')) }) -join ';'
+          $env:Path = "$env:USERPROFILE\.local\bin;$stripped"
+          if (-not (([Environment]::GetEnvironmentVariable('Path', 'User') -split ';') -contains "$env:USERPROFILE\.local\bin")) { throw 'user PATH not updated' }
+          cm --version
+          if ($LASTEXITCODE -ne 0) { throw 'cm --version failed' }
+          $report = (cm doctor --json | Out-String | ConvertFrom-Json).install
+          $hosts = @($report.hosts | ForEach-Object { $_.host }) -join ','
+          $codes = @($report.findings | ForEach-Object { $_.code } | Where-Object { $_ -ne 'STORE_WORLD_READABLE' }) -join ','
+          Write-Host "hosts=$hosts findings=$codes"
+          if ($hosts -ne 'claude,codex,gemini,cursor') { throw "hosts: $hosts" }
+          if ($codes -ne 'CLAUDE_PLUGIN_PENDING') { throw "findings: $codes" }
+          $claude = Get-Content -Raw "$env:USERPROFILE\.claude\settings.json" | ConvertFrom-Json
+          if ($claude.permissions.defaultMode -ne 'auto') { throw 'claude defaultMode' }
+          if (-not (Select-String -Quiet -Path "$env:USERPROFILE\.codex\config.toml" -Pattern '^sandbox_mode = "danger-full-access"$')) { throw 'codex sandbox_mode' }
+          if (-not (Test-Path "$env:USERPROFILE\.agents\skills\cm-tdd\SKILL.md")) { throw 'skills' }
+          if (-not (Test-Path "$env:USERPROFILE\.cursor\rules\client-mode.mdc")) { throw 'cursor rule' }
+          $project = Join-Path $env:RUNNER_TEMP 'project'
+          New-Item -ItemType Directory -Force $project | Out-Null
+          Push-Location $project
+          cm handoff
+          if ($LASTEXITCODE -ne 0) { throw 'cm handoff failed' }
+          Pop-Location
+
+      - name: Plugin hooks under Git Bash (evidence)
+        shell: bash
+        continue-on-error: true
+        working-directory: plugin
+        run: |
+          export CLAUDE_PLUGIN_ROOT="$PWD" HOME="$RUNNER_TEMP/hook-home"
+          mkdir -p "$HOME"
+          command -v python3 || echo "python3 is not on PATH in Git Bash"
+          payload='{"session_id":"ci","cwd":"'"$PWD"'","hook_event_name":"UserPromptSubmit","prompt":"fix the login bug","tool_name":"Bash","tool_input":{"command":"npm test"}}'
+          status=0
+          for hook in session-start-vault.sh prompt-enhance.sh verify-wrap.sh verify-track.sh completion-guard.sh format-on-write.sh; do
+            if printf '%s' "$payload" | bash "hooks/$hook" > "$RUNNER_TEMP/$hook.out" 2>&1; then echo "ok   $hook"; else echo "FAIL $hook (exit $?)"; tail -5 "$RUNNER_TEMP/$hook.out"; status=1; fi
+          done
+          exit $status
+
+      - name: Uninstall leaves nothing of ours
+        shell: powershell
+        run: |
+          $env:USERPROFILE = Join-Path $env:RUNNER_TEMP 'home'
+          $stripped = (($env:Path -split ';') | Where-Object { $_ -and -not (Test-Path (Join-Path $_ 'node.exe')) }) -join ';'
+          $env:Path = "$env:USERPROFILE\.local\bin;$stripped"
+          cm uninstall
+          if ($LASTEXITCODE -ne 0) { throw 'cm uninstall failed' }
+          foreach ($gone in @('.claude', '.codex', '.gemini', '.cursor', '.agents', '.client-mode\toolkit', '.client-mode\src', '.local\bin\cm.cmd')) {
+            if (Test-Path (Join-Path $env:USERPROFILE $gone)) { throw "left behind: $gone" }
+          }

@@ -258,24 +258,15 @@ export function completePendingClaudePlugin(input: { cm_home: string; env: NodeJ
   return plugin.method === 'cli' ? 'installed' : 'failed';
 }
 
-const PATH_MARKER = '# client-mode:path';
-
-/** What the one-line installers leave outside the host directories: a marked PATH line in the
- * shell start-up files, the Node they downloaded and the source they built from. Client work under
- * `projects/` is never touched. On Windows the running node.exe cannot delete itself, so the
- * runtime is named for the person to remove instead. */
-function removeBootstrapFootprint(cmHome: string, env: NodeJS.ProcessEnv, platform: NodeJS.Platform): string[] {
-  const notes: string[] = [];
-  const home = env['HOME'] ?? env['USERPROFILE'] ?? '';
-  for (const rc of ['.zshrc', '.bashrc', '.bash_profile', '.profile']) {
-    const file = path.join(home, rc);
-    if (home === '' || !existsSync(file)) continue;
-    const text = readFileSync(file, 'utf8');
-    if (!text.includes(PATH_MARKER)) continue;
-    const kept = text.split('\n').filter(line => !line.includes(PATH_MARKER)).join('\n').replace(/\n{3,}/g, '\n\n').replace(/\n+$/, '\n');
-    writeFileSync(file, kept);
-    notes.push(`removed the Client Mode PATH line from ${file}`);
-  }
+/** What the one-line installers leave outside the host directories: the Node they downloaded and
+ * the source they built from. Client work under `projects/` is never touched.
+ *
+ * The PATH line for `~/.local/bin` is deliberately left. The native Claude Code and Codex installers
+ * put their own binaries there and skip adding the line when it is already present, so removing
+ * ours could break a host in every new terminal. On Windows the running node.exe cannot delete
+ * itself, so the runtime is named for the person to remove instead. */
+function removeBootstrapFootprint(cmHome: string, _env: NodeJS.ProcessEnv, platform: NodeJS.Platform): string[] {
+  const notes = ['left ~/.local/bin on PATH: other tools (the native Claude Code and Codex installers among them) use it too'];
   rmSync(path.join(cmHome, 'src'), { recursive: true, force: true });
   if (platform === 'win32') {
     if (existsSync(path.join(cmHome, 'runtime'))) notes.push(`remove ${path.join(cmHome, 'runtime')} once this window is closed (Windows cannot delete the running Node)`);

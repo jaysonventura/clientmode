@@ -48,6 +48,9 @@ jobs:
       - name: Executable reference contract
         run: npm run test:reference
 
+      - name: Installer tests (four hosts, autonomy, uninstall)
+        run: npm run test:install
+
       - name: Install the pinned browser
         run: npx playwright install --with-deps chromium
 

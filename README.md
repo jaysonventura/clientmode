@@ -1,116 +1,169 @@
 # Client Mode
 
-An operating model for Claude Code and Codex CLI, plus the controller that keeps it honest.
+One operating model for **Claude Code, Codex, Gemini CLI and Cursor**, and the controller that keeps
+it honest. Client Mode and the claude-dev-team orchestrator are merged into a single plugin, `cm`.
 
-It does not write your app — your host does that. Client Mode is what stops a session calling
-something ready without a check that ran, preserves what you said you *don't* want as carefully
-as what you asked for, and keeps the record straight when one host stops and the other picks up.
+It does not write your app — your host does that. Client Mode is what makes every host work **test
+first**, stop calling something ready without a check that ran, preserve what you said you *don't*
+want as carefully as what you asked for, and keep the record straight when one host stops and another
+picks up.
 
-Built and verified: 33 acceptance gates, 67 tests. Every gate retains the artifacts it observed
-and a write-up of the failure it was watched to produce before it was allowed to pass. What the
-gates do **not** cover is written down beside them, in each task's `red-evidence.md`.
+## Install
 
-## Install on a Mac
-
-Needs **Node ≥ 22.17.0**. Installing works with or without the host CLIs present; you need
-`claude` or `codex` on the machine to actually run sessions, and `cm doctor` reports which of
-them it found.
+**macOS or Linux** — in Terminal:
 
 ```sh
-git clone git@github.com:jaysonventura/clientmode.git
-cd clientmode
-npm install
-
-npx tsx apps/cli/src/cm.ts install --host claude --lead
-npx tsx apps/cli/src/cm.ts install --host codex  --lead     # if you use both
+curl -fsSL https://raw.githubusercontent.com/jaysonventura/clientmode/main/install.sh | sh
 ```
 
-That builds a self-contained toolkit into `~/.client-mode/toolkit`, writes a launcher to
-`~/.local/bin/cm`, installs eight skills into each host, and puts the Client Mode rules at the
-top of `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md` inside a marked block. Anything already in
-those files is kept and backed up.
+**Windows** — in PowerShell:
 
-If `~/.local/bin` is not on your `PATH`, add it:
-
-```sh
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && exec zsh
+```powershell
+irm https://raw.githubusercontent.com/jaysonventura/clientmode/main/install.ps1 | iex
 ```
 
-Check it:
+That is the whole install. It needs no administrator rights and no Node: if Node ≥ 22.17 is missing, a
+checksum-verified copy is downloaded into `~/.client-mode/runtime`. Then open a new terminal and run
+`cm doctor`.
 
-```sh
-cm doctor        # exits 0 when the install is healthy; names what is wrong when it is not
-```
+The hosts themselves are yours to install (Claude Code, Codex, Gemini CLI, Cursor); Client Mode
+configures all four either way, so a host you add later picks it up. After adding Claude Code later,
+run `cm install --host claude` (or just start it with `cm`) to finish its plugin install.
 
-After this the checkout is only needed to rebuild. `cm` runs from `~/.client-mode/toolkit`.
+### Other ways to install
 
-### Options
+| Channel | Command | Gets you |
+|---|---|---|
+| One-liner (above) | `install.sh` / `install.ps1` | Everything below, for all four hosts |
+| npm | `npm install -g github:jaysonventura/clientmode` then `cm install` | Same as the one-liner, using your own Node |
+| Claude Code marketplace | `claude plugin marketplace add jaysonventura/clientmode` then `claude plugin install cm@clientmode` | The `cm` plugin in Claude Code only (no permission changes) |
+| Codex marketplace | `codex plugin marketplace add jaysonventura/clientmode` then `codex plugin add cm@clientmode` | The `cm` skills in Codex only (no permission changes) |
 
-| Flag | Effect |
+Use one route per host: the one-liner already installs the plugin into Claude Code, and adding the
+marketplace plugin on top of it in Codex would show every skill twice.
+
+Options for the one-liner, set as environment variables first:
+
+| Variable | Effect |
 |---|---|
-| `--lead` | Client Mode leads; whatever was in the instructions file becomes reference material below it |
-| `--install-root <dir>` | Install into a host directory other than `~/.claude` / `~/.codex` |
-| `--bin-dir <dir>` | Put the launcher somewhere other than `~/.local/bin` |
-| `--dry-run` | Print the exact change set and write nothing |
+| `CM_HOSTS=claude,codex` | Configure only these hosts (default: all four) |
+| `CM_NO_AUTONOMY=1` | Leave every host's approval / permission settings exactly as they are |
+| `CM_REF=v2.0.0` | Install a tag or branch instead of `main` |
 
-Remove it again with `cm uninstall --host claude`, which takes back exactly the marked block and
-the files the install record names, and nothing else.
+## What the install changes
+
+Everything is recorded in `~/.client-mode/install-<host>.json`, including every value it replaced.
+Existing content is kept; `cm uninstall` puts the replaced values back and leaves anything you changed
+since then alone.
+
+| Host | Rules loaded every session | Skills | Runs without prompts via |
+|---|---|---|---|
+| Claude Code | Client Mode section first in `~/.claude/CLAUDE.md` | `cm` plugin (`/cm:*` commands, agents, hooks, skills) | `permissions.defaultMode: "auto"` |
+| Codex | Client Mode section in `~/.codex/AGENTS.md` | `~/.agents/skills/cm-*` | `approval_policy = "never"`, `sandbox_mode = "danger-full-access"` |
+| Gemini CLI | Client Mode section in `~/.gemini/GEMINI.md` | `~/.agents/skills/cm-*` | allow-all user policy in `~/.gemini/policies/`, folder trust off |
+| Cursor | `~/.cursor/rules/client-mode.mdc` (always applied) | `~/.agents/skills/cm-*` | CLI `approvalMode: "unrestricted"` |
+
+If the old `cdt@claude-dev-team` plugin is enabled it is switched off (it is part of `cm` now), and the
+claude-dev-team section pasted into `~/.claude/CLAUDE.md` is moved into the install record.
+
+**About running without prompts.** It removes the approval prompt, not the rules: Client Mode still
+tells every host to ask in the conversation before money leaves an account, data leaves the project, or
+anything irreversible happens. Codex in `danger-full-access` and Claude in auto mode can change files
+anywhere your user account can. If you want the prompts, install with `CM_NO_AUTONOMY=1`.
 
 ## Use
 
 Work in the app's own folder. Client Mode keeps one state directory per project under
-`~/.client-mode/projects/`, so nothing is copied into this repo and projects never mix.
+`~/.client-mode/projects/`, so nothing is copied into the repo and projects never mix.
 
 ```sh
-cd ~/path/to/your-app     # new folder or an existing codebase; git not required
+cd ~/path/to/your-app     # a new folder or an existing codebase; git not required
 cm                        # opens your preferred host here, already briefed
 ```
 
 | Command | What it does |
 |---|---|
-| `cm` | Launch the preferred host in this folder with the handoff briefing |
-| `cm use claude` / `cm use codex` | Set which host bare `cm` opens |
+| `cm` | Start the preferred host in this folder with the handoff briefing |
+| `cm use claude` / `codex` / `gemini` / `cursor` | Set which host a bare `cm` starts |
 | `cm handoff` | What the last session left — whichever host it was |
 | `cm run --request-file brief.txt` | Record a client request and start a tracked run |
 | `cm status <run>` | State, readiness, and whether the client has accepted |
 | `cm open` | Serve the console for a run in the browser |
 | `cm doctor` | Install health, host capabilities, and what is *not* working |
+| `cm install [--host …] [--no-autonomy] [--dry-run]` | Install or update; `--dry-run` writes nothing |
+| `cm uninstall [--host …]` | Take it back out |
 
-**Start every session in a project folder with `cm handoff`.** If Claude stopped halfway through
-a task, Codex resumes *that* task rather than the next one; a task counts as done only when
-evidence was recorded, so a session cannot simply declare it.
+Write the brief in whatever language you'd use with a developer — English, Tagalog, mixed. What you
+exclude matters as much as what you ask for: *"walang delivery fee"* and *"wag galawin ang presyo"* are
+requirements.
 
-Write the brief in whatever language you'd use with a developer — English, Tagalog, mixed. What
-you exclude matters as much as what you ask for: *"walang delivery fee"* and *"wag galawin ang
-presyo"* are requirements, and dropping one is work you have to undo.
+## What every host follows
 
-## Verify a checkout
+- **Test first, always.** Every behaviour change starts with a failing test, watched failing for the
+  expected reason, then the smallest change that passes, then refactor. A bug fix starts with a test
+  that reproduces it. The `tdd` skill carries the procedure for any stack.
+- **Triage, bounded.** T0–T3 tiers and specialist roles from claude-dev-team, inside Client Mode's
+  limits: one active writer, at most two child jobs at a time, one level deep. Wider fan-out only when
+  you ask (`FULL:`, "use a workflow").
+- **Done means observed.** Readiness comes from checks that ran, pasted with their output; a skipped
+  or unavailable check is reported as a gap, never as a pass.
+- **Grounded.** Library and API specifics come from the installed version's documentation, and builds
+  go through the repository's own automation (Makefile first).
+- **The client decides acceptance.** Verified is not accepted, and neither is written for them.
+
+The skills, in every host: `orchestration`, `intake`, `requirement-intelligence`, `grounding`, `tdd`,
+`delivery`, `debug`, `verify`, `review`, `handoff`, `ui-ux`, `automation-first`, `web-qa`, `mobile-qa`,
+`qa-shared`, `clean-code-typescript`, `karpathy-guidelines`, `code-splitting`, `gauge-improvements`,
+`technical-writing`. In Claude Code they are `cm:<name>`; elsewhere `cm-<name>`. The Claude plugin also
+brings the specialist agents, the Bug Council, the Task Loop and cost analytics — see
+[plugin/README.md](plugin/README.md).
+
+## Uninstall
 
 ```sh
-./scripts/verify-local.sh      # typecheck, 33 gates, reference tests, handoff validation
+cm uninstall
 ```
 
-The last section of that output is scoped `HANDOFF_REFERENCE_ONLY` — it validates the handoff
-*documents* and predates the built system. Its `not_executed` list is not the system's coverage
-statement; the gates are.
-
-Running the gates rewrites the evidence artifacts under `qa/product/`, so the working tree goes
-dirty after a verify run. That is normal churn.
+Removes the rules, skills, plugin and toolkit, restores every setting it replaced, and removes the
+downloaded Node and source. It leaves `~/.local/bin` on your PATH (other installers use it too) and
+never touches client work under `~/.client-mode/projects/`.
 
 ## Known limits
 
-- The sandbox is macOS Seatbelt. On Linux or Windows isolation degrades to `none` — reported
-  honestly rather than assumed, but untrusted checks would not be contained there.
-- Provider cost comparison arms are simulated. No metered budget has been spent.
-- Nothing has ever been deployed through it. No paid service, no public surface.
-- Document gates use synthetic files: real PDF and OOXML byte structures, generated so the
-  right answer is known in advance.
-- The verifier runs as the same OS user as the controller. On a single-user machine that is the
-  accepted residual; a compromised controller can read the signing key off the disk.
+- **Checked live on this release:** the install, doctor and uninstall on macOS; Claude Code and Codex
+  reading the plugin marketplace. Gemini CLI and Cursor configuration follows their documentation but
+  was not observed in a running session here.
+- **Cursor IDE:** "Run Everything" has no settings file — turn it on in Settings → Agents → Approvals &
+  Execution. The Cursor CLI is configured.
+- **Codex** still asks once per new folder whether to trust it; that screen has no global setting.
+- **Claude auto mode** needs a Pro, Max or Team plan (or a supported cloud provider); elsewhere Claude
+  starts in Manual mode.
+- **Windows:** the plugin's Claude Code hooks run under Git Bash (`winget install --id Git.Git -e`);
+  several of them also use Python 3. The menu bar app is macOS-only.
+- The sandbox for untrusted checks is macOS Seatbelt; on Linux and Windows isolation is `none` and says
+  so.
+- Nothing is deployed through it, and no paid service is used by it.
 
-## The handoff package
+## Develop
+
+```sh
+git clone https://github.com/jaysonventura/clientmode.git && cd clientmode
+npm ci
+npm test                          # typecheck, reference tests, install tests, 33 acceptance gates
+bash plugin/scripts/validate.sh   # the cm plugin: manifests, hooks, agents, skills
+```
+
+Running the gates rewrites the evidence artifacts under `qa/product/`, so the working tree goes dirty
+after a verify run. That is normal churn.
+
+| Path | What it is |
+|---|---|
+| `plugin/` | The `cm` Claude Code plugin: agents, commands, hooks, skills, toolkit, menu bar |
+| `.claude-plugin/marketplace.json` | The `clientmode` marketplace (read by Claude Code and Codex) |
+| `apps/cli`, `packages/` | The `cm` controller and installer |
+| `adapters/global/` | The operating model every host loads |
+| `install.sh`, `install.ps1` | The one-line installers |
 
 The specification this was built from is still here: [START_HERE.md](START_HERE.md),
-[ENGINEERING_HANDOVER.md](ENGINEERING_HANDOVER.md), [task index](docs/TASK_INDEX.md),
-[document workflow](docs/DOCUMENT_WORKFLOW.md), [research](research/COMPANY_PRACTICES.md).
-Historical logs under `qa/history/` are not current evidence.
+[ENGINEERING_HANDOVER.md](ENGINEERING_HANDOVER.md), [task index](docs/TASK_INDEX.md). Historical logs
+under `qa/history/` are not current evidence.

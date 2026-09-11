@@ -53,7 +53,9 @@ test('the launcher is a shell script on macOS and a .cmd plus a shell script on 
   assert.deepEqual(written, [path.join(winBin, 'cm.cmd'), path.join(winBin, 'cm')]);
   const cmd = readFileSync(path.join(winBin, 'cm.cmd'), 'utf8');
   assert.match(cmd, /^@echo off\r\n/);
-  assert.ok(cmd.includes('"C:\\Users\\A B\\.client-mode\\runtime\\node.exe" --disable-warning=ExperimentalWarning "%CM_TOOLKIT_ROOT%\\cm.js" %*'), cmd);
+  // The node call and the exit share one line: cmd.exe re-reads a batch file after each line, and
+  // `cm uninstall` deletes this one while it runs ("The batch file cannot be found").
+  assert.ok(cmd.includes('"C:\\Users\\A B\\.client-mode\\runtime\\node.exe" --disable-warning=ExperimentalWarning "%CM_TOOLKIT_ROOT%\\cm.js" %* & exit /b\r\n'), cmd);
   assert.ok(!cmd.includes('\n') || cmd.includes('\r\n'), 'CRLF line endings for cmd.exe');
   assert.equal(launcherToolkitRoot(cmd), 'C:\\Users\\A B\\.client-mode\\toolkit');
 });

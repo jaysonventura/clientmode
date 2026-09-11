@@ -123,6 +123,8 @@ jobs:
           if (-not (([Environment]::GetEnvironmentVariable('Path', 'User') -split ';') -contains "$env:USERPROFILE\.local\bin")) { throw 'user PATH not updated' }
           cm --version
           if ($LASTEXITCODE -ne 0) { throw 'cm --version failed' }
+          cm use nonsense
+          if ($LASTEXITCODE -ne 2) { throw "a failing command must exit 2 through cm.cmd, got $LASTEXITCODE" }
           $report = (cm doctor --json | Out-String | ConvertFrom-Json).install
           $hosts = @($report.hosts | ForEach-Object { $_.host }) -join ','
           $codes = @($report.findings | ForEach-Object { $_.code } | Where-Object { $_ -ne 'STORE_WORLD_READABLE' }) -join ','

@@ -59,7 +59,8 @@ export function writeLauncher(input: { bin_dir: string; toolkit_root: string; no
       '@echo off',
       'rem Client Mode. Installed by `cm install`; remove it with `cm uninstall`.',
       `if not defined CM_TOOLKIT_ROOT set "CM_TOOLKIT_ROOT=${input.toolkit_root}"`,
-      `"${input.node}" --disable-warning=ExperimentalWarning "%CM_TOOLKIT_ROOT%\\cm.js" %*`,
+      // One line: cmd.exe re-reads the file after each line, and `cm uninstall` deletes it mid-run.
+      `"${input.node}" --disable-warning=ExperimentalWarning "%CM_TOOLKIT_ROOT%\\cm.js" %* & exit /b`,
       '',
     ].join('\r\n'));
     written.push(cmd);

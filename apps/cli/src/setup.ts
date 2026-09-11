@@ -17,7 +17,7 @@ import {
   type HostLayout, type HostName, type MovedSection,
 } from '../../../packages/packaging/src/hosts.js';
 import type { InstallRecord } from '../../../packages/packaging/src/install.js';
-import { findExecutable, writeLauncher } from '../../../packages/packaging/src/platform.js';
+import { findExecutable, removeLaunchers, writeLauncher } from '../../../packages/packaging/src/platform.js';
 import { makePrivateDirectory, PRIVATE_FILE_MODE } from '../../../packages/verifier/src/file-permissions.js';
 
 export type SetupRecord = {
@@ -207,7 +207,7 @@ export function uninstallHosts(input: { hosts?: HostName[]; cm_home: string; env
 
   const remaining = HOSTS.filter(host => readRecord(input.cm_home, host) !== null);
   if (remaining.length === 0 && input.keep_toolkit !== true) {
-    for (const launcher of launchers) rmSync(launcher, { force: true });
+    removeLaunchers([...launchers], input.platform ?? process.platform, input.env);
     if (toolkit !== null) rmSync(toolkit, { recursive: true, force: true });
     rmSync(path.join(input.cm_home, 'dist'), { recursive: true, force: true });
     notes.push(...removeBootstrapFootprint(input.cm_home, input.env, input.platform ?? process.platform));

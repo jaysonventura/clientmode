@@ -166,6 +166,7 @@ jobs:
           $env:Path = "$env:USERPROFILE\.local\bin;$stripped"
           cm uninstall
           if ($LASTEXITCODE -ne 0) { throw 'cm uninstall failed' }
+          Start-Sleep -Seconds 8   # the launcher is removed a moment after cm.cmd exits
           foreach ($gone in @('.claude', '.codex', '.gemini', '.cursor', '.agents', '.client-mode\toolkit', '.client-mode\src', '.local\bin\cm.cmd')) {
             if (Test-Path (Join-Path $env:USERPROFILE $gone)) { throw "left behind: $gone" }
           }

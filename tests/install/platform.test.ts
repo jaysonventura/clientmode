@@ -53,9 +53,8 @@ test('the launcher is a shell script on macOS and a .cmd plus a shell script on 
   assert.deepEqual(written, [path.join(winBin, 'cm.cmd'), path.join(winBin, 'cm')]);
   const cmd = readFileSync(path.join(winBin, 'cm.cmd'), 'utf8');
   assert.match(cmd, /^@echo off\r\n/);
-  // The node call and the exit share one line: cmd.exe re-reads a batch file after each line, and
-  // `cm uninstall` deletes this one while it runs ("The batch file cannot be found").
-  assert.ok(cmd.includes('"C:\\Users\\A B\\.client-mode\\runtime\\node.exe" --disable-warning=ExperimentalWarning "%CM_TOOLKIT_ROOT%\\cm.js" %* & exit /b\r\n'), cmd);
+  // The node call is the last line, so the batch file's exit code is node's (the form npm's own shims use).
+  assert.ok(cmd.endsWith('"C:\\Users\\A B\\.client-mode\\runtime\\node.exe" --disable-warning=ExperimentalWarning "%CM_TOOLKIT_ROOT%\\cm.js" %*\r\n'), cmd);
   assert.ok(!cmd.includes('\n') || cmd.includes('\r\n'), 'CRLF line endings for cmd.exe');
   assert.equal(launcherToolkitRoot(cmd), 'C:\\Users\\A B\\.client-mode\\toolkit');
 });
@@ -81,4 +80,23 @@ test('doctor finds Windows hosts in their install locations, and still refuses a
   writeFileSync(path.join(untrusted, 'gemini.cmd'), '@echo off\n');
   assert.equal(whichTrusted('gemini', roots, { PATH: untrusted, PATHEXT: '.CMD' }, 'win32'), null, 'on PATH but outside every trusted root');
   assert.ok(defaultTrustedRoots({ HOME: '/Users/x' }, 'darwin').includes('/opt/homebrew/bin'));
+});
+
+test('on Windows a launcher is deleted after cm exits, never while cmd.exe is still reading it', async () => {
+  const { removeLaunchers } = await import('../../packages/packaging/src/platform.js');
+  const bin = dir();
+  const files = writeLauncher({ bin_dir: bin, toolkit_root: 'C:\\t', node: 'C:\\n\\node.exe', platform: 'win32' });
+  const spawned: Array<{ command: string; args: string[] }> = [];
+  removeLaunchers(files, 'win32', { ComSpec: 'C:\\Windows\\system32\\cmd.exe' }, (command, args) => { spawned.push({ command, args }); });
+  for (const file of files) assert.ok(statSync(file).isFile(), 'still there while the running cm.cmd needs it');
+  assert.equal(spawned.length, 1);
+  assert.equal(spawned[0]!.command, 'C:\\Windows\\system32\\cmd.exe');
+  const line = spawned[0]!.args.join(' ');
+  assert.match(line, /ping -n \d+ 127\.0\.0\.1/);
+  for (const file of files) assert.ok(line.includes(`"${file}"`), line);
+
+  const posixBin = dir();
+  const posix = writeLauncher({ bin_dir: posixBin, toolkit_root: '/t', node: '/n', platform: 'darwin' });
+  removeLaunchers(posix, 'darwin', {}, () => { throw new Error('nothing is spawned on macOS'); });
+  assert.throws(() => statSync(posix[0]!), 'removed at once');
 });

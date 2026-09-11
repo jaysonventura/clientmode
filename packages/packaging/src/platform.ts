@@ -7,7 +7,8 @@
  * command line is built with each argument quoted and cmd.exe's metacharacters escaped (twice,
  * because the shim is a batch file that cmd.exe parses again).
  */
-import { chmodSync, existsSync, mkdirSync, statSync, writeFileSync } from 'node:fs';
+import { spawn } from 'node:child_process';
+import { chmodSync, existsSync, mkdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 export function findExecutable(name: string, env: NodeJS.ProcessEnv, platform: NodeJS.Platform = process.platform): string | null {
@@ -59,8 +60,8 @@ export function writeLauncher(input: { bin_dir: string; toolkit_root: string; no
       '@echo off',
       'rem Client Mode. Installed by `cm install`; remove it with `cm uninstall`.',
       `if not defined CM_TOOLKIT_ROOT set "CM_TOOLKIT_ROOT=${input.toolkit_root}"`,
-      // One line: cmd.exe re-reads the file after each line, and `cm uninstall` deletes it mid-run.
-      `"${input.node}" --disable-warning=ExperimentalWarning "%CM_TOOLKIT_ROOT%\\cm.js" %* & exit /b`,
+      // Last line, so the batch file exits with node's exit code — the form npm's own shims use.
+      `"${input.node}" --disable-warning=ExperimentalWarning "%CM_TOOLKIT_ROOT%\\cm.js" %*`,
       '',
     ].join('\r\n'));
     written.push(cmd);
@@ -93,4 +94,26 @@ export function isExecutableLauncher(file: string, platform: NodeJS.Platform = p
   if (platform === 'win32') return true;
   // eslint-disable-next-line no-bitwise
   return (statSync(file).mode & 0o111) !== 0;
+}
+
+export type Spawner = (command: string, args: string[]) => void;
+
+const detached: Spawner = (command, args) => {
+  spawn(command, args, { detached: true, stdio: 'ignore', windowsHide: true, windowsVerbatimArguments: true }).unref();
+};
+
+/** Remove launchers. On Windows `cm uninstall` is itself running through cm.cmd, and cmd.exe reads a
+ * batch file line by line: deleting it now makes cmd report "The batch file cannot be found" and
+ * exit non-zero after a successful uninstall. There the files are removed by a detached cmd.exe a
+ * couple of seconds after this process has exited. */
+export function removeLaunchers(files: string[], platform: NodeJS.Platform = process.platform, env: NodeJS.ProcessEnv = process.env, spawner: Spawner = detached): void {
+  const present = files.filter(file => existsSync(file));
+  if (present.length === 0) return;
+  if (platform !== 'win32') {
+    for (const file of present) rmSync(file, { force: true });
+    return;
+  }
+  const shell = env['ComSpec'] ?? path.win32.join(env['SystemRoot'] ?? 'C:\\Windows', 'System32', 'cmd.exe');
+  const deletes = present.map(file => `del /f /q "${file}"`).join(' & ');
+  spawner(shell, ['/d', '/c', `"ping -n 3 127.0.0.1 >nul & ${deletes}"`]);
 }

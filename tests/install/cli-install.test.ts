@@ -78,6 +78,10 @@ test('install configures all four hosts from one toolkit, and uninstall puts eve
   assert.match(dry.stdout, /claude[\s\S]*codex[\s\S]*gemini[\s\S]*cursor/);
   assert.deepEqual(fingerprintTree(h.home), before, 'dry run left the home untouched');
 
+  // A skill of the person's own, with a name that happens to start with cm-, in the shared directory.
+  const theirs = path.join(h.home, '.agents', 'skills', 'cm-mine', 'SKILL.md');
+  put(theirs, '---\nname: cm-mine\ndescription: mine\n---\n');
+
   const installed = cm(h, ['install', '--bin-dir', h.bin]);
   assert.equal(installed.status, 0, `${installed.stdout}\n${installed.stderr}`);
 
@@ -111,7 +115,7 @@ test('install configures all four hosts from one toolkit, and uninstall puts eve
   assert.ok(existsSync(path.join(h.home, '.agents', 'skills', 'cm-tdd', 'SKILL.md')));
   assert.match(readFileSync(path.join(h.home, '.gemini', 'GEMINI.md'), 'utf8'), /`cm-orchestration`/);
   assert.ok(existsSync(path.join(h.home, '.gemini', 'policies', 'client-mode.toml')));
-  assert.equal(json(path.join(h.home, '.gemini', 'settings.json')).security.folderTrust.enabled, false);
+  assert.deepEqual(json(path.join(h.home, '.gemini', 'settings.json')), { ui: { theme: 'GitHub' } }, 'folder trust left on');
   assert.match(readFileSync(path.join(h.home, '.cursor', 'rules', 'client-mode.mdc'), 'utf8'), /alwaysApply: true/);
   assert.equal(json(path.join(h.home, '.cursor', 'cli-config.json')).approvalMode, 'unrestricted');
 
@@ -132,7 +136,9 @@ test('install configures all four hosts from one toolkit, and uninstall puts eve
     if (relative.endsWith('.json')) assert.deepEqual(json(file), JSON.parse(text), relative);
     else assert.equal(readFileSync(file, 'utf8'), text, relative);
   }
-  for (const gone of ['.agents', '.cursor', '.gemini/GEMINI.md', '.gemini/policies', '.codex/client-mode', '.claude/client-mode', '.client-mode/toolkit']) {
+  assert.ok(existsSync(theirs), 'their own cm-mine skill survives uninstall');
+  assert.deepEqual(readdirSync(path.join(h.home, '.agents', 'skills')), ['cm-mine']);
+  for (const gone of ['.cursor', '.gemini/GEMINI.md', '.gemini/policies', '.codex/client-mode', '.claude/client-mode', '.client-mode/toolkit']) {
     assert.equal(existsSync(path.join(h.home, gone)), false, `${gone} removed`);
   }
   assert.equal(existsSync(launcher), false);

@@ -61,6 +61,7 @@ jobs:
           assert 'sandbox_mode = "danger-full-access"' in open(f"{home}/.codex/config.toml").read()
           assert "## Test first, always" in open(f"{home}/.gemini/GEMINI.md").read()
           assert json.load(open(f"{home}/.cursor/cli-config.json"))["approvalMode"] == "unrestricted"
+          assert "security" not in json.load(open(f"{home}/.gemini/settings.json")) if os.path.exists(f"{home}/.gemini/settings.json") else True
           assert len(os.listdir(f"{home}/.agents/skills")) == 20
           print("hosts configured:", hosts)
           PY

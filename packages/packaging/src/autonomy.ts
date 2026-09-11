@@ -101,6 +101,9 @@ export function setJsonKeys(file: string, entries: Array<{ key_path: string[]; v
 }
 
 const TABLE_HEADER = /^\s*\[/;
+/** `[notice]`, `[ notice ]` and `[notice] # comment` are all the same table. */
+const isHeaderFor = (line: string, table: string): boolean =>
+  new RegExp(`^\\s*\\[\\s*${table.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\]\\s*(#.*)?$`).test(line);
 const keyLine = (key: string): RegExp => new RegExp(`^\\s*${key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*=`);
 
 /** Set one key in a TOML document without parsing the rest of it: a top-level key goes before the
@@ -112,7 +115,7 @@ export function setTomlKey(text: string, table: string | null, key: string, lite
   let start = 0;
   let end = lines.findIndex(entry => TABLE_HEADER.test(entry));
   if (table !== null) {
-    const header = lines.findIndex(entry => entry.trim() === `[${table}]`);
+    const header = lines.findIndex(entry => isHeaderFor(entry, table));
     if (header === -1) {
       const body = lines.length === 0 ? [] : [...lines, ''];
       return { text: `${[...body, `[${table}]`, line].join('\n')}\n`, previous: null };
@@ -145,7 +148,7 @@ function unsetTomlKey(text: string, change: Extract<AutonomyChange, { kind: 'tom
   let start = 0;
   let end = lines.findIndex(entry => TABLE_HEADER.test(entry));
   if (change.table !== null) {
-    const header = lines.findIndex(entry => entry.trim() === `[${change.table}]`);
+    const header = lines.findIndex(entry => isHeaderFor(entry, change.table!));
     if (header === -1) return { text, restored: false };
     start = header + 1;
     end = lines.findIndex((entry, index) => index >= start && TABLE_HEADER.test(entry));
@@ -157,7 +160,7 @@ function unsetTomlKey(text: string, change: Extract<AutonomyChange, { kind: 'tom
   else lines.splice(index, 1);
   if (change.table !== null && change.previous === null) {
     // A table we appended and that is now empty goes too, with the blank line before it.
-    const header = lines.findIndex(entry => entry.trim() === `[${change.table}]`);
+    const header = lines.findIndex(entry => isHeaderFor(entry, change.table!));
     const next = lines.findIndex((entry, at) => at > header && TABLE_HEADER.test(entry));
     const body = lines.slice(header + 1, next === -1 ? lines.length : next).filter(entry => entry.trim() !== '');
     if (header !== -1 && body.length === 0) {
@@ -222,11 +225,10 @@ export function applyAutonomy(layout: HostLayout): AutonomyOutcome {
       return outcome;
     }
     case 'gemini': {
-      const outcome = merge(
-        writeOwnedFile(path.join(root, 'policies', 'client-mode.toml'), GEMINI_POLICY),
-        setJsonKeys(path.join(root, 'settings.json'), [{ key_path: ['security', 'folderTrust', 'enabled'], value: false }]),
-      );
-      outcome.notes.push('Gemini CLI: every tool is allowed by a user policy; `gemini --yolo` is the flag form if a managed setting overrides it.');
+      // Folder trust stays on: it is what keeps an untrusted repository's own settings, .env and MCP
+      // servers from loading, not just a prompt — the same line Codex keeps with its trust screen.
+      const outcome = writeOwnedFile(path.join(root, 'policies', 'client-mode.toml'), GEMINI_POLICY);
+      outcome.notes.push('Gemini CLI: every tool is allowed by a user policy; it still asks once per new folder whether to trust it. `gemini --yolo` is the flag form if a managed setting overrides the policy.');
       return outcome;
     }
     case 'cursor': {

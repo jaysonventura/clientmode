@@ -18,12 +18,28 @@
 #   CM_SOURCE_TARBALL=path  install from a local .tar.gz instead of downloading (used by CI)
 #
 # Remove everything again with: cm uninstall
+#
+# Everything below runs inside main(), called on the last line, so a download cut off part-way through
+# runs nothing at all.
 set -eu
+
+main() {
 
 REPO="jaysonventura/clientmode"
 REF="${CM_REF:-main}"
 CM_HOME="${CM_HOME:-$HOME/.client-mode}"
 NODE_VERSION="22.23.2"
+# SHA256 of each Node download, pinned here and checked against nodejs.org's signed SHASUMS256.txt
+# (gpgv, Node release keys) when this version was chosen. A tampered file on either host fails.
+node_sha256() {
+  case "$1" in
+    node-v22.23.2-darwin-arm64.tar.gz) echo 61130f394c1630d211dd50aecc4353d379480f36d3ac913cd85dbba1aed585c6 ;;
+    node-v22.23.2-darwin-x64.tar.gz) echo 58e99022c2ff89395576cc7fd4d98cea24bb68081475d5f88b801ee8729fb026 ;;
+    node-v22.23.2-linux-arm64.tar.gz) echo 013b59cfd2819703a6f4a14ab891fc46fc2a4e3f5bcd92de3fb4929b43e35b30 ;;
+    node-v22.23.2-linux-x64.tar.gz) echo b294a556e639d64338823920e5866c21c02741742d2e1529ee1a225c1ec9252a ;;
+    *) echo "" ;;
+  esac
+}
 BIN_DIR="$HOME/.local/bin"
 
 say() { printf '%s\n' "$*"; }
@@ -44,7 +60,8 @@ sha256() {
 }
 
 TMP="$(mktemp -d)"
-trap 'rm -rf "$TMP"' EXIT INT TERM
+trap 'rm -rf "$TMP"' EXIT
+trap 'exit 130' INT TERM
 
 NODE=""
 if command -v node >/dev/null 2>&1 && node_ok "$(command -v node)"; then
@@ -67,8 +84,8 @@ else
   NAME="node-v$NODE_VERSION-$PLATFORM-$ARCH"
   say "Downloading Node v$NODE_VERSION (no system changes; it lives in $CM_HOME/runtime)..."
   curl -fsSL "https://nodejs.org/dist/v$NODE_VERSION/$NAME.tar.gz" -o "$TMP/node.tar.gz" || fail "could not download Node"
-  curl -fsSL "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt" -o "$TMP/SHASUMS256.txt" || fail "could not download Node checksums"
-  EXPECTED="$(awk -v f="$NAME.tar.gz" '$2 == f {print $1}' "$TMP/SHASUMS256.txt")"
+  EXPECTED="$(node_sha256 "$NAME.tar.gz")"
+  [ -n "$EXPECTED" ] || fail "no pinned checksum for $NAME.tar.gz"
   ACTUAL="$(sha256 "$TMP/node.tar.gz")"
   [ -n "$EXPECTED" ] && [ "$EXPECTED" = "$ACTUAL" ] || fail "Node checksum mismatch (expected $EXPECTED, got $ACTUAL)"
   mkdir -p "$CM_HOME/runtime"
@@ -95,11 +112,11 @@ rm -rf "$CM_HOME/src"
 mv "$TMP/src" "$CM_HOME/src"
 
 say "Installing dependencies..."
-(cd "$CM_HOME/src" && npm ci --no-audit --no-fund --loglevel=error) || fail "npm ci failed in $CM_HOME/src"
+(cd "$CM_HOME/src" && npm ci --omit=dev --no-audit --no-fund --loglevel=error) || fail "npm ci failed in $CM_HOME/src"
 
 set -- install --bin-dir "$BIN_DIR"
 [ -n "${CM_HOSTS:-}" ] && set -- "$@" --host "$CM_HOSTS"
-[ "${CM_NO_AUTONOMY:-}" = "1" ] && set -- "$@" --no-autonomy
+case "$(printf '%s' "${CM_NO_AUTONOMY:-}" | tr '[:upper:]' '[:lower:]')" in 1|true|yes|on) set -- "$@" --no-autonomy ;; esac
 say "Configuring your hosts..."
 (cd "$CM_HOME/src" && CM_HOME="$CM_HOME" NODE_NO_WARNINGS=1 "$NODE" --import tsx apps/cli/src/cm.ts "$@") || fail "cm install did not finish"
 
@@ -134,3 +151,6 @@ say "Open a new terminal (or run: export PATH=\"$BIN_DIR:\$PATH\"), then:"
 say "  cm doctor                 check the install"
 say "  cd your-project && cm     start your preferred host there"
 say "Remove it with: cm uninstall"
+}
+
+main "$@"

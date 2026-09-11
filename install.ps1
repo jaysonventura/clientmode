@@ -27,6 +27,12 @@ function Install-ClientMode {
   $ref = if ($env:CM_REF) { $env:CM_REF } else { 'main' }
   $cmHome = if ($env:CM_HOME) { $env:CM_HOME } else { Join-Path $env:USERPROFILE '.client-mode' }
   $nodeVersion = '22.23.2'
+  # SHA256 of each Node download, pinned here and checked against nodejs.org's signed SHASUMS256.txt
+  # (gpgv, Node release keys) when this version was chosen. A tampered file on either host fails.
+  $nodeSha256 = @{
+    'node-v22.23.2-win-x64.zip'   = '1177b4137ba5adaa56354ae40f1080c7450e8ae09cecb47da459d1c52ac99f97'
+    'node-v22.23.2-win-arm64.zip' = 'fec025a6da31757e3b6af84c5a1628e9d38442ca99a2161091d78f2fcfa35ef3'
+  }
   $bin = Join-Path $env:USERPROFILE '.local\bin'
   $tmp = Join-Path ([IO.Path]::GetTempPath()) ("client-mode-" + [Guid]::NewGuid().ToString('N'))
   New-Item -ItemType Directory -Force -Path $tmp | Out-Null
@@ -69,12 +75,8 @@ function Install-ClientMode {
       Write-Host "Downloading Node v$nodeVersion (no system changes; it lives in $cmHome\runtime)..."
       $zip = Join-Path $tmp "$name.zip"
       Invoke-WebRequest -UseBasicParsing -Uri "https://nodejs.org/dist/v$nodeVersion/$name.zip" -OutFile $zip
-      $sums = Invoke-WebRequest -UseBasicParsing -Uri "https://nodejs.org/dist/v$nodeVersion/SHASUMS256.txt"
-      $expected = $null
-      foreach ($line in ("$($sums.Content)" -split "`n")) {
-        $fields = $line.Trim() -split '\s+'
-        if ($fields.Count -eq 2 -and $fields[1] -eq "$name.zip") { $expected = $fields[0].ToLower() }
-      }
+      $expected = $nodeSha256["$name.zip"]
+      if (-not $expected) { throw "no pinned checksum for $name.zip" }
       $actual = (Get-FileHash -Algorithm SHA256 -Path $zip).Hash.ToLower()
       if (-not $expected -or $expected -ne $actual) { throw "Node checksum mismatch (expected $expected, got $actual)" }
       $runtime = Join-Path $cmHome 'runtime'
@@ -103,13 +105,15 @@ function Install-ClientMode {
     Write-Host 'Installing dependencies...'
     Push-Location $src
     try {
-      & (Join-Path $nodeDir 'npm.cmd') ci --no-audit --no-fund --loglevel=error
+      $npm = Join-Path $nodeDir 'npm.cmd'
+      if (-not (Test-Path $npm)) { $npm = (Get-Command npm -ErrorAction Stop).Source }
+      & $npm ci --omit=dev --no-audit --no-fund --loglevel=error
       if ($LASTEXITCODE -ne 0) { throw "npm ci failed in $src" }
 
       # 3. cm install
       $arguments = @('--import', 'tsx', 'apps/cli/src/cm.ts', 'install', '--bin-dir', $bin)
       if ($env:CM_HOSTS) { $arguments += @('--host', $env:CM_HOSTS) }
-      if ($env:CM_NO_AUTONOMY -eq '1') { $arguments += '--no-autonomy' }
+      if (@('1', 'true', 'yes', 'on') -contains "$env:CM_NO_AUTONOMY".ToLower()) { $arguments += '--no-autonomy' }
       Write-Host 'Configuring your hosts...'
       $env:CM_HOME = $cmHome
       $env:NODE_NO_WARNINGS = '1'
@@ -132,8 +136,13 @@ function Install-ClientMode {
     # Claude Code runs the plugin's hooks with Git Bash when it is installed, PowerShell otherwise.
     $git = Get-Command git -ErrorAction SilentlyContinue
     $gitBash = $null
-    if ($git) { $gitBash = Join-Path (Split-Path (Split-Path $git.Source)) 'bin\bash.exe' }
-    if (-not $gitBash -or -not (Test-Path $gitBash)) {
+    if ($git) {
+      # git.exe lives in Git\cmd or Git\mingw64\bin; bash.exe is in Git\bin either way.
+      $gitBash = @((Join-Path (Split-Path (Split-Path $git.Source)) 'bin\bash.exe'),
+                   (Join-Path (Split-Path (Split-Path (Split-Path $git.Source))) 'bin\bash.exe')) |
+        Where-Object { Test-Path $_ } | Select-Object -First 1
+    }
+    if (-not $gitBash) {
       Write-Host ''
       Write-Host 'Note: Git for Windows was not found. The cm plugin''s Claude Code hooks need Git Bash.' -ForegroundColor Yellow
       Write-Host '      Install it with:  winget install --id Git.Git -e' -ForegroundColor Yellow

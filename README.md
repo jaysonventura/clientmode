@@ -60,7 +60,7 @@ since then alone.
 |---|---|---|---|
 | Claude Code | Client Mode section first in `~/.claude/CLAUDE.md` | `cm` plugin (`/cm:*` commands, agents, hooks, skills) | `permissions.defaultMode: "auto"` |
 | Codex | Client Mode section in `~/.codex/AGENTS.md` | `~/.agents/skills/cm-*` | `approval_policy = "never"`, `sandbox_mode = "danger-full-access"` |
-| Gemini CLI | Client Mode section in `~/.gemini/GEMINI.md` | `~/.agents/skills/cm-*` | allow-all user policy in `~/.gemini/policies/`, folder trust off |
+| Gemini CLI | Client Mode section in `~/.gemini/GEMINI.md` | `~/.agents/skills/cm-*` | allow-all user policy in `~/.gemini/policies/` |
 | Cursor | `~/.cursor/rules/client-mode.mdc` (always applied) | `~/.agents/skills/cm-*` | CLI `approvalMode: "unrestricted"` |
 
 If the old `cdt@claude-dev-team` plugin is enabled it is switched off (it is part of `cm` now), and the
@@ -135,7 +135,10 @@ never touches client work under `~/.client-mode/projects/`.
   was not observed in a running session here.
 - **Cursor IDE:** "Run Everything" has no settings file — turn it on in Settings → Agents → Approvals &
   Execution. The Cursor CLI is configured.
-- **Codex** still asks once per new folder whether to trust it; that screen has no global setting.
+- **Codex and Gemini CLI** still ask once per new folder whether to trust it. That is kept on purpose: an
+  untrusted folder's own settings and MCP servers do not load until you say so.
+- **Third-party Claude plugins** (ponytail, claude-mem) are no longer installed automatically at session
+  start; turn that on with `cdt-config bootstrap-community on`. Official companions still install.
 - **Claude auto mode** needs a Pro, Max or Team plan (or a supported cloud provider); elsewhere Claude
   starts in Manual mode.
 - **Windows:** the plugin's Claude Code hooks run under Git Bash (`winget install --id Git.Git -e`);

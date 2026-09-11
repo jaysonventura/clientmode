@@ -499,43 +499,8 @@ _link_toolkit() {
   return 0
 }
 
-# _ensure_auto_mode — CDT's workflow assumes permission mode `auto`; a fresh install otherwise sits in
-# `default` and prompts through every dispatch. Sets it ONCE and only when the key is absent, so an
-# explicit choice (yours or another tool's) is never overwritten and a later revert stays reverted.
-CDT_AUTOMODE_STAMP="${CDT_AUTOMODE_STAMP:-$CDT_STATE_DIR/bootstrap-automode.done}"
-_ensure_auto_mode() {
-  case "$(printf '%s' "$(plib_cfg CDT_AUTO_MODE 1)" | tr '[:upper:]' '[:lower:]')" in
-    0|off|false|no) return 0 ;;
-  esac
-  [ -e "$CDT_AUTOMODE_STAMP" ] && return 0
-  command -v python3 >/dev/null 2>&1 || return 0
-  mkdir -p "$CDT_STATE_DIR" 2>/dev/null || true
-  : > "$CDT_AUTOMODE_STAMP" 2>/dev/null
-  SETTINGS="${CDT_SETTINGS:-$CDT_HOME/settings.json}" python3 - <<'PY' | while IFS= read -r _l; do _say "  $_l"; done
-import json, os, tempfile
-p = os.environ["SETTINGS"]
-try:
-    d = json.load(open(p)) if os.path.exists(p) else {}
-except Exception:
-    raise SystemExit(0)                       # invalid JSON: leave it alone, this is not our file to fix
-if not isinstance(d, dict): raise SystemExit(0)
-perms = d.get("permissions")
-if not isinstance(perms, dict): perms = {}
-if perms.get("defaultMode"):                  # an explicit choice already exists — never override it
-    raise SystemExit(0)
-perms["defaultMode"] = "auto"; d["permissions"] = perms
-try:
-    fd, tmp = tempfile.mkstemp(dir=os.path.dirname(p) or ".")
-    with os.fdopen(fd, "w") as f:
-        json.dump(d, f, indent=2); f.write("\n")
-    os.replace(tmp, p)
-    print("✓ permissions.defaultMode = auto  (applies next session · revert in settings.json, or cdt-config auto-mode off)")
-except Exception:
-    try: os.unlink(tmp)
-    except Exception: pass
-PY
-  return 0
-}
+# The permission mode is not set here. `cm install` owns it: it records the value it replaces,
+# restores it on uninstall and honours --no-autonomy, and a hook that also wrote it would undo all three.
 
 CDT_BOOTSTRAP_STAMP="${CDT_BOOTSTRAP_STAMP:-$CDT_STATE_DIR/bootstrap-community.done}"
 cmd_bootstrap() {
@@ -545,11 +510,17 @@ cmd_bootstrap() {
   # These run BEFORE the community gate and the pending-rows early-return: none of them depends on the
   # bundle, and all must still converge on a machine where every plugin is already installed. In particular
   # `bootstrap-community off` must never silently disable verification.
-  _ensure_auto_mode
   _ensure_toolkit
 
-  case "$(printf '%s' "$(plib_cfg CDT_BOOTSTRAP_COMMUNITY 1)" | tr '[:upper:]' '[:lower:]')" in
-    0|off|false|no) _say "cdt-plugins bootstrap: disabled (CDT_BOOTSTRAP_COMMUNITY=off)"; return 0 ;;
+  case "$(printf '%s' "$(plib_cfg CDT_BOOTSTRAP 1)" | tr '[:upper:]' '[:lower:]')" in
+    0|off|false|no) _say "cdt-plugins bootstrap: disabled (CDT_BOOTSTRAP=off)"; return 0 ;;
+  esac
+  # Third-party (community) plugins come from unpinned GitHub sources and run code on this machine, so
+  # they are installed only when someone opted in (`cdt-config bootstrap-community on`). Official
+  # marketplace dependencies are still healed by default.
+  local community=0
+  case "$(printf '%s' "$(plib_cfg CDT_BOOTSTRAP_COMMUNITY 0)" | tr '[:upper:]' '[:lower:]')" in
+    1|on|true|yes) community=1 ;;
   esac
   command -v claude >/dev/null 2>&1 || { _say "cdt-plugins bootstrap: 'claude' CLI not on PATH — skipped"; return 0; }
 
@@ -560,7 +531,7 @@ cmd_bootstrap() {
   # OFFICIAL rows too: Claude Code resolves manifest dependencies eagerly on a FRESH install, but on an
   # UPGRADE it resolves them lazily — leaving CDT `dependency-unsatisfied` (and therefore disable-eligible)
   # until it catches up. Healing them here makes the bundle converge on both paths.
-  for id in $(_meta | awk -F"$US" '$2!="cdt-skill" && $9!=""{print $1}'); do
+  for id in $(_meta | awk -F"$US" -v c="$community" '$2!="cdt-skill" && $9!="" && (c==1 || $7!="community-third-party"){print $1}'); do
     is_inst "$id" && continue
     [ "$(plib_state_get "$id" 2>/dev/null)" = "disabled" ] && continue   # respect a deliberate opt-out
     pending=1
@@ -573,6 +544,7 @@ cmd_bootstrap() {
     [ -n "$id" ] || continue
     [ "$_t" = "cdt-skill" ] && continue
     [ -n "$ident" ] || continue
+    [ "$community" = 1 ] || [ "$sec" != "community-third-party" ] || continue
     is_inst "$id" && continue
     [ "$(plib_state_get "$id" 2>/dev/null)" = "disabled" ] && continue
     valid_ident "$ident" || { _say "  ⨯ $id: refusing malformed identifier"; rc_any=1; continue; }
@@ -618,7 +590,7 @@ cdt-plugins — inspect & manage the CDT companion plugins (registry-driven; det
   explain <id>             type, routing rules, deps, auth, security & fallback for one plugin
   sync                     print `claude plugin install/enable …` for missing enabled plugins
   bootstrap [--quiet]      acquire the community plugins (marketplace add + install); auto-runs at
-                           SessionStart, idempotent, off with `cdt-config bootstrap-community off`
+                           SessionStart, idempotent; third-party plugins only after `cdt-config bootstrap-community on`
                            (only runs them with CDT_PLUGIN_AUTO_INSTALL=1 and CDT_PLUGIN_STRICT=0)
   enable  <id>             overlay=enabled  + claude plugin enable
   disable <id>             overlay=disabled + claude plugin disable

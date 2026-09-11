@@ -87,14 +87,19 @@ test('deactivation returns every instructions file to the bytes it had', () => {
   assert.equal(existsSync(path.join(h, '.agents', 'skills')), false);
 });
 
-test('a skill the person wrote themselves is never removed', () => {
+test('a skill the person wrote themselves is never removed, even with a cm- name', () => {
   const h = home();
   const mine = path.join(h, '.agents', 'skills', 'my-skill', 'SKILL.md');
-  mkdirSync(path.dirname(mine), { recursive: true });
-  writeFileSync(mine, '---\nname: my-skill\ndescription: mine\n---\n');
-  activateHost({ layout: hostLayout('codex', h, {}), source_root: ROOT, lead: true });
-  deactivateHost({ layout: hostLayout('codex', h, {}), remove_skills: true });
+  const mineWithPrefix = path.join(h, '.agents', 'skills', 'cm-mine', 'SKILL.md');
+  for (const file of [mine, mineWithPrefix]) {
+    mkdirSync(path.dirname(file), { recursive: true });
+    writeFileSync(file, '---\nname: mine\ndescription: mine\n---\n');
+  }
+  const activation = activateHost({ layout: hostLayout('codex', h, {}), source_root: ROOT, lead: true });
+  deactivateHost({ layout: hostLayout('codex', h, {}), remove_skills: activation.created });
   assert.ok(existsSync(mine));
+  assert.ok(existsSync(mineWithPrefix), 'only the skills this install created are removed');
+  assert.equal(existsSync(path.join(h, '.agents', 'skills', 'cm-tdd')), false);
 });
 
 test('the old claude-dev-team section is moved out of CLAUDE.md and can be put back', () => {
@@ -109,6 +114,12 @@ test('the old claude-dev-team section is moved out of CLAUDE.md and can be put b
   assert.equal(readFileSync(layout.instructions, 'utf8'), '# My notes\n\nKeep.\n');
   restoreLegacyInstructions(moved);
   assert.equal(readFileSync(layout.instructions, 'utf8'), original);
+  // A Client Mode section below the old one ends it: the marker is never swallowed.
+  const withBlock = `# Notes\n\n${legacy}\n<!-- client-mode:start -->\n# Client Mode\n<!-- client-mode:end -->\n\nAfter.\n`;
+  writeFileSync(layout.instructions, withBlock);
+  const movedAgain = migrateLegacyInstructions(layout);
+  assert.equal(movedAgain[0]!.text.includes('client-mode:start'), false);
+  assert.match(readFileSync(layout.instructions, 'utf8'), /<!-- client-mode:start -->[\s\S]*<!-- client-mode:end -->[\s\S]*After\./);
   // Nothing to migrate is not an error and changes nothing.
   assert.deepEqual(migrateLegacyInstructions(hostLayout('codex', h, {})), []);
 });

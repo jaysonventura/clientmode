@@ -130,14 +130,21 @@ export function activateHost(input: { layout: HostLayout; source_root: string; l
 /** Take back the rules and, when asked, the skills. A skill without the `cm-` prefix is never
  * ours, and an instructions file left empty is removed only because an empty file is what we
  * would otherwise leave behind. */
-export function deactivateHost(input: { layout: HostLayout; remove_skills: boolean }): { removed: string[] } {
+/** `remove_skills` is the list of skill directories this install created, or `true` for the layout a
+ * 1.x install used, where every `cm-` folder in the host's own skills directory was ours. In the shared
+ * `~/.agents/skills` only the recorded folders are removed: a `cm-` name there may be someone else's. */
+export function deactivateHost(input: { layout: HostLayout; remove_skills: boolean | string[] }): { removed: string[] } {
   const { layout } = input;
   const removed: string[] = [];
-  if (input.remove_skills && layout.skills_root !== null && existsSync(layout.skills_root)) {
-    for (const entry of readdirSync(layout.skills_root)) {
-      if (!entry.startsWith('cm-')) continue;
-      rmSync(path.join(layout.skills_root, entry), { recursive: true, force: true });
-      removed.push(path.join(layout.skills_root, entry));
+  if (input.remove_skills !== false && layout.skills_root !== null && existsSync(layout.skills_root)) {
+    const root = layout.skills_root;
+    const targets = input.remove_skills === true
+      ? readdirSync(root).filter(entry => entry.startsWith('cm-')).map(entry => path.join(root, entry))
+      : input.remove_skills.filter(entry => path.dirname(entry) === root && path.basename(entry).startsWith('cm-'));
+    for (const target of targets) {
+      if (!existsSync(target)) continue;
+      rmSync(target, { recursive: true, force: true });
+      removed.push(target);
     }
     if (readdirSync(layout.skills_root).length === 0) {
       rmSync(layout.skills_root, { recursive: true, force: true });
@@ -173,8 +180,8 @@ export function migrateLegacyInstructions(layout: HostLayout): MovedSection[] {
   const lines = original.split('\n');
   const start = lines.findIndex(line => LEGACY_HEADINGS.includes(line.trim()));
   if (start === -1) return [];
-  // The section runs to the next top-level heading or the end of the file.
-  let end = lines.findIndex((line, index) => index > start && /^# /.test(line));
+  // The section runs to the next top-level heading, a Client Mode marker, or the end of the file.
+  let end = lines.findIndex((line, index) => index > start && (/^# /.test(line) || line.includes(BLOCK_START) || line.includes(BLOCK_END)));
   if (end === -1) end = lines.length;
   const text = lines.slice(start, end).join('\n');
   const remaining = [...lines.slice(0, start), ...lines.slice(end)].join('\n').replace(/\n{3,}/g, '\n\n').trimEnd();

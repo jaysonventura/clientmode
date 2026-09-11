@@ -76,7 +76,7 @@ function describeHost(layout: HostLayout, autonomy: boolean): string {
   const permission = !autonomy ? 'permissions unchanged (--no-autonomy)' : {
     claude: 'permissions.defaultMode = "auto"',
     codex: 'approval_policy = "never", sandbox_mode = "danger-full-access"',
-    gemini: 'allow-all tool policy, folder trust off',
+    gemini: 'allow-all tool policy (folder trust stays on)',
     cursor: 'CLI approvalMode = "unrestricted" (IDE Run Everything is a UI switch)',
   }[layout.host];
   return `  ${layout.host.padEnd(7)} ${rules}; ${skills}; ${permission}`;
@@ -195,7 +195,7 @@ export function uninstallHosts(input: { hosts?: HostName[]; cm_home: string; env
     // Skills in a shared directory stay while another installed host still reads them.
     const sharedStillNeeded = installed.some(other => other !== host && !targets.includes(other)
       && (readRecord(input.cm_home, other) as SetupRecord | null)?.layout?.skills_root === record.layout.skills_root);
-    deactivateHost({ layout: record.layout, remove_skills: !sharedStillNeeded });
+    deactivateHost({ layout: record.layout, remove_skills: sharedStillNeeded ? false : record.created });
     restoreLegacyInstructions(record.legacy_sections);
     if (record.config_root_created && existsSync(record.layout.config_root) && readdirSync(record.layout.config_root).length === 0) {
       rmSync(record.layout.config_root, { recursive: true, force: true });

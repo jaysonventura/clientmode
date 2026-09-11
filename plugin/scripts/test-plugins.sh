@@ -391,7 +391,7 @@ boot_run() { CDT_HOME="$MKT_HOME" CDT_SETTINGS="$MKT_HOME/settings.json" bash "$
 # (34) The marketplace add must PRECEDE the install — the install cannot resolve otherwise.
 if need_file "$PSH" 34 "bootstrap adds the marketplace before installing"; then
   : > "$SHIM_LOG"; rm -f "$MKT_HOME/.cdt/bootstrap-community.done" 2>/dev/null
-  boot_run >/dev/null 2>&1
+  CDT_BOOTSTRAP_COMMUNITY=on boot_run >/dev/null 2>&1
   add_ln="$(grep -n 'marketplace add DietrichGebert/ponytail' "$SHIM_LOG" | head -1 | cut -d: -f1)"
   ins_ln="$(grep -n 'install ponytail@ponytail -s user'        "$SHIM_LOG" | head -1 | cut -d: -f1)"
   if [ -n "$add_ln" ] && [ -n "$ins_ln" ] && [ "$add_ln" -lt "$ins_ln" ]; then
@@ -405,11 +405,19 @@ if need_file "$PSH" 34 "bootstrap adds the marketplace before installing"; then
     "$(cat "$SHIM_LOG")" "install github@claude-plugins-official -s user"
 fi
 
-# (35) Kill switch must prevent every shell-out, not merely silence the output.
-if need_file "$PSH" 35 "bootstrap kill switch blocks all shell-outs"; then
+# (35) Third-party plugins are never installed without an explicit opt-in: by default only official
+#      dependencies are healed, and the kill switch prevents every shell-out, not merely the output.
+if need_file "$PSH" 35 "community installs are opt-in; kill switch blocks all shell-outs"; then
   : > "$SHIM_LOG"; rm -f "$MKT_HOME/.cdt/bootstrap-community.done" 2>/dev/null
-  CDT_BOOTSTRAP_COMMUNITY=off boot_run >/dev/null 2>&1
-  if [ ! -s "$SHIM_LOG" ]; then pass 35 "CDT_BOOTSTRAP_COMMUNITY=off -> shim never invoked"
+  boot_run >/dev/null 2>&1
+  if grep -q 'ponytail\|claude-mem\|thedotmack' "$SHIM_LOG"; then
+    fail 35 "default bootstrap installs no third-party plugin" "shim-log: $(tr '\n' '|' <"$SHIM_LOG" | cut -c1-200)"
+  else
+    want 35 "default bootstrap still heals an official dependency" "$(cat "$SHIM_LOG")" "install github@claude-plugins-official -s user"
+  fi
+  : > "$SHIM_LOG"; rm -f "$MKT_HOME/.cdt/bootstrap-community.done" 2>/dev/null
+  CDT_BOOTSTRAP=off CDT_BOOTSTRAP_COMMUNITY=on boot_run >/dev/null 2>&1
+  if [ ! -s "$SHIM_LOG" ]; then pass 35 "CDT_BOOTSTRAP=off -> shim never invoked"
   else fail 35 "kill switch blocks shell-outs" "shim-log: $(tr '\n' '|' <"$SHIM_LOG" | cut -c1-160)"; fi
 fi
 
@@ -443,15 +451,15 @@ try: d=json.load(open(sys.argv[1]))
 except Exception: print("<invalid>"); raise SystemExit
 print((d.get("permissions") or {}).get("defaultMode") or "<unset>")' "$1" 2>/dev/null; }
 
-# (38) A fresh settings.json with no explicit permission mode gets defaultMode=auto — CDT's dispatch loop
-#      is unusable when every specialist hand-off stops for a prompt.
-if need_file "$PSH" 38 "bootstrap sets permissions.defaultMode=auto when unset"; then
+# (38) The permission mode belongs to `cm install`, which records it and restores it on uninstall and
+#      honours --no-autonomy. A session-start hook that also set it would undo both, so it never does.
+if need_file "$PSH" 38 "bootstrap never writes permissions.defaultMode"; then
   rm -f "$MKT_HOME/.cdt/bootstrap-automode.done"
   echo '{"model":"opus"}' > "$MKT_HOME/settings.json"
   boot_run >/dev/null 2>&1
   got="$(mode_of "$MKT_HOME/settings.json")"
-  if [ "$got" = auto ]; then pass 38 "defaultMode unset -> set to auto"
-  else fail 38 "defaultMode=auto on a fresh install" "got: $got"; fi
+  if [ "$got" = "<unset>" ]; then pass 38 "defaultMode unset -> still unset"
+  else fail 38 "bootstrap left the permission mode alone" "got: $got"; fi
 fi
 
 # (39) An EXPLICIT mode is a deliberate choice and must survive — this is the scenario that makes the
@@ -523,6 +531,6 @@ HARNESS
 fi
 
 echo
-echo "PASSED $PASS/41"
+echo "PASSED $PASS/42"
 [ "$BLOCKED" -gt 0 ] && echo "($BLOCKED scenario(s) BLOCKED on sibling hooks not yet built — see BLOCKED lines above)"
-if [ "$PASS" -eq 41 ]; then echo "ALL PLUGIN TESTS PASSED"; exit 0; else echo "PLUGIN TESTS INCOMPLETE OR FAILING"; exit 1; fi
+if [ "$PASS" -eq 42 ]; then echo "ALL PLUGIN TESTS PASSED"; exit 0; else echo "PLUGIN TESTS INCOMPLETE OR FAILING"; exit 1; fi

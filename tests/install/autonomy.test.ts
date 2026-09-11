@@ -98,20 +98,23 @@ test('Codex config that did not exist is created and removed again', () => {
 });
 
 test('TOML keys: an existing table gains the key, and a missing one is appended', () => {
+  // A header with spaces or a trailing comment is the same table; a second [notice] makes the file invalid.
+  assert.deepEqual(setTomlKey('[ notice ] # mine\nother = 2\n', 'notice', 'x', 'true'), { text: '[ notice ] # mine\nx = true\nother = 2\n', previous: null });
   assert.deepEqual(setTomlKey('a = 1\n[notice]\nother = 2\n', 'notice', 'x', 'true'), { text: 'a = 1\n[notice]\nx = true\nother = 2\n', previous: null });
   assert.deepEqual(setTomlKey('a = 1\n', 'notice', 'x', 'true'), { text: 'a = 1\n\n[notice]\nx = true\n', previous: null });
   assert.deepEqual(setTomlKey('x = "old"\n[t]\n', null, 'x', '"new"'), { text: 'x = "new"\n[t]\n', previous: 'x = "old"' });
 });
 
-test('Gemini allows every tool through a user policy and skips folder trust; both are undone', () => {
+test('Gemini allows every tool through a user policy, keeps folder trust on, and the policy is undone', () => {
   const h = home();
   const settings = path.join(h, '.gemini', 'settings.json');
   put(settings, JSON.stringify({ ui: { theme: 'GitHub' } }) + '\n');
   const applied = applyAutonomy(hostLayout('gemini', h, {}));
   const policy = readFileSync(path.join(h, '.gemini', 'policies', 'client-mode.toml'), 'utf8');
   assert.match(policy, /\[\[rule\]\]\ntoolName = "\*"\ndecision = "allow"\npriority = \d+/);
-  assert.equal(json(settings).security.folderTrust.enabled, false);
-  assert.equal(json(settings).ui.theme, 'GitHub');
+  // Folder trust is a safety feature (untrusted workspace settings and MCP servers do not load), not
+  // just a prompt; like Codex's trust screen it stays.
+  assert.deepEqual(json(settings), { ui: { theme: 'GitHub' } });
   restoreAutonomy(applied.changes);
   assert.equal(existsSync(path.join(h, '.gemini', 'policies', 'client-mode.toml')), false);
   assert.deepEqual(json(settings), { ui: { theme: 'GitHub' } });

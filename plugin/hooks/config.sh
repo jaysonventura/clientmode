@@ -144,7 +144,7 @@ show() {
   psc="$(get_env CDT_PLUGIN_SCOPE)"; [ -z "$psc" ] && psc="project"
   spm="$(get_env CDT_SUPERPOWERS_MODE)"; [ -z "$spm" ] && spm="selective"
   pst="$(get_env CDT_PLUGIN_STRICT)"; [ -z "$pst" ] && pst="1"
-  pbc="$(get_env CDT_BOOTSTRAP_COMMUNITY)"; [ -z "$pbc" ] && pbc="1"
+  pbc="$(get_env CDT_BOOTSTRAP_COMMUNITY)"; [ -z "$pbc" ] && pbc="0"
   local obs obsvault obsraw; obsraw="$(get_env CDT_OBSIDIAN)"; obsvault="$(get_env CDT_OBSIDIAN_VAULT)"
   if [ "$obsraw" = "off" ]; then obs="off"; elif [ "$obsraw" = "on" ]; then obs="on"; elif [ -n "$obsvault" ]; then obs="on (auto)"; else obs="off"; fi
   [ -z "$obsvault" ] && obsvault="(not set — default: ~/Documents/Obsidian/CDT)"
@@ -344,14 +344,10 @@ case "${1:-show}" in
     case "$2" in
       on|off) set_env CDT_BOOTSTRAP_COMMUNITY "$([ "$2" = on ] && echo 1 || echo 0)"
               echo "claude-dev-team: community bootstrap = $2 (default ON — SessionStart adds the ponytail/thedotmack marketplaces and installs ponytail + claude-mem without prompting)." ;;
-      *) echo "cdt-config: usage: cdt-config bootstrap-community on|off  (default on)" ;;
+      *) echo "cdt-config: usage: cdt-config bootstrap-community on|off  (default off: third-party plugins are opt-in)" ;;
     esac ;;
   auto-mode)
-    case "$2" in
-      on|off) set_env CDT_AUTO_MODE "$([ "$2" = on ] && echo 1 || echo 0)"
-              echo "claude-dev-team: auto permission mode = $2 (default ON — the bootstrap sets permissions.defaultMode=auto ONCE, and only when settings.json has no explicit value; off leaves your setting untouched). Already set? Edit permissions.defaultMode in settings.json." ;;
-      *) echo "cdt-config: usage: cdt-config auto-mode on|off  (default on)" ;;
-    esac ;;
+    echo "cdt-config: the permission mode is set by \`cm install\` now, recorded, and restored by \`cm uninstall\` (leave it alone with \`cm install --no-autonomy\`)." ;;
   bootstrap-binaries)
     case "$2" in
       on|off) set_env CDT_BOOTSTRAP_BINARIES "$([ "$2" = on ] && echo 1 || echo 0)"

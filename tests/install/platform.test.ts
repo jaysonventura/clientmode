@@ -24,8 +24,10 @@ test('an executable is found on PATH, honouring PATHEXT on Windows', () => {
 test('a .cmd shim is run through cmd.exe with every argument quoted, a real .exe directly', () => {
   const direct = spawnPlan('C:\\Tools\\claude.exe', ['--append-system-prompt-file', 'C:\\a b\\HANDOFF.md'], 'win32');
   assert.deepEqual(direct, { command: 'C:\\Tools\\claude.exe', args: ['--append-system-prompt-file', 'C:\\a b\\HANDOFF.md'], verbatim: false });
-  const shim = spawnPlan('C:\\npm\\codex.cmd', ['fix the "checkout" & ship', '100%'], 'win32');
-  assert.equal(shim.command, 'cmd.exe');
+  // cmd.exe by full path: by bare name Windows can resolve it from the project folder first.
+  const shim = spawnPlan('C:\\npm\\codex.cmd', ['fix the "checkout" & ship', '100%'], 'win32', { ComSpec: 'C:\\Windows\\system32\\cmd.exe' });
+  assert.equal(shim.command, 'C:\\Windows\\system32\\cmd.exe');
+  assert.equal(spawnPlan('C:\\npm\\codex.cmd', [], 'win32', { SystemRoot: 'D:\\Win' }).command, 'D:\\Win\\System32\\cmd.exe');
   assert.equal(shim.verbatim, true);
   assert.deepEqual(shim.args.slice(0, 3), ['/d', '/s', '/c']);
   const line = shim.args[3]!;

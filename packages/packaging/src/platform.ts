@@ -39,10 +39,12 @@ function escapeForCmd(argument: string, doubleEscape: boolean): string {
 
 export type SpawnPlan = { command: string; args: string[]; verbatim: boolean };
 
-export function spawnPlan(executable: string, args: readonly string[], platform: NodeJS.Platform = process.platform): SpawnPlan {
+export function spawnPlan(executable: string, args: readonly string[], platform: NodeJS.Platform = process.platform, env: NodeJS.ProcessEnv = process.env): SpawnPlan {
   if (platform !== 'win32' || !/\.(cmd|bat)$/i.test(executable)) return { command: executable, args: [...args], verbatim: false };
   const line = [escapeForCmd(executable, false), ...args.map(argument => escapeForCmd(argument, true))].join(' ');
-  return { command: 'cmd.exe', args: ['/d', '/s', '/c', `"${line}"`], verbatim: true };
+  // By full path: a bare `cmd.exe` can be resolved from the current directory — a project folder.
+  const shell = env['ComSpec'] ?? path.win32.join(env['SystemRoot'] ?? 'C:\\Windows', 'System32', 'cmd.exe');
+  return { command: shell, args: ['/d', '/s', '/c', `"${line}"`], verbatim: true };
 }
 
 /** Write the `cm` launcher(s) into `bin_dir`. Each one names the toolkit it belongs to and the

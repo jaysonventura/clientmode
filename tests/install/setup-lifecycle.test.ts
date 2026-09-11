@@ -69,3 +69,20 @@ test('the last uninstall removes the downloaded Node and the source, and leaves 
   assert.equal(existsSync(path.join(cmHome, 'src')), false);
   assert.ok(existsSync(path.join(cmHome, 'projects', 'p1')), 'client work is never removed');
 });
+
+test('a toolkit that cannot be built fails the install before any host is touched', async () => {
+  const home = mkdtempSync(path.join(tmpdir(), 'cm-broken-'));
+  // A source tree with the marker file and nothing to bundle.
+  const brokenSource = path.join(home, 'source');
+  mkdirSync(path.join(brokenSource, 'contracts'), { recursive: true });
+  writeFileSync(path.join(brokenSource, 'contracts', 'domain.schema.json'), '{}');
+  const outcome = await setupHosts({
+    hosts: ['codex'], home, cm_home: path.join(home, '.client-mode'), env: { HOME: home, PATH: '' },
+    source_root: brokenSource, bin_dir: path.join(home, 'bin'), lead: true, autonomy: false, portable: true,
+    install_root: null, dry_run: false, version: 'test', now: '2026-09-11T00:00:00.000Z',
+  });
+  assert.notEqual(outcome.toolkit_error, null, 'the build failure is returned');
+  assert.equal(existsSync(path.join(home, 'bin', 'cm')), false);
+  assert.equal(existsSync(path.join(home, '.codex')), false, 'no host configured against a toolkit that does not exist');
+  assert.equal(existsSync(path.join(home, '.client-mode', 'toolkit.next')), false);
+});

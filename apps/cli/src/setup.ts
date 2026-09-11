@@ -8,7 +8,7 @@
  * from that record alone: it restores the values that were replaced, removes what was created, and
  * leaves anything the person changed since then exactly as they left it.
  */
-import { existsSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { applyAutonomy, restoreAutonomy, type AutonomyChange } from '../../../packages/packaging/src/autonomy.js';
 import { PLUGIN_ID, registerClaudePlugin, unregisterClaudePlugin, type PluginRegistration, type Runner } from '../../../packages/packaging/src/claude-plugin.js';
@@ -17,7 +17,7 @@ import {
   type HostLayout, type HostName, type MovedSection,
 } from '../../../packages/packaging/src/hosts.js';
 import type { InstallRecord } from '../../../packages/packaging/src/install.js';
-import { findExecutable } from '../../../packages/packaging/src/platform.js';
+import { findExecutable, writeLauncher } from '../../../packages/packaging/src/platform.js';
 import { makePrivateDirectory, PRIVATE_FILE_MODE } from '../../../packages/verifier/src/file-permissions.js';
 
 export type SetupRecord = {
@@ -98,7 +98,7 @@ export type SetupInput = {
   now: string;
 };
 
-export async function setupHosts(input: SetupInput): Promise<{ lines: string[]; notes: string[]; records: SetupRecord[] }> {
+export async function setupHosts(input: SetupInput): Promise<{ lines: string[]; notes: string[]; records: SetupRecord[]; toolkit_error: string | null }> {
   const layouts = input.hosts.map(host => layoutFor(host, input));
   const previous = input.hosts.filter(host => readRecord(input.cm_home, host) !== null);
   const lines: string[] = [];
@@ -110,26 +110,36 @@ export async function setupHosts(input: SetupInput): Promise<{ lines: string[]; 
     for (const layout of layouts) lines.push(describeHost(layout, input.autonomy));
     if (previous.length > 0) lines.push(`  previous install for ${previous.join(', ')} is removed first, from its own record`);
     lines.push('', 'Existing content is kept and every replaced value is recorded; `cm uninstall` puts it back.');
-    return { lines, notes: [], records: [] };
+    return { lines, notes: [], records: [], toolkit_error: null };
   }
 
   makePrivateDirectory(input.cm_home);
   const notes: string[] = [];
-  // Reinstalling starts from a clean slate for these hosts, so every "previous value" recorded
-  // below is the person's own and never a value an earlier install wrote.
-  if (previous.length > 0) notes.push(...uninstallHosts({ hosts: previous, cm_home: input.cm_home, env: input.env, keep_toolkit: true }).notes);
-
+  // The toolkit is built beside the installed one and swapped in only once it exists, so a build
+  // that fails leaves the previous install — or no install — exactly as it was, and no host is ever
+  // pointed at a toolkit that is not there.
   let toolkitRoot: string | null = null;
   let launchers: string[] = [];
+  const finalToolkit = path.join(input.cm_home, 'toolkit');
+  const stagedToolkit = `${finalToolkit}.next`;
   if (input.portable) {
     try {
       const { buildPortableToolkit } = await import('../../../packages/packaging/src/portable.js');
-      const built = await buildPortableToolkit({ out_root: path.join(input.cm_home, 'toolkit'), source_root: input.source_root, launcher_path: path.join(input.bin_dir, 'cm') });
-      toolkitRoot = built.root;
-      launchers = built.launchers;
+      await buildPortableToolkit({ out_root: stagedToolkit, source_root: input.source_root, launcher_path: null });
     } catch (error) {
-      notes.push(`the portable toolkit could not be built (${String((error as Error).message).slice(0, 160)}); cm runs from ${input.source_root} instead.`);
+      rmSync(stagedToolkit, { recursive: true, force: true });
+      const message = String((error as Error).message).slice(0, 300);
+      return { lines: [`the cm toolkit could not be built: ${message}`], notes: ['nothing was changed on this machine'], records: [], toolkit_error: message };
     }
+  }
+  // Reinstalling starts from a clean slate for these hosts, so every "previous value" recorded
+  // below is the person's own and never a value an earlier install wrote.
+  if (previous.length > 0) notes.push(...uninstallHosts({ hosts: previous, cm_home: input.cm_home, env: input.env, keep_toolkit: true }).notes);
+  if (input.portable) {
+    rmSync(finalToolkit, { recursive: true, force: true });
+    renameSync(stagedToolkit, finalToolkit);
+    toolkitRoot = finalToolkit;
+    launchers = writeLauncher({ bin_dir: input.bin_dir, toolkit_root: finalToolkit, node: process.execPath });
   }
   const contentRoot = toolkitRoot ?? input.source_root;
   const records: SetupRecord[] = [];
@@ -157,7 +167,7 @@ export async function setupHosts(input: SetupInput): Promise<{ lines: string[]; 
 
   lines.push(toolkitRoot === null ? `toolkit: not built; cm runs from ${input.source_root}` : `toolkit: ${toolkitRoot}`);
   if (launchers.length > 0) lines.push(`launcher: ${launchers.join(', ')}`);
-  return { lines, notes, records };
+  return { lines, notes, records, toolkit_error: null };
 }
 
 export function uninstallHosts(input: { hosts?: HostName[]; cm_home: string; env: NodeJS.ProcessEnv; keep_toolkit?: boolean; platform?: NodeJS.Platform }):

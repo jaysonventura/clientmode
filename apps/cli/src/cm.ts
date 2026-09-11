@@ -691,6 +691,10 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
       install_root: typeof flags['install-root'] === 'string' ? path.resolve(flags['install-root']) : null,
       dry_run: flags['dry-run'] === true, version: CM_VERSION, now: new Date().toISOString(),
     });
+    if (outcome.toolkit_error !== null) {
+      process.stderr.write(`${outcome.lines.join('\n')}\n${outcome.notes.join('\n')}\n`);
+      return EXIT_CODES.missing_capability;
+    }
     if (json) process.stdout.write(`${JSON.stringify(outcome, null, 2)}\n`);
     else {
       process.stdout.write(`${outcome.lines.join('\n')}\n`);

@@ -7,6 +7,7 @@
  */
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { toolkitRoot } from '../../contracts/src/toolkit-root.js';
 import { writeLauncher } from './platform.js';
 
@@ -49,7 +50,8 @@ export async function buildPortableToolkit(input: {
   // The console is compiled here, where esbuild is available, and shipped compiled. Building
   // it on the client's machine would have made a browser toolchain a runtime dependency of
   // opening a run — which is exactly what `cm open` failed on outside a checkout.
-  const { buildConsoleAssets } = await import(path.join(source, 'apps/cli/src/console-bundle.ts'));
+  // A file URL, not a path: on Windows the ESM loader rejects `D:\\…` as an unknown URL scheme.
+  const { buildConsoleAssets } = await import(pathToFileURL(path.join(source, 'apps/cli/src/console-bundle.ts')).href);
   await (buildConsoleAssets as (out: string) => Promise<string>)(path.join(root, 'console'));
 
   for (const directory of CARRIED_DIRECTORIES) {

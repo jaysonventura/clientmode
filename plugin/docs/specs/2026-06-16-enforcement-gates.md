@@ -20,7 +20,7 @@ stay-cheap philosophy.
   via `cdt-config` / `CDT_*` env (single-key `grep` read — never `source` the env file).
 - **Fail-open, once per session.** No `python3` / no marker / any error → never blocks. A per-session
   marker means a gate fires at most once, so the user is never trapped.
-- **Grounded telemetry.** Every gate outcome is recorded to the state DB (`events.type`) for `/cdt:stats`.
+- **Grounded telemetry.** Every gate outcome is recorded to the state DB (`events.type`) for `/cm:stats`.
 
 ## The gates
 

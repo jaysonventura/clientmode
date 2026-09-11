@@ -21,8 +21,9 @@ import { createControllerServer, listenLoopback } from '../../controller/src/ser
 import { COMMANDS, EXIT_CODES, describe, type ExitCode } from './main.js';
 import { buildHandoff, endSession, renderHandoff, startSession } from '../../../packages/core/src/handoff.js';
 import { doctor, type HostSpec } from './doctor.js';
-import { buildDistribution } from '../../../packages/packaging/src/build.js';
-import { applyInstall, approve, planInstall, uninstall, type InstallRecord } from '../../../packages/packaging/src/install.js';
+import { HOSTS, activateHost, deactivateHost, type HostLayout, type HostName } from '../../../packages/packaging/src/hosts.js';
+import { findExecutable, spawnPlan } from '../../../packages/packaging/src/platform.js';
+import { parseHostList, readRecord, setupHosts, uninstallHosts, type SetupRecord } from './setup.js';
 import { cancelRun, createRun } from './run.js';
 import { rejectsCallerCommand } from './verify.js';
 import { assessRollback, restore, upgrade } from '../../../packages/packaging/src/upgrade.js';
@@ -66,7 +67,7 @@ export function canonicalRoot(root: string): string {
  * `--bin-dir` puts it somewhere other than the default, and checking the default instead means
  * reporting on a file that belongs to a different install — or to a different person. */
 export function installedLauncher(home: string): string | null {
-  for (const host of ['claude', 'codex'] as const) {
+  for (const host of HOSTS) {
     const recordFile = path.join(home, `install-${host}.json`);
     if (!existsSync(recordFile)) continue;
     try {
@@ -118,7 +119,7 @@ function openProject(root: string, options: { exclusive?: boolean } = {}):
   return { db, service, project_id, state_dir };
 }
 
-export type Preference = { preferred_host: 'claude' | 'codex' };
+export type Preference = { preferred_host: HostName };
 
 function configFile(): string {
   return path.join(cmHome(), 'config.json');
@@ -129,12 +130,12 @@ export function readPreference(): Preference | null {
   if (!existsSync(file)) return null;
   try {
     const parsed = JSON.parse(readFileSync(file, 'utf8')) as Partial<Preference>;
-    return parsed.preferred_host === 'claude' || parsed.preferred_host === 'codex'
-      ? { preferred_host: parsed.preferred_host } : null;
+    return (HOSTS as readonly string[]).includes(String(parsed.preferred_host))
+      ? { preferred_host: parsed.preferred_host as HostName } : null;
   } catch { return null; }
 }
 
-export function writePreference(host: 'claude' | 'codex'): string {
+export function writePreference(host: HostName): string {
   const file = configFile();
   makePrivateDirectory(path.dirname(file));
   const current = existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) as Record<string, unknown> : {};
@@ -142,150 +143,70 @@ export function writePreference(host: 'claude' | 'codex'): string {
   return file;
 }
 
-function onPath(executable: string): boolean {
-  try { execFileSync('/usr/bin/which', [executable], { stdio: 'ignore' }); return true; } catch { return false; }
+/** The command each host is started with. Cursor's CLI installs as `agent`. */
+export const HOST_EXECUTABLES: Record<HostName, string> = { claude: 'claude', codex: 'codex', gemini: 'gemini', cursor: 'agent' };
+
+function onPath(host: HostName): boolean {
+  return findExecutable(HOST_EXECUTABLES[host], process.env) !== null;
 }
 
 /** Which host a bare `cm` should start: the stated preference if it is installed, otherwise the
  * only one that is. Two installed hosts and no preference is a question, not a guess. */
 export function chooseHost(input: { requested?: string; preference: Preference | null; installed: string[] }):
-  | { host: 'claude' | 'codex'; why: string }
+  | { host: HostName; why: string }
   | { host: null; reason: string } {
   if (input.requested !== undefined) {
-    if (input.requested !== 'claude' && input.requested !== 'codex') return { host: null, reason: `unknown host: ${input.requested}` };
+    if (!(HOSTS as readonly string[]).includes(input.requested)) return { host: null, reason: `unknown host: ${input.requested}` };
     if (!input.installed.includes(input.requested)) return { host: null, reason: `${input.requested} is not installed on this machine` };
-    return { host: input.requested, why: 'asked for on the command line' };
+    return { host: input.requested as HostName, why: 'asked for on the command line' };
   }
   const preferred = input.preference?.preferred_host;
   if (preferred !== undefined && input.installed.includes(preferred)) return { host: preferred, why: 'your saved preference' };
   if (preferred !== undefined) return { host: null, reason: `your preferred host (${preferred}) is not installed on this machine` };
-  if (input.installed.length === 1) return { host: input.installed[0] as 'claude' | 'codex', why: 'the only host installed' };
-  if (input.installed.length === 0) return { host: null, reason: 'neither claude nor codex is installed' };
-  return { host: null, reason: 'both claude and codex are installed and no preference is saved' };
+  if (input.installed.length === 1) return { host: input.installed[0] as HostName, why: 'the only host installed' };
+  if (input.installed.length === 0) return { host: null, reason: 'none of claude, codex, gemini or cursor (agent) is installed' };
+  return { host: null, reason: `${input.installed.join(', ')} are installed and no preference is saved` };
 }
 
-const HOSTS: HostSpec[] = [
+const CAPABILITY_HOSTS: HostSpec[] = [
   { provider: 'claude', surface: 'native_cli', executable: 'claude' },
   { provider: 'codex', surface: 'native_cli', executable: 'codex' },
 ];
 
 const REPO_ROOT = toolkitRoot();
+export const CM_VERSION = '2.0.0';
 
 /** Pause stops new work being dispatched. It does not reach into a provider's own queue, and
  * saying otherwise would be the one thing this command must never claim. */
 const PAUSE_NOTE = 'New work is not dispatched. Work already in flight with a provider is not ' +
   'reached by this command; nothing here claims it stopped.';
 
-const BLOCK_START = '<!-- client-mode:start -->';
-const BLOCK_END = '<!-- client-mode:end -->';
+/** The host directory itself, with skills copied into its own `skills` folder: the layout the
+ * packaging gates exercise, and the one a 1.x install used. `cm install` uses `hostLayout`. */
+function directLayout(host: 'claude' | 'codex', install_root: string): HostLayout {
+  return {
+    host, config_root: install_root, instructions: path.join(install_root, host === 'claude' ? 'CLAUDE.md' : 'AGENTS.md'),
+    instructions_kind: 'block', skills_root: path.join(install_root, 'skills'), skill_reference: 'cm-',
+  };
+}
 
-/** Put the package where the host will actually read it.
- *
- * Skills go to the host's own skills directory; the operating rules go into the instructions
- * file the host loads on every session, inside markers so `cm uninstall` can take exactly them
- * back out. An existing instructions file is backed up and appended to — never replaced. */
+/** Put the package where the host will actually read it: skills into the host's skills directory,
+ * rules into the instructions file it loads, inside markers. */
 export function activate(input: {
   host: 'claude' | 'codex'; install_root: string; distribution_root: string;
   /** Lead mode puts Client Mode first and treats whatever was already there as reference. */
   lead?: boolean;
-}): {
-  created: string[]; backups: Array<{ target: string; backup: string }>; summary: string;
-} {
-  const created: string[] = [];
-  const backups: Array<{ target: string; backup: string }> = [];
-  const skillsSource = path.join(input.distribution_root, 'skills');
-  const skillNames = existsSync(skillsSource) ? readdirSync(skillsSource).sort() : [];
-
-  // Skills are prefixed so they never collide with a skill the user already has.
-  const skillsRoot = path.join(input.install_root, 'skills');
-  for (const name of skillNames) {
-    const target = path.join(skillsRoot, `cm-${name}`, 'SKILL.md');
-    mkdirSync(path.dirname(target), { recursive: true });
-    writeFileSync(target, readFileSync(path.join(skillsSource, name, 'SKILL.md'), 'utf8'));
-    created.push(target);
-  }
-
-  const instructions = instructionsFile(input.host, input.install_root);
-  const source = input.lead === true ? 'adapters/global/CLIENT_MODE_LEAD.md' : 'adapters/global/CLIENT_MODE.md';
-  const block = `${BLOCK_START}\n${readFileSync(path.join(REPO_ROOT, source), 'utf8').trimEnd()}\n${BLOCK_END}\n`;
-  if (existsSync(instructions)) {
-    const current = readFileSync(instructions, 'utf8');
-    const without = stripBlock(current).trimEnd();
-    const backup = `${instructions}.client-mode-backup`;
-    // The backup is the file without our block, so reinstalling over an existing install
-    // cannot turn our own text into "the user's original".
-    if (!existsSync(backup)) { writeFileSync(backup, `${without}\n`); backups.push({ target: instructions, backup }); }
-    // Lead mode goes first and says so; nothing that was there is deleted.
-    // `without` is empty when the file holds nothing but our block, and appending a blank line
-    // to nothing leaves the file with a trailing gap that grows on the eye if not on disk.
-    writeFileSync(instructions, without === '' ? block
-      : input.lead === true ? `${block}\n${without}\n` : `${without}\n\n${block}`);
-  } else {
-    mkdirSync(path.dirname(instructions), { recursive: true });
-    writeFileSync(instructions, block);
-    created.push(instructions);
-  }
-
-  return {
-    created, backups,
-    summary: `activated: ${String(skillNames.length)} skill(s) in ${skillsRoot}, rules appended to ${instructions}` +
-      `${backups.length > 0 ? ` (backup: ${backups[0]!.backup})` : ''}`,
-  };
+}): { created: string[]; backups: Array<{ target: string; backup: string }>; summary: string } {
+  return activateHost({
+    layout: directLayout(input.host, input.install_root), source_root: REPO_ROOT, lead: input.lead === true,
+    skills_source: path.join(input.distribution_root, 'skills'),
+  });
 }
 
-/** The change set, in the order it will be applied. The diff is the authorization: nothing is
- * written until someone has seen this. */
-function renderPlan(plan: ReturnType<typeof planInstall>, digest: string): string {
-  const lines = [`install plan for ${plan.provider}`, `  distribution ${digest}`, `  into ${plan.install_root}`, ''];
-  for (const change of plan.changes) {
-    if (change.action === 'merge') {
-      lines.push(`  merge    ${change.target}`);
-      lines.push(`             adds ${change.adds_keys.join(', ')}; preserves ${change.preserves_keys.length} existing key(s)`);
-      continue;
-    }
-    lines.push(`  ${change.action.padEnd(8)} ${change.target}${change.action === 'replace' ? `  (backup: ${change.backup})` : ''}`);
-  }
-  lines.push('', 'Nothing outside these paths is touched. Apply it by running the same command without --dry-run.');
-  return `${lines.join('\n')}\n`;
-}
-
-function instructionsFile(host: 'claude' | 'codex', install_root: string): string {
-  return path.join(install_root, host === 'claude' ? 'CLAUDE.md' : 'AGENTS.md');
-}
-
-function stripBlock(text: string): string {
-  if (!text.includes(BLOCK_START)) return text;
-  const end = text.indexOf(BLOCK_END);
-  const without = `${text.slice(0, text.indexOf(BLOCK_START))}${end === -1 ? '' : text.slice(end + BLOCK_END.length)}`;
-  // Installing and removing repeatedly must not leave a growing gap where the block used to be.
-  return without.replace(/\n{3,}/g, '\n\n').trim();
-}
-
-/** Take the activation back out.
- *
- * The instructions file is edited surgically rather than restored wholesale: the client may
- * have written their own lines around our block since, and those are theirs. An instructions
- * file that is left empty is removed only if we created it. */
+/** Take the activation back out: the marked section and the `cm-` skills, nothing else. */
 export function deactivate(input: { host: 'claude' | 'codex'; install_root: string }): { removed: string[]; summary: string } {
-  const removed: string[] = [];
-  const skillsRoot = path.join(input.install_root, 'skills');
-  if (existsSync(skillsRoot)) {
-    for (const entry of readdirSync(skillsRoot)) {
-      if (!entry.startsWith('cm-')) continue;
-      rmSync(path.join(skillsRoot, entry), { recursive: true, force: true });
-      removed.push(path.join(skillsRoot, entry));
-    }
-    if (readdirSync(skillsRoot).length === 0) rmSync(skillsRoot, { recursive: true, force: true });
-  }
-  const instructions = instructionsFile(input.host, input.install_root);
-  let instructionsNote = 'no instructions file to clean';
-  if (existsSync(instructions)) {
-    const stripped = stripBlock(readFileSync(instructions, 'utf8')).trimEnd();
-    if (stripped === '') { rmSync(instructions, { force: true }); removed.push(instructions); instructionsNote = `removed ${instructions}`; }
-    else { writeFileSync(instructions, `${stripped}\n`); instructionsNote = `Client Mode section removed from ${instructions}; everything else left as it was`; }
-    rmSync(`${instructions}.client-mode-backup`, { force: true });
-  }
-  return { removed, summary: `deactivated: ${String(removed.length)} path(s) removed; ${instructionsNote}` };
+  const { removed } = deactivateHost({ layout: directLayout(input.host, input.install_root), remove_skills: true });
+  return { removed, summary: `deactivated: ${String(removed.length)} path(s) removed; everything outside the Client Mode section left as it was` };
 }
 
 function usage(): string {
@@ -293,8 +214,8 @@ function usage(): string {
   return [
     'cm — Client Mode',
     '',
-    'Usage: cm                     start your preferred host here, with Client Mode loaded',
-    '       cm use <claude|codex>  choose which host a bare `cm` starts',
+    'Usage: cm                                    start your preferred host here, with Client Mode loaded',
+    '       cm use <claude|codex|gemini|cursor>   choose which host a bare `cm` starts',
     '       cm <command> [options]',
     '',
     ...COMMANDS.map(command => `  ${command.name.padEnd(width)}  ${command.summary}`),
@@ -302,7 +223,9 @@ function usage(): string {
     'Common options:',
     '  --root <path>     the project directory to work in (default: the current directory)',
     '  --json            machine-readable output',
-    '  --lead            (install) put Client Mode first, ahead of any existing instructions',
+    '  --host <list>     (install/uninstall) claude, codex, gemini, cursor, a comma list, or all (default)',
+    '  --no-lead         (install) append Client Mode after existing instructions instead of leading',
+    '  --no-autonomy     (install) leave each host\'s approval/permission settings unchanged',
     '  --bin-dir <path>  (install) where to write the `cm` launcher (default: ~/.local/bin)',
     '  --no-portable     (install) skip the portable toolkit; run from this checkout instead',
     '  --dry-run         (install) print the change set and write nothing',
@@ -329,14 +252,14 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
   const OURS = new Set(['help', '--help', '-h', 'version', '--version', 'commands', 'use', 'start', 'handoff']);
   const passthroughOnly = !OURS.has(command) && describe(command) === undefined;
   if (command === 'start' || argv.length === 0 || passthroughOnly) {
-    const installed = (['claude', 'codex'] as const).filter(onPath);
+    const installed = HOSTS.filter(onPath);
     const chosen = chooseHost({
       ...(typeof flags['host'] === 'string' && !passthroughOnly ? { requested: flags['host'] } : {}),
       preference: readPreference(), installed,
     });
     if (chosen.host === null) {
       process.stderr.write(`${chosen.reason}.\n`);
-      if (installed.length > 1) process.stderr.write('Pick one: cm use claude   |   cm use codex\n');
+      if (installed.length > 1) process.stderr.write(`Pick one: ${installed.map(host => `cm use ${host}`).join('   |   ')}\n`);
       return EXIT_CODES.missing_capability;
     }
     const resolved = canonicalRoot(root);
@@ -366,7 +289,7 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
         // such flag, so it is prepended to the prompt with a rule between.
         if (chosen.host === 'claude') {
           hostArgv.push('--append-system-prompt-file', briefFile);
-        } else if (hostArgv.length === 0) {
+        } else if (hostArgv.length === 0 && chosen.host === 'codex') {
           // Codex has no flag for appended instructions, so a bare `cm` opens with the briefing
           // as its first message. When the client brought their own command, their argv is left
           // exactly as they wrote it — rewriting someone's arguments is how a flag value ends up
@@ -380,7 +303,9 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     }
 
     process.stderr.write(`Client Mode → ${chosen.host} in ${resolved}  (${chosen.why})\n`);
-    const result = spawnSync(chosen.host, hostArgv, { stdio: 'inherit', cwd: resolved });
+    const executable = findExecutable(HOST_EXECUTABLES[chosen.host], process.env) ?? HOST_EXECUTABLES[chosen.host];
+    const plan = spawnPlan(executable, hostArgv);
+    const result = spawnSync(plan.command, plan.args, { stdio: 'inherit', cwd: resolved, windowsVerbatimArguments: plan.verbatim });
     if (db !== null) {
       if (session !== null) endSession(db, { session_id: session.session_id, at: new Date().toISOString(), exit_code: result.status });
       db.close();
@@ -406,11 +331,11 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
 
   if (command === 'use') {
     const host = positional[0] ?? (typeof flags['host'] === 'string' ? flags['host'] : undefined);
-    if (host !== 'claude' && host !== 'codex') {
-      process.stderr.write('use needs a host: cm use claude   |   cm use codex\n');
+    if (host === undefined || !(HOSTS as readonly string[]).includes(host)) {
+      process.stderr.write('use needs a host: cm use claude | codex | gemini | cursor\n');
       return EXIT_CODES.input_or_contract_error;
     }
-    const file = writePreference(host);
+    const file = writePreference(host as HostName);
     process.stdout.write(`${host} is now the host a bare \`cm\` starts.\nsaved in ${file}\n`);
     return EXIT_CODES.ok;
   }
@@ -420,7 +345,7 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     return EXIT_CODES.ok;
   }
   if (command === 'version' || command === '--version') {
-    process.stdout.write(`cm 1.3.0 (node ${process.versions.node}, ${os.platform()}-${os.arch()})\n`);
+    process.stdout.write(`cm ${CM_VERSION} (node ${process.versions.node}, ${os.platform()}-${os.arch()})\n`);
     return EXIT_CODES.ok;
   }
   if (command === 'commands') {
@@ -430,17 +355,21 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
   if (command === 'doctor') {
     // The install's own health comes first: a client whose launcher points at a deleted folder
     // does not need a capability report, they need to know that.
+    // Report on the hosts this machine's install configured, where it configured them.
+    const records = HOSTS.map(host => readRecord(cmHome(), host)).filter((record): record is SetupRecord => (record as SetupRecord | null)?.schema === 2);
     const health = checkInstall({
       home: cmHome(),
       source_root: REPO_ROOT,
-      hosts: [
-        { host: 'claude', install_root: path.join(os.homedir(), '.claude') },
-        { host: 'codex', install_root: path.join(os.homedir(), '.codex') },
-      ],
+      hosts: records.length > 0
+        ? records.map(record => ({ host: record.host, install_root: record.layout.config_root, skills_dir: record.layout.skills_root, instructions: record.layout.instructions }))
+        : [
+          { host: 'claude', install_root: path.join(os.homedir(), '.claude'), skills_dir: null },
+          { host: 'codex', install_root: path.join(os.homedir(), '.codex'), skills_dir: path.join(os.homedir(), '.agents', 'skills') },
+        ],
       launcher_path: installedLauncher(cmHome()) ?? path.join(os.homedir(), '.local', 'bin', 'cm'),
     });
     const { report } = await doctor({
-      hosts: HOSTS, billing_mode: 'native_account', now: new Date().toISOString(),
+      hosts: CAPABILITY_HOSTS, billing_mode: 'native_account', now: new Date().toISOString(),
       required_capabilities: [],
     });
     if (json) process.stdout.write(`${JSON.stringify({ install: health, ...report }, null, 2)}\n`);
@@ -725,90 +654,42 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
   }
 
   if (command === 'install' || command === 'uninstall') {
-    const host = flags['host'];
-    if (host !== 'claude' && host !== 'codex') {
-      process.stderr.write(`${command} needs --host claude or --host codex\n`);
+    const hosts = parseHostList(flags['host']);
+    if (hosts === null) {
+      process.stderr.write(`${command} --host takes claude, codex, gemini, cursor, a comma-separated list, or all\n`);
       return EXIT_CODES.input_or_contract_error;
     }
     const home = cmHome();
-    const recordFile = path.join(home, `install-${host}.json`);
 
     if (command === 'uninstall') {
-      if (!existsSync(recordFile)) {
-        process.stderr.write(`nothing installed for ${host} by this toolkit\n`);
+      const installedHosts = hosts.filter(host => readRecord(home, host) !== null);
+      if (installedHosts.length === 0) {
+        process.stderr.write(`nothing installed for ${hosts.join(', ')} by this toolkit\n`);
         return EXIT_CODES.input_or_contract_error;
       }
-      const record = JSON.parse(readFileSync(recordFile, 'utf8')) as InstallRecord;
-      const removal = uninstall(record);
-      const cleaned = deactivate({ host, install_root: record.plan.install_root });
-      removal.removed.push(...cleaned.removed);
-      rmSync(recordFile, { force: true });
-      process.stdout.write(json ? `${JSON.stringify({ ...removal, ...cleaned }, null, 2)}\n`
-        : `removed ${String(removal.removed.length)} file(s), restored ${String(removal.restored.length)}, left alone ${String(removal.left_alone.length)}\n${cleaned.summary}\n`);
+      const outcome = uninstallHosts({ hosts: installedHosts, cm_home: home, env: process.env });
+      process.stdout.write(json ? `${JSON.stringify(outcome, null, 2)}\n`
+        : `removed Client Mode from ${outcome.removed.join(', ')}; replaced values restored\n${outcome.notes.map(note => `  note: ${note}\n`).join('')}`);
       return EXIT_CODES.ok;
     }
 
-    // The install root is the host's own configuration directory, and the plan touches only
-    // paths under it that this toolkit owns.
-    const installRoot = typeof flags['install-root'] === 'string'
-      ? path.resolve(flags['install-root'])
-      : host === 'claude' ? path.join(os.homedir(), '.claude') : path.join(os.homedir(), '.codex');
-    makePrivateDirectory(home);
-    const distribution = buildDistribution({
-      provider: host, source_root: REPO_ROOT, out_root: path.join(home, 'dist'), version: '1.3.0',
+    if (typeof flags['install-root'] === 'string' && hosts.length !== 1) {
+      process.stderr.write('--install-root relocates one host; name it with --host\n');
+      return EXIT_CODES.input_or_contract_error;
+    }
+    const outcome = await setupHosts({
+      hosts, home: os.homedir(), cm_home: home, env: process.env, source_root: REPO_ROOT,
+      bin_dir: typeof flags['bin-dir'] === 'string' ? path.resolve(flags['bin-dir']) : path.join(os.homedir(), '.local', 'bin'),
+      lead: flags['no-lead'] !== true, autonomy: flags['no-autonomy'] !== true, portable: flags['no-portable'] !== true,
+      install_root: typeof flags['install-root'] === 'string' ? path.resolve(flags['install-root']) : null,
+      dry_run: flags['dry-run'] === true, version: CM_VERSION, now: new Date().toISOString(),
     });
-    const plan = planInstall({ distribution, install_root: installRoot });
-
-    if (flags['dry-run'] === true) {
-      process.stdout.write(json ? `${JSON.stringify(plan, null, 2)}\n`
-        : `${renderPlan(plan, distribution.distribution_digest)}` +
-          `\nActivation: 8 skill(s) into ${path.join(installRoot, 'skills')}, and the Client Mode section ` +
-          `${flags['lead'] === true ? 'placed FIRST in' : 'appended to'} ${instructionsFile(host, installRoot)}.\n` +
-          'Existing content is kept either way; uninstall removes only the marked section.\n');
-      return EXIT_CODES.ok;
+    if (json) process.stdout.write(`${JSON.stringify(outcome, null, 2)}\n`);
+    else {
+      process.stdout.write(`${outcome.lines.join('\n')}\n`);
+      for (const note of outcome.notes) process.stdout.write(`  note: ${note}\n`);
+      if (flags['dry-run'] !== true) process.stdout.write('\nRestart any open Claude Code, Codex, Gemini or Cursor session to load it. Check it with: cm doctor\nRemove it with: cm uninstall\n');
     }
-    // The portable toolkit is what makes `cm` work anywhere: a bundled entry point plus the
-    // files the controller reads, in a directory that does not depend on where the source is.
-    // A launcher that pointed at a checkout would stop working the moment a folder moved.
-    let portable: { root: string; launcher: string | null; bytes: number } | null = null;
-    if (flags['no-portable'] !== true) {
-      try {
-        const { buildPortableToolkit } = await import('../../../packages/packaging/src/portable.js');
-        const binDir = typeof flags['bin-dir'] === 'string' ? flags['bin-dir'] : path.join(os.homedir(), '.local', 'bin');
-        portable = await buildPortableToolkit({
-          out_root: path.join(home, 'toolkit'),
-          launcher_path: path.join(binDir, 'cm'),
-        });
-      } catch (error) {
-        process.stderr.write('the portable toolkit could not be built ' +
-          `(${String((error as Error).message).slice(0, 120)}).\n` +
-          'The skills and instructions below are still installed; `cm` will keep running from this checkout.\n');
-      }
-    }
-    const record = applyInstall({ plan: approve(plan), distribution, now: new Date().toISOString() });
-    // Copying the package under the host's config directory puts the files on disk; it does not
-    // make the host read them. Activation writes the locations each host actually loads.
-    const activated = activate({
-      host, install_root: installRoot, distribution_root: distribution.root,
-      lead: flags['lead'] === true,
-    });
-    if (portable !== null) {
-      record.created.push(portable.root);
-      if (portable.launcher !== null) record.created.push(portable.launcher);
-      record.launcher = portable.launcher;
-      record.toolkit_root = portable.root;
-    }
-    record.created.push(...activated.created);
-    record.backups.push(...activated.backups);
-    writeFileSync(recordFile, JSON.stringify(record, null, 2) + '\n');
-    process.stdout.write(json ? `${JSON.stringify(record, null, 2)}\n`
-      : `installed ${String(record.created.length)} file(s) under ${installRoot}\n` +
-        `${String(record.backups.length)} existing file(s) backed up, ${String(record.merged.length)} settings file(s) merged\n` +
-        `${activated.summary}\n` +
-        `${portable === null ? 'portable toolkit: not built; cm runs from this checkout\n'
-          : `portable toolkit: ${portable.root} (${String(Math.round(portable.bytes / 1024))} KB)\n` +
-            `${portable.launcher === null ? '' : `launcher: ${portable.launcher}\n`}`}` +
-        `record: ${recordFile}\nremove it again with: cm uninstall --host ${host}\n`);
     return EXIT_CODES.ok;
   }
 

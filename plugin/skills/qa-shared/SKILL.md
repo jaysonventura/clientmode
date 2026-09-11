@@ -30,7 +30,7 @@ doctor → build/deploy → launch → read the accessibility tree → act → a
 7. **Fix or file, then re-run the same command through `cdt-verify -- <cmd>`.** Only a `cdt-verify`
    exit code is evidence. Evidence recorded *before* your last edit is stale and does not count.
 8. **Bounded.** Same command + same failure signature twice → **stuck loop**: escalate to the
-   **Bug Council** (`/cdt:bug-council`); do not attempt a third identical patch. Hard cap
+   **Bug Council** (`/cm:bug-council`); do not attempt a third identical patch. Hard cap
    `CDT_MAX_ITERATIONS` (default 5). Hitting it is **not** permission to claim success — report
    `DEFERRED`/`BLOCKER` with what is still red.
 
@@ -70,7 +70,7 @@ Every capture prints its absolute path on stdout so an agent can cite it.
 **Flake triage:** re-run the failing step **once**. Passing on retry is a **flake finding**, not a pass —
 report it as flaky with the suspected timing cause. "It passed the second time" never closes a ticket.
 
-Apply `root-cause-analysis`. For genuinely hard diagnosis, convene the Bug Council rather than guessing.
+Apply `debug`. For genuinely hard diagnosis, convene the Bug Council rather than guessing.
 
 ## Reporting
 

@@ -489,7 +489,7 @@ cmd_scaffold() {
     [ -n "$c" ] && [ -d "$c" ] && { tdir="$c"; break; }
   done
   # shellcheck disable=SC2012  # plugin cache dirs are semver names; sort -V picks the newest install
-  [ -n "$tdir" ] || tdir="$(ls -d "$CDT_HOME"/plugins/cache/claude-dev-team/cdt/*/skills/mobile-qa/templates 2>/dev/null | sort -V | tail -1)"
+  [ -n "$tdir" ] || tdir="$(ls -d "$CDT_HOME"/plugins/cache/clientmode/cm/*/skills/mobile-qa/templates 2>/dev/null | sort -V | tail -1)"
   [ -n "$tdir" ] && [ -d "$tdir" ] \
     || die "harness templates not found (looked beside $SELF_DIR and under $CDT_HOME) — reinstall claude-dev-team, or set CDT_MQA_TEMPLATES."
   files="$(cd "$tdir" && find . -type f | sed 's|^\./||' | sort)"

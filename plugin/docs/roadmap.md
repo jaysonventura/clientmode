@@ -35,14 +35,14 @@ Much of the "nervous system" vision already exists; the gaps below build *on* it
 | Autonomous *local* fix loop (gates → fix → re-run, capped) | 🟡 partial | orchestration §3b Task Loop |
 | Remember across sessions | 🟡 partial | `vault/learnings.md` injected at SessionStart |
 | Learn from every task | 🟡 partial | mandate vault-learning step + SQLite analytics |
-| Real per-agent token telemetry (cost safety) | ✅ (v1.19.0) | `SubagentStop` → `agent_runs.tokens` → `/cdt:stats` |
+| Real per-agent token telemetry (cost safety) | ✅ (v1.19.0) | `SubagentStop` → `agent_runs.tokens` → `/cm:stats` |
 | Gated diagnostic "swarm" for hard bugs | ✅ (bounded) | Bug Council (5 agents) — Phase 5 upgrades it to a debating team |
 
 ## Phase 1 — Autonomous Git / CI / PR loop  ·  fit ★★★  ·  effort: medium
 
 **Goal:** extend the Task Loop from *local gates* to the *real VCS*.
 
-- ✅ **Shipped (v1.8.0) — `/cdt:autopilot <PR#> [--live]`:** a `gh`-driven loop (read CI →
+- ✅ **Shipped (v1.8.0) — `/cm:autopilot <PR#> [--live]`:** a `gh`-driven loop (read CI →
   diagnose → focused fix → push → re-check, capped by `CDT_MAX_ITERATIONS`), merge-conflict resolution on
   the branch, and a `code-reviewer` + `security-reviewer` synthesis posted as a PR comment. Backed by a
   read-mostly wrapper (`cdt-pr`) whose only write is a comment. **Safe by design:** dry-run by default,
@@ -98,7 +98,7 @@ CLI, and each ships token-budgeted (a dry-run / slice-first before it's ever on 
 
 ## Phase 4 — Worktree isolation (parallel builders)  ·  fit ★★★  ·  effort: small
 
-> ✅ **Shipped (v1.20.0).** `cdt-worktree` (`new`/`list`/`path`/`rm`/`clean`) + `/cdt:worktree`, mirroring
+> ✅ **Shipped (v1.20.0).** `cdt-worktree` (`new`/`list`/`path`/`rm`/`clean`) + `/cm:worktree`, mirroring
 > `claude --worktree` (checkout `.claude/worktrees/<name>`, branch `worktree-<name>`). Name-injection
 > boundary + dirty-removal protection (security PASS); resolves the main worktree via the git common-dir
 > (no nesting from inside a worktree). `cdt-doctor` readiness check; orchestration skill notes it's
@@ -118,7 +118,7 @@ edits can't collide. Lowest risk of the three, and it needs **no policy change**
 - **CDT fit — two synergies that fall out of existing design:**
   - CDT state (the SQLite DB, `.env`, vault, `cdt-*` CLIs) lives in **`~/.claude/`, not the repo**, so
     every worktree inherits the full toolchain with **zero** extra wiring.
-  - `/cdt:autopilot` gains true isolation via `claude --worktree "#1234"` (fetches `pull/1234/head` into
+  - `/cm:autopilot` gains true isolation via `claude --worktree "#1234"` (fetches `pull/1234/head` into
     its own checkout).
 - **What ships:** add `.claude/worktrees/` to `.gitignore`; an opt-in convention for T3 parallel features
   (each builder isolated); `.worktreeinclude` guidance for any repo-local secrets; a `cdt-doctor` check
@@ -146,7 +146,7 @@ council (adversarial-tester pushing back on root-cause-analyst before a verdict)
 - **CDT fit:** the council roles already exist as agents — teams just add the communication channel, and
   CDT's synthesis step maps onto the lead reading the mailbox. Wave-2 review (code + security reviewer
   cross-examining) is a second candidate.
-- **What ships:** `cdt-config teams on` (**default off**); a `/cdt:bug-council --team` path that spawns a
+- **What ships:** `cdt-config teams on` (**default off**); a `/cm:bug-council --team` path that spawns a
   real team when enabled and otherwise falls back to today's parallel subagents; docs covering the
   tmux/iTerm2 requirement and the experimental caveats (no `/resume` restore, one team at a time, no
   nested teams, slow shutdown).
@@ -179,7 +179,7 @@ orchestrator's context**. CDT uses it **only** where ≤6–10 bounded agents ge
   completeness-critic stages are mandatory; **run-on-a-slice-first** to gauge spend; **log what's
   dropped** (no silent top-N truncation).
 - **The cost-safety instrument:** the **per-agent token telemetry (v1.19.0)** is exactly how Scale mode
-  stays affordable — `/cdt:stats` shows which roles burned the budget, and a CDT-level token cap halts
+  stays affordable — `/cm:stats` shows which roles burned the budget, and a CDT-level token cap halts
   the run before a 1000-agent *ceiling* becomes a 1000-agent *bill*.
 - **Policy:** the deliberate, reviewed exception to "never ultracode" — gated off, summoned, capped; the
   everyday default is untouched.

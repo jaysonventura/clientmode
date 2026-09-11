@@ -1,5 +1,5 @@
 // Local-only TASK_RESULT.json builder + the Stop-hook finalize. verification is ALWAYS derived from
-// verify-events (never trusted from free text). The 6-field final-response format is enforced as a
+// verify-events (never trusted from free text). The 6-field handoff closing format is enforced as a
 // reminder string.
 
 import { join } from 'node:path';

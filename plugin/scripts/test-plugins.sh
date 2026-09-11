@@ -170,14 +170,14 @@ sys.exit(0)
 PY
 then pass 3 "installIdentifier regex holds; cdt-skill rows null"; else fail 3 "installIdentifier regex / null"; fi
 
-# (4) ui-ux-pro-max is a local cdt-skill with no install identifier
+# (4) ui-ux is a local cdt-skill with no install identifier
 if REG="$CDT_PLUGIN_REGISTRY" python3 - <<'PY' 2>/dev/null
 import json,os,sys
 d=json.load(open(os.environ["REG"]))
-r=[p for p in d["plugins"] if p.get("id")=="ui-ux-pro-max"]
+r=[p for p in d["plugins"] if p.get("id")=="ui-ux"]
 sys.exit(0 if r and r[0].get("type")=="cdt-skill" and r[0].get("installIdentifier") is None else 1)
 PY
-then pass 4 "ui-ux-pro-max type==cdt-skill, no install"; else fail 4 "ui-ux-pro-max cdt-skill/no-install"; fi
+then pass 4 "ui-ux type==cdt-skill, no install"; else fail 4 "ui-ux cdt-skill/no-install"; fi
 
 echo "== Detection (plugins-lib.sh) =="
 # (5) plib_installed parses the version-2 map

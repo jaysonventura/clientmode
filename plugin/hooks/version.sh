@@ -25,7 +25,7 @@ plugin_version() {
   if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -f "$CLAUDE_PLUGIN_ROOT/.claude-plugin/plugin.json" ]; then
     pj="$CLAUDE_PLUGIN_ROOT/.claude-plugin/plugin.json"
   else
-    pj=$(ls -d "$CDT_HOME"/plugins/cache/claude-dev-team/cdt/*/.claude-plugin/plugin.json 2>/dev/null | sort -V | tail -1)
+    pj=$(ls -d "$CDT_HOME"/plugins/cache/clientmode/cm/*/.claude-plugin/plugin.json 2>/dev/null | sort -V | tail -1)
   fi
   read_version "$pj"
 }

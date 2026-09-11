@@ -103,7 +103,7 @@ func cdtVersion() -> String? {
         return v
     }
     let cache = FileManager.default.homeDirectoryForCurrentUser
-        .appendingPathComponent(".claude/plugins/cache/claude-dev-team/cdt", isDirectory: true)
+        .appendingPathComponent(".claude/plugins/cache/clientmode/cm", isDirectory: true)
     guard let dirs = try? FileManager.default.contentsOfDirectory(
         at: cache, includingPropertiesForKeys: nil) else { return nil }
     // Newest version directory (numeric-aware compare so 1.21.2 sorts above 1.9.0).

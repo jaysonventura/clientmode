@@ -12,6 +12,8 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { auditPermissions } from '../../verifier/src/file-permissions.js';
+import { BLOCK_START, SKILLS_DIRECTORY } from './hosts.js';
+import { isExecutableLauncher, launcherToolkitRoot } from './platform.js';
 
 export type HealthFinding = {
   code: 'TOOLKIT_MISSING' | 'TOOLKIT_STALE' | 'LAUNCHER_MISSING' | 'LAUNCHER_ORPHANED'
@@ -25,13 +27,19 @@ export type HealthFinding = {
 export type InstallHealth = {
   toolkit_root: string | null;
   launcher: string | null;
-  hosts: Array<{ host: string; instructions: string; skills_dir: string; skills: number }>;
+  hosts: Array<{ host: string; instructions: string; skills_dir: string | null; skills: number }>;
   findings: HealthFinding[];
   healthy: boolean;
 };
 
+/** A skill copied into a host is renamed to match its folder (`name: cm-tdd`), so the name line is
+ * left out of the comparison; everything else in the file has to match. */
 const digestOf = (file: string): string =>
-  `sha256:${createHash('sha256').update(readFileSync(file)).digest('hex')}`;
+  `sha256:${createHash('sha256').update(readFileSync(file, 'utf8').replace(/^(---\r?\nname:\s*)\S+/, '$1')).digest('hex')}`;
+
+const INSTRUCTIONS: Record<string, string> = {
+  claude: 'CLAUDE.md', codex: 'AGENTS.md', gemini: 'GEMINI.md', cursor: path.join('rules', 'client-mode.mdc'),
+};
 
 function skillDigests(directory: string, prefix: string): Map<string, string> {
   const found = new Map<string, string>();
@@ -47,9 +55,13 @@ function skillDigests(directory: string, prefix: string): Map<string, string> {
 export function checkInstall(input: {
   home: string;
   source_root: string;
-  hosts: Array<{ host: string; install_root: string }>;
+  /** `skills_dir: null` means the host takes its skills from the `cm` plugin; the default is the
+   * host directory's own `skills`. `instructions` defaults to the file that host loads. */
+  hosts: Array<{ host: string; install_root: string; skills_dir?: string | null; instructions?: string }>;
   launcher_path: string;
+  platform?: NodeJS.Platform;
 }): InstallHealth {
+  const platform = input.platform ?? process.platform;
   const findings: HealthFinding[] = [];
   const toolkitRoot = path.join(input.home, 'toolkit');
   const toolkitPresent = existsSync(path.join(toolkitRoot, 'cm.js'));
@@ -64,8 +76,8 @@ export function checkInstall(input: {
   // the bundle itself would flag every rebuild; comparing what it carries is what the client
   // actually gets.
   if (toolkitPresent) {
-    const shipped = skillDigests(path.join(toolkitRoot, 'skills'), '');
-    const source = skillDigests(path.join(input.source_root, 'skills'), '');
+    const shipped = skillDigests(path.join(toolkitRoot, SKILLS_DIRECTORY), '');
+    const source = skillDigests(path.join(input.source_root, SKILLS_DIRECTORY), '');
     const drifted = [...source.entries()].filter(([name, digest]) => shipped.get(name) !== digest).map(([name]) => name);
     if (source.size > 0 && drifted.length > 0) {
       findings.push({
@@ -83,17 +95,15 @@ export function checkInstall(input: {
       remedy: `cm install --host claude --bin-dir ${path.dirname(input.launcher_path)}`,
     });
   } else {
-    const text = readFileSync(input.launcher_path, 'utf8');
-    const named = /CM_TOOLKIT_ROOT:-([^}"]+)/.exec(text)?.[1];
-    if (named !== undefined && !existsSync(path.join(named, 'cm.js'))) {
+    const named = launcherToolkitRoot(readFileSync(input.launcher_path, 'utf8'));
+    if (named !== null && !existsSync(path.join(named, 'cm.js'))) {
       findings.push({
         code: 'LAUNCHER_ORPHANED',
         detail: `the launcher points at ${named}, which has no toolkit in it`,
         remedy: 'cm install --host claude   (rebuilds the toolkit the launcher names)',
       });
     }
-    // eslint-disable-next-line no-bitwise
-    if ((statSync(input.launcher_path).mode & 0o111) === 0) {
+    if (!isExecutableLauncher(input.launcher_path, platform)) {
       findings.push({
         code: 'LAUNCHER_NOT_EXECUTABLE', detail: `${input.launcher_path} is not executable`,
         remedy: `chmod +x ${input.launcher_path}`,
@@ -104,7 +114,9 @@ export function checkInstall(input: {
   // Installs made before the stores were tightened keep the modes they were created with, and
   // so does anything restored from a backup or copied off another machine. The project stores
   // hold every client request, the approval record, and the verifier's signing material.
-  const exposed = auditPermissions([path.join(input.home, 'projects')]);
+  // Windows has no POSIX modes to read — every file reports 0666 — and its ACLs are not inspected
+  // here, so the check is not run there rather than reported as a failure it cannot measure.
+  const exposed = platform === 'win32' ? [] : auditPermissions([path.join(input.home, 'projects')]);
   if (exposed.length > 0) {
     const shown = exposed.slice(0, 3).map(f => `${f.path} is ${f.mode}, expected ${f.expected}`);
     findings.push({
@@ -115,11 +127,14 @@ export function checkInstall(input: {
   }
 
   const hosts = input.hosts.map(entry => {
-    const skills_dir = path.join(entry.install_root, 'skills');
-    const installed = skillDigests(skills_dir, 'cm-');
-    const shipped = toolkitPresent ? skillDigests(path.join(toolkitRoot, 'skills'), '') : new Map<string, string>();
-    const instructions = path.join(entry.install_root, entry.host === 'claude' ? 'CLAUDE.md' : 'AGENTS.md');
-    if (installed.size === 0) {
+    const skills_dir = entry.skills_dir === undefined ? path.join(entry.install_root, 'skills') : entry.skills_dir;
+    const shipped = toolkitPresent ? skillDigests(path.join(toolkitRoot, SKILLS_DIRECTORY), '') : new Map<string, string>();
+    // Skills that come from the plugin are the toolkit's own copy; there is nothing to drift.
+    const installed = skills_dir === null ? shipped : skillDigests(skills_dir, 'cm-');
+    const instructions = entry.instructions ?? path.join(entry.install_root, INSTRUCTIONS[entry.host] ?? 'AGENTS.md');
+    if (skills_dir === null && !toolkitPresent) {
+      // Reported once, as TOOLKIT_MISSING: the plugin marketplace is the toolkit.
+    } else if (installed.size === 0) {
       findings.push({
         code: 'SKILLS_MISSING', detail: `${entry.host} has no Client Mode skills in ${skills_dir}`,
         remedy: `cm install --host ${entry.host} --lead`,
@@ -134,7 +149,8 @@ export function checkInstall(input: {
         });
       }
     }
-    if (!existsSync(instructions) || !readFileSync(instructions, 'utf8').includes('<!-- client-mode:start -->')) {
+    const owned = instructions.endsWith('.mdc');
+    if (!existsSync(instructions) || (!owned && !readFileSync(instructions, 'utf8').includes(BLOCK_START))) {
       findings.push({
         code: 'INSTRUCTIONS_MISSING',
         detail: `${entry.host} will not load Client Mode: no section in ${instructions}`,

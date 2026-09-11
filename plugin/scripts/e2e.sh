@@ -46,10 +46,10 @@ cat > "$TR" <<'JSONL'
 {"type":"assistant","message":{"usage":{"input_tokens":100,"output_tokens":400,"cache_read_input_tokens":90000}}}
 JSONL
 # fresh tokens = (1000+500+2000)+(100+400) = 4000 ; cache_read = 80000+90000 = 170000
-printf '{"agent_type":"cdt:demo-role","session_id":"s","transcript_path":"%s"}' "$TR" | bash "$REPO/hooks/agent-track.sh"
+printf '{"agent_type":"cm:demo-role","session_id":"s","transcript_path":"%s"}' "$TR" | bash "$REPO/hooks/agent-track.sh"
 ROW="$(CDT_DB="$HOME/.claude/claude-dev-team.db" python3 -c 'import os,sqlite3
 try:
-    c=sqlite3.connect(os.environ["CDT_DB"]); r=c.execute("SELECT tokens,cache_read FROM agent_runs WHERE agent=?",("cdt:demo-role",)).fetchone()
+    c=sqlite3.connect(os.environ["CDT_DB"]); r=c.execute("SELECT tokens,cache_read FROM agent_runs WHERE agent=?",("cm:demo-role",)).fetchone()
     print("%s|%s"%(r[0],r[1]) if r else "none")
 except Exception: print("err")' 2>/dev/null)"
 [ "$ROW" = "4000|170000" ] && ok "tokens split fresh=4000 · cache_read=170000 (cache not in the cost figure)" || no "token split wrong (got: $ROW)"
@@ -210,22 +210,22 @@ hasjson() { local f; for f in "$1"/*.json; do [ -e "$f" ] && return 0; done; ret
 
 # (a) PreToolUse(Task) captures a pending contract from the dispatch directive
 S=sc1; rm -rf "$(SCD $S)"
-TP $S "cdt:backend-engineer" "api/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
+TP $S "cm:backend-engineer" "api/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
 hasjson "$(SCD $S)/pending" && ok "PreToolUse(Task) captured a pending contract" || no "contract capture"
 # (b) in-scope write -> claimed (atomic mv), no finding
-mksub "$CROOT/api/users.ts" "$SBX/tr-sc1.jsonl"; astop "cdt:backend-engineer" $S "$SBX/tr-sc1.jsonl"
+mksub "$CROOT/api/users.ts" "$SBX/tr-sc1.jsonl"; astop "cm:backend-engineer" $S "$SBX/tr-sc1.jsonl"
 hasjson "$(SCD $S)/claimed" && ok "SubagentStop claimed the contract (atomic mv)" || no "contract claim"
 [ -s "$(SCD $S)/findings.jsonl" ] && no "in-scope write left no findings" || ok "in-scope write left no findings"
 # (c) out-of-scope write -> overreach
 S=sc2; rm -rf "$(SCD $S)"
-TP $S "cdt:backend-engineer" "api/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
-mksub "$CROOT/frontend/app.tsx" "$SBX/tr-sc2.jsonl"; astop "cdt:backend-engineer" $S "$SBX/tr-sc2.jsonl"
+TP $S "cm:backend-engineer" "api/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
+mksub "$CROOT/frontend/app.tsx" "$SBX/tr-sc2.jsonl"; astop "cm:backend-engineer" $S "$SBX/tr-sc2.jsonl"
 has "$(cat "$(SCD $S)/findings.jsonl" 2>/dev/null)" "overreach" "out-of-scope write flagged as overreach"
 # (d) collision: backend writes into frontend's scope
 S=sc3; rm -rf "$(SCD $S)"
-TP $S "cdt:backend-engineer" "api/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
-TP $S "cdt:frontend-engineer" "ui/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
-mksub "$CROOT/ui/button.tsx" "$SBX/tr-sc3.jsonl"; astop "cdt:backend-engineer" $S "$SBX/tr-sc3.jsonl"
+TP $S "cm:backend-engineer" "api/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
+TP $S "cm:frontend-engineer" "ui/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
+mksub "$CROOT/ui/button.tsx" "$SBX/tr-sc3.jsonl"; astop "cm:backend-engineer" $S "$SBX/tr-sc3.jsonl"
 has "$(cat "$(SCD $S)/findings.jsonl" 2>/dev/null)" "collision" "writing into a peer's scope flagged as collision"
 # (e) Stop gate: block vs warn (isolate from the verify gate)
 "$BIN/cdt-config" verify off >/dev/null 2>&1; "$BIN/cdt-config" scope block >/dev/null 2>&1
@@ -238,11 +238,11 @@ lacks "$(stop sc2)" '"decision":"block"' "scope=warn never blocks"
 "$BIN/cdt-config" verify block >/dev/null 2>&1
 # (f) concurrency: two same-type contracts, two SubagentStops -> each claimed exactly once
 S=sc4; rm -rf "$(SCD $S)"
-TP $S "cdt:backend-engineer" "api/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
-TP $S "cdt:backend-engineer" "api/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
+TP $S "cm:backend-engineer" "api/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
+TP $S "cm:backend-engineer" "api/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
 [ "$(njson "$(SCD $S)/pending")" = "2" ] && ok "two contracts captured for the same agent type" || no "two-contract capture"
 mksub "$CROOT/api/a.ts" "$SBX/tr-4a.jsonl"; mksub "$CROOT/api/b.ts" "$SBX/tr-4b.jsonl"
-astop "cdt:backend-engineer" $S "$SBX/tr-4a.jsonl"; astop "cdt:backend-engineer" $S "$SBX/tr-4b.jsonl"
+astop "cm:backend-engineer" $S "$SBX/tr-4a.jsonl"; astop "cm:backend-engineer" $S "$SBX/tr-4b.jsonl"
 { [ "$(njson "$(SCD $S)/claimed")" = "2" ] && [ "$(njson "$(SCD $S)/pending")" = "0" ]; } \
   && ok "each contract claimed exactly once (no double-claim)" || no "claim accounting under concurrency"
 # (g) scope events recorded
@@ -257,7 +257,7 @@ LEARN="$HOME/.claude/vault/learnings.md"
 "$BIN/cdt-config" verify off >/dev/null 2>&1; "$BIN/cdt-config" memory block >/dev/null 2>&1
 # (a) team-tier session (>=1 agent_run) + edits + no fresh lesson -> block
 clrm mg1
-printf '{"agent_type":"cdt:demo","session_id":"mg1","transcript_path":""}' | bash "$REPO/hooks/agent-track.sh" >/dev/null 2>&1
+printf '{"agent_type":"cm:demo","session_id":"mg1","transcript_path":""}' | bash "$REPO/hooks/agent-track.sh" >/dev/null 2>&1
 touch -t 202001010000 "$LEARN" 2>/dev/null
 edit mg1
 has "$(stop mg1)" '"decision":"block"' "memory gate blocks a team-tier session with no persisted lesson"
@@ -305,7 +305,7 @@ SK="$(cat "$REPO/skills/orchestration/SKILL.md")"
 has "$SK" "Adversarial verify" "SKILL documents adversarial verify"
 has "$SK" "Diverse-lens review" "SKILL documents diverse-lens review"
 has "$SK" "Design judge-panel" "SKILL documents the design judge-panel"
-[ -f "$REPO/commands/adversarial.md" ] && ok "/cdt:adversarial command present" || no "/cdt:adversarial command present"
+[ -f "$REPO/commands/adversarial.md" ] && ok "/cm:adversarial command present" || no "/cm:adversarial command present"
 has "$(sed -n '/STEP 3f/,/STEP 4/p' "$REPO/skills/orchestration/SKILL.md")" "never Haiku" "STEP 3f stays above the production-grade floor (no Haiku)"
 
 echo "== 4j. adaptive advise (agent mix from telemetry) =="
@@ -667,7 +667,7 @@ has "$("$BIN/cdt-auto" fanout T0 2>&1)" "solo" "fanout T0 -> solo (no fan-out)"
 echo "== 8b. slice-first projection + orchestrator overhead (cost truthfulness) =="
 # measure a slice, add some delegated spend, then project the full fan-out vs the cap
 "$BIN/cdt-auto" slice record 2 >/dev/null 2>&1
-printf '{"agent_type":"cdt:slicer","session_id":"slc","transcript_path":"%s"}' "$TR" | bash "$REPO/hooks/agent-track.sh" >/dev/null 2>&1
+printf '{"agent_type":"cm:slicer","session_id":"slc","transcript_path":"%s"}' "$TR" | bash "$REPO/hooks/agent-track.sh" >/dev/null 2>&1
 has "$("$BIN/cdt-auto" project 10 2>&1)" "ALLOW" "project: a small slice extrapolates under the cap -> ALLOW"
 has "$("$BIN/cdt-auto" project 100000000 2>&1)" "STOP" "project: a huge fan-out over the cap -> STOP"
 rm -f "$HOME/.claude/.cdt/scale-slice.json"

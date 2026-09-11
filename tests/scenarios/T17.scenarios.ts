@@ -10,6 +10,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import type { Json, ScenarioObservation } from '../../contracts/interfaces.js';
 import { buildDistribution, validateManifest, PackagingError } from '../../packages/packaging/src/build.js';
+import { SKILLS_DIRECTORY } from '../../packages/packaging/src/hosts.js';
 import { fingerprintTree } from '../../packages/packaging/src/install.js';
 import { install, remove, describePlan } from '../../apps/cli/src/install.js';
 import { activate, deactivate } from '../../apps/cli/src/cm.js';
@@ -44,7 +45,7 @@ registerScenario('AT-017', async (): Promise<ScenarioObservation> => {
     // 1. Two self-contained distributions from one source tree.
     const claude = buildDistribution({ provider: 'claude', source_root: ROOT, out_root: outRoot, version: '0.1.0' });
     const codex = buildDistribution({ provider: 'codex', source_root: ROOT, out_root: outRoot, version: '0.1.0' });
-    const skillCount = readdirSync(path.join(ROOT, 'skills')).length;
+    const skillCount = readdirSync(path.join(ROOT, SKILLS_DIRECTORY)).length;
     log['distributions'] = [claude, codex].map(distribution => ({
       provider: distribution.provider, digest: distribution.distribution_digest,
       file_count: distribution.files.length, self_contained: distribution.self_contained,
@@ -70,8 +71,8 @@ registerScenario('AT-017', async (): Promise<ScenarioObservation> => {
     const wrongLocation = attempt(() => validateManifest('claude', path.join(codex.root, 'client-mode.json'), codex.root));
     const skillWithoutFrontMatter = attempt(() => {
       const broken = path.join(sandbox, 'broken-source');
-      mkdirSync(path.join(broken, 'skills', 'nameless'), { recursive: true });
-      writeFileSync(path.join(broken, 'skills', 'nameless', 'SKILL.md'), '# no front matter\n');
+      mkdirSync(path.join(broken, SKILLS_DIRECTORY, 'nameless'), { recursive: true });
+      writeFileSync(path.join(broken, SKILLS_DIRECTORY, 'nameless', 'SKILL.md'), '# no front matter\n');
       mkdirSync(path.join(broken, 'adapters', 'codex'), { recursive: true });
       writeFileSync(path.join(broken, 'adapters', 'codex', 'AGENTS.md'), 'x\n');
       return buildDistribution({ provider: 'codex', source_root: broken, out_root: path.join(sandbox, 'dist-broken'), version: '0.0.1' });
@@ -203,7 +204,7 @@ registerScenario('AT-017', async (): Promise<ScenarioObservation> => {
       backup_removed: !existsSync(path.join(activationRoot, 'CLAUDE.md.client-mode-backup')),
     };
     const activationRoundTrips = afterActivate.includes('Keep these.') &&
-      afterActivate.includes('<!-- client-mode:start -->') && skillsInstalled.length === 8 &&
+      afterActivate.includes('<!-- client-mode:start -->') && skillsInstalled.length === skillCount &&
       backupContent === ownInstructions &&
       afterDeactivate === ownInstructions && afterCycles === ownInstructions && !gapGrew &&
       !existsSync(path.join(activationRoot, 'skills')) &&

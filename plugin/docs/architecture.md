@@ -68,7 +68,7 @@ parallel strand its own checkout+branch for collision-free large work. Full plan
 | SessionStart | `session-start-vault.sh` | bootstrap vault + DB + `~/.claude/bin/*`; inject learnings; auto-install the menu bar (macOS, once) |
 | PreToolUse (Task) | `contract-capture.sh` | dispatch banner (`▶️ 🔭 Explore · …`); capture the agent's exclusive-file contract (for the scope gate); **mark it running** (`running_agents.py add`) for the status line's live segment |
 | PostToolUse (Edit/Write) | `format-on-write.sh` | guarded prettier (only if configured) + edits marker |
-| SubagentStop | `agent-track.sh` | record each dispatched subagent by role **and its real token cost** (powers `/cdt:stats`); finish line (`✅ 🔭 Explore · N tok`); **mark it done** (`running_agents.py remove`) |
+| SubagentStop | `agent-track.sh` | record each dispatched subagent by role **and its real token cost** (powers `/cm:stats`); finish line (`✅ 🔭 Explore · N tok`); **mark it done** (`running_agents.py remove`) |
 | Stop | `completion-guard.sh` | record session row; optional one-time mandate reminder (`CDT_STOP_REMINDER=1`) |
 
 All hooks are **fail-open** — any error exits 0 so they never interrupt your session.
@@ -79,7 +79,7 @@ display-only, zero-token bottom-bar line rendered from the session JSON: `CDT on
 Its live "running agents" segment (`🔭 Explore×3`) reads the per-workspace running-set that the two hooks
 above maintain (`hooks/running_agents.py`, pruned after 30 min); roles share one emoji map
 (`hooks/cdt_emoji.py`) with the transcript dispatch/finish lines. The namespace prefix is stripped here
-(`backend-engineer`), though Claude Code's own agent tree keeps the plugin-qualified `cdt:backend-engineer`.
+(`backend-engineer`), though Claude Code's own agent tree keeps the plugin-qualified `cm:backend-engineer`.
 
 ## Memory (vault + recall)
 
@@ -97,4 +97,4 @@ started,ended,tokens)` · `agent_runs(task_id,agent,model,started,ended,tokens,c
 `events(ts,session_id,type,message)` · `usage(session_id,ts,est_tokens,est_cost)`. The token columns
 hold real usage summed from transcripts (added in-place via migration). On `agent_runs`, **`tokens`** is
 the cost-relevant sum (`input + output + cache-creation`) while **`cache_read`** holds the discounted
-cache reads separately, so `/cdt:stats` ranks roles by real cost instead of cache bulk.
+cache reads separately, so `/cm:stats` ranks roles by real cost instead of cache bulk.

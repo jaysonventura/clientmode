@@ -2,7 +2,7 @@
 description: Manually run prompt intake + routing + conditional local enhancement for a task, writing TASK_BRIEF.md, ROUTING.json, and NEXT_PROMPT.md into the project .claude/. (The same engine auto-runs on every non-trivial prompt via the UserPromptSubmit hook.)
 ---
 
-# /cdt:prompt — prompt intake & routing
+# /cm:prompt — prompt intake & routing
 
 Run the deterministic-first prompt engine for the user's task and report the advisory routing.
 

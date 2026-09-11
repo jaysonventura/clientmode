@@ -5,20 +5,27 @@
  * happened to live. `esbuild` is loaded here rather than imported, because it is a build-time
  * dependency of the installer and must not become a load-time dependency of the CLI.
  */
-import { chmodSync, cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { toolkitRoot } from '../../contracts/src/toolkit-root.js';
+import { writeLauncher } from './platform.js';
 
 export type PortableToolkit = {
   root: string;
   entry: string;
+  /** The launcher a person types: `cm` on macOS and Linux, `cm.cmd` on Windows. */
   launcher: string | null;
+  launchers: string[];
   bytes: number;
   carried: string[];
 };
 
-/** Files the controller opens at runtime. Without these the bundle is not an install. */
-export const CARRIED_DIRECTORIES = ['contracts', 'adapters', 'skills'] as const;
+/** Files the controller opens at runtime, and the `cm` plugin with the marketplace manifest that
+ * lets Claude Code install it from this directory. Without these the bundle is not an install. */
+export const CARRIED_DIRECTORIES = ['contracts', 'adapters', '.claude-plugin', 'plugin'] as const;
+
+/** Build output and local state that happen to sit in a checkout are not part of what ships. */
+const NOT_CARRIED = new Set(['node_modules', '.build', '.DS_Store', '.git', '.swiftpm']);
 
 export async function buildPortableToolkit(input: {
   out_root: string; source_root?: string; launcher_path?: string | null;
@@ -46,30 +53,21 @@ export async function buildPortableToolkit(input: {
   await (buildConsoleAssets as (out: string) => Promise<string>)(path.join(root, 'console'));
 
   for (const directory of CARRIED_DIRECTORIES) {
-    cpSync(path.join(source, directory), path.join(root, directory), { recursive: true });
+    cpSync(path.join(source, directory), path.join(root, directory), {
+      recursive: true, filter: from => !NOT_CARRIED.has(path.basename(from)),
+    });
   }
   writeFileSync(path.join(root, 'package.json'),
     JSON.stringify({ name: 'client-mode-toolkit', type: 'module', private: true }, null, 2) + '\n');
 
-  let launcher: string | null = null;
-  if (input.launcher_path !== null && input.launcher_path !== undefined) {
-    mkdirSync(path.dirname(input.launcher_path), { recursive: true });
-    // The launcher names the toolkit it belongs to, so the CLI never has to guess and never
-    // depends on where the source was when it was installed.
-    writeFileSync(input.launcher_path, `#!/bin/sh
-# Client Mode. Installed by \`cm install\`; remove it with \`cm uninstall\`.
-CM_TOOLKIT_ROOT="\${CM_TOOLKIT_ROOT:-${root}}"
-export CM_TOOLKIT_ROOT
-exec "${process.execPath}" "$CM_TOOLKIT_ROOT/cm.js" "$@"
-`);
-    // A `mode` on writeFileSync only applies when the file is created, so an existing launcher
-    // would keep whatever it had. chmod always applies.
-    chmodSync(input.launcher_path, 0o755);
-    launcher = input.launcher_path;
-  }
+  // The launcher names the toolkit it belongs to and the node it was built with, so the CLI never
+  // has to guess and never depends on where the source was when it was installed.
+  const launchers = input.launcher_path === null || input.launcher_path === undefined ? []
+    : writeLauncher({ bin_dir: path.dirname(input.launcher_path), toolkit_root: root, node: process.execPath });
+  const launcher = launchers[0] ?? null;
 
   return {
-    root, entry, launcher,
+    root, entry, launcher, launchers,
     bytes: readFileSync(entry).byteLength,
     carried: [...CARRIED_DIRECTORIES],
   };

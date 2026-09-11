@@ -8,7 +8,7 @@ err(){ echo "  FAIL: $*"; fail=1; }
 ok(){ echo "  ok:   $*"; }
 
 echo "== JSON manifests =="
-for f in .claude-plugin/plugin.json .claude-plugin/marketplace.json hooks/hooks.json config/plugins.json; do
+for f in .claude-plugin/plugin.json ../.claude-plugin/marketplace.json hooks/hooks.json config/plugins.json; do
   python3 -m json.tool "$f" >/dev/null 2>&1 && ok "$f" || err "$f does not parse"
 done
 
@@ -104,11 +104,14 @@ echo "== plugin.json <-> marketplace.json version/name sanity =="
 if ! python3 - <<'PY'
 import json,sys
 p=json.load(open('.claude-plugin/plugin.json'))
-m=json.load(open('.claude-plugin/marketplace.json'))
+m=json.load(open('../.claude-plugin/marketplace.json'))
 errs=[]
-if p.get('name')!='cdt': errs.append('plugin name')
+if p.get('name')!='cm': errs.append('plugin name')
 names=[x.get('name') for x in m.get('plugins',[])]
-if 'cdt' not in names: errs.append('marketplace missing plugin entry')
+if 'cm' not in names: errs.append('marketplace missing plugin entry')
+entry=[x for x in m.get('plugins',[]) if x.get('name')=='cm']
+if entry and entry[0].get('source')!='./plugin': errs.append('marketplace entry must point at ./plugin')
+if entry and entry[0].get('version') not in (None, p.get('version')): errs.append('marketplace version != plugin version')
 for e in errs: print('  FAIL:', e)
 sys.exit(1 if errs else 0)
 PY

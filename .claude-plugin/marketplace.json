@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "clientmode",
+  "description": "Client Mode - one plugin (cm) that merges Client Mode and the claude-dev-team orchestrator.",
+  "owner": {
+    "name": "Jayson Ventura",
+    "email": "jgventura03business@gmail.com"
+  },
+  "allowCrossMarketplaceDependenciesOn": [
+    "claude-plugins-official"
+  ],
+  "plugins": [
+    {
+      "name": "cm",
+      "description": "Client Mode: one operating model for Claude Code, Codex, Gemini CLI and Cursor. Test-first delivery, client-safe intake, grounded verification and handoff, plus the orchestrated dev team - triage, specialist agents, quality gates, Bug Council, Task Loop and cost analytics.",
+      "version": "2.0.0",
+      "author": {
+        "name": "Jayson Ventura"
+      },
+      "category": "workflow",
+      "source": "./plugin"
+    }
+  ]
+}

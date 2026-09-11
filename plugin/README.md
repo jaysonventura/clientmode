@@ -72,7 +72,7 @@ It is built to be **cost-effective on Claude Max while staying high quality**: c
 - **10-gate quality chain** (incl. **e2e** for user-facing flows) + a bounded **Task Loop** (iterate to
   green, anti-abandonment, capped).
 - **Completion mandate** (tier-scaled) — simplify, review, reuse-audit, dead-code scan, learn, ship.
-- **SQLite cost analytics** with **real per-agent token telemetry** (`/cdt:stats` ranks which roles
+- **SQLite cost analytics** with **real per-agent token telemetry** (`/cm:stats` ranks which roles
   cost the most) so you can see and tune spend on Max.
 - **No AI attribution on your commits or PRs** — no `Co-Authored-By: Claude` trailer, no
   `🤖 Generated with [Claude Code]` footer, no session link. Enforced in Claude Code's own settings at
@@ -240,33 +240,33 @@ Reused official plugins: `superpowers`, `code-review`, `frontend-design`, `conte
 
 ## Commands
 
-Plugin commands are **namespaced** — invoke them as `/cdt:<command>` (auto-loaded in a fresh
+Plugin commands are **namespaced** — invoke them as `/cm:<command>` (auto-loaded in a fresh
 session; the bare `/command` form won't match).
 
 | Command | Does |
 |---------|------|
-| `/cdt:triage <task>` | preview the tier + proposed dispatch **without** executing |
-| `/cdt:prompt "<task>"` | toolkit: prompt intake + routing + conditional enhancement → `.claude/{TASK_BRIEF,ROUTING,NEXT_PROMPT}` (also auto-runs on every non-trivial prompt) |
-| `/cdt:spec <files…>` | toolkit: deterministic requirement/spec extraction → `.claude/specs/*` with cited sources |
-| `/cdt:ship` | run the completion mandate on the current work and ship |
-| `/cdt:bug-council <symptom>` | convene the 5-agent diagnostic squad |
-| `/cdt:autopilot <PR#> [--live]` | drive a GitHub PR toward green — CI fixes, conflicts, review (dry-run by default) |
-| `/cdt:stats [today\|week\|all]` | cost & activity report from the state DB — incl. **which agents cost the most tokens** |
-| `/cdt:recall <task>` | recall the most relevant past lessons from the vault for a task |
-| `/cdt:advise <task>` | advisory tier/effort prior learned from how similar past tasks went |
-| `/cdt:config [...]` | enable/disable CDT **+ the toolkit** + set defaults (effort, model, eco, statusline, `prompt-mode`, `redact`, …); defaults xhigh + Opus 4.8 |
-| `/cdt:doctor` | health-check the install (hooks, CLIs, DB, gh, menu bar, deps) |
-| `/cdt:deps [--install]` | check / install system prerequisites (python3, git, curl, sqlite3, gh) |
-| `/cdt:worktree [new\|list\|rm\|...]` | git-worktree isolation for parallel work (interops with `claude --worktree`) |
-| `/cdt:web-qa <scenario>` | autonomous web QA in a real browser — navigate, run the journey, assert the accessibility tree, catch JS/network errors, capture trace+video on failure, re-run until green |
-| `/cdt:mobile-qa <scenario>` | autonomous mobile QA on a device/emulator — install, run the flow, capture screenshot/video/logcat on failure, explain the cause, re-run until green |
-| `/cdt:auto [status\|gate\|explain\|off\|assist\|auto]` | the autonomous mode router + cost governor (BOUNDED / DEPTH / BREADTH) |
-| `/cdt:budget` | show usage % + the Eco (conserve-when-low) recommendation |
-| `/cdt:learn <lesson>` | teach the vault a durable lesson (surfaced later by recall) |
-| `/cdt:menubar [install\|status\|...]` | macOS menu bar usage monitor (session/weekly usage % + local tokens) |
-| `/cdt:plugins [list \| doctor \| explain <id> \| sync \| enable/disable/install/update <id>]` | inspect & manage the companion plugins (registry-driven, read-only detection; `--json` on list/status/doctor) — see [Plugin bootstrap & routing](#plugin-bootstrap--routing) |
-| `/cdt:obsidian` | sync the CDT vault to your Obsidian vault (on-demand; also fires automatically at session end when enabled) |
-| `/cdt:version` | show the installed version (plugin + menu bar app) |
+| `/cm:triage <task>` | preview the tier + proposed dispatch **without** executing |
+| `/cm:prompt "<task>"` | toolkit: prompt intake + routing + conditional enhancement → `.claude/{TASK_BRIEF,ROUTING,NEXT_PROMPT}` (also auto-runs on every non-trivial prompt) |
+| `/cm:spec <files…>` | toolkit: deterministic requirement/spec extraction → `.claude/specs/*` with cited sources |
+| `/cm:ship` | run the completion mandate on the current work and ship |
+| `/cm:bug-council <symptom>` | convene the 5-agent diagnostic squad |
+| `/cm:autopilot <PR#> [--live]` | drive a GitHub PR toward green — CI fixes, conflicts, review (dry-run by default) |
+| `/cm:stats [today\|week\|all]` | cost & activity report from the state DB — incl. **which agents cost the most tokens** |
+| `/cm:recall <task>` | recall the most relevant past lessons from the vault for a task |
+| `/cm:advise <task>` | advisory tier/effort prior learned from how similar past tasks went |
+| `/cm:config [...]` | enable/disable CDT **+ the toolkit** + set defaults (effort, model, eco, statusline, `prompt-mode`, `redact`, …); defaults xhigh + Opus 4.8 |
+| `/cm:doctor` | health-check the install (hooks, CLIs, DB, gh, menu bar, deps) |
+| `/cm:deps [--install]` | check / install system prerequisites (python3, git, curl, sqlite3, gh) |
+| `/cm:worktree [new\|list\|rm\|...]` | git-worktree isolation for parallel work (interops with `claude --worktree`) |
+| `/cm:web-qa <scenario>` | autonomous web QA in a real browser — navigate, run the journey, assert the accessibility tree, catch JS/network errors, capture trace+video on failure, re-run until green |
+| `/cm:mobile-qa <scenario>` | autonomous mobile QA on a device/emulator — install, run the flow, capture screenshot/video/logcat on failure, explain the cause, re-run until green |
+| `/cm:auto [status\|gate\|explain\|off\|assist\|auto]` | the autonomous mode router + cost governor (BOUNDED / DEPTH / BREADTH) |
+| `/cm:budget` | show usage % + the Eco (conserve-when-low) recommendation |
+| `/cm:learn <lesson>` | teach the vault a durable lesson (surfaced later by recall) |
+| `/cm:menubar [install\|status\|...]` | macOS menu bar usage monitor (session/weekly usage % + local tokens) |
+| `/cm:plugins [list \| doctor \| explain <id> \| sync \| enable/disable/install/update <id>]` | inspect & manage the companion plugins (registry-driven, read-only detection; `--json` on list/status/doctor) — see [Plugin bootstrap & routing](#plugin-bootstrap--routing) |
+| `/cm:obsidian` | sync the CDT vault to your Obsidian vault (on-demand; also fires automatically at session end when enabled) |
+| `/cm:version` | show the installed version (plugin + menu bar app) |
 
 ---
 
@@ -283,7 +283,7 @@ plugins (`playwright`, `github`, `sentry`), `terraform`, `laravel-boost`, the co
 `ponytail` and `claude-mem`, and the local `ui-ux-pro-max` skill. Official install identifiers are real
 (`<name>@claude-plugins-official`); `ui-ux-pro-max` is a CDT-local skill with **nothing to install**.
 
-**All in one install.** A single `claude plugin install cdt@claude-dev-team` lands the whole toolchain: the
+**All in one install.** A single `claude plugin install cm@clientmode` lands the whole toolchain: the
 bundled skills/agents/commands, the `sequential-thinking` MCP, **12 official plugins** as manifest
 `dependencies`, and the **2 community plugins** (`ponytail`, `claude-mem`) via a SessionStart bootstrap that
 adds their marketplaces and installs them **without prompting**.
@@ -305,7 +305,7 @@ Beyond that CDT provisions no toolchains or credentials: LSP binaries, Playwrigh
 `github`/`sentry` OAuth stay warn-with-remediation. **`claude-mem` bills its background compression to your
 own usage budget** — see [docs/plugins.md](docs/plugins.md#all-in-one-install).
 
-**Inspect & manage — `cdt-plugins` (`/cdt:plugins`):**
+**Inspect & manage — `cdt-plugins` (`/cm:plugins`):**
 
 ```
 ~/.claude/bin/cdt-plugins list            # health table: registry ⨝ installed ⨝ enabled ⨝ deps ⨝ overlay
@@ -398,7 +398,7 @@ You type:  "improve the checkout flow and use requirements.pdf"
 
 | Tool | What it does for you |
 |------|----------------------|
-| **`cdt-prompt`** | Fires on **every non-trivial prompt** (UserPromptSubmit hook): intake → routing → *conditional* Haiku enhancement → `.claude/{TASK_BRIEF, ROUTING, NEXT_PROMPT}`. `/cdt:prompt` is just the manual button. |
+| **`cdt-prompt`** | Fires on **every non-trivial prompt** (UserPromptSubmit hook): intake → routing → *conditional* Haiku enhancement → `.claude/{TASK_BRIEF, ROUTING, NEXT_PROMPT}`. `/cm:prompt` is just the manual button. |
 | **`cdt-spec`** | Turns a **PDF/DOCX/MD** into a clean requirement list — **one cited source per requirement, never hallucinated.** With `CDT_SPEC_AUTO=true` it **auto-detects** a spec doc named in your prompt (and ignores source files & folders). |
 | **`cdt-verify -- <cmd>`** | The **only** way `verification: passed` is earned — runs your real test/build and captures the actual exit code. A transparent wrapper: same output, same exit code, one trusted event. Since v1.64.0 a bare `npm test` is **redirected here automatically**, and the toolkit is **built on install** so this actually runs (before that it was a dangling symlink on every machine). |
 | **`cdt enable｜disable`** · **`cdt status`** · **`cdt init`** | Toggle the toolkit (separately from core CDT), check state, scaffold a project. |
@@ -469,12 +469,12 @@ elsewhere use the cross-platform status line.
 ### Step 1 — Install the plugin (all platforms)
 
 ```
-claude plugin marketplace add jaysonventura/claude-dev-team
-claude plugin install cdt@claude-dev-team
+claude plugin marketplace add jaysonventura/clientmode
+claude plugin install cm@clientmode
 ```
 
 > The repo / marketplace is **`claude-dev-team`** (the project); the plugin installs as **`cdt`**, so its
-> commands are short — **`/cdt:ship`**, **`/cdt:doctor`**, … (matching the `cdt-*` CLIs).
+> commands are short — **`/cm:ship`**, **`/cm:doctor`**, … (matching the `cdt-*` CLIs).
 
 Install **auto-enables** the plugin and its companions (`superpowers`, `code-review`, `frontend-design`,
 `context7`) — no manual enable step. It's a **user-scope** install in `~/.claude/`, shared across every
@@ -483,7 +483,7 @@ Claude Code surface on this machine (the CLI, the VS Code & JetBrains extensions
 
 ### Step 2 — Set up your platform
 
-Follow the guide for your OS, then run **`/cdt:doctor`** — it verifies hooks, CLIs, the DB, `gh`, the
+Follow the guide for your OS, then run **`/cm:doctor`** — it verifies hooks, CLIs, the DB, `gh`, the
 menu bar, and companion plugins, and prints a fix for anything not green.
 
 <details open>
@@ -496,8 +496,8 @@ menu bar, and companion plugins, and prints a fix for anything not green.
 2. **Restart your Claude Code session** (or run `/reload-plugins`) so the plugin loads.
 3. **Menu bar app** — it builds + installs automatically on your first session (look for the **CDT** item
    showing your session/weekly %). It needs the Swift toolchain — if it doesn't appear, run
-   `xcode-select --install`, or grab the **notarized DMG** from the [Releases](https://github.com/jaysonventura/claude-dev-team/releases) page. Manage it with `/cdt:menubar`.
-4. **Verify:** `/cdt:doctor` → all green. Done — just describe a task.
+   `xcode-select --install`, or grab the **notarized DMG** from the [Releases](https://github.com/jaysonventura/claude-dev-team/releases) page. Manage it with `/cm:menubar`.
+4. **Verify:** `/cm:doctor` → all green. Done — just describe a task.
 
 </details>
 
@@ -518,7 +518,7 @@ Claude Code runs the plugin's `.sh` hooks through **Git Bash**, so:
    ```
    ~/.claude/bin/cdt-config statusline on
    ```
-5. **Verify:** `/cdt:doctor` → all green. *(Shell scripts ship with LF line endings via `.gitattributes`,
+5. **Verify:** `/cm:doctor` → all green. *(Shell scripts ship with LF line endings via `.gitattributes`,
    so Git's autocrlf can't break them.)*
 
 </details>
@@ -532,14 +532,14 @@ Bash + Python 3 are standard, so it works out of the box:
    apt / dnf / pacman / zypper).
 2. **Restart your Claude Code session.**
 3. **Usage display** — the menu bar is macOS-only; use the status line: `cdt-config statusline on`.
-4. **Verify:** `/cdt:doctor` → all green.
+4. **Verify:** `/cm:doctor` → all green.
 
 </details>
 
 ### After install → just prompt (zero config)
 
 Describe any task normally. The `orchestration` skill auto-triggers, the SessionStart hook bootstraps the
-vault + SQLite DB + `cdt-*` CLIs, skills auto-apply, and the `/cdt:*` commands are available.
+vault + SQLite DB + `cdt-*` CLIs, skills auto-apply, and the `/cm:*` commands are available.
 
 - **Always-on (power users):** for a hard guarantee every session, drop the `orchestration` summary into
   your global `~/.claude/CLAUDE.md` (see [`docs/architecture.md`](docs/architecture.md)). Most users don't need this.
@@ -549,15 +549,15 @@ vault + SQLite DB + `cdt-*` CLIs, skills auto-apply, and the `/cdt:*` commands a
 CDT is tracked from `main`, so updating is two commands + a restart:
 
 ```
-claude plugin marketplace update claude-dev-team   # refresh the marketplace from the repo
-claude plugin update cdt@claude-dev-team           # update the plugin (restart required to apply)
+claude plugin marketplace update clientmode   # refresh the marketplace from the repo
+claude plugin update cm@clientmode           # update the plugin (restart required to apply)
 ```
 
 Then **restart your Claude Code session** (or `/reload-plugins`). Check your version with
-`claude plugin list` or **`/cdt:version`** — it also flags the macOS menu-bar app when it lags the plugin.
+`claude plugin list` or **`/cm:version`** — it also flags the macOS menu-bar app when it lags the plugin.
 
 **macOS menu-bar app** — the plugin update ships the new app *source*; refresh the running app one of two ways:
-- **Re-run `/cdt:menubar`** — rebuilds & relaunches `CDT Usage.app` from the updated source (needs the Swift toolchain), **or**
+- **Re-run `/cm:menubar`** — rebuilds & relaunches `CDT Usage.app` from the updated source (needs the Swift toolchain), **or**
 - **Download the notarized DMG** from the **[latest release](https://github.com/jaysonventura/claude-dev-team/releases/latest)**, drag `CDT Usage` to Applications, and open it (notarized — no Gatekeeper warnings).
 
 Releases follow semver; the **[CHANGELOG](CHANGELOG.md)** lists every version. Latest: **v1.62.1**.
@@ -647,7 +647,7 @@ stops after `CDT_MAX_ITERATIONS` (default 5) and reports what's left — protect
 > and falls back to parallel subagents when teams are off. See
 > [Autonomous orchestration](#autonomous-orchestration-router--cost-governor).
 
-**PR autopilot (opt-in).** `/cdt:autopilot <PR#>` drives a real GitHub PR toward green: read
+**PR autopilot (opt-in).** `/cm:autopilot <PR#>` drives a real GitHub PR toward green: read
 CI status → diagnose + dispatch a focused fix → push to the branch → re-check → and, once green, post a
 `code-reviewer` + `security-reviewer` synthesis as a PR comment. It's deliberately **safe**: **dry-run by
 default** (add `--live` to act), **never force-pushes, never auto-merges, never closes** — merging stays
@@ -681,7 +681,7 @@ difficulty; only the trivial `fast-ops` hands tier runs Haiku.
 
 **Quality-via-parallelism (high-stakes work)** — for risk-flagged changes or findings you must trust, CDT
 spends a few *extra* parallel agents on Opus (bounded agents, or a dynamic workflow for large verification sets): **adversarial verify**
-(`/cdt:adversarial` — 2-3 independent reviewers each try to *refute* it; rework if a majority do),
+(`/cm:adversarial` — 2-3 independent reviewers each try to *refute* it; rework if a majority do),
 **diverse-lens Wave-2 review** (each reviewer a distinct lens), and an optional **design judge-panel**
 (2-3 architect variants → judge → synthesize). Budget-gated; it deepens the Wave-2 review + security
 veto, never replaces them.
@@ -725,7 +725,7 @@ Max" both true. Before a big escalation the orchestrator does a quick check:
 
 With the engines on, the gate normally returns **ALLOW**; it **ASKs** only as you near the **weekly-budget
 ceiling** (or before the first un-measured fan-out), and **DENYs** only if you've turned autonomy off. Every
-escalation's real token cost lands in `/cdt:stats`.
+escalation's real token cost lands in `/cm:stats`.
 
 | Autonomy mode | Agent-teams (DEPTH) | Workflows (BREADTH) |
 |---|---|---|
@@ -749,13 +749,13 @@ cdt-config scale on|off                  # BREADTH on by default (needs Claude C
 ## State & cost analytics
 
 A local SQLite DB (`~/.claude/claude-dev-team.db`) records `sessions`, `tasks`, `agent_runs`, `events`,
-and `usage`. Run `/cdt:stats` (or `cdt-stats today|week|all`) for activity by tier/agent, iteration
+and `usage`. Run `/cm:stats` (or `cdt-stats today|week|all`) for activity by tier/agent, iteration
 counts, and blocker rate. Activity/timing is precise. "Cost" here means **token / rate-limit budget**
 (Claude subscription session + weekly limits, not money); for exact tokens used, see Claude Code's `/cost`.
 
 **Per-agent token telemetry (real, not estimated).** A `SubagentStop` hook reads each dispatched
 subagent's **actual** token usage from its transcript and stores it on the `agent_runs` row — so
-`/cdt:stats` ranks **which roles cost the most**. The headline figure is **cost-relevant tokens**
+`/cm:stats` ranks **which roles cost the most**. The headline figure is **cost-relevant tokens**
 (`input + output + cache-creation`); **cache reads are tracked and shown separately** because they're
 heavily discounted and — for a subagent re-reading its cached context every turn — would otherwise be
 ~100× larger and swamp the ranking. Grounded in real usage rows, never a guess. Example:
@@ -786,7 +786,7 @@ To stay **cost-effective as the vault grows**, memory is *retrieved, not dumped*
 only the few most recent lessons, and for a specific task the orchestrator runs **targeted recall** —
 
 ```
-~/.claude/bin/cdt-recall "<task or topic>"        # or: /cdt:recall <task>
+~/.claude/bin/cdt-recall "<task or topic>"        # or: /cm:recall <task>
 ```
 
 — which ranks the lessons by relevance and returns just the top matches (pure stdlib — **no embedding
@@ -814,7 +814,7 @@ two-line shape that survives a crowded or notched menu bar. Click it for the ful
     the % — runs **only in a terminal**, never in the editor's Claude **chat panel**. So when you work in the
     panel the % goes stale. The reading is **account-wide**, so one terminal session refreshes it everywhere:
     run `claude` in your editor's **integrated terminal** (or any terminal) and the badge updates. The stale
-    dropdown line and `/cdt:budget` both point you here. (There is no token-free way to read the % from the
+    dropdown line and `/cm:budget` both point you here. (There is no token-free way to read the % from the
     panel itself — Claude Code exposes `rate_limits` only to the status line, not to hooks, and persists it to
     no file — so a terminal session is the no-network refresh path.)
   - **Realtime refresh (on by default, popup-free):** so the badge keeps updating even while you work in the
@@ -822,7 +822,7 @@ two-line shape that survives a crowded or notched menu bar. Click it for the ful
     the terminal reading is already stale (≥5 min old)** — so ≤6 calls/hour worst case, and zero while a
     terminal keeps the cache fresh. It reads the OAuth token from the Keychain **read-only (never mints or
     refreshes a token)**, honors the server's `Retry-After` on a 429 via a persisted cooldown, and merges the
-    fresh %s back into the shared cache so `/cdt:budget` benefits too. **No surprise dialogs:** the Keychain
+    fresh %s back into the shared cache so `/cm:budget` benefits too. **No surprise dialogs:** the Keychain
     read is **non-interactive**, so realtime never raises the macOS *"CDT Usage wants to access … keychain
     password"* prompt on its own. If access isn't granted it **quietly falls back to the cached reading**
     (a calm *"Realtime paused — grant Keychain access"* line) — no nagging. A prompt appears **only** when you
@@ -836,13 +836,13 @@ two-line shape that survives a crowded or notched menu bar. Click it for the ful
   CDT's defaults right from the bar (they call `cdt-config`; effort/model apply next session), then the
   **7-day activity**: sessions logged, **tasks by tier** (e.g. `T2×4 T3×2`), and the
   **specialist subagents dispatched by role** (e.g. `security-reviewer ×6`). For each role's **token
-  cost**, run `/cdt:stats`.
+  cost**, run `/cm:stats`.
 - **Installed version** — the dropdown footer shows the running version (e.g. `v1.22.0`) alongside the
-  last refresh; check it any time without leaving the bar (or run `/cdt:version`).
+  last refresh; check it any time without leaving the bar (or run `/cm:version`).
 - **Updates (Settings → Updates)** — the app checks GitHub for a newer release on launch and every 6h; when
   one's out it shows a **⬆ Update available — get vX.Y.Z** banner (click → release page) + a notification.
   The **Updates** submenu has **Check Now**, an **Auto-check** toggle, and the last-checked time. Notify-only
-  — it never auto-installs (re-run `/cdt:menubar` or grab the DMG to update).
+  — it never auto-installs (re-run `/cm:menubar` or grab the DMG to update).
 - **Accounts** — when [`cswap`](https://github.com/realiti4/claude-swap) 0.14+ is installed, a new
   **Accounts** section lists all your Claude accounts with their 5-hour and 7-day usage, a **Switch**
   radio item per account (prompts for confirmation before switching), and a **Switch: Best** option that
@@ -864,7 +864,7 @@ to opt out). Manage it any time:
 
 ```
 !~/.claude/bin/cdt-menubar status      # one-shot terminal readout, no GUI
-/cdt:menubar restart       # or: install | start | stop | uninstall
+/cm:menubar restart       # or: install | start | stop | uninstall
 ```
 
 Requires macOS + the Swift toolchain (`xcode-select --install`). The session/weekly %s come primarily from
@@ -908,7 +908,7 @@ They're cached to `~/.claude/.cdt-usage.json` so `cdt-budget` / Eco mode can rea
 
 The per-agent dispatch/finish lines in the transcript are likewise plain text (`CDT dispatch: Explore`,
 `CDT done: Explore · 74.1k tok`); the plugin namespace is stripped (shows `backend-engineer`, not
-`cdt:backend-engineer`). Claude Code's **own** running-agents tree still shows the namespaced name — that
+`cm:backend-engineer`). Claude Code's **own** running-agents tree still shows the namespaced name — that
 prefix is fixed by Claude Code.
 
 ## Configuration
@@ -938,14 +938,14 @@ a weekly-budget safety valve only ASKs as you near the rate-limit ceiling (see
 [Autonomous orchestration](#autonomous-orchestration-router--cost-governor)). Pin any agent's `model:` in
 `agents/*.md` to taste.
 
-**Enable/disable + defaults — `cdt-config` (or `/cdt:config`):**
+**Enable/disable + defaults — `cdt-config` (or `/cm:config`):**
 
 ```
 ~/.claude/bin/cdt-config                 # show current config
 ~/.claude/bin/cdt-config off | on        # disable / enable the whole orchestration layer
 ~/.claude/bin/cdt-config effort xhigh    # default effort: low | medium | high | xhigh
 ~/.claude/bin/cdt-config model  opus     # default model (e.g. claude-opus-4-8 / opus / sonnet)
-~/.claude/bin/cdt-config autonomy auto   # autonomous escalation: off | assist | auto  (see /cdt:auto)
+~/.claude/bin/cdt-config autonomy auto   # autonomous escalation: off | assist | auto  (see /cm:auto)
 ~/.claude/bin/cdt-config teams on|off    # the agent-team DEPTH engine (on by default)
 ~/.claude/bin/cdt-config scale on|off    # the dynamic-workflow BREADTH engine (on by default)
 ~/.claude/bin/cdt-config reset           # restore defaults: enabled, xhigh, Opus 4.8, autonomy=auto, engines on
@@ -1032,7 +1032,7 @@ hidden until you flip those keys back yourself. `cdt-doctor` reports the state a
 **Obsidian bridge (CDT vault → Obsidian):** export the CDT vault (`~/.claude/vault/`) to an Obsidian
 vault as linked markdown — YAML frontmatter, `[[wikilinks]]`, and an index/MOC. The sync fires
 automatically at session end (Stop hook) when enabled, and can also be triggered manually with
-`/cdt:obsidian` at any time.
+`/cm:obsidian` at any time.
 
 ```
 ~/.claude/bin/cdt-config obsidian-vault <path>        # set the vault path — this AUTO-ENABLES the sync (default: ~/Documents/Obsidian/CDT/)
@@ -1041,7 +1041,7 @@ automatically at session end (Stop hook) when enabled, and can also be triggered
 ```
 
 The sync is **fail-open and idempotent** — a missing vault path or any error never interrupts your session.
-Run `/cdt:obsidian` to sync on demand or check status with `cdt-obsidian status`.
+Run `/cm:obsidian` to sync on demand or check status with `cdt-obsidian status`.
 
 **Read-back recall (Obsidian → CDT):** the bridge is bidirectional. At the start of a task the orchestrator's
 `cdt-recall` ranks your Obsidian vault — *your* curated notes plus the synced CDT content — with a
@@ -1077,20 +1077,20 @@ whole vault; override with `cdt-config obsidian-recall-root <path>`.
 
 | Symptom | Fix |
 |---------|-----|
-| Commands/agents don't show up | Restart the session or run `/reload-plugins`; confirm `claude plugin list` shows `claude-dev-team` enabled. Commands are **namespaced**: `/cdt:<cmd>`. |
+| Commands/agents don't show up | Restart the session or run `/reload-plugins`; confirm `claude plugin list` shows `claude-dev-team` enabled. Commands are **namespaced**: `/cm:<cmd>`. |
 | Companion plugins didn't enable | You're on Claude Code &lt; 2.1.143 — update, or enable `superpowers` / `code-review` / `frontend-design` / `context7` once manually. |
 | `cdt-*: command not found` | In a **plain terminal** use the full path `~/.claude/bin/cdt-…` (the `!cdt-…` shorthand only works **inside** Claude Code's input box). |
 | Menu bar item missing (macOS) | Needs the Swift toolchain (`xcode-select --install`). Check `~/.claude/bin/cdt-menubar status`; `cdt-menubar restart`. It installs to **/Applications → "CDT Usage"**. |
 | Menu bar shows "no usage yet" | The CLI status line isn't feeding the cache — enable it with `cdt-config statusline on`. The menu bar reads session/weekly % from that cache; local token counts work regardless. |
 | "Orchestration isn't dispatching agents" | By design — only **T2+** (multi-domain or risk) fans out; small tasks stay solo. See [Triage & tiers](#triage--tiers). Force it with a multi-domain/risk task or the `FULL:` prefix. |
 | No vault / DB / CLIs after install | The SessionStart hook bootstraps them — **restart your session once** after installing. |
-| Hooks/CLIs not running on **Windows** | Install **Git for Windows** + **Python 3**; if WSL is also present, pin `CLAUDE_CODE_GIT_BASH_PATH` (see the [Windows setup](#step-2--set-up-your-platform)). Then run `/cdt:doctor`. The menu bar is macOS-only — use `cdt-config statusline on`. |
+| Hooks/CLIs not running on **Windows** | Install **Git for Windows** + **Python 3**; if WSL is also present, pin `CLAUDE_CODE_GIT_BASH_PATH` (see the [Windows setup](#step-2--set-up-your-platform)). Then run `/cm:doctor`. The menu bar is macOS-only — use `cdt-config statusline on`. |
 
 ## How to review / audit
 
 Everything is plain files. Check: agents honoring exclusive scope (the diffs), gates actually run
 (pasted output in reports), `~/.claude/vault/` session notes + learnings, `status-log.md`, and the DB
-(`/cdt:stats`).
+(`/cm:stats`).
 
 **Run the test flow yourself** (all four run in CI on every push/PR):
 
@@ -1146,7 +1146,7 @@ governor) · an opt-in **Eco mode** · the **PR autopilot**.
 **agent-team Bug Council** (a *debating* council, not parallel monologues), and **dynamic-workflow Scale
 mode** — all unified under the autonomous **router + cost governor**, gated/capped/measured, never the
 default. What remains is mostly the *learning* track: the autonomous Git/CI/PR loop (partly shipped via
-`/cdt:autopilot`), **semantic (embedding) recall** on top of today's lexical recall, history-driven
+`/cm:autopilot`), **semantic (embedding) recall** on top of today's lexical recall, history-driven
 adaptive routing, a measured roster expansion (SRE / accessibility / performance auditor), and — as
 research — cross-machine federation. The full phased plan, with per-phase status + fit/risk/cost, lives
 in **[`docs/roadmap.md`](docs/roadmap.md)**.

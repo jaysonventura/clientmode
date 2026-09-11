@@ -35,7 +35,7 @@ fi
 
 # Pretty agent-activity finish line: "✅ <emoji> <agent> · <N> tok" as the agent completes. Display-only
 # (hook systemMessage → shown to the user, never added to the model context) → ZERO token cost. The token
-# count is the same value already summed above for /cdt:stats. Gated by CDT_AGENT_ACTIVITY (on|compact|off).
+# count is the same value already summed above for /cm:stats. Gated by CDT_AGENT_ACTIVITY (on|compact|off).
 CDT_EVENT=stop CDT_AGENT="$AGENT" CDT_TOKENS="$TOKENS" CDT_HOME="$HOME/.claude" \
   python3 "$HOOKS_DIR/agent_activity.py" 2>/dev/null
 

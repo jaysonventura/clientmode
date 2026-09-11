@@ -114,7 +114,7 @@ if [ "$GATE" != "off" ] && [ "$_DOCS_ONLY" != 1 ]; then
     printf '%s\n%s\n' "$_IT" "$_SIG" > "$LOOPSTATE" 2>/dev/null
     _ESC=""
     [ -n "$_PREVSIG" ] && [ "$_PREVSIG" = "$_SIG" ] && \
-      _ESC=" The SAME command(s) failed identically last iteration — the last fix changed nothing. Stop patching and diagnose: run /cdt:bug-council for a root-cause verdict before editing again."
+      _ESC=" The SAME command(s) failed identically last iteration — the last fix changed nothing. Stop patching and diagnose: run /cm:bug-council for a root-cause verdict before editing again."
     if [ "$_IT" -gt "$_MAXIT" ]; then
       # Cap reached. Stop blocking (never trap a session forever) but forbid a success claim: the P3 gate
       # below reads this marker and blocks any "done/fixed/passing" wording while the evidence is red.
@@ -295,7 +295,7 @@ fi
 # reuses that payload to surface the staging guard + the cdt-verify nudge. Never blocks.
 if [ -n "$_FIN" ]; then
   if command -v python3 >/dev/null 2>&1; then
-    # Fire the 6-field final-response reminder at most ONCE per session (stderr, never blocks → no loop).
+    # Fire the 6-field handoff (closing message) reminder at most ONCE per session (stderr, never blocks → no loop).
     FRMARK="${TMPDIR:-/tmp}/cdt-finalresp-${SESSION_ID:-default}.marker"
     _FR=0; [ ! -f "$FRMARK" ] && { : > "$FRMARK" 2>/dev/null; _FR=1; }
     CDT_FIN="$_FIN" CDT_FR="$_FR" python3 - 1>&2 <<'PYF' 2>/dev/null || true

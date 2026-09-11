@@ -524,8 +524,8 @@
       "fallbackBehavior": "warn-external-setup"
     },
     {
-      "id": "ui-ux-pro-max",
-      "displayName": "UI/UX Pro Max (CDT local skill)",
+      "id": "ui-ux",
+      "displayName": "UI/UX (cm local skill)",
       "type": "cdt-skill",
       "marketplace": null,
       "installIdentifier": null,

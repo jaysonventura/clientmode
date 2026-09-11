@@ -10,6 +10,7 @@
 import { createHash } from 'node:crypto';
 import { copyFileSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { SKILLS_DIRECTORY } from './hosts.js';
 
 export type ProviderTarget = 'claude' | 'codex';
 
@@ -81,7 +82,7 @@ function findExternalReferences(root: string, sourceRoot: string): string[] {
 export function buildDistribution(input: {
   provider: ProviderTarget; source_root: string; out_root: string; version: string;
 }): Distribution {
-  const skillsRoot = path.join(input.source_root, 'skills');
+  const skillsRoot = path.join(input.source_root, SKILLS_DIRECTORY);
   const skills = readSkills(skillsRoot);
   if (skills.length === 0) throw new PackagingError('NO_SKILLS_FOUND', skillsRoot);
   for (const skill of skills) validateSkill(skill);

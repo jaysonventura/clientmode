@@ -4,6 +4,7 @@
  * edited while the upgrade is running, and a process tree that outlives its parent. The
  * timings are measured, not estimated, and the reference machine is recorded with them.
  */
+import { SKILLS_DIRECTORY } from '../../packages/packaging/src/hosts.js';
 import { spawn } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
@@ -132,7 +133,7 @@ registerScenario('AT-018', async (): Promise<ScenarioObservation> => {
       emptyHealth.findings.some(finding => finding.code === 'LAUNCHER_MISSING') &&
       emptyHealth.findings.some(finding => finding.code === 'SKILLS_MISSING') &&
       emptyHealth.findings.every(finding => finding.remedy.length > 0) &&
-      goodHealth.healthy && goodHealth.hosts.every(host => host.skills === 8) &&
+      goodHealth.healthy && goodHealth.hosts.every(host => host.skills === readdirSync(path.join(ROOT, SKILLS_DIRECTORY)).length) &&
       !exposedHealth.healthy &&
       exposedHealth.findings.some(finding => finding.code === 'STORE_WORLD_READABLE'
         && finding.detail.includes(exposedStore) && finding.remedy.startsWith('chmod ')) &&

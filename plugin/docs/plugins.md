@@ -11,7 +11,7 @@ install/enable/update is shelled out to Claude Code's own CLI, and there is deli
 `uninstall`** and **no auto-authentication**.
 
 - Registry: [`config/plugins.json`](../config/plugins.json)
-- CLI: `~/.claude/bin/cdt-plugins` (`/cdt:plugins`) — from `hooks/plugins.sh`
+- CLI: `~/.claude/bin/cdt-plugins` (`/cm:plugins`) — from `hooks/plugins.sh`
 - Advisory router: `~/.claude/bin/cdt-plugin-route` — from `hooks/plugin-route.sh`
 - Shared detection library (frozen, sourced): `hooks/plugins-lib.sh`
 - Verified against the `claude plugin` CLI on **Claude Code 2.x** (2.1.207 at time of writing).
@@ -20,7 +20,7 @@ install/enable/update is shelled out to Claude Code's own CLI, and there is deli
 
 ## All-in-one install
 
-A single `claude plugin install cdt@claude-dev-team` lands **the whole toolchain**. Nothing here is opt-in.
+A single `claude plugin install cm@clientmode` lands **the whole toolchain**. Nothing here is opt-in.
 
 | What | How it arrives |
 |------|----------------|
@@ -160,7 +160,7 @@ The two plugins:
 **Cost note (`claude-mem`).** Its `PostToolUse` hook fires on **every** tool call and each observation is
 an SDK completion. On a subscription plan that spend lands on your own usage budget — set
 `CLAUDE_MEM_MODEL` to a cheap model, or point `ANTHROPIC_API_KEY` / `ANTHROPIC_BASE_URL` in
-`~/.claude-mem/.env` at a separate backend to keep it off your session quota. Watch it with `/cdt:budget`.
+`~/.claude-mem/.env` at a separate backend to keep it off your session quota. Watch it with `/cm:budget`.
 
 Detection joins this registry with Claude Code's own state files, all read-only and fail-open:
 
@@ -202,7 +202,7 @@ Run it directly or as the namespaced command:
 
 ```
 ~/.claude/bin/cdt-plugins list
-/cdt:plugins doctor
+/cm:plugins doctor
 ```
 
 **Read verbs** — `list` / `status` / `doctor` / `explain` / `sync` — are idempotent and never mutate
@@ -493,5 +493,5 @@ the Claude Code plugin UI / `claude plugin` CLI if you want them gone.
 
 - README: [Plugin bootstrap & routing](../README.md#plugin-bootstrap--routing)
 - [Architecture deep-dive](architecture.md)
-- Command: [`/cdt:plugins`](../commands/plugins.md)
+- Command: [`/cm:plugins`](../commands/plugins.md)
 - [CHANGELOG](../CHANGELOG.md) — `[1.59.0]`, `[1.61.0]`, `[1.61.1]`

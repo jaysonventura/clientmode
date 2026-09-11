@@ -2,7 +2,7 @@
 description: Deterministically extract requirements from spec documents (PDF/DOCX/MD/images) into .claude/specs/ with cited sources. Local + token-free by default; sensitive docs stay local; weak diagrams are marked NEEDS_REVIEW.
 ---
 
-# /cdt:spec — requirement/spec extraction
+# /cm:spec — requirement/spec extraction
 
 Extract a cited requirement set from the given document(s):
 

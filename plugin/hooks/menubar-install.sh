@@ -27,7 +27,7 @@ find_src() {
   # matches the version build() stamps (plugin_version). Without this, a stale staged $SRC can produce an app
   # that reports a new version but is missing that version's features. Falls back to any already-staged source.
   local cand
-  cand=$(ls -d "$CDT_HOME"/plugins/cache/claude-dev-team/cdt/*/menubar 2>/dev/null | sort -V | tail -1)
+  cand=$(ls -d "$CDT_HOME"/plugins/cache/clientmode/cm/*/menubar 2>/dev/null | sort -V | tail -1)
   if [ -n "$cand" ] && [ -f "$cand/Package.swift" ]; then
     mkdir -p "$SRC"
     rm -rf "$SRC/Sources" "$SRC/Tests" 2>/dev/null
@@ -44,7 +44,7 @@ find_src() {
 
 plugin_version() {
   local pj
-  pj=$(ls -d "$CDT_HOME"/plugins/cache/claude-dev-team/cdt/*/.claude-plugin/plugin.json 2>/dev/null | sort -V | tail -1)
+  pj=$(ls -d "$CDT_HOME"/plugins/cache/clientmode/cm/*/.claude-plugin/plugin.json 2>/dev/null | sort -V | tail -1)
   { [ -f "$pj" ] && python3 -c "import json;print(json.load(open('$pj'))['version'])" 2>/dev/null; } || echo "1.0.0"
 }
 

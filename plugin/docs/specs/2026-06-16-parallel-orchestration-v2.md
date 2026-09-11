@@ -153,7 +153,7 @@ These are SKILL.md orchestration patterns, gated by **tier + risk + `cdt-auto` b
 only when warranted. No new engine; just disciplined bounded fan-out.
 
 **Files.** `skills/orchestration/SKILL.md` (the three patterns + when each fires; reuse existing
-`code-reviewer`/`security-reviewer`/`architect`) · `commands/` (optional `/cdt:adversarial`) · `README.md`
+`code-reviewer`/`security-reviewer`/`architect`) · `commands/` (optional `/cm:adversarial`) · `README.md`
 · `CHANGELOG.md`.
 **Tests.** `e2e.sh` is light here (these are prompt patterns); add a `lint`/doc check that the patterns +
 their budget/tier gates are documented, and that they reuse production-model agents (no Haiku).
@@ -164,8 +164,8 @@ their budget/tier gates are documented, and that they reuse production-model age
 - **`cdt-advise` learns the cost/speed-effective mix** — extend the prior to mine `tasks` + `agent_runs`
   (+ the dispatch budgets) for *which model/agent-count mix shipped green fastest/cheapest* for similar
   work, and recommend it ("similar tasks shipped green on Sonnet ×2 in 1 iteration — start there").
-- **Ship integration** — after the gate chain passes, the fast path flows straight into `cdt:ship` /
-  `cdt:autopilot` so a green, verified change ships without manual ceremony.
+- **Ship integration** — after the gate chain passes, the fast path flows straight into `cm:ship` /
+  `cm:autopilot` so a green, verified change ships without manual ceremony.
 - **Honesty pass** — README/docs reconcile the new advisories vs what stays model-driven; update the
   enforcement/orchestration docs.
 
@@ -183,7 +183,7 @@ a sandbox `$HOME`), plus the demo unittests. New advisory CLIs (`cdt-auto fanout
 `cdt-route`) get direct e2e assertions; the floor lint gets a negative test (a Haiku builder fails CI).
 End-to-end smoke on a scratch repo: a T2 feature should dispatch in parallel (worktrees), consume a
 shared context pack, route models above the floor, pass the gates, and ship — measurably fewer tokens and
-shorter wall-clock than the same task pre-track (compare via `/cdt:stats` overhead + agent tokens).
+shorter wall-clock than the same task pre-track (compare via `/cm:stats` overhead + agent tokens).
 
 ## Sequencing & YAGNI
 

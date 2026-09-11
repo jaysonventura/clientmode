@@ -1,11 +1,18 @@
 ## Client Mode
 
-Installed by `cm install`. Remove it with `cm uninstall --host <claude|codex>`; everything
-between the markers is owned by that command and nothing outside them is touched.
+Installed by `cm install`. Remove it with `cm uninstall`; everything between the markers is owned
+by that command and nothing outside them is touched.
 
 Client Mode is how work reaches a client and how it is allowed to be called finished. It does
 not decide how much you delegate — whatever operating model this file already sets keeps that
 call.
+
+### Test first, always
+
+Every behaviour change starts with a failing test, watched failing for the expected reason, then
+the smallest change to pass, then refactor. A bug fix starts with a test that reproduces it. Name
+the exception when one applies (documentation, formatting, a plain config value, generated files)
+and still run the check that exists.
 
 ### What "done" requires
 
@@ -32,9 +39,11 @@ call.
 ### Authority
 
 Titles grant nothing. Deployment, spending, publication and any outbound message need an
-approval that names the action, and one approval never grants another.
+approval that names the action, and one approval never grants another. Running without approval
+prompts removes the prompt, not this rule.
 
 ### The skills
 
-`intake` `grounding` `delivery` `ui-ux` `debug` `verify` `review` `handoff` — invoke the one
-that matches the work. They carry the procedure; this section carries the rules.
+`cm-orchestration` `cm-intake` `cm-grounding` `cm-tdd` `cm-delivery` `cm-debug` `cm-verify`
+`cm-review` `cm-handoff` `cm-ui-ux` — and the rest of the `cm-` set. Invoke the one that matches
+the work. They carry the procedure; this section carries the rules.

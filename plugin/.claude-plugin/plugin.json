@@ -1,0 +1,72 @@
+{
+  "name": "cdt",
+  "description": "An orchestrated software team for Claude Code: triage -> contract -> parallel specialists -> quality gates -> completion mandate. Role-based agents, a gated Bug Council, a bounded Task Loop, and SQLite cost analytics.",
+  "version": "1.66.2",
+  "author": {
+    "name": "Jayson Ventura",
+    "email": "jgventura03business@gmail.com"
+  },
+  "homepage": "https://github.com/jaysonventura/claude-dev-team",
+  "repository": "https://github.com/jaysonventura/claude-dev-team",
+  "license": "MIT",
+  "keywords": [
+    "orchestration",
+    "multi-agent",
+    "agents",
+    "code-review",
+    "quality-gates",
+    "workflow",
+    "tdd",
+    "cost-analytics"
+  ],
+  "dependencies": [
+    {
+      "name": "superpowers",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "name": "code-review",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "name": "frontend-design",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "name": "context7",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "name": "playwright",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "name": "github",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "name": "sentry",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "name": "terraform",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "name": "laravel-boost",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "name": "typescript-lsp",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "name": "php-lsp",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "name": "swift-lsp",
+      "marketplace": "claude-plugins-official"
+    }
+  ]
+}

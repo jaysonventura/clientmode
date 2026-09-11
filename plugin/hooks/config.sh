@@ -1,0 +1,456 @@
+#!/usr/bin/env bash
+# cdt-config — enable/disable claude-dev-team and set its defaults (effort, model).
+#
+#   cdt-config                       show current config
+#   cdt-config on  | enable          turn the orchestration layer ON
+#   cdt-config off | disable         turn it OFF (acts as stock Claude Code next session)
+#   cdt-config effort <low|medium|high|xhigh>   set the default effort (default: xhigh)
+#   cdt-config model  <opus|sonnet|haiku|claude-opus-4-8|...>   set the default model (default: Opus 4.8)
+#   cdt-config attribution on|off    enforce NO AI attribution on commits/PRs (default on; see cdt-attribution)
+#   cdt-config reset                 restore defaults: enabled, xhigh, Opus 4.8
+#
+# enable/disable lives in ~/.claude/claude-dev-team.env (read by the SessionStart hook).
+# effort + model are written to ~/.claude/settings.json (Claude Code's real settings; apply next session;
+# the write is a safe merge — all other keys preserved). NOTE: effort 'max' is session-only (/effort max)
+# and cannot be persisted, by design — the recommended persistent default is xhigh.
+set +e
+
+CDT_HOME="$HOME/.claude"
+BIN="$CDT_HOME/bin"
+ENV_FILE="${CDT_ENV_FILE:-$CDT_HOME/claude-dev-team.env}"
+SETTINGS="${CDT_SETTINGS:-$CDT_HOME/settings.json}"
+DEFAULT_EFFORT="xhigh"
+DEFAULT_MODEL="claude-opus-4-8"   # Opus 4.8
+mkdir -p "$CDT_HOME" 2>/dev/null
+[ -f "$ENV_FILE" ] || : > "$ENV_FILE"
+chmod 600 "$ENV_FILE" 2>/dev/null
+
+set_env() {   # upsert KEY=VALUE (values here are controlled constants — 0/1)
+  local key="$1" val="$2" tmp
+  tmp="$(mktemp 2>/dev/null || echo "$ENV_FILE.tmp")"
+  grep -v -E "^${key}=" "$ENV_FILE" 2>/dev/null > "$tmp"
+  printf '%s=%s\n' "$key" "$val" >> "$tmp"
+  mv "$tmp" "$ENV_FILE" 2>/dev/null; chmod 600 "$ENV_FILE" 2>/dev/null
+}
+get_env() { grep -E "^$1=" "$ENV_FILE" 2>/dev/null | head -1 | cut -d= -f2-; }
+
+# Merge one key into settings.json — preserve every other key, write atomically, never corrupt on error.
+set_setting() {
+  command -v python3 >/dev/null 2>&1 || { echo "cdt-config: python3 required to edit settings.json"; return 1; }
+  KEY="$1" VAL="$2" SETTINGS="$SETTINGS" python3 - <<'PY'
+import json, os, sys, tempfile
+p = os.environ["SETTINGS"]; key = os.environ["KEY"]; val = os.environ["VAL"]
+try:
+    d = json.load(open(p)) if os.path.exists(p) else {}
+except Exception:
+    print("cdt-config: settings.json is not valid JSON — not modified"); sys.exit(1)
+if not isinstance(d, dict):
+    print("cdt-config: settings.json is not an object — not modified"); sys.exit(1)
+d[key] = val
+d_dir = os.path.dirname(p) or "."
+fd, tmp = tempfile.mkstemp(dir=d_dir)
+try:
+    with os.fdopen(fd, "w") as f:
+        json.dump(d, f, indent=2); f.write("\n")
+    os.replace(tmp, p)
+except Exception as e:
+    try: os.unlink(tmp)
+    except OSError: pass
+    print(f"cdt-config: could not write settings.json ({e})"); sys.exit(1)
+print(f"cdt-config: settings.json {key} = {val}  (applies next session — restart Claude Code)")
+PY
+}
+get_setting() {
+  command -v python3 >/dev/null 2>&1 || { echo ""; return; }
+  KEY="$1" SETTINGS="$SETTINGS" python3 - <<'PY'
+import json, os
+p = os.environ["SETTINGS"]; key = os.environ["KEY"]
+try:
+    print(json.load(open(p)).get(key, "") if os.path.exists(p) else "")
+except Exception:
+    print("")
+PY
+}
+
+# Merge KEY into settings.json's nested "env" object (empty VAL removes it). Preserves everything else.
+# Used to set CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS for the agent-team DEPTH engine.
+set_env_setting() {
+  command -v python3 >/dev/null 2>&1 || { echo "cdt-config: python3 required to edit settings.json"; return 1; }
+  KEY="$1" VAL="$2" SETTINGS="$SETTINGS" python3 - <<'PY'
+import json, os, sys, tempfile
+p = os.environ["SETTINGS"]; key = os.environ["KEY"]; val = os.environ["VAL"]
+try:
+    d = json.load(open(p)) if os.path.exists(p) else {}
+except Exception:
+    print("cdt-config: settings.json is not valid JSON — not modified"); sys.exit(1)
+if not isinstance(d, dict):
+    print("cdt-config: settings.json is not an object — not modified"); sys.exit(1)
+env = d.get("env")
+if not isinstance(env, dict): env = {}
+if val == "": env.pop(key, None)
+else: env[key] = val
+d["env"] = env
+fd, tmp = tempfile.mkstemp(dir=os.path.dirname(p) or ".")
+try:
+    with os.fdopen(fd, "w") as f:
+        json.dump(d, f, indent=2); f.write("\n")
+    os.replace(tmp, p)
+except Exception as e:
+    try: os.unlink(tmp)
+    except OSError: pass
+    print(f"cdt-config: could not write settings.json ({e})"); sys.exit(1)
+print(f"cdt-config: settings.json env.{key} {'removed' if val=='' else '= '+val}  (applies next session)")
+PY
+}
+
+statusline_state() {
+  command -v python3 >/dev/null 2>&1 || { echo off; return; }
+  SETTINGS="$SETTINGS" python3 -c "import json,os;p=os.environ['SETTINGS'];d=json.load(open(p)) if os.path.exists(p) else {};print('on' if 'cdt-statusline' in ((d.get('statusLine') or {}).get('command') or '') else 'off')" 2>/dev/null
+}
+
+show() {
+  local en eco; en="$(get_env CDT_ENABLED)"; [ -z "$en" ] && en="1"; eco="$(get_env CDT_ECO)"; [ -z "$eco" ] && eco="off"
+  local eff mdl; eff="$(get_setting effortLevel)"; mdl="$(get_setting model)"
+  local au tm sc; au="$(get_env CDT_AUTONOMY)"; [ -z "$au" ] && au="auto"; tm="$(get_env CDT_TEAMS)"; [ -z "$tm" ] && tm="on"; sc="$(get_env CDT_SCALE)"; [ -z "$sc" ] && sc="on"
+  local vg; vg="$(get_env CDT_VERIFY_GATE)"; [ -z "$vg" ] && vg="block"
+  local vw; vw="$(get_env CDT_VERIFY_WRAP)"; [ -z "$vw" ] && vw="block"
+  local cg; cg="$(get_env CDT_CLAIM_GATE)"; [ -z "$cg" ] && cg="block"
+  local mi; mi="$(get_env CDT_MAX_ITERATIONS)"; [ -z "$mi" ] && mi="5"
+  local sg; sg="$(get_env CDT_SCOPE_GATE)"; [ -z "$sg" ] && sg="warn"
+  local mg; mg="$(get_env CDT_MEMORY_GATE)"; [ -z "$mg" ] && mg="warn"
+  local tk pe pm pef; tk="$(get_env CDT_TOOLKIT_ENABLED)"; [ -z "$tk" ] && tk="1"; pe="$(get_env CDT_PROMPT_ENHANCE)"; [ -z "$pe" ] && pe="true"; pm="$(get_env CDT_PROMPT_ENHANCE_MODE)"; [ -z "$pm" ] && pm="auto"; pef="$(get_env CDT_PROMPT_EFFORT)"; [ -z "$pef" ] && pef="medium"
+  local sa ea oc rd; sa="$(get_env CDT_SPEC_AUTO)"; [ -z "$sa" ] && sa="false"; ea="$(get_env CDT_EXTERNAL_AI_ALLOWED)"; [ -z "$ea" ] && ea="false"; oc="$(get_env CDT_OCR_ENABLED)"; [ -z "$oc" ] && oc="false"; rd="$(get_env CDT_REDACT)"; [ -z "$rd" ] && rd="true"
+  # Realtime usage defaults ON (matches the menu bar): OFF only for explicit off tokens (0/off/false/no).
+  local rt rtraw; rtraw="$(get_env CDT_REALTIME_USAGE)"
+  case "$(printf '%s' "$rtraw" | tr '[:upper:]' '[:lower:]' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')" in
+    0|off|false|no) rt="off" ;;
+    *) rt="on" ;;
+  esac
+  # No-AI-attribution enforcement defaults ON: OFF only for explicit off tokens (0/off/false/no).
+  local na naraw; naraw="$(get_env CDT_NO_AI_ATTRIBUTION)"
+  case "$(printf '%s' "$naraw" | tr '[:upper:]' '[:lower:]' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')" in
+    0|off|false|no) na="off" ;;
+    *) na="on" ;;
+  esac
+  local aa; aa="$(get_env CDT_AGENT_ACTIVITY)"; [ -z "$aa" ] && aa="on"
+  local pb; pb="$(get_env CDT_PHASE_BOARD)"; [ -z "$pb" ] && pb="on"
+  # Plugin subsystem (advisory) — defaults when unset: enabled, auto-install/update OFF, auto-route ON,
+  # scope=project, superpowers=selective, strict ON.
+  local pen pai pau par psc spm pst pbc
+  pen="$(get_env CDT_PLUGINS_ENABLED)"; [ -z "$pen" ] && pen="1"
+  pai="$(get_env CDT_PLUGIN_AUTO_INSTALL)"; [ -z "$pai" ] && pai="0"
+  pau="$(get_env CDT_PLUGIN_AUTO_UPDATE)"; [ -z "$pau" ] && pau="0"
+  par="$(get_env CDT_PLUGIN_AUTO_ROUTE)"; [ -z "$par" ] && par="1"
+  psc="$(get_env CDT_PLUGIN_SCOPE)"; [ -z "$psc" ] && psc="project"
+  spm="$(get_env CDT_SUPERPOWERS_MODE)"; [ -z "$spm" ] && spm="selective"
+  pst="$(get_env CDT_PLUGIN_STRICT)"; [ -z "$pst" ] && pst="1"
+  pbc="$(get_env CDT_BOOTSTRAP_COMMUNITY)"; [ -z "$pbc" ] && pbc="1"
+  local obs obsvault obsraw; obsraw="$(get_env CDT_OBSIDIAN)"; obsvault="$(get_env CDT_OBSIDIAN_VAULT)"
+  if [ "$obsraw" = "off" ]; then obs="off"; elif [ "$obsraw" = "on" ]; then obs="on"; elif [ -n "$obsvault" ]; then obs="on (auto)"; else obs="off"; fi
+  [ -z "$obsvault" ] && obsvault="(not set — default: ~/Documents/Obsidian/CDT)"
+  echo "claude-dev-team config:"
+  echo "  status    : $([ "$en" = "0" ] && echo DISABLED || echo enabled)   (core CDT — cdt-config on|off)"
+  echo "  effort    : ${eff:-(unset)}   (default $DEFAULT_EFFORT)"
+  echo "  model     : ${mdl:-(unset → Claude Code default)}   (recommended $DEFAULT_MODEL = Opus 4.8)"
+  echo "  eco       : $eco   (default off; auto = conserve when weekly usage is high; on | off | auto)"
+  echo "  verify    : $vg   (block | warn | off — a Stop whose recorded verification is FAILED or missing cannot finish; loops up to $mi iterations)"
+  echo "  verify-wrap: $vw  (block | warn | off — bare test/build/lint commands are redirected through 'cdt-verify -- <cmd>' so a real exit code is recorded)"
+  echo "  claim     : $cg   (block | warn | off — a final reply asserting done/fixed/passing while the evidence is red or absent is blocked)"
+  echo "  scope     : $sg   (warn | block | off — flag a subagent that wrote outside its exclusive contract)"
+  echo "  memory    : $mg   (warn | block | off — nudge a team-tier session to persist a vault lesson)"
+  echo "  autonomy  : $au   (off | assist | auto — autonomous escalation; details: cdt-auto status)"
+  echo "  teams     : $tm   ·  scale : $sc   (DEPTH/BREADTH engines; on by default — worktrees + dynamic workflows)"
+  echo "  statusline: $(statusline_state)   (terminal status line)"
+  echo "  realtime  : $rt   (menu bar realtime usage %; default on — throttled, popup-free network poll ~10 min only when the terminal reading is stale; turn off: cdt-config realtime-usage off)"
+  echo "  no-attrib : $na   (default on — enforces settings.json so commits/PRs get NO 'Co-Authored-By: Claude', no 'Generated with Claude Code' footer, no session trailer; verify: cdt-attribution --check)"
+  echo "  agent-act : $aa   (on | compact | off — pretty per-agent dispatch/finish lines + token cost; display-only)"
+  echo "  phase-brd : $pb   (on | off — per-wave phase board + status-line phase indicator on T2/T3 tasks)"
+  echo "  plugins   : $([ "$pen" = "0" ] && echo DISABLED || echo enabled)   (advisory plugin subsystem — detection/health/routing; cdt-config plugins-enabled on|off)"
+  echo "    auto-install : $([ "$pai" = "1" ] && echo on || echo off)  ·  auto-update : $([ "$pau" = "1" ] && echo on || echo off)  ·  auto-route : $([ "$par" = "1" ] && echo on || echo off)   (install/update default OFF — opt-in; route default ON)"
+  echo "    scope : $psc  ·  superpowers : $spm  ·  strict : $([ "$pst" = "1" ] && echo on || echo off)   (plugin-scope <user|project> · superpowers-mode <off|manual|selective|always> · plugin-strict on|off · bootstrap-community on|off)"
+  echo "    community bootstrap : $([ "$pbc" = "1" ] && echo on || echo off)   (SessionStart auto-adds the community marketplaces + installs ponytail/claude-mem)"
+  echo "  toolkit   : $([ "$tk" = "0" ] && echo DISABLED || echo enabled)   (TS engine, SEPARATE from core CDT — cdt-config toolkit on|off · cdt enable|disable)"
+  echo "    prompt-enhance : $pe (mode $pm, Haiku effort $pef)   (prompt-mode auto|always|off · prompt-enhance on|off)"
+  echo "    spec-auto : $sa  ·  external-ai : $ea  ·  ocr : $oc  ·  redact : $rd"
+  local obsroot; obsroot="$(get_env CDT_OBSIDIAN_RECALL_ROOT)"; [ -z "$obsroot" ] && obsroot="(vault root)"
+  echo "  obsidian  : $obs   vault: $obsvault   recall-root: $obsroot   (cdt-config obsidian on|off · obsidian-vault <path> · obsidian-recall-root <path>)"
+  echo "  effort/model apply on the next session (restart Claude Code). Toggle core CDT: cdt-config on|off · toolkit: cdt-config toolkit on|off"
+}
+
+case "${1:-show}" in
+  show|--show|status) show ;;
+  on|enable)   set_env CDT_ENABLED 1; echo "claude-dev-team: ENABLED." ;;
+  off|disable) set_env CDT_ENABLED 0; echo "claude-dev-team: DISABLED — next session acts as stock Claude Code. Re-enable: cdt-config on" ;;
+  toolkit)
+    case "$2" in
+      on|enable)   set_env CDT_TOOLKIT_ENABLED 1; echo "claude-dev-team toolkit: ENABLED (prompt-enhance / spec / TASK_RESULT engine)." ;;
+      off|disable) set_env CDT_TOOLKIT_ENABLED 0; echo "claude-dev-team toolkit: DISABLED — core CDT unaffected. Re-enable: cdt-config toolkit on" ;;
+      *) echo "cdt-config: usage: cdt-config toolkit on|off  (the TS engine layer, separate from core CDT)" ;;
+    esac ;;
+  prompt-enhance)
+    case "$2" in
+      on)  set_env CDT_PROMPT_ENHANCE true;  echo "claude-dev-team: prompt enhancement ON." ;;
+      off) set_env CDT_PROMPT_ENHANCE false; echo "claude-dev-team: prompt enhancement OFF (deterministic routing/brief only; no Haiku)." ;;
+      *) echo "cdt-config: usage: cdt-config prompt-enhance on|off" ;;
+    esac ;;
+  prompt-mode)
+    case "$2" in
+      auto|always) set_env CDT_PROMPT_ENHANCE true; set_env CDT_PROMPT_ENHANCE_MODE "$2"; echo "claude-dev-team: prompt-enhance mode = $2  (auto = only unclear/risky/spec-driven · always = every non-trivial)." ;;
+      off)         set_env CDT_PROMPT_ENHANCE false; set_env CDT_PROMPT_ENHANCE_MODE off; echo "claude-dev-team: prompt enhancement OFF (deterministic only, no Haiku)." ;;
+      *) echo "cdt-config: usage: cdt-config prompt-mode auto|always|off" ;;
+    esac ;;
+  prompt-effort)
+    case "$2" in
+      medium|high) set_env CDT_PROMPT_EFFORT "$2"; echo "claude-dev-team: prompt-enhancer effort = $2  (Haiku rewrite only; core CDT effort is separate)." ;;
+      *) echo "cdt-config: usage: cdt-config prompt-effort medium|high  (the enhancer uses Haiku; never xhigh/max)" ;;
+    esac ;;
+  spec-auto)
+    case "$2" in
+      on)  set_env CDT_SPEC_AUTO true;  echo "claude-dev-team: cdt-spec auto-run ON." ;;
+      off) set_env CDT_SPEC_AUTO false; echo "claude-dev-team: cdt-spec auto-run OFF (suggested, not forced)." ;;
+      *) echo "cdt-config: usage: cdt-config spec-auto on|off" ;;
+    esac ;;
+  external-ai)
+    case "$2" in
+      on)  set_env CDT_EXTERNAL_AI_ALLOWED true;  echo "claude-dev-team: external-AI document review ALLOWED (still gated by approval + sensitivity)." ;;
+      off) set_env CDT_EXTERNAL_AI_ALLOWED false; echo "claude-dev-team: external-AI document review OFF (deterministic local only)." ;;
+      *) echo "cdt-config: usage: cdt-config external-ai on|off" ;;
+    esac ;;
+  ocr)
+    case "$2" in
+      on)  set_env CDT_OCR_ENABLED true;  echo "claude-dev-team: local OCR ON (on-device; independent of external AI)." ;;
+      off) set_env CDT_OCR_ENABLED false; echo "claude-dev-team: local OCR OFF (images/diagrams → NEEDS_REVIEW)." ;;
+      *) echo "cdt-config: usage: cdt-config ocr on|off" ;;
+    esac ;;
+  redact)
+    case "$2" in
+      on)  set_env CDT_REDACT true;  echo "claude-dev-team: artifact redaction ON (recommended)." ;;
+      off) set_env CDT_REDACT false; echo "claude-dev-team: ⚠ artifact redaction OFF — secrets/PII will NOT be masked in artifacts." ;;
+      *) echo "cdt-config: usage: cdt-config redact on|off" ;;
+    esac ;;
+  attribution)
+    # The AI-attribution trailers are emitted by Claude Code itself (system-prompt instruction), so the only
+    # real switch is its settings.json. `on` persists the knob AND applies immediately via cdt-attribution.
+    case "$2" in
+      on|enable)
+        set_env CDT_NO_AI_ATTRIBUTION 1
+        echo "claude-dev-team: no-AI-attribution ENFORCED — no 'Co-Authored-By: Claude' trailer, no 'Generated with Claude Code' PR footer, no session trailer."
+        if [ -x "$BIN/cdt-attribution" ]; then
+          CDT_NO_AI_ATTRIBUTION=1 CDT_SETTINGS="$SETTINGS" CDT_ENV_FILE="$ENV_FILE" "$BIN/cdt-attribution"
+        elif [ -f "$(dirname "$0")/attribution.sh" ]; then
+          CDT_NO_AI_ATTRIBUTION=1 CDT_SETTINGS="$SETTINGS" CDT_ENV_FILE="$ENV_FILE" bash "$(dirname "$0")/attribution.sh"
+        else
+          echo "  (cdt-attribution not installed yet — it lands on the next Claude Code session)"
+        fi
+        echo "  settings.json is the source of truth (applies next session). Verify: cdt-attribution --check" ;;
+      off|disable)
+        set_env CDT_NO_AI_ATTRIBUTION 0
+        echo "claude-dev-team: no-AI-attribution enforcement OFF — CDT will stop re-applying it each session."
+        echo "  Your settings.json was NOT reverted: attribution stays hidden. To let Claude Code attribute again, flip the keys yourself (includeCoAuthoredBy + attribution.commit/pr/sessionUrl)." ;;
+      *) echo "cdt-config: usage: cdt-config attribution on|off  (default on — strips AI attribution from commits/PRs; off only stops enforcing, it does not re-enable attribution)" ;;
+    esac ;;
+  agent-activity)
+    case "$2" in
+      on|compact) set_env CDT_AGENT_ACTIVITY "$2"; echo "claude-dev-team: agent activity = $2  (pretty per-agent dispatch/finish lines + token cost in the CLI; display-only → zero token cost)." ;;
+      off)        set_env CDT_AGENT_ACTIVITY off; echo "claude-dev-team: agent activity OFF (no per-agent CLI lines)." ;;
+      *) echo "cdt-config: usage: cdt-config agent-activity on|compact|off" ;;
+    esac ;;
+  phase-board)
+    case "$2" in
+      on)  set_env CDT_PHASE_BOARD on;  echo "claude-dev-team: phase board ON  (per-wave board + 'phase i/N' status-line indicator on T2/T3 tasks; display-only)." ;;
+      off) set_env CDT_PHASE_BOARD off; echo "claude-dev-team: phase board OFF." ;;
+      *) echo "cdt-config: usage: cdt-config phase-board on|off" ;;
+    esac ;;
+  obsidian)
+    case "$2" in
+      on)  set_env CDT_OBSIDIAN on;  echo "claude-dev-team: Obsidian sync ON  (vault exported to Obsidian at each session end via Stop hook)." ;;
+      off) set_env CDT_OBSIDIAN off; echo "claude-dev-team: Obsidian sync OFF." ;;
+      *) echo "cdt-config: usage: cdt-config obsidian on|off" ;;
+    esac ;;
+  obsidian-vault)
+    if [ -z "$2" ]; then
+      echo "cdt-config: usage: cdt-config obsidian-vault <path>  (set the Obsidian CDT subfolder path)"
+    else
+      set_env CDT_OBSIDIAN_VAULT "$2"
+      echo "claude-dev-team: Obsidian vault path = $2  (sync auto-enabled — disable with: cdt-config obsidian off)"
+    fi ;;
+  obsidian-recall-root)
+    if [ -z "$2" ]; then
+      echo "cdt-config: usage: cdt-config obsidian-recall-root <path>  (vault root that read-back recall searches)"
+    else
+      set_env CDT_OBSIDIAN_RECALL_ROOT "$2"
+      echo "claude-dev-team: Obsidian recall root = $2  (read-back recall searches here; default: the vault root)"
+    fi ;;
+  effort)
+    case "$2" in
+      low|medium|high|xhigh) set_setting effortLevel "$2" ;;
+      max) echo "cdt-config: 'max' is session-only (use /effort max) and cannot be persisted. Recommended persistent default: xhigh." ;;
+      *) echo "cdt-config: effort must be one of: low | medium | high | xhigh" ;;
+    esac ;;
+  model)
+    if [ -z "$2" ]; then
+      echo "cdt-config: usage: cdt-config model <opus|sonnet|haiku|claude-opus-4-8|...>"
+    elif [[ "$2" =~ ^[A-Za-z0-9._-]+(\[1m\])?$ ]]; then
+      set_setting model "$2"
+    else
+      echo "cdt-config: invalid model string"
+    fi ;;
+  eco)
+    case "$2" in
+      on|off|auto) set_env CDT_ECO "$2"; echo "claude-dev-team: eco = $2 (auto conserves when weekly usage is high)." ;;
+      *) echo "cdt-config: eco must be one of: on | off | auto" ;;
+    esac ;;
+  realtime-usage)
+    case "$2" in
+      on|off) set_env CDT_REALTIME_USAGE "$([ "$2" = on ] && echo 1 || echo 0)"; echo "claude-dev-team: realtime-usage = $2 (default on — menu bar makes a throttled, popup-free usage-% network poll ~10 min only when the terminal reading is stale; read-only creds. Turn off: cdt-config realtime-usage off)." ;;
+      *) echo "cdt-config: usage: cdt-config realtime-usage on|off  (default on)" ;;
+    esac ;;
+  plugins-enabled)
+    case "$2" in
+      on|off) set_env CDT_PLUGINS_ENABLED "$([ "$2" = on ] && echo 1 || echo 0)"; echo "claude-dev-team: plugins subsystem = $2 (advisory plugin detection/health/routing; default on)." ;;
+      *) echo "cdt-config: usage: cdt-config plugins-enabled on|off  (default on)" ;;
+    esac ;;
+  plugin-auto-install)
+    case "$2" in
+      on|off) set_env CDT_PLUGIN_AUTO_INSTALL "$([ "$2" = on ] && echo 1 || echo 0)"; echo "claude-dev-team: plugin auto-install = $2 (default off — CDT never installs plugins without opt-in)." ;;
+      *) echo "cdt-config: usage: cdt-config plugin-auto-install on|off  (default off)" ;;
+    esac ;;
+  plugin-auto-update)
+    case "$2" in
+      on|off) set_env CDT_PLUGIN_AUTO_UPDATE "$([ "$2" = on ] && echo 1 || echo 0)"; echo "claude-dev-team: plugin auto-update = $2 (default off — plugin updates stay user-gated)." ;;
+      *) echo "cdt-config: usage: cdt-config plugin-auto-update on|off  (default off)" ;;
+    esac ;;
+  plugin-auto-route)
+    case "$2" in
+      on|off) set_env CDT_PLUGIN_AUTO_ROUTE "$([ "$2" = on ] && echo 1 || echo 0)"; echo "claude-dev-team: plugin auto-route = $2 (advisory plugin/skill routing hints; default on — never blocks)." ;;
+      *) echo "cdt-config: usage: cdt-config plugin-auto-route on|off  (default on)" ;;
+    esac ;;
+  plugin-scope)
+    case "$2" in
+      user|project) set_env CDT_PLUGIN_SCOPE "$2"; echo "claude-dev-team: plugin scope = $2 (where CDT prefers to enable plugins; default project)." ;;
+      *) echo "cdt-config: usage: cdt-config plugin-scope user|project  (default project)" ;;
+    esac ;;
+  superpowers-mode)
+    case "$2" in
+      off|manual|selective|always) set_env CDT_SUPERPOWERS_MODE "$2"; echo "claude-dev-team: superpowers-mode = $2 (off = never · manual = user-invoked only · selective = only high-complexity/risk, never CDT's plan/review/TDD · always = suggest, advisory). Default selective." ;;
+      *) echo "cdt-config: usage: cdt-config superpowers-mode off|manual|selective|always  (default selective)" ;;
+    esac ;;
+  plugin-strict)
+    case "$2" in
+      on|off) set_env CDT_PLUGIN_STRICT "$([ "$2" = on ] && echo 1 || echo 0)"; echo "claude-dev-team: plugin strict = $2 (default on — validate plugin identifiers/health before use)." ;;
+      *) echo "cdt-config: usage: cdt-config plugin-strict on|off  (default on)" ;;
+    esac ;;
+  bootstrap-community)
+    case "$2" in
+      on|off) set_env CDT_BOOTSTRAP_COMMUNITY "$([ "$2" = on ] && echo 1 || echo 0)"
+              echo "claude-dev-team: community bootstrap = $2 (default ON — SessionStart adds the ponytail/thedotmack marketplaces and installs ponytail + claude-mem without prompting)." ;;
+      *) echo "cdt-config: usage: cdt-config bootstrap-community on|off  (default on)" ;;
+    esac ;;
+  auto-mode)
+    case "$2" in
+      on|off) set_env CDT_AUTO_MODE "$([ "$2" = on ] && echo 1 || echo 0)"
+              echo "claude-dev-team: auto permission mode = $2 (default ON — the bootstrap sets permissions.defaultMode=auto ONCE, and only when settings.json has no explicit value; off leaves your setting untouched). Already set? Edit permissions.defaultMode in settings.json." ;;
+      *) echo "cdt-config: usage: cdt-config auto-mode on|off  (default on)" ;;
+    esac ;;
+  bootstrap-binaries)
+    case "$2" in
+      on|off) set_env CDT_BOOTSTRAP_BINARIES "$([ "$2" = on ] && echo 1 || echo 0)"
+              echo "claude-dev-team: binary bootstrap = $2 (default ON — installs bun via brew/npm when claude-mem is present, because its hooks require bun and do NOT self-install it)." ;;
+      *) echo "cdt-config: usage: cdt-config bootstrap-binaries on|off  (default on)" ;;
+    esac ;;
+  bootstrap-toolkit)
+    case "$2" in
+      on|off) set_env CDT_BOOTSTRAP_TOOLKIT "$([ "$2" = on ] && echo 1 || echo 0)"
+              echo "claude-dev-team: toolkit build on bootstrap = $2 (default ON — toolkit/dist is gitignored, so without this build no install has cdt-verify or TASK_RESULT and verification silently degrades)." ;;
+      *) echo "cdt-config: usage: cdt-config bootstrap-toolkit on|off  (default on)" ;;
+    esac ;;
+  verify)
+    case "$2" in
+      block|warn|off) set_env CDT_VERIFY_GATE "$2"; echo "claude-dev-team: verify gate = $2  (block = a session whose recorded verification is FAILED or missing cannot finish; it loops up to CDT_MAX_ITERATIONS · warn = notice only · off = disabled)." ;;
+      *) echo "cdt-config: verify must be one of: block | warn | off" ;;
+    esac ;;
+  verify-wrap)
+    case "$2" in
+      block|warn|off) set_env CDT_VERIFY_WRAP "$2"
+              echo "claude-dev-team: verify-wrap = $2 (default block — a bare test/build/lint command is denied with an instruction to re-run it as 'cdt-verify -- <cmd>', because only that records a real exit code. Never denies when cdt-verify is not runnable)." ;;
+      *) echo "cdt-config: verify-wrap must be one of: block | warn | off" ;;
+    esac ;;
+  claim)
+    case "$2" in
+      block|warn|off) set_env CDT_CLAIM_GATE "$2"
+              echo "claude-dev-team: claim gate = $2 (default block — a final reply asserting done/fixed/passing while recorded verification is red or absent is blocked and must produce evidence or correct the claim)." ;;
+      *) echo "cdt-config: claim must be one of: block | warn | off" ;;
+    esac ;;
+  max-iterations)
+    case "$2" in
+      ''|*[!0-9]*) echo "cdt-config: usage: cdt-config max-iterations <n>  (default 5 — Task Loop cap before a red session is reported as BLOCKER instead of retried)" ;;
+      *) set_env CDT_MAX_ITERATIONS "$2"; echo "claude-dev-team: Task Loop cap = $2 iterations." ;;
+    esac ;;
+  scope)
+    case "$2" in
+      warn|block|off) set_env CDT_SCOPE_GATE "$2"; echo "claude-dev-team: scope gate = $2  (flag a subagent that wrote files outside its exclusive contract or into a peer's scope; warn = notice · block = stop · off = disabled)." ;;
+      *) echo "cdt-config: scope must be one of: warn | block | off" ;;
+    esac ;;
+  memory)
+    case "$2" in
+      warn|block|off) set_env CDT_MEMORY_GATE "$2"; echo "claude-dev-team: memory gate = $2  (a team-tier session that edited files but recorded no vault lesson; warn = nudge · block = stop · off = disabled)." ;;
+      *) echo "cdt-config: memory must be one of: warn | block | off" ;;
+    esac ;;
+  autonomy)
+    case "$2" in
+      off|assist|auto) set_env CDT_AUTONOMY "$2"; echo "claude-dev-team: autonomy = $2  (off = bounded only · assist = auto-teams, ask-before-workflows · auto = self-run both within budget). See: cdt-auto status" ;;
+      *) echo "cdt-config: autonomy must be one of: off | assist | auto" ;;
+    esac ;;
+  teams)
+    case "$2" in
+      on)  set_env CDT_TEAMS on;  set_env_setting CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS 1
+           echo "claude-dev-team: agent-team DEPTH mode ON (experimental flag set; restart Claude Code)." ;;
+      off) set_env CDT_TEAMS off; set_env_setting CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS ""
+           echo "claude-dev-team: agent-team DEPTH mode OFF." ;;
+      *) echo "cdt-config: usage: cdt-config teams on|off" ;;
+    esac ;;
+  scale)
+    case "$2" in
+      on|off) set_env CDT_SCALE "$2"; echo "claude-dev-team: dynamic-workflow BREADTH (scale) mode = $2  (needs Claude Code >= 2.1.154)." ;;
+      *) echo "cdt-config: usage: cdt-config scale on|off" ;;
+    esac ;;
+  statusline)
+    case "$2" in
+      on)
+        CMD="$BIN/cdt-statusline" SETTINGS="$SETTINGS" python3 - <<'PY'
+import json, os, tempfile
+p = os.environ["SETTINGS"]; cmd = os.environ["CMD"]
+try: d = json.load(open(p)) if os.path.exists(p) else {}
+except Exception: print("cdt-config: settings.json invalid — not modified"); raise SystemExit(1)
+d["statusLine"] = {"type": "command", "command": cmd, "padding": 0}
+fd, tmp = tempfile.mkstemp(dir=os.path.dirname(p) or ".")
+with os.fdopen(fd, "w") as f: json.dump(d, f, indent=2); f.write("\n")
+os.replace(tmp, p); print("cdt-config: status line ON (restart Claude Code to see it)")
+PY
+        ;;
+      off)
+        SETTINGS="$SETTINGS" python3 - <<'PY'
+import json, os, tempfile
+p = os.environ["SETTINGS"]
+try: d = json.load(open(p)) if os.path.exists(p) else {}
+except Exception: raise SystemExit(0)
+if "statusLine" in d and "cdt-statusline" in ((d["statusLine"] or {}).get("command") or ""):
+    d.pop("statusLine", None)
+    fd, tmp = tempfile.mkstemp(dir=os.path.dirname(p) or ".")
+    with os.fdopen(fd, "w") as f: json.dump(d, f, indent=2); f.write("\n")
+    os.replace(tmp, p)
+print("cdt-config: status line OFF")
+PY
+        ;;
+      *) echo "cdt-config: usage: cdt-config statusline on|off" ;;
+    esac ;;
+  reset)
+    set_env CDT_ENABLED 1; set_env CDT_ECO off
+    set_env CDT_AUTONOMY auto; set_env CDT_TEAMS on; set_env CDT_SCALE on
+    set_env_setting CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS 1
+    set_setting effortLevel "$DEFAULT_EFFORT"
+    set_setting model "$DEFAULT_MODEL"
+    echo "claude-dev-team: reset to defaults (enabled, $DEFAULT_EFFORT, Opus 4.8, eco=off, autonomy=auto, engines on)." ;;
+  *) echo "usage: cdt-config {show|on|off|toolkit <on|off>|prompt-mode <auto|always|off>|prompt-effort <medium|high>|prompt-enhance <on|off>|spec-auto <on|off>|external-ai <on|off>|ocr <on|off>|redact <on|off>|attribution <on|off>|agent-activity <on|compact|off>|phase-board <on|off>|plugins-enabled <on|off>|plugin-auto-install <on|off>|plugin-auto-update <on|off>|plugin-auto-route <on|off>|plugin-scope <user|project>|superpowers-mode <off|manual|selective|always>|plugin-strict <on|off>|bootstrap-community <on|off>|bootstrap-binaries <on|off>|bootstrap-toolkit <on|off>|auto-mode <on|off>|obsidian <on|off>|obsidian-vault <path>|obsidian-recall-root <path>|effort <lvl>|model <m>|eco <on|off|auto>|verify <block|warn|off>|verify-wrap <block|warn|off>|claim <block|warn|off>|max-iterations <n>|scope <warn|block|off>|memory <warn|block|off>|autonomy <off|assist|auto>|teams <on|off>|scale <on|off>|statusline <on|off>|realtime-usage <on|off>|reset}"; exit 0 ;;
+esac
+exit 0

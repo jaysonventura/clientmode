@@ -1,0 +1,59 @@
+# Contributing to claude-dev-team
+
+Thanks for your interest! This plugin is a **discipline layer** for Claude Code — contributions that keep
+it lean, grounded, and cost-effective are very welcome.
+
+## Quick start
+
+```bash
+git clone https://github.com/jaysonventura/claude-dev-team
+cd claude-dev-team
+bash scripts/validate.sh        # 1) lint: JSON manifests, frontmatter, shellcheck
+python3 -m unittest discover -s demo/login-rate-limit/tests -t demo/login-rate-limit   # 2) unit tests
+bash scripts/e2e.sh             # 3) end-to-end (sandboxed — uses a temp HOME, never touches ~/.claude)
+```
+
+All three run in CI and must pass before a PR merges. `validate.sh` checks manifests + frontmatter and
+runs `shellcheck` (install it: `brew install shellcheck`). `e2e.sh` boots the SessionStart hook in a
+throwaway sandbox and exercises the full chain (CLIs, doctor, recall, stats, eco, config on/off).
+
+## How to add things
+
+- **An agent** — drop a markdown file in `agents/` with frontmatter (`name`, `description`, optional
+  `tools`, `model`). Pin `model: opus` only for judgment roles (design/review); builders inherit the
+  session model. Reference it from `skills/orchestration/SKILL.md` if the orchestrator should dispatch it.
+- **A skill** — add a folder + `SKILL.md` in `skills/` with a `name` and an auto-trigger `description`.
+- **A command** — add a markdown file in `commands/` with a `description` (and optional `argument-hint`,
+  `allowed-tools`). It becomes `/cdt:<file>`.
+- **A hook** — add the script to `hooks/`, wire it in `hooks/hooks.json` with `${CLAUDE_PLUGIN_ROOT}`.
+
+## House rules
+
+- **Hooks are fail-open.** Use `set +e`, guard external tools (`command -v … || exit 0`), and `exit 0` on
+  every path — a hook must never break a user's session. Stay **bash 3.2-compatible** (macOS default).
+- **No secrets, ever.** `*.env`, `*.db`, and build artifacts are gitignored — keep it that way. Validate
+  any user-provided value before writing it to a file that gets `source`d.
+- **Ground claims.** Agents and docs should reference real files/output, not invented APIs. Library
+  specifics go through `context7`, not memory.
+- **Keep it the user's own.** No third-party names in shipped files.
+- **Update docs + `CHANGELOG.md`** for any user-visible change, and bump the version in
+  `.claude-plugin/plugin.json` (the README badge and `menubar` app read from there).
+
+## Commit messages
+
+- **No AI co-author trailer.** Do **not** add a `Co-Authored-By: Claude` (or any other AI) trailer — or a
+  "Generated with Claude Code" line — to your commits. **If you run CDT you get this for free, with nothing
+  to install:** the SessionStart hook keeps `includeCoAuthoredBy` / `attribution.*` off in
+  `~/.claude/settings.json`, so Claude Code never emits the trailer on any repo (verify:
+  `cdt-attribution --check`). If you **don't** run CDT, `scripts/setup-git-hooks.sh` remains available as an
+  optional belt-and-braces guard: it points `core.hooksPath` at `scripts/git-hooks`, whose `commit-msg` hook
+  scrubs the trailer from new commits in this repo. Either way, no past history was rewritten.
+- Write focused, imperative subjects that say **what** changed and **why**.
+
+## Pull requests
+
+1. Branch from `main`, make focused changes, run `bash scripts/validate.sh`.
+2. Describe **what** changed and **why**, and paste the verifying output (tests/validate).
+3. CI must be green. A maintainer reviews for scope, correctness, and the house rules above.
+
+By contributing you agree your work is licensed under the project's [MIT License](LICENSE).

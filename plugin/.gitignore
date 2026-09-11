@@ -1,0 +1,47 @@
+# Secrets - never commit real credentials
+*.env
+!*.env.example
+claude-dev-team.env
+
+# Local state / runtime
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Node (if a consumer project nests this)
+node_modules/
+
+# Python bytecode cache (regenerated when the hook modules are imported; never tracked)
+__pycache__/
+*.pyc
+
+# Git worktrees created by cdt-worktree / claude --worktree (parallel isolation)
+.claude/worktrees/
+
+# QA captures from cdt-web-qa / cdt-mobile-qa (screenshots, video, traces, logcat).
+# These routinely contain session tokens, OTPs and PII — they must never be committed.
+**/.claude/qa/
+**/.claude/mobile-qa/
+
+# Ephemeral CDT runtime + per-prompt artifacts (regenerated each session; never tracked).
+# `**/` so they're ignored at any depth (root AND nested subdirs like menubar/.claude/).
+# NOTE: .claude/specs/ is intentionally NOT ignored — cited requirement sets are often committed.
+**/.claude/runtime/
+**/.claude/TASK_BRIEF.md
+**/.claude/ROUTING.json
+**/.claude/NEXT_PROMPT.md
+**/.claude/TASK_RESULT.json
+
+# Swift build artifacts (menu bar app)
+.build/
+menubar/.build/
+*.xcodeproj
+menubar/dist/

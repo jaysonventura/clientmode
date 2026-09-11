@@ -1,0 +1,164 @@
+#!/usr/bin/env bash
+# SessionStart hook: bootstrap the vault, the SQLite DB, and the stable ~/.claude/bin CLIs,
+# then inject accumulated learnings into the session context. Fail-open (always exit 0).
+set +e
+
+# Recursion guard: when the toolkit's prompt-enhancer spawns a nested `claude -p` (CDT_IN_ENHANCER=1),
+# do no bootstrap work — keep the nested call fast and side-effect-free.
+[ "${CDT_IN_ENHANCER:-0}" = "1" ] && exit 0
+
+# Capture the hook payload (carries cwd/session_id) before any other processing. Nothing else reads stdin.
+_SS_INPUT="$(cat 2>/dev/null)"
+
+HOOKS_DIR="$(cd "$(dirname "$0")" 2>/dev/null && pwd)"
+CDT_HOME="$HOME/.claude"
+VAULT="$CDT_HOME/vault"
+BIN="$CDT_HOME/bin"
+
+# 1) Bootstrap the vault from the plugin template (only seeds missing files).
+mkdir -p "$VAULT/sessions" "$VAULT/adrs" "$BIN" 2>/dev/null
+if [ -d "$HOOKS_DIR/vault-template" ]; then
+  for f in README.md learnings.md log.md; do
+    [ -f "$VAULT/$f" ] || cp "$HOOKS_DIR/vault-template/$f" "$VAULT/$f" 2>/dev/null
+  done
+fi
+
+# 2) Install/refresh the stable CLIs so the orchestrator and commands have fixed paths.
+cp "$HOOKS_DIR/stats.sh"  "$BIN/cdt-stats"    2>/dev/null && chmod +x "$BIN/cdt-stats"  2>/dev/null
+cp "$HOOKS_DIR/phase.sh"  "$BIN/cdt-phase"    2>/dev/null && chmod +x "$BIN/cdt-phase"  2>/dev/null
+cp "$HOOKS_DIR/task.sh"   "$BIN/cdt-task"     2>/dev/null && chmod +x "$BIN/cdt-task"   2>/dev/null
+cp "$HOOKS_DIR/db.sh"     "$BIN/cdt-db.sh"    2>/dev/null
+cp "$HOOKS_DIR/menubar-install.sh" "$BIN/cdt-menubar" 2>/dev/null && chmod +x "$BIN/cdt-menubar" 2>/dev/null
+cp "$HOOKS_DIR/recall.sh"  "$BIN/cdt-recall"   2>/dev/null && chmod +x "$BIN/cdt-recall"  2>/dev/null
+cp "$HOOKS_DIR/advise.sh"  "$BIN/cdt-advise"   2>/dev/null && chmod +x "$BIN/cdt-advise"  2>/dev/null
+cp "$HOOKS_DIR/pr.sh"      "$BIN/cdt-pr"       2>/dev/null && chmod +x "$BIN/cdt-pr"      2>/dev/null
+cp "$HOOKS_DIR/config.sh"  "$BIN/cdt-config"   2>/dev/null && chmod +x "$BIN/cdt-config"  2>/dev/null
+cp "$HOOKS_DIR/doctor.sh"  "$BIN/cdt-doctor"   2>/dev/null && chmod +x "$BIN/cdt-doctor"  2>/dev/null
+cp "$HOOKS_DIR/learn.sh"   "$BIN/cdt-learn"    2>/dev/null && chmod +x "$BIN/cdt-learn"   2>/dev/null
+cp "$HOOKS_DIR/budget.sh"  "$BIN/cdt-budget"   2>/dev/null && chmod +x "$BIN/cdt-budget"  2>/dev/null
+cp "$HOOKS_DIR/statusline.sh" "$BIN/cdt-statusline" 2>/dev/null && chmod +x "$BIN/cdt-statusline" 2>/dev/null
+# Python helpers the status line imports at runtime (must sit beside cdt-statusline in $BIN).
+cp "$HOOKS_DIR/cdt_emoji.py"      "$BIN/cdt_emoji.py"      2>/dev/null
+cp "$HOOKS_DIR/running_agents.py" "$BIN/running_agents.py" 2>/dev/null
+cp "$HOOKS_DIR/usage_cache.py"    "$BIN/usage_cache.py"    2>/dev/null
+cp "$HOOKS_DIR/deps.sh"    "$BIN/cdt-deps"     2>/dev/null && chmod +x "$BIN/cdt-deps"     2>/dev/null
+cp "$HOOKS_DIR/tokens.sh"  "$BIN/cdt-tokens"   2>/dev/null && chmod +x "$BIN/cdt-tokens"   2>/dev/null
+cp "$HOOKS_DIR/worktree.sh" "$BIN/cdt-worktree" 2>/dev/null && chmod +x "$BIN/cdt-worktree" 2>/dev/null
+cp "$HOOKS_DIR/auto.sh"      "$BIN/cdt-auto"     2>/dev/null && chmod +x "$BIN/cdt-auto"     2>/dev/null
+cp "$HOOKS_DIR/version.sh"   "$BIN/cdt-version"  2>/dev/null && chmod +x "$BIN/cdt-version"  2>/dev/null
+cp "$HOOKS_DIR/contract.sh"  "$BIN/cdt-contract" 2>/dev/null && chmod +x "$BIN/cdt-contract" 2>/dev/null
+cp "$HOOKS_DIR/context.sh"   "$BIN/cdt-context"  2>/dev/null && chmod +x "$BIN/cdt-context"  2>/dev/null
+cp "$HOOKS_DIR/route.sh"     "$BIN/cdt-route"    2>/dev/null && chmod +x "$BIN/cdt-route"    2>/dev/null
+cp "$HOOKS_DIR/obsidian.sh"  "$BIN/cdt-obsidian" 2>/dev/null && chmod +x "$BIN/cdt-obsidian" 2>/dev/null
+cp "$HOOKS_DIR/attribution.sh" "$BIN/cdt-attribution" 2>/dev/null && chmod +x "$BIN/cdt-attribution" 2>/dev/null
+cp "$HOOKS_DIR/mobile-qa.sh"   "$BIN/cdt-mobile-qa" 2>/dev/null && chmod +x "$BIN/cdt-mobile-qa" 2>/dev/null
+cp "$HOOKS_DIR/web-qa.sh"      "$BIN/cdt-web-qa"    2>/dev/null && chmod +x "$BIN/cdt-web-qa"    2>/dev/null
+cp "$HOOKS_DIR/obsidian_recall.py" "$BIN/obsidian_recall.py" 2>/dev/null  # BM25 read-back ranker (must sit beside cdt-obsidian in $BIN)
+# Advisory plugin subsystem: the plugins CLI, its sourced library, and the advisory router.
+cp "$HOOKS_DIR/plugins.sh"      "$BIN/cdt-plugins"        2>/dev/null && chmod +x "$BIN/cdt-plugins"      2>/dev/null
+cp "$HOOKS_DIR/plugins-lib.sh"  "$BIN/cdt-plugins-lib.sh" 2>/dev/null  # sourced by cdt-plugin-route (must sit beside it in $BIN)
+cp "$HOOKS_DIR/plugin-route.sh" "$BIN/cdt-plugin-route"   2>/dev/null && chmod +x "$BIN/cdt-plugin-route" 2>/dev/null
+# Seed the plugin registry into ~/.claude/.cdt — copy only if missing or the shipped copy is newer. Atomic.
+_PLREG_SRC="$HOOKS_DIR/../config/plugins.json"
+_PLREG_DST="$CDT_HOME/.cdt/plugins-registry.json"
+if [ -f "$_PLREG_SRC" ]; then
+  mkdir -p "$CDT_HOME/.cdt" 2>/dev/null
+  if [ ! -f "$_PLREG_DST" ] || [ "$_PLREG_SRC" -nt "$_PLREG_DST" ]; then
+    _PLREG_TMP="$(mktemp "$CDT_HOME/.cdt/.plugins-registry.XXXXXX" 2>/dev/null)"
+    if [ -n "$_PLREG_TMP" ] && cp "$_PLREG_SRC" "$_PLREG_TMP" 2>/dev/null; then
+      mv "$_PLREG_TMP" "$_PLREG_DST" 2>/dev/null || rm -f "$_PLREG_TMP" 2>/dev/null
+    fi
+  fi
+fi
+
+# claude-dev-team-toolkit (TS engine): link the built bins onto PATH + dist-missing healthcheck.
+TOOLKIT_DIST="$(cd "$HOOKS_DIR/../toolkit/dist" 2>/dev/null && pwd)"
+if [ -n "$TOOLKIT_DIST" ] && [ -f "$TOOLKIT_DIST/cli/cdt.js" ]; then
+  ln -sf "$TOOLKIT_DIST/cli/cdt.js"        "$BIN/cdt"        2>/dev/null
+  ln -sf "$TOOLKIT_DIST/cli/cdt-prompt.js" "$BIN/cdt-prompt" 2>/dev/null
+  ln -sf "$TOOLKIT_DIST/cli/cdt-spec.js"   "$BIN/cdt-spec"   2>/dev/null
+  ln -sf "$TOOLKIT_DIST/cli/cdt-verify.js" "$BIN/cdt-verify" 2>/dev/null
+elif [ -d "$HOOKS_DIR/../toolkit" ]; then
+  # A link into a PRUNED version dir dangles silently, and `[ -x ]` on a dangling symlink is false — so a
+  # stale cdt-verify reads as "installed" to anything testing for the file, and fails at exec. Drop them:
+  # the async bootstrap builds the toolkit and re-links, so a missing link is honest and self-correcting.
+  for _b in cdt cdt-prompt cdt-spec cdt-verify; do
+    [ -L "$BIN/$_b" ] && [ ! -e "$BIN/$_b" ] && rm -f "$BIN/$_b" 2>/dev/null
+  done
+  echo "⚠ claude-dev-team-toolkit not built — building it in the background (or: cd \"$HOOKS_DIR/../toolkit\" && npm install && npm run build)"
+fi
+
+# Housekeeping: drop stale per-session scope-contracts and context packs (>12h old) so they don't pile up.
+find "$CDT_HOME/.cdt/contracts" -maxdepth 1 -mindepth 1 -type d -mmin +720 -exec rm -rf {} + 2>/dev/null
+find "$CDT_HOME/.cdt/context" -maxdepth 1 -type f -mmin +720 -delete 2>/dev/null
+
+# Stage the menu bar Swift source to a stable, buildable location (source only — not .build).
+MENUBAR_SRC="$(cd "$HOOKS_DIR/.." 2>/dev/null && pwd)/menubar"
+if [ -f "$MENUBAR_SRC/Package.swift" ]; then
+  mkdir -p "$CDT_HOME/claude-dev-team-menubar" 2>/dev/null
+  cp "$MENUBAR_SRC/Package.swift" "$CDT_HOME/claude-dev-team-menubar/" 2>/dev/null
+  cp -R "$MENUBAR_SRC/Sources" "$CDT_HOME/claude-dev-team-menubar/" 2>/dev/null
+  cp "$MENUBAR_SRC/Info.plist" "$CDT_HOME/claude-dev-team-menubar/" 2>/dev/null
+  cp "$MENUBAR_SRC/AppIcon.icns" "$CDT_HOME/claude-dev-team-menubar/" 2>/dev/null
+fi
+
+# Auto-install the menu bar app on macOS (once, in the background) unless disabled.
+if [ "$(uname)" = "Darwin" ] && command -v swift >/dev/null 2>&1; then
+  AUTO=1
+  # Read only the one key we need (don't `source` the env file — a crafted value must never execute).
+  _MB="$(grep -E '^CDT_MENUBAR_AUTO=' "$CDT_HOME/claude-dev-team.env" 2>/dev/null | head -1 | cut -d= -f2-)"
+  AUTO="${_MB:-$AUTO}"
+  # Install once: guard on a success marker the installer writes (not a legacy plist that the
+  # SMAppService path never creates) — otherwise every session/clear/compact would kill+relaunch the app.
+  if [ "$AUTO" != "0" ] && [ ! -f "$CDT_HOME/.cdt-menubar-disabled" ] && [ ! -f "$CDT_HOME/.cdt-menubar-installed" ] && [ -x "$BIN/cdt-menubar" ]; then
+    ( "$BIN/cdt-menubar" install-login >/dev/null 2>&1 ) &
+  fi
+  # Already installed: after `claude plugin update`, rebuild + relaunch the menu bar app when it lags the
+  # plugin version (background; a no-op when versions already match). This is how a plugin update
+  # auto-updates the app — the update requires a restart, and this SessionStart fires on that restart.
+  if [ "$AUTO" != "0" ] && [ ! -f "$CDT_HOME/.cdt-menubar-disabled" ] && [ -f "$CDT_HOME/.cdt-menubar-installed" ] && [ -x "$BIN/cdt-menubar" ]; then
+    ( "$BIN/cdt-menubar" auto-update >/dev/null 2>&1 ) &
+  fi
+fi
+
+# 2b) No AI attribution: guarantee Claude Code adds no "Co-Authored-By: Claude" trailer, no "Generated with
+# Claude Code" PR footer and no session trailer — by enforcing its OWN settings keys (the real source; the
+# trailer comes from a system-prompt instruction Claude Code injects when attribution is on). Writes
+# ~/.claude/settings.json only when a key is actually wrong, and prints one line only when it changed
+# something; silent + zero-write when compliant. Fail-open (always exits 0).
+# Gated by the kill-switch: a DISABLED CDT must behave as stock Claude Code, so read CDT_ENABLED here and
+# skip enforcement when it is off (the disabled-exit in section 4 below is the same switch).
+_CDT_EN_ATTR="$(grep -E '^CDT_ENABLED=' "$CDT_HOME/claude-dev-team.env" 2>/dev/null | head -1 | cut -d= -f2-)"
+if [ "$_CDT_EN_ATTR" != "0" ] && [ -x "$BIN/cdt-attribution" ]; then
+  "$BIN/cdt-attribution" 2>/dev/null
+fi
+
+# 3) Initialize the state DB.
+[ -f "$BIN/cdt-db.sh" ] && . "$BIN/cdt-db.sh" 2>/dev/null && db_init 2>/dev/null
+
+# 4) Inject context — but first honor the on/off switch (`cdt-config off` → behave as stock Claude Code).
+CDT_ENABLED="$(grep -E '^CDT_ENABLED=' "$CDT_HOME/claude-dev-team.env" 2>/dev/null | head -1 | cut -d= -f2-)"
+if [ "$CDT_ENABLED" = "0" ]; then
+  echo "## claude-dev-team is DISABLED (cdt-config off) — operate as standard Claude Code; do not run the"
+  echo "tech-lead orchestration protocol. Re-enable any time: ~/.claude/bin/cdt-config on"
+  exit 0
+fi
+
+# Inject only the most RECENT lessons (cheap + scales as the vault grows). For lessons relevant to a
+# SPECIFIC task, the orchestrator runs `cdt-recall "<task>"` during triage instead of re-reading the file.
+echo "## claude-dev-team — vault learnings (operate as the tech-lead orchestrator)"
+# One-time prerequisite nudge: if python3 (required for recall/advise/config/analytics) is missing, tell
+# the user to run the installer. Companion plugins auto-install; this only covers system tools.
+command -v python3 >/dev/null 2>&1 || echo "⚠ python3 not found — tell the user to run \`~/.claude/bin/cdt-deps --install\` to set up prerequisites (recall/advise/config/analytics need it)."
+if [ -f "$VAULT/learnings.md" ]; then
+  grep '^- \[' "$VAULT/learnings.md" 2>/dev/null | tail -n 6
+fi
+echo
+echo "_Triage every task (T0–T3); delegate under contracts; gate; ship; persist. Preferred defaults: **xhigh** effort + **Opus 4.8** (adjust via cdt-config). For lessons relevant to a task, run \`~/.claude/bin/cdt-recall \"<task>\"\`. Report milestones to the user._"
+
+# Reset per-session health metrics (context, duration, agent count) for THIS workspace on every
+# SessionStart/clear/compact — keyed per-workspace so two terminals in different projects don't reset or
+# clobber each other's numbers (account-wide usage % stays global). Fail-open.
+_SS_CWD="$(printf '%s' "$_SS_INPUT" | sed -n 's/.*"cwd"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -1)"
+python3 "$HOOKS_DIR/usage_cache.py" reset "$_SS_CWD" 2>/dev/null
+exit 0

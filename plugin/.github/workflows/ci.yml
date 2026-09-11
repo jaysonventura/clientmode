@@ -1,0 +1,32 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install shellcheck + sqlite3
+        run: sudo apt-get update && sudo apt-get install -y shellcheck sqlite3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # toolkit/dist is gitignored, so a fresh checkout has no cdt-verify. Without it the e2e suite's
+      # verification-gate section cannot pass — which is why CI has been red since v1.64.0.
+      - name: Build the toolkit (provides cdt-verify)
+        run: cd toolkit && npm ci && npm run build
+      - name: Validate plugin (manifests, frontmatter, shell scripts)
+        run: bash scripts/validate.sh
+      - name: Agent lint (conformance + least-privilege)
+        run: bash scripts/lint-agents.sh
+      - name: Unit tests (demo)
+        run: python3 -m unittest discover -s demo/login-rate-limit/tests -t demo/login-rate-limit
+      - name: End-to-end integration test (sandboxed)
+        run: bash scripts/e2e.sh

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-dev-team",
+  "description": "Jayson Ventura's orchestrated Claude Code dev team - role-based agents, quality workflow, Bug Council, Task Loop, and cost analytics.",
+  "owner": {
+    "name": "Jayson Ventura",
+    "email": "jgventura03business@gmail.com"
+  },
+  "allowCrossMarketplaceDependenciesOn": ["claude-plugins-official"],
+  "plugins": [
+    {
+      "name": "cdt",
+      "description": "An orchestrated software team for Claude Code: triage -> contract -> parallel specialists -> quality gates -> completion mandate. Cost-effective and high quality on Claude Max.",
+      "author": {
+        "name": "Jayson Ventura"
+      },
+      "category": "workflow",
+      "source": "./"
+    }
+  ]
+}

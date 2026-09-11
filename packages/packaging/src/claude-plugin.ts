@@ -23,6 +23,8 @@ export type Runner = (argv: string[]) => { status: number | null; stdout: string
 
 export type PluginRegistration = {
   method: 'cli' | 'settings';
+  /** The marketplace directory it was registered from, so a pending registration can be finished. */
+  marketplace_dir: string;
   settings_file: string;
   settings_changes: AutonomyChange[];
   notes: string[];
@@ -74,7 +76,7 @@ export function registerClaudePlugin(input: {
   if (legacyEnabled(settings_file)) entries.push({ key_path: ['enabledPlugins', LEGACY_PLUGIN_ID], value: false });
   const written = entries.length === 0 ? { changes: [], notes: [] } : setJsonKeys(settings_file, entries);
   notes.push(...written.notes);
-  return { method, settings_file, settings_changes: written.changes, notes };
+  return { method, marketplace_dir: input.marketplace_dir, settings_file, settings_changes: written.changes, notes };
 }
 
 export function unregisterClaudePlugin(input: { registration: PluginRegistration; claude: string | null; run?: Runner }): { notes: string[] } {

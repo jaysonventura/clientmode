@@ -14,13 +14,35 @@ import {
 } from '../../../packages/providers/src/capabilities.js';
 import type { CapabilityProbe, DetectedHost, HostSurface } from '../../../packages/providers/src/interface.js';
 
-/** Directories a provider host may legitimately live in. Anything else is not executed. */
-export const DEFAULT_TRUSTED_ROOTS = [
-  '/usr/local/bin', '/usr/bin', '/bin', '/opt/homebrew/bin',
-  path.join(process.env['HOME'] ?? '', '.local/bin'),
-  path.join(process.env['HOME'] ?? '', '.asdf/installs'),
-  path.join(process.env['HOME'] ?? '', '.bun/bin'),
-];
+/** Directories a provider host may legitimately live in. Anything else is not executed.
+ * On Windows these are where each host's documented installer puts it: the native Claude and
+ * Cursor installers under the profile, the Codex installer under LocalAppData, npm globals under
+ * AppData, and winget's links. */
+export function defaultTrustedRoots(env: NodeJS.ProcessEnv = process.env, platform: NodeJS.Platform = process.platform): string[] {
+  if (platform === 'win32') {
+    const profile = env['USERPROFILE'] ?? '';
+    const local = env['LOCALAPPDATA'] ?? path.join(profile, 'AppData', 'Local');
+    const roaming = env['APPDATA'] ?? path.join(profile, 'AppData', 'Roaming');
+    return [
+      path.join(profile, '.local', 'bin'),
+      path.join(roaming, 'npm'),
+      path.join(local, 'Programs'),
+      path.join(local, 'Microsoft', 'WinGet', 'Links'),
+      path.join(env['ProgramFiles'] ?? 'C:\\Program Files', 'nodejs'),
+      path.join(profile, '.client-mode', 'runtime'),
+    ].filter(root => path.isAbsolute(root));
+  }
+  const home = env['HOME'] ?? '';
+  return [
+    '/usr/local/bin', '/usr/bin', '/bin', '/opt/homebrew/bin',
+    path.join(home, '.local/bin'),
+    path.join(home, '.asdf/installs'),
+    path.join(home, '.bun/bin'),
+    path.join(home, '.client-mode', 'runtime'),
+  ];
+}
+
+export const DEFAULT_TRUSTED_ROOTS = defaultTrustedRoots();
 
 export type HostSpec = {
   provider: 'claude' | 'codex' | 'mock';

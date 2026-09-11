@@ -42,7 +42,7 @@ test('the launcher is a shell script on macOS and a .cmd plus a shell script on 
   assert.deepEqual(posix, [path.join(bin, 'cm')]);
   const script = readFileSync(path.join(bin, 'cm'), 'utf8');
   assert.match(script, /^#!\/bin\/sh\n/);
-  assert.match(script, /exec "\/opt\/node\/bin\/node" "\$CM_TOOLKIT_ROOT\/cm\.js" "\$@"/);
+  assert.match(script, /exec "\/opt\/node\/bin\/node" --disable-warning=ExperimentalWarning "\$CM_TOOLKIT_ROOT\/cm\.js" "\$@"/);
   assert.equal(statSync(path.join(bin, 'cm')).mode & 0o111, 0o111);
   assert.equal(launcherToolkitRoot(script), '/Users/a b/.client-mode/toolkit');
 
@@ -51,7 +51,7 @@ test('the launcher is a shell script on macOS and a .cmd plus a shell script on 
   assert.deepEqual(written, [path.join(winBin, 'cm.cmd'), path.join(winBin, 'cm')]);
   const cmd = readFileSync(path.join(winBin, 'cm.cmd'), 'utf8');
   assert.match(cmd, /^@echo off\r\n/);
-  assert.ok(cmd.includes('"C:\\Users\\A B\\.client-mode\\runtime\\node.exe" "%CM_TOOLKIT_ROOT%\\cm.js" %*'), cmd);
+  assert.ok(cmd.includes('"C:\\Users\\A B\\.client-mode\\runtime\\node.exe" --disable-warning=ExperimentalWarning "%CM_TOOLKIT_ROOT%\\cm.js" %*'), cmd);
   assert.ok(!cmd.includes('\n') || cmd.includes('\r\n'), 'CRLF line endings for cmd.exe');
   assert.equal(launcherToolkitRoot(cmd), 'C:\\Users\\A B\\.client-mode\\toolkit');
 });
@@ -60,4 +60,21 @@ test('a launcher that names no toolkit yields null rather than a guess', () => {
   const d = dir();
   mkdirSync(d, { recursive: true });
   assert.equal(launcherToolkitRoot('#!/bin/sh\necho hi\n'), null);
+});
+
+test('doctor finds Windows hosts in their install locations, and still refuses anything outside them', async () => {
+  const { whichTrusted } = await import('../../packages/providers/src/capabilities.js');
+  const { defaultTrustedRoots } = await import('../../apps/cli/src/doctor.js');
+  const appData = dir();
+  const npmDir = path.join(appData, 'npm');
+  mkdirSync(npmDir, { recursive: true });
+  writeFileSync(path.join(npmDir, 'codex.cmd'), '@echo off\n');
+  const roots = defaultTrustedRoots({ APPDATA: appData, LOCALAPPDATA: dir(), USERPROFILE: dir() }, 'win32');
+  assert.ok(roots.includes(npmDir), JSON.stringify(roots));
+  // Windows paths are case-insensitive; which spelling of the extension matched does not matter.
+  assert.equal(whichTrusted('codex', roots, { PATH: '', PATHEXT: '.EXE;.CMD' }, 'win32')?.toLowerCase(), path.join(npmDir, 'codex.cmd').toLowerCase());
+  const untrusted = dir();
+  writeFileSync(path.join(untrusted, 'gemini.cmd'), '@echo off\n');
+  assert.equal(whichTrusted('gemini', roots, { PATH: untrusted, PATHEXT: '.CMD' }, 'win32'), null, 'on PATH but outside every trusted root');
+  assert.ok(defaultTrustedRoots({ HOME: '/Users/x' }, 'darwin').includes('/opt/homebrew/bin'));
 });

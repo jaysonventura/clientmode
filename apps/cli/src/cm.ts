@@ -23,7 +23,7 @@ import { buildHandoff, endSession, renderHandoff, startSession } from '../../../
 import { doctor, type HostSpec } from './doctor.js';
 import { HOSTS, activateHost, deactivateHost, type HostLayout, type HostName } from '../../../packages/packaging/src/hosts.js';
 import { findExecutable, spawnPlan } from '../../../packages/packaging/src/platform.js';
-import { parseHostList, readRecord, setupHosts, uninstallHosts, type SetupRecord } from './setup.js';
+import { completePendingClaudePlugin, parseHostList, readRecord, setupHosts, uninstallHosts, type SetupRecord } from './setup.js';
 import { cancelRun, createRun } from './run.js';
 import { rejectsCallerCommand } from './verify.js';
 import { assessRollback, restore, upgrade } from '../../../packages/packaging/src/upgrade.js';
@@ -264,6 +264,13 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
     }
     const resolved = canonicalRoot(root);
     const hostArgv = passthroughOnly ? [...argv] : positional.filter(token => token !== 'start');
+    // Claude Code installed after Client Mode: finish the plugin install before the session starts,
+    // so the first session already has it rather than a declaration it may not act on.
+    if (chosen.host === 'claude') {
+      const repaired = completePendingClaudePlugin({ cm_home: cmHome(), env: process.env, claude: findExecutable('claude', process.env) });
+      if (repaired === 'installed') process.stderr.write('Installed the cm plugin into Claude Code (it was waiting for claude to be on PATH).\n');
+      if (repaired === 'failed') process.stderr.write('The cm plugin could not be installed into Claude Code yet; run `cm install --host claude` to see why.\n');
+    }
 
     let session: { session_id: string } | null = null;
     let brief = '';
@@ -361,7 +368,7 @@ export async function main(argv: readonly string[]): Promise<ExitCode> {
       home: cmHome(),
       source_root: REPO_ROOT,
       hosts: records.length > 0
-        ? records.map(record => ({ host: record.host, install_root: record.layout.config_root, skills_dir: record.layout.skills_root, instructions: record.layout.instructions }))
+        ? records.map(record => ({ host: record.host, install_root: record.layout.config_root, skills_dir: record.layout.skills_root, instructions: record.layout.instructions, plugin_pending: record.plugin?.method === 'settings' }))
         : [
           { host: 'claude', install_root: path.join(os.homedir(), '.claude'), skills_dir: null },
           { host: 'codex', install_root: path.join(os.homedir(), '.codex'), skills_dir: path.join(os.homedir(), '.agents', 'skills') },

@@ -11,7 +11,7 @@
 import { existsSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { applyAutonomy, restoreAutonomy, type AutonomyChange } from '../../../packages/packaging/src/autonomy.js';
-import { PLUGIN_ID, registerClaudePlugin, unregisterClaudePlugin, type PluginRegistration } from '../../../packages/packaging/src/claude-plugin.js';
+import { PLUGIN_ID, registerClaudePlugin, unregisterClaudePlugin, type PluginRegistration, type Runner } from '../../../packages/packaging/src/claude-plugin.js';
 import {
   HOSTS, SKILLS_DIRECTORY, activateHost, deactivateHost, hostLayout, migrateLegacyInstructions, restoreLegacyInstructions,
   type HostLayout, type HostName, type MovedSection,
@@ -160,7 +160,7 @@ export async function setupHosts(input: SetupInput): Promise<{ lines: string[]; 
   return { lines, notes, records };
 }
 
-export function uninstallHosts(input: { hosts?: HostName[]; cm_home: string; env: NodeJS.ProcessEnv; keep_toolkit?: boolean }):
+export function uninstallHosts(input: { hosts?: HostName[]; cm_home: string; env: NodeJS.ProcessEnv; keep_toolkit?: boolean; platform?: NodeJS.Platform }):
   { removed: HostName[]; notes: string[] } {
   const installed = HOSTS.filter(host => readRecord(input.cm_home, host) !== null);
   const targets = (input.hosts ?? installed).filter(host => installed.includes(host));
@@ -200,6 +200,7 @@ export function uninstallHosts(input: { hosts?: HostName[]; cm_home: string; env
     for (const launcher of launchers) rmSync(launcher, { force: true });
     if (toolkit !== null) rmSync(toolkit, { recursive: true, force: true });
     rmSync(path.join(input.cm_home, 'dist'), { recursive: true, force: true });
+    notes.push(...removeBootstrapFootprint(input.cm_home, input.env, input.platform ?? process.platform));
   }
   return { removed: targets, notes };
 }
@@ -237,4 +238,49 @@ function removeLegacyInstall(host: HostName, record: InstallRecord, cmHome: stri
   const toolkit = typeof record.toolkit_root === 'string' ? record.toolkit_root
     : record.created.includes(toolkitRoot) ? toolkitRoot : null;
   return { launchers, toolkit };
+}
+
+/** Finish a Claude plugin registration that could only be declared in settings because `claude`
+ * was not on PATH at install time. The declaration is taken back and the documented CLI install
+ * runs instead; the record is updated either way. */
+export function completePendingClaudePlugin(input: { cm_home: string; env: NodeJS.ProcessEnv; claude: string | null; run?: Runner }):
+  'installed' | 'nothing-pending' | 'failed' {
+  const record = readRecord(input.cm_home, 'claude');
+  if (record === null || !isSetupRecord(record) || record.plugin === null || record.plugin.method !== 'settings' || input.claude === null) {
+    return 'nothing-pending';
+  }
+  unregisterClaudePlugin({ registration: record.plugin, claude: null });
+  const plugin = registerClaudePlugin({
+    config_root: record.layout.config_root, marketplace_dir: record.plugin.marketplace_dir, claude: input.claude,
+    ...(input.run === undefined ? {} : { run: input.run }),
+  });
+  writeFileSync(recordFile(input.cm_home, 'claude'), `${JSON.stringify({ ...record, plugin }, null, 2)}\n`, { mode: PRIVATE_FILE_MODE });
+  return plugin.method === 'cli' ? 'installed' : 'failed';
+}
+
+const PATH_MARKER = '# client-mode:path';
+
+/** What the one-line installers leave outside the host directories: a marked PATH line in the
+ * shell start-up files, the Node they downloaded and the source they built from. Client work under
+ * `projects/` is never touched. On Windows the running node.exe cannot delete itself, so the
+ * runtime is named for the person to remove instead. */
+function removeBootstrapFootprint(cmHome: string, env: NodeJS.ProcessEnv, platform: NodeJS.Platform): string[] {
+  const notes: string[] = [];
+  const home = env['HOME'] ?? env['USERPROFILE'] ?? '';
+  for (const rc of ['.zshrc', '.bashrc', '.bash_profile', '.profile']) {
+    const file = path.join(home, rc);
+    if (home === '' || !existsSync(file)) continue;
+    const text = readFileSync(file, 'utf8');
+    if (!text.includes(PATH_MARKER)) continue;
+    const kept = text.split('\n').filter(line => !line.includes(PATH_MARKER)).join('\n').replace(/\n{3,}/g, '\n\n').replace(/\n+$/, '\n');
+    writeFileSync(file, kept);
+    notes.push(`removed the Client Mode PATH line from ${file}`);
+  }
+  rmSync(path.join(cmHome, 'src'), { recursive: true, force: true });
+  if (platform === 'win32') {
+    if (existsSync(path.join(cmHome, 'runtime'))) notes.push(`remove ${path.join(cmHome, 'runtime')} once this window is closed (Windows cannot delete the running Node)`);
+  } else {
+    rmSync(path.join(cmHome, 'runtime'), { recursive: true, force: true });
+  }
+  return notes;
 }

@@ -121,7 +121,8 @@ test('install configures all four hosts from one toolkit, and uninstall puts eve
   const doctor = spawnSync(launcher, ['doctor', '--json'], { env: h.env, encoding: 'utf8', timeout: 120_000, shell: process.platform === 'win32' });
   const report = JSON.parse(doctor.stdout) as { install: { hosts: Array<{ host: string }>; findings: Array<{ code: string }> } };
   assert.deepEqual(report.install.hosts.map(entry => entry.host), ['claude', 'codex', 'gemini', 'cursor']);
-  assert.deepEqual(report.install.findings.filter(f => f.code !== 'STORE_WORLD_READABLE'), [], JSON.stringify(report.install.findings));
+  // claude is off PATH here, so the plugin is declared but not installed, and doctor says exactly that.
+  assert.deepEqual(report.install.findings.filter(f => f.code !== 'STORE_WORLD_READABLE').map(f => f.code), ['CLAUDE_PLUGIN_PENDING'], JSON.stringify(report.install.findings));
 
   // Uninstall: every file the person had is back, and nothing of ours is left.
   const removed = cm(h, ['uninstall']);

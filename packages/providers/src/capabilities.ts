@@ -19,6 +19,7 @@ import path from 'node:path';
 import { promisify } from 'node:util';
 import type { Capability, CapabilityReport } from '../../../contracts/interfaces.js';
 import { digest } from '../../contracts/src/canonical.js';
+import { spawnPlan } from '../../packaging/src/platform.js';
 import type { Admission, AdmissionRequest, CapabilityProbe, CapabilityState, DetectedHost, HostSurface, ProbeOutcome } from './interface.js';
 
 const run = promisify(execFile);
@@ -44,19 +45,27 @@ export function isTrustedExecutablePath(candidate: string, trustedRoots: string[
 /** Search the trusted roots and the process search path, and accept a hit only if it lands
  * inside a trusted root. A host may legitimately live in a configured directory that is not
  * on PATH; a binary on PATH but outside the trusted roots is still not executed. */
-export function whichTrusted(executable: string, trustedRoots: string[]): string | null {
-  const directories = [...trustedRoots, ...(process.env['PATH'] ?? '').split(path.delimiter)];
+export function whichTrusted(executable: string, trustedRoots: string[], env: NodeJS.ProcessEnv = process.env, platform: NodeJS.Platform = process.platform): string | null {
+  const windows = platform === 'win32';
+  const directories = [...trustedRoots, ...(env['PATH'] ?? env['Path'] ?? '').split(windows ? ';' : ':')];
+  // Windows runs `name` + a PATHEXT extension; an extensionless file there is not a program.
+  const extensions = windows ? (env['PATHEXT'] ?? '.COM;.EXE;.BAT;.CMD').split(';').filter(Boolean).flatMap(ext => [ext, ext.toLowerCase()]) : [''];
   for (const directory of directories) {
     if (directory === '') continue;
-    const candidate = path.join(directory, executable);
-    if (existsSync(candidate) && isTrustedExecutablePath(candidate, trustedRoots)) return candidate;
+    for (const extension of extensions) {
+      const candidate = path.join(directory, `${executable}${extension}`);
+      if (existsSync(candidate) && isTrustedExecutablePath(candidate, trustedRoots)) return candidate;
+    }
   }
   return null;
 }
 
 async function invoke(executable: string, args: string[], env: NodeJS.ProcessEnv = {}): Promise<ProbeOutcome> {
   try {
-    const { stdout, stderr } = await run(executable, args, { timeout: PROBE_TIMEOUT_MS, env: { ...process.env, ...env } });
+    // An npm `.cmd` shim cannot be executed directly on Windows; it runs through cmd.exe with its
+    // arguments escaped, which is what spawnPlan builds.
+    const plan = spawnPlan(executable, args);
+    const { stdout, stderr } = await run(plan.command, plan.args, { timeout: PROBE_TIMEOUT_MS, env: { ...process.env, ...env }, windowsVerbatimArguments: plan.verbatim });
     return { ran: true, exit_code: 0, stdout: stdout.slice(0, PROBE_MAXIMUM_STDOUT), stderr: stderr.slice(0, 2000) };
   } catch (error) {
     const failure = error as { code?: number | string; stdout?: string; stderr?: string };

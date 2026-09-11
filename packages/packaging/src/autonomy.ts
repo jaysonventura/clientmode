@@ -204,7 +204,11 @@ export function applyAutonomy(layout: HostLayout): AutonomyOutcome {
   const root = layout.config_root;
   switch (layout.host) {
     case 'claude': {
-      const outcome = setJsonKeys(path.join(root, 'settings.json'), [{ key_path: ['permissions', 'defaultMode'], value: 'auto' }]);
+      const outcome = setJsonKeys(path.join(root, 'settings.json'), [
+        { key_path: ['permissions', 'defaultMode'], value: 'auto' },
+        // The one-time notice for entering auto mode from a setting rather than the built-in default.
+        { key_path: ['skipAutoPermissionPrompt'], value: true },
+      ]);
       outcome.notes.push('Claude Code: auto mode needs a Pro, Max or Team plan (or a supported cloud provider and model); where it is unavailable Claude starts in Manual mode.');
       return outcome;
     }

@@ -18,7 +18,7 @@ import { isExecutableLauncher, launcherToolkitRoot } from './platform.js';
 export type HealthFinding = {
   code: 'TOOLKIT_MISSING' | 'TOOLKIT_STALE' | 'LAUNCHER_MISSING' | 'LAUNCHER_ORPHANED'
     | 'LAUNCHER_NOT_EXECUTABLE' | 'SKILLS_DRIFTED' | 'SKILLS_MISSING' | 'INSTRUCTIONS_MISSING'
-    | 'STORE_WORLD_READABLE';
+    | 'STORE_WORLD_READABLE' | 'CLAUDE_PLUGIN_PENDING';
   detail: string;
   /** What the operator should run. Never empty. */
   remedy: string;
@@ -57,7 +57,7 @@ export function checkInstall(input: {
   source_root: string;
   /** `skills_dir: null` means the host takes its skills from the `cm` plugin; the default is the
    * host directory's own `skills`. `instructions` defaults to the file that host loads. */
-  hosts: Array<{ host: string; install_root: string; skills_dir?: string | null; instructions?: string }>;
+  hosts: Array<{ host: string; install_root: string; skills_dir?: string | null; instructions?: string; plugin_pending?: boolean }>;
   launcher_path: string;
   platform?: NodeJS.Platform;
 }): InstallHealth {
@@ -155,6 +155,13 @@ export function checkInstall(input: {
         code: 'INSTRUCTIONS_MISSING',
         detail: `${entry.host} will not load Client Mode: no section in ${instructions}`,
         remedy: `cm install --host ${entry.host} --lead`,
+      });
+    }
+    if (entry.plugin_pending === true) {
+      findings.push({
+        code: 'CLAUDE_PLUGIN_PENDING',
+        detail: 'the cm plugin is declared in Claude Code settings but was never installed: claude was not on PATH when Client Mode was installed',
+        remedy: 'cm install --host claude',
       });
     }
     return { host: entry.host, instructions, skills_dir, skills: installed.size };

@@ -21,6 +21,7 @@ test('Claude starts in auto mode; everything else in settings.json is kept and r
   put(settings, original);
   const applied = applyAutonomy(hostLayout('claude', h, {}));
   assert.equal(json(settings).permissions.defaultMode, 'auto');
+  assert.equal(json(settings).skipAutoPermissionPrompt, true, 'no one-time auto mode notice');
   assert.deepEqual(json(settings).permissions.allow, ['Bash(git status)']);
   assert.equal(json(settings).theme, 'dark');
   restoreAutonomy(applied.changes);

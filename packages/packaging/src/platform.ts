@@ -57,7 +57,7 @@ export function writeLauncher(input: { bin_dir: string; toolkit_root: string; no
       '@echo off',
       'rem Client Mode. Installed by `cm install`; remove it with `cm uninstall`.',
       `if not defined CM_TOOLKIT_ROOT set "CM_TOOLKIT_ROOT=${input.toolkit_root}"`,
-      `"${input.node}" "%CM_TOOLKIT_ROOT%\\cm.js" %*`,
+      `"${input.node}" --disable-warning=ExperimentalWarning "%CM_TOOLKIT_ROOT%\\cm.js" %*`,
       '',
     ].join('\r\n'));
     written.push(cmd);
@@ -68,7 +68,7 @@ export function writeLauncher(input: { bin_dir: string; toolkit_root: string; no
 # Client Mode. Installed by \`cm install\`; remove it with \`cm uninstall\`.
 CM_TOOLKIT_ROOT="\${CM_TOOLKIT_ROOT:-${input.toolkit_root}}"
 export CM_TOOLKIT_ROOT
-exec "${input.node}" "$CM_TOOLKIT_ROOT/cm.js" "$@"
+exec "${input.node}" --disable-warning=ExperimentalWarning "$CM_TOOLKIT_ROOT/cm.js" "$@"
 `);
   // A `mode` on writeFileSync only applies when the file is created; chmod always applies.
   chmodSync(script, 0o755);

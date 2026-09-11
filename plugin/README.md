@@ -2,7 +2,14 @@
   <img src="assets/logo.png" alt="Claude Dev Team" width="180">
 </p>
 
-# claude-dev-team
+# claude-dev-team → the `cm` plugin
+
+> **This is now part of [Client Mode](../README.md).** The claude-dev-team plugin and Client Mode are one
+> plugin, `cm` (`cm@clientmode`), and this directory is it. Install everything — for Claude Code, Codex,
+> Gemini CLI and Cursor — with the one-line install in the [root README](../README.md). Commands are
+> `/cm:*` now; the `cdt-*` helpers, the vault and the analytics database keep their names. What follows
+> documents the orchestration features in detail.
+
 
 > An orchestrated software team for Claude Code. One **tech-lead orchestrator** triages every request,
 > writes per-agent **contracts**, dispatches **specialist subagents** in parallel, runs a **quality-gate

@@ -1,5 +1,8 @@
 # Client Mode
 
+[![install](https://github.com/jaysonventura/clientmode/actions/workflows/install.yml/badge.svg)](https://github.com/jaysonventura/clientmode/actions/workflows/install.yml)
+[![plugin](https://github.com/jaysonventura/clientmode/actions/workflows/plugin-ci.yml/badge.svg)](https://github.com/jaysonventura/clientmode/actions/workflows/plugin-ci.yml)
+
 One operating model for **Claude Code, Codex, Gemini CLI and Cursor**, and the controller that keeps
 it honest. Client Mode and the claude-dev-team orchestrator are merged into a single plugin, `cm`.
 
@@ -130,9 +133,14 @@ never touches client work under `~/.client-mode/projects/`.
 
 ## Known limits
 
-- **Checked live on this release:** the install, doctor and uninstall on macOS; Claude Code and Codex
-  reading the plugin marketplace. Gemini CLI and Cursor configuration follows their documentation but
-  was not observed in a running session here.
+- **What is checked, and where.** On every push, CI runs the one-liner on fresh macOS, Ubuntu and
+  Windows (PowerShell 5.1) machines with no Node on PATH, checks every host's configuration, runs
+  `cm doctor`, `cm handoff` and a failing command's exit code, and uninstalls. The Claude Code and
+  Codex marketplace installs were run by hand from GitHub. Gemini CLI and Cursor settings follow their
+  documentation but were not observed in a running session.
+- **The 33 acceptance gates** are qualified on macOS with signed-in Claude Code and Codex
+  (`scripts/verify-local.sh`). On Linux 16 of them need the macOS sandbox, live hosts or macOS document
+  rendering; they fail there identically before and after the merge.
 - **Cursor IDE:** "Run Everything" has no settings file — turn it on in Settings → Agents → Approvals &
   Execution. The Cursor CLI is configured.
 - **Codex and Gemini CLI** still ask once per new folder whether to trust it. That is kept on purpose: an
@@ -141,8 +149,9 @@ never touches client work under `~/.client-mode/projects/`.
   start; turn that on with `cdt-config bootstrap-community on`. Official companions still install.
 - **Claude auto mode** needs a Pro, Max or Team plan (or a supported cloud provider); elsewhere Claude
   starts in Manual mode.
-- **Windows:** the plugin's Claude Code hooks run under Git Bash (`winget install --id Git.Git -e`);
-  several of them also use Python 3. The menu bar app is macOS-only.
+- **Windows:** the plugin's Claude Code hooks run under Git Bash (`winget install --id Git.Git -e`); six
+  of them were run under Git Bash on the Windows CI machine, where Python 3 was present — several hooks
+  use it. The menu bar app is macOS-only.
 - The sandbox for untrusted checks is macOS Seatbelt; on Linux and Windows isolation is `none` and says
   so.
 - Nothing is deployed through it, and no paid service is used by it.

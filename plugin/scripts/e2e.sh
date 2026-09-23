@@ -34,10 +34,12 @@ has "$("$BIN/cdt-deps" 2>&1)" "python3" "deps lists prerequisites"
 echo "== 3. learn -> recall =="
 "$BIN/cdt-learn" "sandbox marker quuxzzy lesson" testing >/dev/null 2>&1
 has "$("$BIN/cdt-recall" "quuxzzy" 2>&1)" "quuxzzy" "recall surfaces a learned lesson"
-"$BIN/cdt-learn" "srcprobe zetaqq lesson" testing --source 'kapwa;milya@abc1234' >/dev/null 2>&1
-has "$(grep 'srcprobe zetaqq' "$HOME/.claude/vault/learnings.md")" '\[src: kapwamilya@abc1234\]$' "learn --source records where a lesson came from"
-has "$("$BIN/cdt-learn" "srcprobe zetaqq lesson" testing --source kapwamilya@abc1234 2>&1)" "already" "learn says a repeated lesson is already recorded"
+"$BIN/cdt-learn" "srcprobe zetaqq lesson" testing --source 'shop;-api@abc1234' >/dev/null 2>&1
+has "$(grep 'srcprobe zetaqq' "$HOME/.claude/vault/learnings.md")" '\[src: shop-api@abc1234\]$' "learn --source records where a lesson came from"
+has "$("$BIN/cdt-learn" "srcprobe zetaqq lesson" testing --source shop-api@abc1234 2>&1)" "already" "learn says a repeated lesson is already recorded"
 [ "$(grep -c 'srcprobe zetaqq' "$HOME/.claude/vault/learnings.md")" = 1 ] && ok "a repeated lesson is not appended twice" || no "a repeated lesson is not appended twice"
+"$BIN/cdt-learn" "srcprobe spaced etaqq" testing --source 'history audit 2026-09-23' >/dev/null 2>&1
+has "$(grep 'spaced etaqq' "$HOME/.claude/vault/learnings.md")" '\[src: history audit 2026-09-23\]$' "learn --source keeps the spaces in a general source"
 
 echo "== 4. task -> stats =="
 "$BIN/cdt-task" T2 shipped 1 "e2e sandbox task" >/dev/null 2>&1

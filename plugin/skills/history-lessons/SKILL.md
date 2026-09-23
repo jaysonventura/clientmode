@@ -52,10 +52,10 @@ approved ones, in the strongest form that fits:
 1. A regression test, a hook or a CI check in the repository it came from.
 2. A schema constraint or a shared component.
 3. A line in that repository's CLAUDE.md or AGENTS.md.
-4. A lesson that held in 2 or more repositories:
-   `cdt-learn "<lesson>" <area> --source <repo>@<sha>`, which saves it with its source.
-   If it can be written generically, with no client names, propose it as an edit to a Client Mode
-   skill; that edit goes through the full checks.
+4. A lesson that held in 2 or more repositories is written in general terms, with no repository,
+   client or product names: `cdt-learn "<general lesson>" <area> --source "history audit <date>"`.
+   Propose it as an edit to a Client Mode skill too; that edit goes through the full checks.
+   The per-repository evidence stays in the reports.
 
 Each change in a client repository is its own task, done test-first. It happens only after the
 person says yes for that repository.

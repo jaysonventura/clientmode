@@ -8,7 +8,7 @@ set +e
 SOURCE=""; ARGS=()
 while [ $# -gt 0 ]; do
   case "$1" in
-    --source) SOURCE="$(printf '%s' "$2" | tr -cd 'A-Za-z0-9@._/-')"; shift 2 ;;
+    --source) SOURCE="$(printf '%s' "$2" | tr -cd 'A-Za-z0-9@._/ -')"; shift 2 ;;
     *) ARGS+=("$1"); shift ;;
   esac
 done

@@ -43,6 +43,7 @@ named. Invoke one directly as `/cm:<name>` when you want it regardless.
 | A failure or unexplained behaviour | `debug` |
 | A migration, schema or backfill | `database-change` |
 | A feature that calls a model | `ai-eval` |
+| A repository's CLAUDE.md, AGENTS.md or rules files | `agent-instructions` |
 | A user interface | `ui-ux`, then `web-qa` / `mobile-qa` with `qa-shared` |
 | Build, deploy, run or release | `automation-first` |
 | Working a task contract; reviewing | `delivery`; `review` |

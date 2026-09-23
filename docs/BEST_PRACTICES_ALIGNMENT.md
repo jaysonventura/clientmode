@@ -18,11 +18,12 @@ Status: **aligned**, **gap** (with the change that closes it), or **diverges** (
 | Provide specific context in your prompts | Scope the task, point to sources and existing patterns, describe the symptom and what "fixed" looks like | `intake`; orchestration brief: goal / context / constraints / done when | aligned |
 | Provide rich content | `@` files, pasted screenshots, URLs, piped data | host feature; nothing to add | aligned |
 | Write an effective CLAUDE.md | Short; per line ask "would removing this cause mistakes?"; sometimes-relevant material goes in skills; emphasis on one line only | lead rules held at ≤ 1,209 words by a test; one routing table; one bold phrase; descriptions ≤ 40 words | aligned |
+| | The same rules applied to a client repository's CLAUDE.md / AGENTS.md (memory docs, read 2026-09-23: under 200 lines, `paths:` rules, imports load at launch, AGENTS.md read only when no CLAUDE.md) | `agent-instructions` skill. Where the aihero.dev AGENTS.md guide disagrees, the first-party docs win: Claude Code does read AGENTS.md, so share it with a `@AGENTS.md` import rather than a symlink; a stable checked path is allowed, a file map is not; `/init` output is a draft to cut down, not forbidden | aligned |
 | Configure permissions | Allowlists, sandbox, auto mode | `cm install` turns on auto mode; `CM_NO_AUTONOMY=1` opts out | aligned |
 | Use CLI tools | `gh`, `aws` and similar are the most context-efficient way to reach services | `cm:deps` checks `gh` | aligned |
 | Connect MCP servers | Connect trackers, databases, designs | companion plugins via `cm:plugins` | aligned |
 | Set up hooks | Anything that must happen every time is a hook, not a rule | Claude: verify/claim/Stop hooks. Codex: `cm install` adds a Stop hook that runs the project's checks | aligned |
-| Create skills | Workflows as on-demand skills | 23 skills; descriptions capped at 40 words by `validate.sh` | aligned |
+| Create skills | Workflows as on-demand skills | 24 skills; descriptions capped at 40 words by `validate.sh` | aligned |
 | Create custom subagents | Isolated contexts for read-heavy or specialist work | 19 agents; one implementer by default | aligned |
 | Install plugins | Bundle skills, hooks, agents, MCP | Client Mode ships as the `cm` plugin | aligned |
 | Ask codebase questions | Ask what you would ask a senior engineer | host behaviour | aligned |

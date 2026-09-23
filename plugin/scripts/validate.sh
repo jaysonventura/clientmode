@@ -188,6 +188,30 @@ for needle in "Read-only in the audited repository" "Silence counts as rejected"
 done
 [ -f skills/history-lessons/scripts/mine-history.mjs ] && ok "history-lessons ships scripts/mine-history.mjs" || err "history-lessons/scripts/mine-history.mjs missing"
 
+# Studied 2026-09-23: AI-engineer roadmaps and the AGENTS.md guide, reconciled with Claude Code's
+# memory docs. Detail lives in references/ so the skill bodies stay short.
+echo "== agent instruction files and model-backed features =="
+while IFS='|' read -r file needle; do
+  grep -qF "$needle" "skills/$file" && ok "$file: $needle" || err "$file lost: $needle"
+done <<'STUDIED'
+agent-instructions/SKILL.md|under 200 lines
+agent-instructions/SKILL.md|would removing this cause a mistake
+agent-instructions/SKILL.md|Imports do not save context
+agent-instructions/SKILL.md|paths:
+agent-instructions/SKILL.md|@AGENTS.md
+agent-instructions/SKILL.md|directory layout
+ai-eval/SKILL.md|references/building.md
+ai-eval/references/building.md|Untrusted content is data
+ai-eval/references/building.md|retrieval before generation
+ai-eval/references/building.md|hybrid
+ai-eval/references/building.md|rerank
+ai-eval/references/building.md|trace
+ai-eval/references/building.md|prompt caching
+ai-eval/references/building.md|regression
+ai-eval/references/building.md|fine-tun
+STUDIED
+[ "$(wc -w < skills/ai-eval/SKILL.md | tr -d ' ')" -le 450 ] && ok "ai-eval body <= 450 words" || err "ai-eval body over 450 words — move detail to references/"
+
 # Approved lessons from the 2026-09-23 history-lessons audit of real repositories.
 echo "== audited lessons stay in the skills =="
 while IFS='|' read -r skill needle; do

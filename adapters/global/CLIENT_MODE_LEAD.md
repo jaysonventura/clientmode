@@ -34,7 +34,7 @@ Triage before you start, and pick the smallest shape that fits:
 | Build, deploy, run or release | `cm-automation-first` |
 | Major feature | a goal (`/goal`), a plan (`/plan`), one verified slice at a time, review, then the person accepts |
 | Reviewing; working a contract; closing | `cm-review`; `cm-delivery`; `cm-verify` then `cm-handoff` |
-| TypeScript, refactors, performance, docs | `cm-clean-code-typescript`, `cm-karpathy-guidelines`, `cm-code-splitting`, `cm-gauge-improvements`, `cm-technical-writing` |
+| TypeScript, refactors, performance, docs | `cm-clean-code-typescript`, `cm-karpathy-guidelines`, `cm-code-splitting`, `cm-gauge-improvements`, `cm-technical-writing`, `cm-agent-instructions` |
 
 Skills say how; hooks enforce; the person steers with the host's commands.
 

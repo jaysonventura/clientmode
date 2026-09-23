@@ -38,6 +38,9 @@ Start with the simplest thing that works: a fixed sequence of steps before an au
 adding autonomy only when a measurement shows it helps. Consequential decisions (hiring, money,
 health, access) keep a human review step; the model proposes, a person confirms.
 
+For the design itself (shape, context, retrieval, tools, prompt injection, tracing, cost and
+regression runs) read `references/building.md` before writing the first prompt.
+
 ## Report
 
 Baseline → the most common failures → the change → the measured difference on the held-out set →

@@ -543,6 +543,8 @@ cmd_bootstrap() {
   local optional=0 lax=0
   auto_install_on && optional=1
   strict_on || lax=1
+
+  _cache_installed; _cache_mkts   # is_inst / has_mkt read these caches; without them every row looks missing
   _ensure_bun
   local pending=0 id ident mkt src
   # Re-read live state each run rather than trusting the stamp, so an uninstall re-heals. This covers the

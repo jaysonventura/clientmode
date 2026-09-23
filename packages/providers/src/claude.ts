@@ -110,7 +110,7 @@ export class ClaudeAdapter implements ProviderAdapter {
   /** Argv for a run in `workspace`: the workspace's CLAUDE.md, when there is one, is appended as
    * instructions, because `--setting-sources user` keeps the host from loading it. */
   argvForWorkspace(workspace: string, input: { prompt: string; session_id?: string; resume?: string }): string[] {
-    const instructions = path.join(workspace, 'CLAUDE.md');
+    const instructions = path.join(path.resolve(workspace), 'CLAUDE.md');
     return this.argvFor({ ...input, ...(existsSync(instructions) ? { instructions_file: instructions } : {}) });
   }
 

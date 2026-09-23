@@ -409,20 +409,19 @@ if need_file "$PSH" 35 "community installs are opt-in; kill switch blocks all sh
   if grep -q 'ponytail\|claude-mem\|thedotmack' "$SHIM_LOG"; then
     fail 35 "default bootstrap installs no third-party plugin" "shim-log: $(tr '\n' '|' <"$SHIM_LOG" | cut -c1-200)"
   else
-    # Optional companions are the person's choice. The bootstrap's own output names every row it tries (the
-    # fixture has no official marketplace, so an attempted row reports that instead of reaching the shim).
-    OUT0="$(boot_run)"
-    lack 35 "default bootstrap never tries an optional official companion (playwright)" "$OUT0" "playwright"
-    lack 35 "default bootstrap never tries an optional third-party companion (github)" "$OUT0" "github"
-    want 35 "default bootstrap still heals a required companion (context7)" "$OUT0" "context7"
+    # Optional companions are the person's choice; required ones are healed. Assert on what reached the
+    # shim, not on printed text: an error line that merely names a plugin must not count as an install.
+    want 35 "default bootstrap heals a missing required companion (context7)" "$(cat "$SHIM_LOG")" "install context7@claude-plugins-official -s user"
+    lack 35 "default bootstrap never installs an optional official companion (playwright)" "$(cat "$SHIM_LOG")" "install playwright@"
+    lack 35 "default bootstrap never installs an optional third-party companion (github)" "$(cat "$SHIM_LOG")" "install github@"
   fi
-  rm -f "$MKT_HOME/.cdt/bootstrap-community.done" 2>/dev/null
-  OUT1="$(CDT_PLUGIN_AUTO_INSTALL=1 boot_run)"
-  want 35 "CDT_PLUGIN_AUTO_INSTALL=1 -> optional official companion tried (playwright)" "$OUT1" "playwright"
-  lack 35 "CDT_PLUGIN_AUTO_INSTALL=1 with strict on -> third-party companion not tried (github)" "$OUT1" "github"
-  rm -f "$MKT_HOME/.cdt/bootstrap-community.done" 2>/dev/null
-  OUT2="$(CDT_PLUGIN_AUTO_INSTALL=1 CDT_PLUGIN_STRICT=0 boot_run)"
-  want 35 "CDT_PLUGIN_AUTO_INSTALL=1 CDT_PLUGIN_STRICT=0 -> verified third-party companion tried (github)" "$OUT2" "github"
+  : > "$SHIM_LOG"; rm -f "$MKT_HOME/.cdt/bootstrap-community.done" 2>/dev/null
+  CDT_PLUGIN_AUTO_INSTALL=1 boot_run >/dev/null 2>&1
+  want 35 "CDT_PLUGIN_AUTO_INSTALL=1 -> optional official companion installed (playwright)" "$(cat "$SHIM_LOG")" "install playwright@claude-plugins-official -s user"
+  lack 35 "CDT_PLUGIN_AUTO_INSTALL=1 with strict on -> third-party companion not installed (github)" "$(cat "$SHIM_LOG")" "install github@"
+  : > "$SHIM_LOG"; rm -f "$MKT_HOME/.cdt/bootstrap-community.done" 2>/dev/null
+  CDT_PLUGIN_AUTO_INSTALL=1 CDT_PLUGIN_STRICT=0 boot_run >/dev/null 2>&1
+  want 35 "CDT_PLUGIN_AUTO_INSTALL=1 CDT_PLUGIN_STRICT=0 -> verified third-party companion installed (github)" "$(cat "$SHIM_LOG")" "install github@claude-plugins-official -s user"
   : > "$SHIM_LOG"; rm -f "$MKT_HOME/.cdt/bootstrap-community.done" 2>/dev/null
   CDT_BOOTSTRAP=off CDT_BOOTSTRAP_COMMUNITY=on boot_run >/dev/null 2>&1
   if [ ! -s "$SHIM_LOG" ]; then pass 35 "CDT_BOOTSTRAP=off -> shim never invoked"
@@ -445,7 +444,8 @@ plugins = {
 print(json.dumps({"version": 2, "plugins": plugins}, indent=2))
 PY
   : > "$SHIM_LOG"
-  boot_run >/dev/null 2>&1
+  # Every opt-in on, so every row is eligible: only "already installed" can keep the shim silent.
+  CDT_BOOTSTRAP_COMMUNITY=on CDT_PLUGIN_AUTO_INSTALL=1 CDT_PLUGIN_STRICT=0 boot_run >/dev/null 2>&1
   if [ ! -s "$SHIM_LOG" ]; then pass 36 "already installed -> no shell-out"
   else fail 36 "bootstrap idempotent" "shim-log: $(tr '\n' '|' <"$SHIM_LOG" | cut -c1-160)"; fi
   mv "$MKT_HOME/plugins/installed_plugins.json.bak" "$MKT_HOME/plugins/installed_plugins.json"

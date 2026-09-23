@@ -47,3 +47,21 @@ test('the alignment table names every practice in the recorded snapshot', () => 
   const table = readFileSync(new URL('docs/BEST_PRACTICES_ALIGNMENT.md', root), 'utf8');
   assert.deepEqual(uncovered(recorded, table), []);
 });
+
+// The user rule (2026-09-23): the best-practices page and the pages it links to always win, so the
+// check watches those pages too, and the alignment table's evidence must still exist in the repo.
+import { LINKED, changedLinked, citedPaths, missingPaths } from '../../scripts/check-best-practices.mjs';
+
+test('the check watches the linked docs pages Client Mode relies on', () => {
+  for (const page of ['hooks', 'sub-agents', 'memory', 'skills', 'permission-modes', 'costs', 'headless', 'mcp']) {
+    assert.ok(LINKED.includes(page), page);
+  }
+  assert.deepEqual(changedLinked({ hooks: 'a', skills: 'b' }, { hooks: 'a', skills: 'c' }), ['skills']);
+  assert.deepEqual(changedLinked({ hooks: 'a' }, { hooks: 'a', mcp: 'x' }), ['mcp']);
+});
+
+test('every repository file the alignment table cites exists', () => {
+  const table = readFileSync(new URL('docs/BEST_PRACTICES_ALIGNMENT.md', root), 'utf8');
+  assert.deepEqual(citedPaths('see `plugin/hooks/x.sh` and `a/b.md`, not `cm:tdd` or `/goal`'), ['plugin/hooks/x.sh', 'a/b.md']);
+  assert.deepEqual(missingPaths(citedPaths(table), new URL('.', root).pathname), []);
+});

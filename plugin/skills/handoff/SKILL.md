@@ -35,6 +35,8 @@ Recommended next step: <one step>
   and the Stop hook derives Verification from that record — your prose must match it.
   `.claude/TASK_RESULT.json` stays local.
 - Documentation or plan-only work legitimately ends with `Verification: not_run`.
+- Commit what you hand over. Checkpoints (`/rewind`) are a local undo, not a record, and they do not
+  undo remote side effects (a push, a sent message, a deploy).
 
 ## Talking to the client
 

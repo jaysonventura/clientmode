@@ -259,6 +259,7 @@ ai-eval/references/building.md|Map, Measure, Mitigate, Manage
 ai-eval/references/building.md|every tool call
 ai-eval/references/building.md|idempotency
 agent-instructions/SKILL.md|authority
+handoff/SKILL.md|Checkpoints (`/rewind`)
 BESTPRACTICES
 # skills.md: "disable-model-invocation: true — Only you can invoke the skill. Use this for workflows with
 # side effects". These commands write settings, the vault, worktrees or a PR, or install software.

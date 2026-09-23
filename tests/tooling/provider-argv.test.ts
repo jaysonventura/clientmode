@@ -29,3 +29,12 @@ test('a worker loads only the user settings, never a client repository project o
   assert.ok(i >= 0, argv.join(' '));
   assert.equal(argv[i + 1], 'user');
 });
+
+// --setting-sources user also stops the project's CLAUDE.md from loading (observed on 2.1.280 with every
+// read tool disabled), so the workspace instructions the controller wrote are appended explicitly.
+test('the workspace instructions reach the worker even though project settings do not', () => {
+  const argv = new ClaudeAdapter(base).argvFor({ prompt: 'x', instructions_file: '/ws/CLAUDE.md' });
+  const i = argv.indexOf('--append-system-prompt-file');
+  assert.ok(i >= 0, argv.join(' '));
+  assert.equal(argv[i + 1], '/ws/CLAUDE.md');
+});

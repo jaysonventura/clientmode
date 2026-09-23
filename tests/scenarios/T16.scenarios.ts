@@ -113,7 +113,7 @@ registerScenario('AT-016', async (): Promise<ScenarioObservation> => {
         'Name the one requirement that forbids online payment, and reply with its id only.',
       ].join('\n');
       promptsSent.push(prompt);
-      const turn = await liveTurn({ executable: 'claude', cwd: project, argv: adapter.argvFor({ prompt, session_id: randomUUID() }) });
+      const turn = await liveTurn({ executable: 'claude', cwd: project, argv: adapter.argvForWorkspace(project, { prompt, session_id: randomUUID() }) });
       liveClaims = normaliseStream(turn.lines, { provider: 'claude', run_id: run.run_id, attempt_id: 'attempt_t16', billing_mode: 'native_account', occurred_at: NOW }, 'claude').claims;
     }
     const continuePrompts = promptsSent.filter(prompt => /\bcontinue\b/i.test(prompt)).length;

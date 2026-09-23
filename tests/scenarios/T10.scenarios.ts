@@ -130,7 +130,7 @@ registerScenario('AT-010', async (): Promise<ScenarioObservation> => {
     const freshSessionId = randomUUID();
     const fresh = await liveTurn({
       executable: 'claude', cwd: project,
-      argv: adapter.argvFor({ prompt: 'Reply with the delivery marker from your instructions and nothing else.', session_id: freshSessionId }),
+      argv: adapter.argvForWorkspace(project, { prompt: 'Reply with the delivery marker from your instructions and nothing else.', session_id: freshSessionId }),
     });
     const freshSummary = normaliseStream(fresh.lines, { ...normalisation, attempt_id: 'attempt_t10_fresh' }, 'claude');
     const after = readFileSync(path.join(project, 'CLAUDE.md'), 'utf8');
@@ -153,12 +153,12 @@ registerScenario('AT-010', async (): Promise<ScenarioObservation> => {
     const resumeSessionId = randomUUID();
     const first = await liveTurn({
       executable: 'claude', cwd: resumeProject,
-      argv: adapter.argvFor({ prompt: `Remember this codeword for later: ${codeword}. Reply with just: STORED`, session_id: resumeSessionId }),
+      argv: adapter.argvForWorkspace(resumeProject, { prompt: `Remember this codeword for later: ${codeword}. Reply with just: STORED`, session_id: resumeSessionId }),
     });
     const firstSummary = normaliseStream(first.lines, { ...normalisation, attempt_id: 'attempt_t10_resume_1' }, 'claude');
     const resumed = await liveTurn({
       executable: 'claude', cwd: resumeProject,
-      argv: adapter.argvFor({ prompt: 'What codeword did I ask you to remember? Reply with the codeword only.', resume: firstSummary.session_id ?? resumeSessionId }),
+      argv: adapter.argvForWorkspace(resumeProject, { prompt: 'What codeword did I ask you to remember? Reply with the codeword only.', resume: firstSummary.session_id ?? resumeSessionId }),
     });
     const resumedSummary = normaliseStream(resumed.lines, { ...normalisation, attempt_id: 'attempt_t10_resume_2' }, 'claude');
     log['resume'] = {

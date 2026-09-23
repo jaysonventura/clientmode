@@ -9,6 +9,8 @@
  * and a candidate process never sees either.
  */
 import { randomUUID } from 'node:crypto';
+import { existsSync } from 'node:fs';
+import path from 'node:path';
 import type { CapabilityReport, ProviderAdapter, ProviderContext, ProviderEvent } from '../../../contracts/interfaces.js';
 import { detectCapabilities, detectHost } from './capabilities.js';
 import { assertNoPermissionEscape, cancelHostProcess, startHostProcess, type HostSession } from './host-session.js';
@@ -79,7 +81,7 @@ export class ClaudeAdapter implements ProviderAdapter {
   }
 
   /** Argv is built here and validated before anything is spawned. */
-  argvFor(input: { prompt: string; session_id?: string; resume?: string }): string[] {
+  argvFor(input: { prompt: string; session_id?: string; resume?: string; instructions_file?: string }): string[] {
     const argv = [
       '-p', input.prompt,
       '--output-format', 'stream-json',
@@ -88,9 +90,11 @@ export class ClaudeAdapter implements ProviderAdapter {
       '--strict-mcp-config',
       // Only the user's settings: a client repository's .claude/settings.json hooks, env block and
       // helpers would otherwise run under -p even in an untrusted folder (docs: permissions).
-      // The repository's CLAUDE.md still loads (observed on 2.1.280).
+      // This also stops the project's CLAUDE.md from loading (observed on 2.1.280), so the
+      // workspace instructions are appended explicitly below.
       '--setting-sources', 'user',
     ];
+    if (input.instructions_file !== undefined) argv.push('--append-system-prompt-file', input.instructions_file);
     if (this.#options.mcp_config !== undefined) argv.push('--mcp-config', this.#options.mcp_config);
     if (input.resume !== undefined) argv.push('--resume', input.resume);
     else if (input.session_id !== undefined) argv.push('--session-id', input.session_id);
@@ -101,6 +105,13 @@ export class ClaudeAdapter implements ProviderAdapter {
     argv.push(...(this.#options.extra_args ?? []));
     assertNoPermissionEscape(argv);
     return argv;
+  }
+
+  /** Argv for a run in `workspace`: the workspace's CLAUDE.md, when there is one, is appended as
+   * instructions, because `--setting-sources user` keeps the host from loading it. */
+  argvForWorkspace(workspace: string, input: { prompt: string; session_id?: string; resume?: string }): string[] {
+    const instructions = path.join(workspace, 'CLAUDE.md');
+    return this.argvFor({ ...input, ...(existsSync(instructions) ? { instructions_file: instructions } : {}) });
   }
 
   async *start(context: ProviderContext, signal: AbortSignal): AsyncIterable<ProviderEvent> {
@@ -120,7 +131,7 @@ export class ClaudeAdapter implements ProviderAdapter {
       yield { type: 'blocked', attempt_id: context.attempt_id, code: 'HOST_NOT_INSTALLED', message: 'Claude host not found on a trusted path' };
       return;
     }
-    const argv = this.argvFor({ prompt: buildTaskPrompt(context), ...mode });
+    const argv = this.argvForWorkspace(context.workspace_id, { prompt: buildTaskPrompt(context), ...mode });
     const session = startHostProcess({
       executable: host.executable_path, argv, cwd: context.workspace_id, signal,
     });

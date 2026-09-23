@@ -15,7 +15,7 @@ box you typed the request into. If you want changes, say so; the work picks up f
 - Choose, name, configure or supervise agents.
 - Relay messages between workers.
 - Research an API or pick a library. Small changes never wait for a plan; for larger or risky
-  changes you see the plan first and say go.
+  changes you see the plan first and approve it.
 
 ## What this build does not do
 

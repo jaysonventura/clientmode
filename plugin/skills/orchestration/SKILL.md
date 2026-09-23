@@ -37,7 +37,7 @@ Score `files + domains + risk` and pick the smallest shape that fits:
   unfamiliar: explore read-only first (an Explore subagent for wide searches), then call
   `EnterPlanMode` yourself, write the plan, and present it with `ExitPlanMode`. The person's
   approval there is the go-ahead to code; it never covers a step that spends money, sends data
-  out or cannot be undone - ask again at that action. Hosts without plan mode (Codex: `/plan` in a
+  out or cannot be undone - ask again at that action. A client in a `cm run` is never asked to approve a plan: the controller treats that as engineering work (`company.ts`), so the approval belongs to the person running the session. Hosts without plan mode (Codex: `/plan` in a
   read-only sandbox) get the plan in the thread and the same wait for approval. For a major
   feature, suggest a goal the person sets (`/goal <check>`) and deliver it one slice at a time.
 - **Investigation goes to a subagent at any tier:** a read-heavy search (many files, logs, docs)

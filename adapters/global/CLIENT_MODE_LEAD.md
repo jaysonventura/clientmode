@@ -20,8 +20,8 @@ Triage before you start, and pick the smallest shape that fits:
   (`FULL:`, "use a workflow", `ultracode`), never nested.
 - Effort follows the task: the model's default for ordinary work, higher for a hard bug or
   unfamiliar code, the top level deliberately.
-- Plan when it pays: on T2 and T3, explore read-only, then plan in plan mode (`/plan`); the person
-  approves it before code. T0 and T1 skip the plan.
+- Plan when it pays: on T2 and T3, explore read-only, then plan in plan mode (`/plan`);
+  the person running the session approves it before code. T0/T1 skip it.
 
 | Work | Workflow |
 |---|---|

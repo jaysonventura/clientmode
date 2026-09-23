@@ -64,3 +64,10 @@ test('the lead rules follow Claude Code best practices on planning and interview
   assert.ok(text.includes('edge cases only they can decide'));
   assert.ok(text.includes('`ultracode`'), 'the ultracode keyword counts as asking for wider fan-out');
 });
+
+test('plan approval belongs to the person running the session, never to a client in a controller run', () => {
+  assert.ok(lead().includes('the person running the session'), 'lead');
+  const other = renderRules({ source_root: ROOT, lead: false, skill_reference: 'cm-' });
+  assert.ok(other.includes('A client in a `cm run` is never asked to approve a plan'), 'non-lead');
+  assert.ok(read('plugin/skills/orchestration/SKILL.md').includes('A client in a `cm run` is never asked to approve a plan'), 'orchestration');
+});

@@ -22,7 +22,7 @@ Status: **aligned**, **gap** (with the change that closes it), or **diverges** (
 | Use CLI tools | `gh`, `aws` and similar are the most context-efficient way to reach services | `cm:deps` checks `gh` | aligned |
 | Connect MCP servers | Connect trackers, databases, designs | companion plugins via `cm:plugins` | aligned |
 | Set up hooks | Anything that must happen every time is a hook, not a rule | Claude: verify/claim/Stop hooks. Codex: `cm install` adds a Stop hook that runs the project's checks | aligned |
-| Create skills | Workflows as on-demand skills | 22 skills; descriptions capped at 40 words by `validate.sh` | aligned |
+| Create skills | Workflows as on-demand skills | 23 skills; descriptions capped at 40 words by `validate.sh` | aligned |
 | Create custom subagents | Isolated contexts for read-heavy or specialist work | 19 agents; one implementer by default | aligned |
 | Install plugins | Bundle skills, hooks, agents, MCP | Client Mode ships as the `cm` plugin | aligned |
 | Ask codebase questions | Ask what you would ask a senior engineer | host behaviour | aligned |

@@ -182,6 +182,12 @@ for needle in "reproduction, not" "two correction passes" "scripts/visual-check.
 done
 [ -f skills/ui-ux/scripts/visual-check.mjs ] && ok "ui-ux ships scripts/visual-check.mjs" || err "ui-ux/scripts/visual-check.mjs missing"
 
+echo "== history-lessons stays read-only and waits for approval =="
+for needle in "Read-only in the audited repository" "Silence counts as rejected" "scripts/mine-history.mjs"; do
+  grep -q "$needle" skills/history-lessons/SKILL.md && ok "history-lessons: $needle" || err "history-lessons lost: $needle"
+done
+[ -f skills/history-lessons/scripts/mine-history.mjs ] && ok "history-lessons ships scripts/mine-history.mjs" || err "history-lessons/scripts/mine-history.mjs missing"
+
 # Every skill, command and agent description is loaded into every session; the body loads on use.
 echo "== descriptions stay short (loaded every session; <= 40 words) =="
 for f in skills/*/SKILL.md commands/*.md agents/*.md; do

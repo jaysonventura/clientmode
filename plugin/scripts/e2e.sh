@@ -238,6 +238,10 @@ hasjson() { local f; for f in "$1"/*.json; do [ -e "$f" ] && return 0; done; ret
 S=sc1; rm -rf "$(SCD $S)"
 TP $S "cm:backend-engineer" "api/**" | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
 hasjson "$(SCD $S)/pending" && ok "PreToolUse(Task) captured a pending contract" || no "contract capture"
+# (a2) Claude Code >= 2.1.63 names the tool "Agent" (the "Task" matcher still fires; observed on 2.1.280)
+S=sc1a; rm -rf "$(SCD $S)"
+TP $S "cm:backend-engineer" "api/**" | sed 's/"tool_name":"Task"/"tool_name":"Agent"/' | bash "$REPO/hooks/contract-capture.sh" >/dev/null 2>&1
+hasjson "$(SCD $S)/pending" && ok "PreToolUse(Agent) captured a pending contract" || no "contract capture for tool_name Agent"
 # (b) in-scope write -> claimed (atomic mv), no finding
 mksub "$CROOT/api/users.ts" "$SBX/tr-sc1.jsonl"; astop "cm:backend-engineer" $S "$SBX/tr-sc1.jsonl"
 hasjson "$(SCD $S)/claimed" && ok "SubagentStop claimed the contract (atomic mv)" || no "contract claim"

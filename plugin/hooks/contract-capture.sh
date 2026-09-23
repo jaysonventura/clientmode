@@ -29,7 +29,7 @@ try:
     o = json.loads(os.environ.get("CDT_PAYLOAD", "") or "{}")
 except Exception:
     raise SystemExit(0)
-if (o.get("tool_name") or "") != "Task":
+if (o.get("tool_name") or "") not in ("Agent", "Task"):   # "Agent" since Claude Code 2.1.63
     raise SystemExit(0)
 ti = o.get("tool_input") or {}
 agent = ti.get("subagent_type") or ""

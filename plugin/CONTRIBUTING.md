@@ -20,8 +20,8 @@ throwaway sandbox and exercises the full chain (CLIs, doctor, recall, stats, eco
 ## How to add things
 
 - **An agent** — drop a markdown file in `agents/` with frontmatter (`name`, `description`, optional
-  `tools`, `model`). Pin `model: opus` only for judgment roles (design/review); builders inherit the
-  session model. Reference it from `skills/orchestration/SKILL.md` if the orchestrator should dispatch it.
+  `tools`, `model`). Every substantive agent is `model: opus` (the
+  production-grade floor `scripts/lint-agents.sh` enforces); only `fast-ops` runs on haiku. Reference it from `skills/orchestration/SKILL.md` if the orchestrator should dispatch it.
 - **A skill** — add a folder + `SKILL.md` in `skills/` with a `name` and an auto-trigger `description`.
 - **A command** — add a markdown file in `commands/` with a `description` (and optional `argument-hint`,
   `allowed-tools`). It becomes `/cm:<file>`.

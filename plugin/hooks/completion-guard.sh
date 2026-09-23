@@ -8,7 +8,7 @@ INPUT="$(cat 2>/dev/null)"
 
 # Loop guard. The host sets stop_hook_active on every Stop after a Stop-hook block (hooks.md) and ends the
 # turn itself after CLAUDE_CODE_STOP_HOOK_BLOCK_CAP blocks (default 8). Only a RED verdict may block again
-# here, bounded by CDT_MAX_ITERATIONS (3); every other gate stays once per stop chain.
+# here, bounded by CDT_MAX_ITERATIONS (3); the other gates keep their once-per-session markers.
 _STOP_ACTIVE=0
 printf '%s' "$INPUT" | grep -q '"stop_hook_active"[[:space:]]*:[[:space:]]*true' && _STOP_ACTIVE=1
 
@@ -23,10 +23,10 @@ REMIND_MARK="${TMPDIR:-/tmp}/cdt-reminded-${SESSION_ID:-default}.marker"
 # No edits this session → stay completely silent.
 [ -f "$MARK" ] || exit 0
 
-# Silent bookkeeping: record a session row in the DB.
+# Silent bookkeeping: record a session row in the DB (once per stop chain, not on each re-block).
 CDT_HOME="$HOME/.claude"
 [ -f "$CDT_HOME/bin/cdt-db.sh" ] && . "$CDT_HOME/bin/cdt-db.sh" 2>/dev/null && \
-  db_session "${SESSION_ID:-unknown}" "$CWD" "stopped" 2>/dev/null
+  [ "$_STOP_ACTIVE" = 0 ] && db_session "${SESSION_ID:-unknown}" "$CWD" "stopped" 2>/dev/null
 
 # A disabled CDT never gates or reminds (behaves as stock Claude Code).
 _EN="$(grep -E '^CDT_ENABLED=' "$CDT_HOME/claude-dev-team.env" 2>/dev/null | head -1 | cut -d= -f2-)"
@@ -86,7 +86,8 @@ for f in (d.get("failing") or []): print("%s (exit %s)" % (f.get("command",""), 
   fi
 fi
 
-[ "$_STOP_ACTIVE" = 1 ] && [ "$_VERIF" != "failed" ] && exit 0
+# Under stop_hook_active only the red loop below may run; anything else ends here.
+[ "$_STOP_ACTIVE" = 1 ] && { [ "$_VERIF" != "failed" ] || [ "$GATE" = "off" ] || [ "$_DOCS_ONLY" = 1 ]; } && exit 0
 
 # --- Verification gate + TASK LOOP -----------------------------------------------------------------
 # Two failures this replaces. (1) The old gate accepted "a verifying command RAN": it matched the command

@@ -20,3 +20,12 @@ test('only the MCP config the task approved is passed', () => {
   assert.ok(argv.includes('--strict-mcp-config'));
   assert.deepEqual(argv.slice(argv.indexOf('--mcp-config'), argv.indexOf('--mcp-config') + 2), ['--mcp-config', '/approved/mcp.json']);
 });
+
+// Without --bare, a -p session runs a project's .claude/settings.json hooks, env block and helper
+// commands even in an untrusted folder (docs: permissions, "What runs before you trust a folder").
+test('a worker loads only the user settings, never a client repository project or local settings', () => {
+  const argv = new ClaudeAdapter(base).argvFor({ prompt: 'x' });
+  const i = argv.indexOf('--setting-sources');
+  assert.ok(i >= 0, argv.join(' '));
+  assert.equal(argv[i + 1], 'user');
+});

@@ -2,6 +2,7 @@
 //   --tools ""                disable all built-in tools
 //   --disallowedTools mcp__*  defensively deny MCP tools
 //   --strict-mcp-config       never start the project's .mcp.json servers (-p loads them without asking)
+//   --setting-sources user    never run the project's settings hooks/env a second time
 //   --no-session-persistence  do not persist a session
 //   --max-budget-usd          hard cost ceiling
 //   CDT_IN_ENHANCER=1         recursion guard for our own UserPromptSubmit/SessionStart hooks
@@ -31,6 +32,7 @@ export function claudeEnhance(prompt: string, cfg: CdtConfig, claudeBin = 'claud
     '--tools', '',
     '--disallowedTools', 'mcp__*',
     '--strict-mcp-config',
+    '--setting-sources', 'user',
     '--output-format', 'text',
     '--effort', cfg.prompt.effort,
     '--append-system-prompt', ENHANCE_SYSTEM,

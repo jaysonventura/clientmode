@@ -15,6 +15,8 @@ describe('claudeEnhance', () => {
     writeFileSync(fake, `#!/bin/sh\nprintf '%s\\n' "$@" > '${log}'\necho suggestion\n`);
     chmodSync(fake, 0o755);
     claudeEnhance('make the login page faster', cfg(), fake);
-    expect(readFileSync(log, 'utf8').split('\n')).toContain('--strict-mcp-config');
+    const argv = readFileSync(log, 'utf8').split('\n');
+    expect(argv).toContain('--strict-mcp-config');
+    expect(argv[argv.indexOf('--setting-sources') + 1]).toBe('user');
   });
 });

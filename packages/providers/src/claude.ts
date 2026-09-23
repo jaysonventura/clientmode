@@ -86,6 +86,10 @@ export class ClaudeAdapter implements ProviderAdapter {
       '--verbose',
       '--permission-mode', this.#options.permission_mode ?? 'plan',
       '--strict-mcp-config',
+      // Only the user's settings: a client repository's .claude/settings.json hooks, env block and
+      // helpers would otherwise run under -p even in an untrusted folder (docs: permissions).
+      // The repository's CLAUDE.md still loads (observed on 2.1.280).
+      '--setting-sources', 'user',
     ];
     if (this.#options.mcp_config !== undefined) argv.push('--mcp-config', this.#options.mcp_config);
     if (input.resume !== undefined) argv.push('--resume', input.resume);

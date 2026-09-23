@@ -50,6 +50,21 @@ Claude Code reads AGENTS.md when there is no CLAUDE.md, and reads only CLAUDE.md
 Keep the shared text in AGENTS.md and make CLAUDE.md a single `@AGENTS.md` line plus anything
 specific to Claude Code. Do not maintain two copies that drift apart.
 
+## A team knowledge base the agent reads
+
+When a project keeps its decisions and design notes in Markdown for people and agents alike:
+
+- Rank documents by authority: approved decisions first, then core design notes, then working
+  notes and meeting records. Superseded files move to an archive with a one-line
+  "not authoritative" banner and leave the map, so an agent never cites them as current.
+- Keep one short map file that lists each document with a one-line purpose and groups related
+  ones. The agent reads the map and follows only the links a task needs; it does not read a list
+  of files at every session start, which loads context no task asked for.
+- Ask for claims with `file:line` citations, so a person can check them.
+- Keep one source for each agent prompt or workflow; slash commands and skills point at it rather
+  than copying it.
+- Update the map in the same change that adds, supersedes or archives a document.
+
 ## Generated drafts and upkeep
 
 `/init` or another generator gives a starting draft. Cut it down to what the agent could not work

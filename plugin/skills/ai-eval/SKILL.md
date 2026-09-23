@@ -39,7 +39,8 @@ adding autonomy only when a measurement shows it helps. Consequential decisions 
 health, access) keep a human review step; the model proposes, a person confirms.
 
 For the design itself (shape, context, retrieval, tools, prompt injection, tracing, cost and
-regression runs) read `references/building.md` before writing the first prompt.
+regression runs) read `references/building.md` before writing the first prompt. For an MCP server or
+client, read `references/mcp.md` (spec 2026-07-28).
 
 ## Report
 

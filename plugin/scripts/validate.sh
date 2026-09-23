@@ -211,6 +211,10 @@ ai-eval/references/building.md|regression
 ai-eval/references/building.md|fine-tun
 STUDIED
 [ "$(wc -w < skills/ai-eval/SKILL.md | tr -d ' ')" -le 450 ] && ok "ai-eval body <= 450 words" || err "ai-eval body over 450 words — move detail to references/"
+for pair in grounding/references/fundamentals.md:1800 ai-eval/references/mcp.md:1200; do
+  f="skills/${pair%%:*}"; max="${pair##*:}"; [ -f "$f" ] || continue
+  [ "$(wc -w < "$f" | tr -d ' ')" -le "$max" ] && ok "$f <= $max words" || err "$f over $max words - a reference, not a tutorial"
+done
 
 # Claude Code best practices win (user rule, 2026-09-23): code.claude.com/docs/en/best-practices.md and
 # the llms.txt pages it links to. Each needle below is a practice the docs state; see
@@ -232,6 +236,29 @@ tooling/SKILL.md|never work around a host approval prompt
 tooling/SKILL.md|does not security-audit
 tooling/SKILL.md|OWASP MCP Top 10
 tooling/SKILL.md|gauge-improvements
+grounding/SKILL.md|references/fundamentals.md
+grounding/references/fundamentals.md|## React
+grounding/references/fundamentals.md|## Angular
+grounding/references/fundamentals.md|## Ionic
+grounding/references/fundamentals.md|## React Native
+grounding/references/fundamentals.md|## Node.js
+grounding/references/fundamentals.md|## NestJS
+grounding/references/fundamentals.md|## Python
+grounding/references/fundamentals.md|## Terraform
+grounding/references/fundamentals.md|## AWS
+grounding/references/fundamentals.md|## Swift and Apple platforms
+grounding/references/fundamentals.md|## Full stack
+grounding/references/fundamentals.md|The list is open
+ai-eval/SKILL.md|references/mcp.md
+ai-eval/references/mcp.md|2026-07-28
+ai-eval/references/mcp.md|requestState
+ai-eval/references/mcp.md|token passthrough
+ai-eval/references/mcp.md|OWASP MCP Top 10
+ai-eval/references/building.md|## Writing the prompt
+ai-eval/references/building.md|Map, Measure, Mitigate, Manage
+ai-eval/references/building.md|every tool call
+ai-eval/references/building.md|idempotency
+agent-instructions/SKILL.md|authority
 BESTPRACTICES
 # skills.md: "disable-model-invocation: true — Only you can invoke the skill. Use this for workflows with
 # side effects". These commands write settings, the vault, worktrees or a PR, or install software.

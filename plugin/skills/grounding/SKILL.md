@@ -25,4 +25,8 @@ a reason to rewrite the component in a language you find easier to verify.
 7. Another service's limits, validation and error codes come from its source, not from the UI
    or from memory.
 
+For a common stack (React, Angular, Ionic, React Native, Node, NestJS, Python, Terraform, AWS,
+Swift and Apple platforms), `references/fundamentals.md` gives the rules that decide correctness,
+the native check and the traps, with the version they were read for.
+
 An expertise claim with no sources behind it is worth nothing. Cite what you read.

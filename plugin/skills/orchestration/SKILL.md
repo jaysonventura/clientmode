@@ -32,10 +32,15 @@ Score `files + domains + risk` and pick the smallest shape that fits:
 
 - **Risk floor:** auth, payments, infrastructure, migrations and secrets are T2+ with the full
   mandate and a security review, however small the diff.
-- **Plan only when it pays:** if you could describe the diff in one sentence, skip the plan. Plan
-  (plan mode where the host has it) when the approach is uncertain, several files change, or the
-  code is unfamiliar. For a major feature, set the outcome as a goal (`/goal` where the host has it)
-  and deliver it one slice at a time.
+- **Plan only when it pays:** if you could describe the diff in one sentence, skip the plan (T0,
+  T1). On T2 and T3, and whenever the approach is uncertain, several files change or the code is
+  unfamiliar: explore read-only first (an Explore subagent for wide searches), then call
+  `EnterPlanMode` yourself, write the plan, and present it with `ExitPlanMode`. The person's
+  approval there is the go-ahead; code only after it. Hosts without plan mode (Codex: `/plan` in a
+  read-only sandbox) get the plan in the thread and the same wait for approval. For a major
+  feature, suggest a goal the person sets (`/goal <check>`) and deliver it one slice at a time.
+- **Investigation goes to a subagent at any tier:** a read-heavy search (many files, logs, docs)
+  runs in an Explore subagent so its reading stays out of the main context.
 - **On T2+,** recall first: `~/.claude/bin/cdt-recall "<task>"`; `cdt-advise "<task>"` gives an
   advisory prior, never a rule.
 - **Overrides:** `T0:` forces solo; `FULL:` raises model and gates for critical work.

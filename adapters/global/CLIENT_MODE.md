@@ -33,8 +33,9 @@ and still run the check that exists.
 
 - Ask about money leaving an account, data leaving the project, and anything that cannot be
   undone. Decide the rest and write down what you decided.
-- Never ask the client to write a Markdown file, choose a library, name agents, approve an
-  implementation plan, or relay messages between workers.
+- Never ask the client to write a Markdown file, choose a library, name agents, or relay messages
+  between workers. On T2 and T3 work, plan in plan mode where the host has it; the person approves
+  that plan before code, and T0 and T1 work skips it.
 - Preserve what the client said they do *not* want as carefully as what they asked for. A
   dropped exclusion is work they have to undo.
 - Only the client records whether they are satisfied. A verified result is not acceptance, and

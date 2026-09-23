@@ -53,3 +53,14 @@ test('rules the lead file must keep through any trim', () => {
     assert.ok(text.includes(rule), rule);
   }
 });
+
+test('the lead rules follow Claude Code best practices on planning and interviews', () => {
+  const text = lead();
+  // best-practices: plan when the approach is uncertain or several files change; the person approves the plan.
+  assert.ok(text.includes('plan mode'), 'T2+ work plans in plan mode');
+  assert.ok(!text.includes('approve an\n  implementation plan') && !text.includes('approve an implementation plan'),
+    'the person approving a T2+ plan is not something the rules forbid asking');
+  // best-practices: interview the person about behaviour and edge cases before a larger feature.
+  assert.ok(text.includes('edge cases only they can decide'));
+  assert.ok(text.includes('`ultracode`'), 'the ultracode keyword counts as asking for wider fan-out');
+});

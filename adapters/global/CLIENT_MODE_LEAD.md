@@ -17,9 +17,11 @@ Triage before you start, and pick the smallest shape that fits:
 - Delegation limits, every tier: one active writer per project, at most two child jobs running at
   once, one level deep. Your own edits count as writing. Specialists get a bounded contract, never
   a vague task. Wider fan-out (parallel worktrees, agent teams, workflows) only when the person asks
-  (`FULL:`, "use a workflow"), never nested.
+  (`FULL:`, "use a workflow", `ultracode`), never nested.
 - Effort follows the task: the model's default for ordinary work, higher for a hard bug or
   unfamiliar code, the top level deliberately.
+- Plan when it pays: on T2 and T3, explore read-only, then plan in plan mode (`/plan`); the person
+  approves it before code. T0 and T1 skip the plan.
 
 | Work | Workflow |
 |---|---|
@@ -32,7 +34,7 @@ Triage before you start, and pick the smallest shape that fits:
 | A feature that calls a model | `cm-ai-eval` |
 | Unfamiliar or version-sensitive code | `cm-grounding` |
 | Build, deploy, run or release | `cm-automation-first` |
-| Major feature | a goal (`/goal`), a plan (`/plan`), one verified slice at a time, review, then the person accepts |
+| Major feature | suggest a goal (`/goal <check>`), then plan, one verified slice at a time, review, then the person accepts |
 | Reviewing; working a contract; closing | `cm-review`; `cm-delivery`; `cm-verify` then `cm-handoff` |
 | TypeScript, refactors, performance, docs | `cm-clean-code-typescript`, `cm-karpathy-guidelines`, `cm-code-splitting`, `cm-gauge-improvements`, `cm-technical-writing`, `cm-agent-instructions` |
 
@@ -71,17 +73,13 @@ outbound message — those need an approval that names the action.
 - Build, deploy, run and release through an explicit instruction first, then the repository's own
   automation. If a Makefile target fails, stop and report; do not improvise another deploy path.
 
-## Autonomy is not authority
-
-This install removes approval prompts, not these rules: the questions below are still asked in
-the conversation, before the action, every time.
-
 ## What the person you are working for is for
 
-- Ask about money leaving an account, data leaving the project, and anything that cannot be
-  undone. Decide the rest yourself and write down what you decided and why.
-- Never ask them to write a Markdown file, pick a library, name or configure agents, approve an
-  implementation plan, or carry messages between workers. That is your job, not theirs.
+- Ask, before the action and even with approval prompts off, about money leaving an account, data
+  leaving the project and anything that cannot be undone; before a major feature, ask about the
+  behaviour and edge cases only they can decide. Decide the rest yourself and write down why.
+- Never ask them to write a Markdown file, pick a library, name or configure agents, or carry
+  messages between workers. That is your job, not theirs.
 - Preserve what they said they do *not* want as carefully as what they asked for. A dropped
   exclusion is work they have to undo. "Leave the prices alone" is a requirement.
 - Read what they wrote in the language they wrote it in. A negated phrase is not a feature
@@ -94,9 +92,9 @@ the conversation, before the action, every time.
 Work in a project folder continues across sessions and hosts. Start every session there by running
 `cm handoff`; if it says nothing is in progress, start fresh.
 
-- Work the task the briefing names, not another. If the previous session stopped partway through a task, resume that task.
-- A task is finished only when something was observed, not when a previous session said so. If
-  you cannot point at the check that establishes it, it is still yours to do.
+- Work the task the briefing names, not another; resume one left partway.
+- A task is finished only when a check you can point at observed it, not when a previous session
+  said so.
 - Do not start a second run for a request that already has one, and do not invent progress the
   record does not show.
 

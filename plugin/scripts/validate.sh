@@ -212,6 +212,19 @@ ai-eval/references/building.md|fine-tun
 STUDIED
 [ "$(wc -w < skills/ai-eval/SKILL.md | tr -d ' ')" -le 450 ] && ok "ai-eval body <= 450 words" || err "ai-eval body over 450 words — move detail to references/"
 
+# Claude Code best practices win (user rule, 2026-09-23): code.claude.com/docs/en/best-practices.md and
+# the llms.txt pages it links to. Each needle below is a practice the docs state; see
+# docs/BEST_PRACTICES_ALIGNMENT.md for the source line.
+echo "== Claude Code best practices =="
+while IFS='|' read -r file needle; do
+  grep -qF "$needle" "skills/$file" && ok "$file: $needle" || err "$file lost: $needle"
+done <<'BESTPRACTICES'
+orchestration/SKILL.md|EnterPlanMode
+orchestration/SKILL.md|ExitPlanMode
+orchestration/SKILL.md|Explore subagent
+intake/SKILL.md|edge cases only they can decide
+BESTPRACTICES
+
 # Approved lessons from the 2026-09-23 history-lessons audit of real repositories.
 echo "== audited lessons stay in the skills =="
 while IFS='|' read -r skill needle; do

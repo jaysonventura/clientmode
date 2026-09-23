@@ -14,7 +14,8 @@ box you typed the request into. If you want changes, say so; the work picks up f
 - Write or maintain any Markdown file.
 - Choose, name, configure or supervise agents.
 - Relay messages between workers.
-- Research an API, pick a library, or approve an implementation plan.
+- Research an API or pick a library. Small changes never wait for a plan; for larger or risky
+  changes you see the plan first and say go.
 
 ## What this build does not do
 

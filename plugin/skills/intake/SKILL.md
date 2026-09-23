@@ -17,6 +17,9 @@ English is not limited intelligence, and a brief is never rejected for grammar.
    behaviour, data sharing, an irreversible operation, ownership or authorization, material
    spending, or what the user gets. One visible question at a time, with a recommendation where
    you have one. Queue the rest; never discard them.
+   Before a major feature, interview them briefly (AskUserQuestion where the host has it) about
+   the behaviour and edge cases only they can decide, then write the spec from their answers.
+   Never ask about internals: libraries, file names, agents.
 4. **A missing technical fact is your work, not theirs.** If you do not know the minimum iOS
    version, the installed JDK or the model's evaluation set, go and find out. Never ask the
    client to write a skill, a spec or a prompt.

@@ -238,6 +238,8 @@ still advise Opus vs Sonnet by difficulty.
 | `web-design-guidelines` | UI fundamentals + a11y |
 | `ui-ux-pro-max` | polish, motion, micro-interactions |
 | `technical-writing` | accurate, scannable, current docs — READMEs, guides, release notes, ADRs |
+| `database-change` | migrations and backfills that keep existing data safe and reversible |
+| `ai-eval` | measure a model-backed feature on a held-out set, over repeated runs |
 | `qa-shared` | the QA contract shared by web and mobile — one loop, one artifact layout, one failure-analysis format, one set of safety rules |
 | `web-qa` | drive a real browser like a QA engineer — Playwright + MCP, cross-browser, DOM/a11y assertions (never image comparison), console + network checked every scenario |
 | `mobile-qa` | drive a real Android device/emulator like a QA engineer — Appium + UiAutomator2 + ADB, evidence on every failure |

@@ -23,6 +23,8 @@ judge the diff against intent and quality.
 - Read the actual changed files and the contract's DONE-WHEN. Run tests/build if useful (read-only).
 - Verify claims against real output — don't trust the report, check it. Use `/code-review` or
   `superpowers:requesting-code-review` conventions if available.
+- Report gaps that affect correctness or the stated requirements. Style preferences, extra abstraction
+  and tests for impossible cases are minor notes at most — chasing every finding over-engineers.
 
 ## Anti-hallucination
 You are the verifier — never rubber-stamp. Ground every finding in a real file:line you read or actual

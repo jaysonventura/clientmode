@@ -116,6 +116,8 @@ needed) — and a **SHIP** digest at the end: `<N delivered / M deferred / K blo
 | Web or mobile UI; copying a reference screenshot | `ui-ux` (+ `frontend-design`); `frontend-engineer` / `mobile-engineer` build |
 | Testing in a browser / on a device | `web-qa` / `mobile-qa`, with `qa-shared` |
 | Build, deploy, run or release commands | `automation-first` |
+| A migration, schema change or backfill | `database-change` + `security-reviewer` |
+| A feature that calls a model (extraction, RAG, tools) | `ai-eval` |
 | A worker executing a contract | `delivery` |
 | Reviewing a change | `review` |
 | TypeScript; refactors; "this is better" claims | `clean-code-typescript`; `karpathy-guidelines` + `code-splitting`; `gauge-improvements` |

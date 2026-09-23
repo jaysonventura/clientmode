@@ -1,6 +1,7 @@
 ---
 description: Manage git-worktree isolation for parallel CDT work — create/list/remove isolated checkouts under .claude/worktrees/<name> (interops with `claude --worktree`). Safe by default; removal refuses dirty worktrees without --force.
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 Run the `cdt-worktree` helper with the user's arguments (default to `list` if none):

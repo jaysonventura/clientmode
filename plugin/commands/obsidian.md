@@ -2,6 +2,7 @@
 description: Sync the CDT vault into Obsidian as linked markdown (frontmatter + wikilinks + index), or check sync status / set the vault path.
 argument-hint: "[sync|status|set <path>|recall <query>]"
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 Run the Obsidian bridge CLI with the supplied argument (defaults to `sync` when none given):

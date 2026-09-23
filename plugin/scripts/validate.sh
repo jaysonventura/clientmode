@@ -224,6 +224,19 @@ orchestration/SKILL.md|ExitPlanMode
 orchestration/SKILL.md|Explore subagent
 intake/SKILL.md|edge cases only they can decide
 BESTPRACTICES
+# skills.md: "disable-model-invocation: true — Only you can invoke the skill. Use this for workflows with
+# side effects". These commands write settings, the vault, worktrees or a PR, or install software.
+for c in autopilot config worktree obsidian deps auto learn; do
+  grep -q '^disable-model-invocation: true' "commands/$c.md" && ok "commands/$c.md is manual-only" || err "commands/$c.md can be run by the model (side effects)"
+done
+# costs.md / sub-agents.md: match the model to the job. CONTRIBUTING.md: pin opus only for judgment
+# roles; builders inherit the session model.
+for a in backend-engineer frontend-engineer mobile-engineer data-engineer devops-engineer qa-engineer technical-writer diagrams; do
+  grep -q '^model: inherit' "agents/$a.md" && ok "agents/$a.md inherits the session model" || err "agents/$a.md pins a model (builders inherit)"
+done
+for a in code-archaeologist pattern-matcher; do
+  grep -q '^model: sonnet' "agents/$a.md" && ok "agents/$a.md runs on sonnet" || err "agents/$a.md should run on sonnet (retrieval-style investigation)"
+done
 
 # Approved lessons from the 2026-09-23 history-lessons audit of real repositories.
 echo "== audited lessons stay in the skills =="

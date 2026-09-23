@@ -2,6 +2,7 @@
 description: Enable/disable claude-dev-team, or pin/unpin effort and model (unpinned by default, so Claude Code's own defaults apply). Writes Claude Code settings safely (applies next session).
 argument-hint: "[show | on | off | effort <default|low|medium|high|xhigh> | model <default|m> | reset]"
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 Run the config CLI with the user's arguments and report the result:

@@ -2,6 +2,7 @@
 description: Check (and optionally install) claude-dev-team's system prerequisites — python3, git, curl, sqlite3, gh — with the right install command for the user's OS.
 argument-hint: "[--install]"
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 Run the prerequisite check (or installer):

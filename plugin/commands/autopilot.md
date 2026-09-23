@@ -2,6 +2,7 @@
 description: Autonomously drive a GitHub PR toward green — read CI, diagnose + fix failures, resolve conflicts, re-run gates, and post a review. Safe by default (dry-run); never force-pushes or auto-merges.
 argument-hint: "<PR#> [--live]"
 allowed-tools: Bash, Read, Edit, Write, Grep, Glob, Task
+disable-model-invocation: true
 ---
 
 Run the **PR AUTOPILOT** loop (orchestration skill, STEP 3d) on: `$ARGUMENTS`

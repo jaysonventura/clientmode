@@ -2,6 +2,7 @@
 description: Teach claude-dev-team a durable lesson — appends it to the vault so cdt-recall / cdt-advise surface it on relevant future tasks.
 argument-hint: "<lesson>"
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 Record the user's lesson in the vault:

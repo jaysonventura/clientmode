@@ -1,6 +1,7 @@
 ---
 description: Inspect & control CDT's Autonomous Agent Orchestration — the mode router (BOUNDED / DEPTH agent-team / BREADTH workflow) and its cost governor. status · gate <team|scale> · explain "<task>" · off|assist|auto.
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 Run the autonomous-orchestration controller with the user's arguments (default `status`):

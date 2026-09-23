@@ -133,7 +133,7 @@ statusline_state() {
 show() {
   local en eco; en="$(get_env CDT_ENABLED)"; [ -z "$en" ] && en="1"; eco="$(get_env CDT_ECO)"; [ -z "$eco" ] && eco="off"
   local eff mdl; eff="$(get_setting effortLevel)"; mdl="$(get_setting model)"
-  local au tm sc; au="$(get_env CDT_AUTONOMY)"; [ -z "$au" ] && au="auto"; tm="$(get_env CDT_TEAMS)"; [ -z "$tm" ] && tm="on"; sc="$(get_env CDT_SCALE)"; [ -z "$sc" ] && sc="on"
+  local au tm sc; au="$(get_env CDT_AUTONOMY)"; [ -z "$au" ] && au="assist"; tm="$(get_env CDT_TEAMS)"; [ -z "$tm" ] && tm="on"; sc="$(get_env CDT_SCALE)"; [ -z "$sc" ] && sc="on"
   local vg; vg="$(get_env CDT_VERIFY_GATE)"; [ -z "$vg" ] && vg="block"
   local vw; vw="$(get_env CDT_VERIFY_WRAP)"; [ -z "$vw" ] && vw="block"
   local cg; cg="$(get_env CDT_CLAIM_GATE)"; [ -z "$cg" ] && cg="block"
@@ -356,7 +356,7 @@ case "${1:-show}" in
   bootstrap-community)
     case "$2" in
       on|off) set_env CDT_BOOTSTRAP_COMMUNITY "$([ "$2" = on ] && echo 1 || echo 0)"
-              echo "claude-dev-team: community bootstrap = $2 (default ON — SessionStart adds the ponytail/thedotmack marketplaces and installs ponytail + claude-mem without prompting)." ;;
+              echo "claude-dev-team: community bootstrap = $2 (default off — when on, SessionStart adds the ponytail/thedotmack marketplaces and installs ponytail + claude-mem)." ;;
       *) echo "cdt-config: usage: cdt-config bootstrap-community on|off  (default off: third-party plugins are opt-in)" ;;
     esac ;;
   auto-mode)
@@ -407,7 +407,7 @@ case "${1:-show}" in
     esac ;;
   autonomy)
     case "$2" in
-      off|assist|auto) set_env CDT_AUTONOMY "$2"; echo "claude-dev-team: autonomy = $2  (off = bounded only · assist = auto-teams, ask-before-workflows · auto = self-run both within budget). See: cdt-auto status" ;;
+      off|assist|auto) set_env CDT_AUTONOMY "$2"; echo "claude-dev-team: autonomy = $2  (off = bounded only · assist (default) = ask before a team or a workflow · auto = self-run both within budget). See: cdt-auto status" ;;
       *) echo "cdt-config: autonomy must be one of: off | assist | auto" ;;
     esac ;;
   teams)
@@ -455,10 +455,10 @@ PY
     esac ;;
   reset)
     set_env CDT_ENABLED 1; set_env CDT_ECO off
-    set_env CDT_AUTONOMY auto; set_env CDT_TEAMS on; set_env CDT_SCALE on
+    set_env CDT_AUTONOMY assist; set_env CDT_TEAMS on; set_env CDT_SCALE on
     set_env_setting CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS 1
     unset_setting effortLevel; unset_setting model
-    echo "claude-dev-team: reset to defaults (enabled, effort and model left to Claude Code, eco=off, autonomy=auto, engines on)." ;;
+    echo "claude-dev-team: reset to defaults (enabled, effort and model left to Claude Code, eco=off, autonomy=assist: engines available, used when you ask)." ;;
   *) echo "usage: cdt-config {show|on|off|toolkit <on|off>|prompt-mode <auto|always|off>|prompt-effort <medium|high>|prompt-enhance <on|off>|spec-auto <on|off>|external-ai <on|off>|ocr <on|off>|redact <on|off>|attribution <on|off>|agent-activity <on|compact|off>|phase-board <on|off>|plugins-enabled <on|off>|plugin-auto-install <on|off>|plugin-auto-update <on|off>|plugin-auto-route <on|off>|plugin-scope <user|project>|superpowers-mode <off|manual|selective|always>|plugin-strict <on|off>|bootstrap-community <on|off>|bootstrap-binaries <on|off>|bootstrap-toolkit <on|off>|auto-mode <on|off>|obsidian <on|off>|obsidian-vault <path>|obsidian-recall-root <path>|effort <lvl>|model <m>|eco <on|off|auto>|verify <block|warn|off>|verify-wrap <block|warn|off>|claim <block|warn|off>|max-iterations <n>|scope <warn|block|off>|memory <warn|block|off>|autonomy <off|assist|auto>|teams <on|off>|scale <on|off>|statusline <on|off>|reset}"; exit 0 ;;
 esac
 exit 0

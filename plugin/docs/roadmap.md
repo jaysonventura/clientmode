@@ -93,7 +93,7 @@ CLI, and each ships token-budgeted (a dry-run / slice-first before it's ever on 
 
 > **Policy note.** Phase 6 (dynamic workflows) is the `ultracode` engine the project's operating rules
 > say to avoid *by default*. Adopting it as a **summoned, capped** CDT feature is a deliberate, reviewed
-> exception — it does **not** change the everyday default (bounded dispatch, xhigh-never-max). The
+> exception — it does **not** change the everyday default (bounded dispatch, session effort, never max). The
 > v1.19.0 per-agent token telemetry is the cost-safety instrument that makes the exception affordable.
 
 ## Phase 4 — Worktree isolation (parallel builders)  ·  fit ★★★  ·  effort: small
@@ -131,7 +131,7 @@ edits can't collide. Lowest risk of the three, and it needs **no policy change**
 
 > ✅ **Shipped (v1.21.0)** as the **DEPTH** mode of the autonomous controller (below). `cdt-config teams
 > on` sets the experimental flag; STEP 3c convenes the council as a debating team (≤5, time-boxed) on
-> `cdt-auto gate team` = ALLOW, else falls back to parallel subagents.
+> `cdt-auto gate team` = ALLOW (the person asked or opted in), else runs the lenses two at a time.
 
 **Goal:** upgrade the Bug Council from *parallel monologues* to a *debate*.
 

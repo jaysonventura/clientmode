@@ -87,10 +87,11 @@ elif [ -d "$HOOKS_DIR/../toolkit" ]; then
   # Promise a background build only when plugins.sh will actually run one: a failed attempt inside its
   # retry window (same rule as _toolkit_build_blocked there) is reported as a failure, with its log.
   _TK="$(cd "$HOOKS_DIR/../toolkit" && pwd)"
-  _TK_AT="$(head -c 32 "$_TK/.cdt-build-attempted" 2>/dev/null | tr -cd '0-9')"
+  _TK_AT="$(head -c 32 "$_TK/.cdt-build-attempted" 2>/dev/null | tr -cd '0-9' | cut -c1-12)"
   _TK_HRS="$(grep -E '^CDT_TOOLKIT_RETRY_HOURS=[0-9]+$' "$CDT_HOME/claude-dev-team.env" 2>/dev/null | head -1 | cut -d= -f2)"
-  _TK_HRS="$(printf '%s' "${CDT_TOOLKIT_RETRY_HOURS:-$_TK_HRS}" | tr -cd '0-9')"; _TK_HRS="${_TK_HRS:-24}"
-  if [ -n "$_TK_AT" ] && [ $(( $(date +%s) - _TK_AT )) -lt $(( _TK_HRS * 3600 )) ]; then
+  _TK_HRS="$(printf '%s' "${CDT_TOOLKIT_RETRY_HOURS:-$_TK_HRS}" | tr -cd '0-9' | cut -c1-6)"; _TK_HRS="$((10#${_TK_HRS:-24}))"
+  _TK_AGE=-1; [ -n "$_TK_AT" ] && _TK_AGE=$(( $(date +%s) - 10#$_TK_AT ))
+  if [ "$_TK_AGE" -ge 0 ] && [ "$_TK_AGE" -lt $(( _TK_HRS * 3600 )) ]; then
     echo "⚠ claude-dev-team-toolkit build failed — cdt-verify is unavailable; retried automatically ${_TK_HRS}h after the attempt. Cause: $_TK/.cdt-build.log (or: cd \"$_TK\" && npm install && npm run build)"
   else
     echo "⚠ claude-dev-team-toolkit not built — building it in the background (or: cd \"$_TK\" && npm install && npm run build)"
@@ -105,13 +106,18 @@ find "$CDT_HOME/.cdt/context" -maxdepth 1 -type f -mmin +720 -delete 2>/dev/null
 # item, quit it and delete the bundle — only one carrying Client Mode's own bundle identifier — then
 # the copies under ~/.claude. Nothing else is touched. CDT_MENUBAR_APPS narrows where it looks.
 if [ -e "$CDT_HOME/.cdt-menubar-installed" ] || [ -e "$BIN/cdt-menubar" ] || [ -d "$CDT_HOME/claude-dev-team-menubar" ]; then
-  _MB_ID="com.jaysonventura.claude-dev-team.menubar"
+  _MB_ID="com.jaysonventura.claude-dev-team.menubar"; _MB_LEFT=0
   while IFS= read -r _apps; do
     _app="$_apps/CDT Usage.app"
-    grep -q "<string>$_MB_ID</string>" "$_app/Contents/Info.plist" 2>/dev/null || continue
-    "$_app/Contents/MacOS/cdt-menubar" --unregister >/dev/null 2>&1
-    pkill -f "${_app//./\\.}/Contents/MacOS/cdt-menubar" 2>/dev/null
-    rm -rf "$_app"
+    grep -qF "<string>$_MB_ID</string>" "$_app/Contents/Info.plist" 2>/dev/null || continue
+    # Builds before 1.4.1 have no --unregister and start their GUI instead: never wait on it for more
+    # than ~2s; the pkill below ends it along with any running copy of the app.
+    "$_app/Contents/MacOS/cdt-menubar" --unregister >/dev/null 2>&1 </dev/null & _MB_PID=$!
+    for _i in 1 2 3 4 5 6 7 8 9 10; do kill -0 "$_MB_PID" 2>/dev/null || break; sleep 0.2; done
+    kill "$_MB_PID" 2>/dev/null
+    pkill -f "$(printf '%s' "$_app" | sed 's/[][\\.*^$+?(){}|]/\\&/g')/Contents/MacOS/cdt-menubar" 2>/dev/null
+    rm -rf "$_app" 2>/dev/null
+    [ -e "$_app" ] && _MB_LEFT=1
   done <<MBEOF
 ${CDT_MENUBAR_APPS:-/Applications
 $HOME/Applications}
@@ -119,7 +125,9 @@ MBEOF
   _MB_PLIST="$HOME/Library/LaunchAgents/$_MB_ID.plist"
   [ -f "$_MB_PLIST" ] && { launchctl unload "$_MB_PLIST" 2>/dev/null; rm -f "$_MB_PLIST"; }
   rm -rf "$CDT_HOME/claude-dev-team-menubar" 2>/dev/null
-  rm -f "$BIN/cdt-menubar" "$BIN/cdt-menubar-app" "$CDT_HOME/.cdt-menubar-installed" "$CDT_HOME/.cdt-menubar-disabled" 2>/dev/null
+  rm -f "$BIN/cdt-menubar" "$BIN/cdt-menubar-app" "$CDT_HOME/.cdt-menubar-disabled" 2>/dev/null
+  # Keep the marker while the app is still there, so the next session tries again.
+  [ "$_MB_LEFT" = 1 ] || rm -f "$CDT_HOME/.cdt-menubar-installed" 2>/dev/null
 fi
 
 # 2b) No AI attribution: guarantee Claude Code adds no "Co-Authored-By: Claude" trailer, no "Generated with

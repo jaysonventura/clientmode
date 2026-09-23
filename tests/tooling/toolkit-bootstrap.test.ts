@@ -101,3 +101,18 @@ test('doctor fails loudly while the toolkit is unbuilt, and passes once cdt-veri
   writeFileSync(path.join(s.home, '.claude/bin/cdt-verify'), '');
   assert.match(doctor(), /\[ok\]\s+toolkit built/);
 });
+
+test('a stamp with a leading zero or a retry setting of 08 still yields the failure warning', () => {
+  const s = sandbox('fail');
+  writeFileSync(stamp(s), `0${Math.floor(Date.now() / 1000) - 60}\n`);
+  const out = spawnSync('bash', [path.join(s.dir, 'plugin/hooks/session-start-vault.sh')],
+    { env: { ...s.env, CDT_TOOLKIT_RETRY_HOURS: '08' }, encoding: 'utf8', input: '{}' }).stdout;
+  assert.match(out, /toolkit build failed/);
+});
+
+test('a stamp from the future (clock skew) does not block the retry', () => {
+  const s = sandbox('fail');
+  writeFileSync(stamp(s), `${Math.floor(Date.now() / 1000) + 3 * 3600}\n`);
+  bootstrap(s);
+  assert.ok(npmCalls(s) > 0, 'a future stamp blocked the build');
+});

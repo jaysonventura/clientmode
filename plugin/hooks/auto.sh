@@ -26,7 +26,11 @@ BIN="$CDT_HOME/bin"
 
 get_env() { grep -E "^$1=" "$ENV_FILE" 2>/dev/null | head -1 | cut -d= -f2-; }
 
-AUTONOMY="$(get_env CDT_AUTONOMY)"; [ -z "$AUTONOMY" ] && AUTONOMY="auto"
+# assist by default: the lead rules allow wider fan-out only when the person asks, so the governor asks
+# before convening either engine. `cdt-config autonomy auto` is the person opting in to self-running escalation.
+# Anything but an exact off|assist|auto (after trimming case, spaces and a CRLF) is assist, never auto.
+AUTONOMY="$(get_env CDT_AUTONOMY | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+case "$AUTONOMY" in off|assist|auto) ;; *) AUTONOMY="assist" ;; esac
 TEAMS="$(get_env CDT_TEAMS)";       [ -z "$TEAMS" ] && TEAMS="on"
 SCALE="$(get_env CDT_SCALE)";       [ -z "$SCALE" ] && SCALE="on"
 CEILING="$(get_env CDT_AUTONOMY_WEEKLY_CEILING)"; case "$CEILING" in ''|*[!0-9]*) CEILING=85 ;; esac
@@ -101,7 +105,7 @@ print("%s projected ~%d tokens for %d items (%.0f/item from a %d-item slice); ca
 cmd_status() {
   local wk; wk="$(weekly_pct)"
   echo "CDT autonomous orchestration:"
-  echo "  autonomy : $AUTONOMY   (off = bounded only · assist = auto-teams, ask-before-workflows · auto = self-run both within budget)"
+  echo "  autonomy : $AUTONOMY   (off = bounded only · assist (default) = ask before a team or a workflow · auto = self-run both within budget)"
   echo "  teams    : $TEAMS   (DEPTH — agent-team Bug Council; needs CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1)"
   echo "  scale    : $SCALE   (BREADTH — dynamic-workflow fan-out; needs Claude Code >= 2.1.154)"
   echo "  caps     : teammates <= $TEAM_MAX · weekly ceiling ${CEILING}% · scale token cap $SCALE_CAP"
@@ -125,6 +129,7 @@ cmd_gate() {
   case "$kind" in
     team)
       if [ "$TEAMS" != "on" ]; then echo "DENY  agent-teams disabled (cdt-config teams on — also sets the experimental flag)"; return; fi
+      if [ "$AUTONOMY" = "assist" ]; then echo "ASK   assist mode proposes an agent team — convene it only when the person asks (<= ${TEAM_MAX} teammates)"; return; fi
       if [ -n "$wk" ] && [ "$wk" -ge "$CEILING" ]; then echo "ASK   weekly ${wk}% >= ceiling ${CEILING}% — confirm the team spend before convening"; return; fi
       # auto mode self-runs without asking; if it can't see the budget, fail SAFE and ask rather than run blind
       if [ "$AUTONOMY" = "auto" ] && [ -z "$wk" ]; then echo "ASK   weekly budget unknown (enable the status line: cdt-config statusline on) — confirm the team spend"; return; fi
@@ -159,14 +164,14 @@ cmd_fanout() {
   esac
   wk="$(weekly_pct)"
   if [ -z "$wk" ]; then
-    echo "$floor  ${tier} ${name}: ~${floor} agents (conservative) — budget unknown; enable the status line for full elastic width"
+    echo "$floor  ${tier} ${name}: ~${floor} agents across the wave, at most 2 running at once (conservative) — budget unknown; enable the status line for full elastic width"
   elif [ "$wk" -ge "$CEILING" ]; then
-    echo "$floor  ${tier} ${name}: trim to ~${floor} essential agents — weekly ${wk}% >= ceiling ${CEILING}%; keep security-review + qa verify"
+    echo "$floor  ${tier} ${name}: trim to ~${floor} essential agents across the wave, at most 2 running at once — weekly ${wk}% >= ceiling ${CEILING}%; keep security-review + qa verify"
   elif [ "$wk" -ge "$((CEILING-15))" ]; then
     mid=$(( (floor + maxn + 1) / 2 ))
-    echo "$mid  ${tier} ${name}: ~${mid} agents (mid width) — weekly ${wk}% nearing ceiling ${CEILING}%; keep security-review + qa verify"
+    echo "$mid  ${tier} ${name}: ~${mid} agents across the wave, at most 2 running at once (mid width) — weekly ${wk}% nearing ceiling ${CEILING}%; keep security-review + qa verify"
   else
-    echo "$maxn  ${tier} ${name}: up to ${maxn} parallel agents (full width) — weekly ${wk}%, comfortable headroom"
+    echo "$maxn  ${tier} ${name}: up to ${maxn} agents across the wave, at most 2 running at once (full width) — weekly ${wk}%, comfortable headroom"
   fi
 }
 
@@ -187,8 +192,8 @@ if breadth:
     print("  lean: BREADTH — a large homogeneous set (audit / migration / exhaustive review).")
     print("        -> would %s, slice-first, capped." % nxt)
 elif depth:
-    print("  lean: DEPTH — a hard/ambiguous diagnosis. If it gets stuck, an agent-team Bug Council")
-    print("        convenes (<= 5 lenses, debate, time-boxed).")
+    print("  lean: DEPTH — a hard/ambiguous diagnosis. If it gets stuck, run the Bug Council two lenses at a")
+    print("        time; propose an agent-team debate (<= 5, time-boxed) and convene it only if the person asks.")
 else:
     print("  lean: BOUNDED — normal tiered dispatch (T0-T3). No escalation; the cheapest path.")
 print("\n  Requires the engine enabled (teams=%s, scale=%s) + budget headroom." % (os.environ["TEAMS"], os.environ["SCALE"]))

@@ -21,10 +21,9 @@ implementation to specialist subagents under strict contracts.
 ## Why it's cost-effective and high quality at once
 
 - **Tiering** means most tasks (T0/T1) cost a single call; you only pay for orchestration when warranted.
-- **Model routing (3 tiers)** spends Opus only on judgment (architect, reviewers), Sonnet on throughput
-  (builders, tests, orchestration), and Haiku (`fast-ops`) only on *trivial mechanical* ops — which
-  escalates the moment a task needs judgment, so the cheap tier never touches quality-critical work.
-  Output stays high quality because Opus reviews everything.
+- **Model routing:** every specialist, builder and reviewer runs on Opus; Haiku (`fast-ops`) handles only
+  *trivial mechanical* ops and escalates the moment a task needs judgment, so the cheap tier never
+  touches quality-critical work.
 - **Contracts** cap tokens per agent (no whole-repo reads, no rambling).
 - **Bounded autonomy** (Task Loop cap, gated Bug Council) prevents runaway spend.
 - Effort stays at your session level (the model's default unless pinned; never `max` by default); the orchestrator uses **bounded subagent
@@ -56,8 +55,9 @@ On top of triage, an **autonomous mode router** reads the *work shape* and picks
 dynamic workflow that fans out). Escalation fires only on signature (a stuck bug → team; a large
 homogeneous set → workflow) and is gated by the **cost governor** `cdt-auto gate <team|scale>`, which
 returns `ALLOW | ASK | DENY` by enforcing the autonomy leash (`off|assist|auto`), each engine's on/off,
-and a **weekly-budget ceiling** — and **fails safe** (ASK) when the budget can't be read. Engines ship
-**off**; enable with `cdt-config teams on` / `scale on`. Everything stays at the session's effort, Opus for
+and a **weekly-budget ceiling** — and **fails safe** (ASK) when the budget can't be read. Autonomy ships
+as **assist**: the engines are available but run only when the person asks (or opts in with
+`cdt-config autonomy auto`). Everything stays at the session's effort, Opus for
 judgment, never Haiku. **Parallel isolation:** `cdt-worktree` (mirroring `claude --worktree`) gives each
 parallel strand its own checkout+branch for collision-free large work. Full plan + status: `docs/roadmap.md`.
 
@@ -66,10 +66,15 @@ parallel strand its own checkout+branch for collision-free large work. Full plan
 | Event | Script | Effect |
 |-------|--------|--------|
 | SessionStart | `session-start-vault.sh` | bootstrap vault + DB + `~/.claude/bin/*`; inject learnings; retire the removed menu bar app once |
+| SessionStart | `plugins.sh bootstrap` | build the toolkit (retried after a failed attempt), heal missing companion plugins |
+| UserPromptSubmit | `prompt-enhance.sh` | route the prompt; brief an unclear or risky one |
+| PreToolUse (Bash) | `verify-wrap.sh` | route gate commands through `cdt-verify` so their exit codes are recorded |
+| PostToolUse (Bash) | `verify-track.sh` | record which checks ran after the last edit |
 | PreToolUse (Task) | `contract-capture.sh` | dispatch banner (`▶️ 🔭 Explore · …`); capture the agent's exclusive-file contract (for the scope gate); **mark it running** (`running_agents.py add`) for the status line's live segment |
 | PostToolUse (Edit/Write) | `format-on-write.sh` | guarded prettier (only if configured) + edits marker |
 | SubagentStop | `agent-track.sh` | record each dispatched subagent by role **and its real token cost** (powers `/cm:stats`); finish line (`✅ 🔭 Explore · N tok`); **mark it done** (`running_agents.py remove`) |
-| Stop | `completion-guard.sh` | record session row; optional one-time mandate reminder (`CDT_STOP_REMINDER=1`) |
+| Stop | `completion-guard.sh` | block a "done" when files changed with no check after them or the evidence is red; record the session row |
+| Stop | `obsidian.sh hook` | sync the vault to Obsidian when enabled |
 
 All hooks are **fail-open** — any error exits 0 so they never interrupt your session.
 

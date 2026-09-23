@@ -8,8 +8,9 @@ Convene the **Bug Council** (STEP 3c of the `orchestration` skill) for this bug:
 Symptom: $ARGUMENTS
 
 1. Gather the real evidence first (error/stack/log, failing test, the relevant files).
-2. Dispatch all five diagnostic agents **in parallel, in a single message** (they are read-only):
-   `root-cause-analyst`, `code-archaeologist`, `pattern-matcher`, `systems-thinker`, `adversarial-tester`.
+2. Dispatch the five read-only diagnostic agents **two at a time**, feeding each pair what the previous
+   pair found: `root-cause-analyst` + `code-archaeologist`, then `pattern-matcher` + `systems-thinker`,
+   then `adversarial-tester`.
 3. **Synthesize** their reports into ONE ranked root cause with supporting evidence, plus a concrete
    **fix plan** (and a regression test to add).
 4. Report the Bug Council verdict (root-cause one-liner) to the user.

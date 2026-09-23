@@ -16,5 +16,5 @@ capability gap. Those are reported back to you with the gap named, not worked ar
 
 ## Reporting an incident
 
-Run `cm runbook list` for the operational runbooks that ship with this build. Attach the run id
+The operational runbooks are in [docs/runbooks/](docs/runbooks/README.md). Attach the run id
 and the evidence directory under `qa/product/`; both are on the run's page in the console.

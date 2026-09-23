@@ -13,18 +13,18 @@ import { ROOT } from '../harness/evidence.js';
 
 const OURS = 'com.jaysonventura.claude-dev-team.menubar';
 
-function fakeApp(apps: string, id: string, calls: string): string {
+function fakeApp(apps: string, id: string, calls: string, body = ''): string {
   const bundle = path.join(apps, 'CDT Usage.app');
   mkdirSync(path.join(bundle, 'Contents/MacOS'), { recursive: true });
   writeFileSync(path.join(bundle, 'Contents/Info.plist'),
     `<?xml version="1.0" encoding="UTF-8"?>\n<plist version="1.0"><dict><key>CFBundleIdentifier</key><string>${id}</string></dict></plist>\n`);
   const exe = path.join(bundle, 'Contents/MacOS/cdt-menubar');
-  writeFileSync(exe, `#!/usr/bin/env bash\necho "$*" >> "${calls}"\n`);
+  writeFileSync(exe, `#!/usr/bin/env bash\necho "$*" >> "${calls}"\n${body}\n`);
   chmodSync(exe, 0o755);
   return bundle;
 }
 
-function installedMachine(id: string) {
+function installedMachine(id: string, body = '', removable = true) {
   const dir = mkdtempSync(path.join(tmpdir(), 'cm-menubar-'));
   const hooks = path.join(dir, 'plugin/hooks');
   const home = path.join(dir, 'home');
@@ -34,11 +34,15 @@ function installedMachine(id: string) {
   for (const d of [hooks, path.join(cdt, 'bin'), path.join(cdt, 'claude-dev-team-menubar/Sources'), apps]) mkdirSync(d, { recursive: true });
   copyFileSync(path.join(ROOT, 'plugin/hooks/session-start-vault.sh'), path.join(hooks, 'session-start-vault.sh'));
   for (const f of ['.cdt-menubar-installed', 'bin/cdt-menubar', 'bin/cdt-menubar-app']) writeFileSync(path.join(cdt, f), '');
-  const bundle = fakeApp(apps, id, calls);
+  const bundle = fakeApp(apps, id, calls, body);
+  if (!removable) chmodSync(apps, 0o555);
+  const started = Date.now();
   const run = spawnSync('bash', [path.join(hooks, 'session-start-vault.sh')], {
     env: { ...process.env, HOME: home, CDT_MENUBAR_APPS: apps }, encoding: 'utf8', input: '{}',
   });
-  return { cdt, bundle, calls, run };
+  const seconds = (Date.now() - started) / 1000;
+  if (!removable) chmodSync(apps, 0o755);
+  return { cdt, bundle, calls, run, seconds };
 }
 
 test('session start retires an installed CDT Usage app and its leftovers', () => {
@@ -55,6 +59,23 @@ test('a bundle that is not Client Mode\'s is never touched', () => {
   const m = installedMachine('com.example.someone-else');
   assert.ok(existsSync(m.bundle), 'removed an app Client Mode did not build');
   assert.ok(!existsSync(m.calls), 'ran a binary Client Mode did not build');
+});
+
+test('an old build that ignores --unregister and starts its GUI cannot hang session start', () => {
+  const m = installedMachine(OURS, 'sleep 30');
+  assert.ok(m.seconds < 8, `session start took ${m.seconds.toFixed(1)}s`);
+  assert.ok(!existsSync(m.bundle), 'the app bundle is still installed');
+});
+
+test('a bundle that could not be deleted keeps the markers, so the next session tries again', () => {
+  const m = installedMachine(OURS, '', false);
+  assert.ok(existsSync(m.bundle), 'fixture: the bundle should have survived a read-only folder');
+  assert.ok(existsSync(path.join(m.cdt, '.cdt-menubar-installed')), 'marker cleared while the app is still installed');
+});
+
+test('a look-alike identifier is not ours', () => {
+  const m = installedMachine('comXjaysonventura.claude-dev-team.menubar');
+  assert.ok(existsSync(m.bundle), 'matched the identifier as a regular expression');
 });
 
 test('the repository no longer ships the app or points anyone at it', () => {

@@ -12,8 +12,8 @@ Output:
 1. **Score** — files / domains / keyword / risk (and whether the risk floor forces T2+).
 2. **Tier** — T0 / T1 / T2 / T3, with one line of justification.
 3. **Proposed dispatch** — which agents, in which waves, and each one's exclusive file scope.
-4. **Estimated cost posture** — which calls would be Opus (judgment) vs Sonnet (throughput), and
-   whether the full or light completion mandate would run.
-5. **Overrides** — remind me I can reply `T0:` (force solo/cheap) or `FULL:` (full-Opus + all gates).
+4. **Estimated cost posture** — how many agent calls (Opus, or Haiku `fast-ops` for mechanical work), at
+   most two running at once, and whether the full or light completion mandate would run.
+5. **Overrides** — remind me I can reply `T0:` (force solo/cheap) or `FULL:` (wider fan-out, e.g. parallel worktrees).
 
 Stop after the preview. Wait for my go-ahead.

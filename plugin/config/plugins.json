@@ -2,7 +2,7 @@
   "$schema": "https://claude-dev-team/plugins-registry.schema.json",
   "version": 1,
   "meta": {
-    "note": "Shipped read-only defaults \u2014 the single source of truth for CDT plugin detection, validation, health, and routing. Per-plugin user overrides live in ~/.claude/.cdt/plugins-state.json and survive plugin updates. Identifiers verified against the local marketplace catalogs and the `claude plugin` CLI (Claude Code 2.1.220). Every installable row is auto-installed with CDT: official rows via plugin.json `dependencies`, community-third-party rows (their marketplaces are NOT auto-added by Claude Code) via the SessionStart bootstrap in hooks/plugins.sh. All rows are therefore enabledByDefault:true.",
+    "note": "Shipped read-only defaults \u2014 the single source of truth for CDT plugin detection, validation, health, and routing. Per-plugin user overrides live in ~/.claude/.cdt/plugins-state.json and survive plugin updates. Identifiers verified against the local marketplace catalogs and the `claude plugin` CLI (Claude Code 2.1.220). Every installable row is auto-installed with CDT: official rows via plugin.json `dependencies`, community-third-party rows (their marketplaces are NOT auto-added by Claude Code) via the SessionStart bootstrap in hooks/plugins.sh, only after `cdt-config bootstrap-community on`. enabledByDefault:true means a row's overlay is enabled once it is installed.",
     "marketplace": "claude-plugins-official"
   },
   "plugins": [

@@ -23,7 +23,8 @@ unit test, runs the test, and ships with a light close (verify + simplify-if-tou
 
 `auth` trips the **risk floor** → **T2+**.
 1. **Wave 0:** `architect` defines the request/response types, the rate-limit strategy, and the file plan.
-2. **Wave 1 (parallel):** `backend-engineer` implements `api/auth/*`; `qa-engineer` writes `test/auth/*`.
+2. **Wave 1 (one writer at a time):** `qa-engineer` writes the failing tests in `test/auth/*`, then
+   `backend-engineer` implements `api/auth/*` until they pass.
 3. **Gates + Task Loop:** types → lint → unit → integration. A failing test triggers a focused fix; loop
    until green or the cap.
 4. **Wave 2:** `code-reviewer` checks scope/correctness; `security-reviewer` traces the auth path and the
@@ -38,22 +39,24 @@ unit test, runs the test, and ships with a light close (verify + simplify-if-tou
 Triage: multiple domains + a migration (risk) → **T3**.
 - **Wave 0:** `architect` + `Explore` map the surface and define shared contracts; `diagrams` sketches the
   data flow.
-- **Wave 1 (parallel, exclusive paths):** `data-engineer` (`db/*`, reversible migration) ·
-  `backend-engineer` (`api/settings/*`) · `frontend-engineer` (`ui/settings/*`) ·
-  `mobile-engineer` (`mobile/settings/*`) · `qa-engineer` (`test/*`).
+- **Wave 1 (sequential, one writer at a time, exclusive paths):** `data-engineer` (`db/*`, reversible
+  migration) → `backend-engineer` (`api/settings/*`) → `frontend-engineer` (`ui/settings/*`) →
+  `mobile-engineer` (`mobile/settings/*`), each starting from `qa-engineer`'s failing tests in `test/*`.
+  Parallel writers in separate worktrees only when you ask (`FULL:`).
 - **Gates + Task Loop**, then **Wave 2** review (security checks the migration + endpoints).
 - **Full mandate + ship**, with a `vault/sessions/` entry.
 
 ## When a bug gets stuck
 
 If the Task Loop sees the same gate fail with the same signature twice, it convenes the **Bug Council**:
-five read-only diagnosticians run in parallel, the orchestrator synthesizes one ranked root cause + fix
+five read-only diagnosticians run two at a time, the orchestrator synthesizes one ranked root cause + fix
 plan, an engineer implements, and the verdict is posted. You can also trigger it manually:
 
 > **You:** `/cm:bug-council the checkout total is off by one cent intermittently`
 
 ## Conserving Max limits
 
-- Run routine work in a **Sonnet session**; reach for `/model opus` + `FULL:` only when it matters.
+- Leave effort and model at their defaults for routine work; raise effort for a hard bug, and use
+  `FULL:` only when you want wider fan-out.
 - Prefix a quick change with `T0:` to force solo mode.
 - Watch spend with `/cm:stats week` and rebalance.

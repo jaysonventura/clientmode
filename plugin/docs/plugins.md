@@ -5,7 +5,7 @@ CDT ships knowing the official Claude Code companion plugins **as data**. A veri
 rules** — so CDT can tell you which plugin fits a task, whether it's healthy, install/enable it through the
 real `claude plugin` CLI, and never let a plugin front-run its own agents.
 
-It is also the **bundle manifest**: one `claude plugin install cdt` brings the whole toolchain (see
+It is also the **bundle manifest**: one `claude plugin install cm@clientmode` brings the whole toolchain (see
 [All-in-one install](#all-in-one-install)). **Detection stays read-only and idempotent**, every
 install/enable/update is shelled out to Claude Code's own CLI, and there is deliberately **no destructive
 `uninstall`** and **no auto-authentication**.
@@ -20,14 +20,14 @@ install/enable/update is shelled out to Claude Code's own CLI, and there is deli
 
 ## All-in-one install
 
-A single `claude plugin install cm@clientmode` lands **the whole toolchain**. Nothing here is opt-in.
+A single `claude plugin install cm@clientmode` lands **the whole toolchain**. Only the two community plugins are opt-in.
 
 | What | How it arrives |
 |------|----------------|
-| 13 skills · 19 agents · 21 commands | bundled inside the plugin — always present |
+| 23 skills · 19 agents · 23 commands | bundled inside the plugin — always present |
 | `sequential-thinking` MCP | shipped `.mcp.json`, auto-registers |
 | **12 official plugins** — superpowers, code-review, frontend-design, context7, playwright, github, sentry, terraform, laravel-boost, typescript/php/swift LSP | `plugin.json` `dependencies` — Claude Code resolves, installs and enables them |
-| **2 community plugins** — ponytail, claude-mem | **SessionStart bootstrap** (`cdt-plugins bootstrap`) |
+| **2 community plugins** — ponytail, claude-mem | opt-in: the SessionStart bootstrap, after `cdt-config bootstrap-community on` |
 
 ### Why the community plugins need a bootstrap
 
@@ -69,7 +69,7 @@ off with `cdt-config bootstrap-binaries off`.
 So a fresh machine legitimately shows a few `⨯ missing-dep` and `! needs-auth` rows until you run those.
 `cdt-plugins doctor` still exits **0** — only the four *required* plugins can fail it.
 
-> **Cost warning.** This bundle now installs `claude-mem` on every new machine. Its `PostToolUse` hook fires
+> **Cost warning.** If you opt in to the community plugins, the bundle installs `claude-mem`. Its `PostToolUse` hook fires
 > on **every tool call** and each observation is a Claude Agent SDK completion billed to **your** usage
 > budget. See the cost note under [Community plugins](#community-plugins) to redirect it to a separate
 > backend, or run `cdt-config bootstrap-community off` before first launch.
@@ -78,9 +78,9 @@ So a fresh machine legitimately shows a few `⨯ missing-dep` and `! needs-auth`
 
 ## The registry (single source of truth)
 
-`config/plugins.json` lists **15 plugins**. Every install identifier is real — `<name>@claude-plugins-official`
+`config/plugins.json` lists **18 plugins**. Every install identifier is real — `<name>@claude-plugins-official`
 for the official rows, `ponytail@ponytail` and `claude-mem@thedotmack` for the two community rows;
-`ui-ux-pro-max` is a CDT-local skill with **nothing to install** (`installIdentifier: null`).
+`ui-ux`, `web-qa`, `mobile-qa` and `qa-shared` are CDT-local skills with **nothing to install** (`installIdentifier: null`).
 
 | id | Type | Install identifier | Default-on | Scope | Auth | Security |
 |----|------|--------------------|:----------:|-------|:----:|----------|
@@ -96,9 +96,12 @@ for the official rows, `ponytail@ponytail` and `claude-mem@thedotmack` for the t
 | `sentry` | mcp-plugin | `sentry@claude-plugins-official` | yes | user | **yes** | verified-third-party |
 | `terraform` | claude-code-plugin | `terraform@claude-plugins-official` | yes | project | — | verified-third-party |
 | `laravel-boost` | claude-code-plugin | `laravel-boost@claude-plugins-official` | yes | project | — | verified-third-party |
-| `ponytail` | claude-code-plugin | `ponytail@ponytail` | yes | user | — | community-third-party |
-| `claude-mem` | claude-code-plugin | `claude-mem@thedotmack` | yes | user | — | community-third-party |
-| `ui-ux-pro-max` | cdt-skill | *(local — none)* | yes | user | — | local-cdt-integration |
+| `ponytail` | claude-code-plugin | `ponytail@ponytail` | yes, once installed (opt-in) | user | — | community-third-party |
+| `claude-mem` | claude-code-plugin | `claude-mem@thedotmack` | yes, once installed (opt-in) | user | — | community-third-party |
+| `ui-ux` | cdt-skill | *(local — none)* | yes | user | — | local-cdt-integration |
+| `web-qa` | cdt-skill | *(local — none)* | yes | user | — | local-cdt-integration |
+| `mobile-qa` | cdt-skill | *(local — none)* | yes | user | — | local-cdt-integration |
+| `qa-shared` | cdt-skill | *(local — none)* | yes | user | — | local-cdt-integration |
 
 **Required** plugins (`doctor` fails if they're broken): `superpowers`, `code-review`, `frontend-design`,
 `context7`. All others are optional — issues on them are warnings only.
@@ -117,12 +120,11 @@ running it (see [Install, enable & sync](#install-enable--sync)).
 
 ### Community plugins
 
-Two community rows are registered so CDT can **detect, health-check and route around** them, and are
-acquired by the bootstrap on first launch.
+Two community rows are registered so CDT can **detect, health-check and route around** them. They run
+third-party code from unpinned sources, so they are **opt-in**.
 
-**These are installed for you.** Since 1.62.0 the SessionStart bootstrap adds their marketplaces and
-installs them on first launch, **without prompting** — see [All-in-one install](#all-in-one-install). The
-manual path below still applies if you turn the bootstrap off.
+They are installed only after `cdt-config bootstrap-community on`; the SessionStart bootstrap then adds
+their marketplaces and installs them. The manual path below works without turning that on.
 
 **Marketplace prerequisite.** Unlike every official row, these live on their own marketplaces, which are
 **not** configured by default. Until you add one, `cdt-plugins install <id>` cannot resolve — the health
@@ -275,7 +277,7 @@ update** that overwrites `config/plugins.json`.
 - `cdt-plugins disable <id>` writes overlay `disabled`, then runs `claude plugin disable`.
 - The advisory router **never recommends a plugin whose overlay is disabled**.
 
-For a local CDT skill (`ui-ux-pro-max`), enable/disable update the overlay only — there is no Claude Code
+For a local CDT skill (`ui-ux`, `web-qa`, `mobile-qa`, `qa-shared`), enable/disable update the overlay only — there is no Claude Code
 plugin to toggle.
 
 ---
@@ -311,7 +313,7 @@ keywords, then matches the registry's `activationRules`. Each recommendation car
 | `claude-mem` | — | memory, recall, previous session, last time, prior context, session history | **always defers** to the CDT vault |
 | `superpowers` | — | (mode-gated) | see [Superpowers modes](#superpowers-modes) |
 
-`ui-ux-pro-max` is registry-tracked and always available as a local skill, but the router does not emit a
+The local skills are registry-tracked and always available, but the router does not emit a
 recommendation for it — UI work routes to `frontend-design`.
 
 ### Conflicts — CDT always wins
@@ -366,7 +368,7 @@ All settings persist in `~/.claude/claude-dev-team.env`; set them via `cdt-confi
 | `CDT_PLUGIN_SCOPE` | *(per-plugin)* | `plugin-scope user\|project` | overrides the scope passed to `claude plugin … -s <scope>`; **unset ⇒ each plugin's own registry scope** (not a uniform `project`) |
 | `CDT_SUPERPOWERS_MODE` | `selective` | `superpowers-mode off\|manual\|selective\|always` | Superpowers gate |
 | `CDT_PLUGIN_STRICT` | `1` | `plugin-strict on\|off` | gate auto-install of non-official plugins |
-| `CDT_BOOTSTRAP_COMMUNITY` | `1` | `bootstrap-community on\|off` | SessionStart auto-adds the community marketplaces and installs ponytail + claude-mem, **without prompting** |
+| `CDT_BOOTSTRAP_COMMUNITY` | `0` | `bootstrap-community on\|off` | when on, SessionStart adds the community marketplaces and installs ponytail + claude-mem |
 | `CDT_BOOTSTRAP_TIMEOUT` | `180` | *(env only)* | per-shell-out cap, in seconds, for the bootstrap |
 
 ```
@@ -395,7 +397,7 @@ identifier against a strict grammar before shelling out to `claude plugin <verb>
   ```
   CDT_PLUGIN_STRICT=0 cdt-plugins install github
   ```
-- A local skill (`ui-ux-pro-max`) has nothing to install.
+- A local skill (`ui-ux`, `web-qa`, `mobile-qa`, `qa-shared`) has nothing to install.
 - After installing a needs-auth plugin, you get a `/mcp` hint — CDT never authenticates for you.
 
 ### `sync`

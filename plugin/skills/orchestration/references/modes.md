@@ -21,9 +21,10 @@ default. Recommend DEPTH or BREADTH when the shape clearly benefits, and run it 
 ~/.claude/bin/cdt-auto gate team      # before convening an agent-team
 ~/.claude/bin/cdt-auto gate scale     # before summoning a workflow
 ```
-The engines ship **on** (`autonomy=auto`, teams + scale enabled), so the gate normally returns **ALLOW** —
-escalate. It returns **ASK** only as you near the **weekly-budget ceiling** (so a big fan-out doesn't lock
-you out of Max) or before the first un-measured fan-out (slice-first); **DENY** only if you've explicitly
+The engines are available (teams + scale enabled) but autonomy ships as **assist**, so the gate returns
+**ASK** — escalate only when the person asks. After they opt in (`cdt-config autonomy auto`) it returns
+**ALLOW**, still **ASK**ing near the **weekly-budget ceiling** (so a big fan-out doesn't lock you out of
+Max) and before the first un-measured fan-out (slice-first); **DENY** only if you've explicitly
 turned autonomy off (`cdt-config autonomy off`). Treat ASK as "confirm the spend with the user, then
 proceed." The per-agent token telemetry (`/cm:stats`) records what each escalation spent.
 
@@ -54,7 +55,7 @@ For a **large or homogeneous set** (audit every route, migrate every call-site, 
 **recommend a dynamic workflow** with a rough cost, and run it once the person opts in ("use a
 workflow"). Run `cdt-auto gate scale` as a budget check:
 
-- **ALLOW** (the normal case) → summon a dynamic workflow now.
+- **ALLOW** (the person opted in to auto, budget and slice checked) → summon the workflow now.
 - **ASK** (near the weekly ceiling, or the first un-measured fan-out) → confirm the slice-first estimate
   with the user, then summon it.
 - **DENY** (only if autonomy was turned off) → stay bounded; re-enable with `cdt-config autonomy auto`.
@@ -67,13 +68,13 @@ Whichever path, keep the **discipline (non-negotiable):**
   - Compose with **worktree isolation** (STEP 3 note) for migrations — each agent in its own checkout.
   - Session effort; Opus for judgment, **never Haiku**. Stop at the cap and report real spend.
 
-Workflows are a first-class tool here — summoned freely, but always **capped, measured, and logged**.
+Workflows are a first-class tool here — summoned when the person asks, and always **capped, measured, and logged**.
 
 ## STEP 3f · QUALITY-VIA-PARALLELISM (bounded, budget-gated — high-stakes work only)
 
 When quality matters more than the cheapest path — risk-flagged changes, ambiguous design, a finding you
 must trust — spend a few *extra* parallel agents on **production models** (bounded Agent calls, or a
-dynamic workflow when the verification set is large). It **deepens** the Wave-2 review + security veto,
+dynamic workflow when the person asks for one). It **deepens** the Wave-2 review + security veto,
 never replaces them:
 
 - **Adversarial verify** (`/cm:adversarial`) — for a risk-flagged change or a high-impact finding,

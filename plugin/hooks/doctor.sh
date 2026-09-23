@@ -23,7 +23,7 @@ done
 # Toolkit: cdt-verify and the trusted verification verdict live in it. Unbuilt, a "done" goes unverified.
 if [ -e "$BIN/cdt-verify" ]; then P "toolkit built (cdt-verify available)"
 else
-  _tk="$(ls -d "$DR_DIR/../toolkit" "$CDT_HOME"/plugins/cache/clientmode/cm/*/toolkit 2>/dev/null | tail -1)"
+  _tk="$(ls -d "$DR_DIR/../toolkit" "$CDT_HOME"/plugins/cache/clientmode/cm/*/toolkit 2>/dev/null | sort -V | tail -1)"
   F "toolkit not built — cdt-verify and trusted verification are off" "read ${_tk:-the plugin toolkit}/.cdt-build.log, then: cd \"$_tk\" && npm install && npm run build"
 fi
 

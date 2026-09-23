@@ -492,10 +492,11 @@ _ensure_toolkit() {
 # _toolkit_build_blocked <toolkit_dir> — true while a failed build's stamp is inside the retry window
 # (CDT_TOOLKIT_RETRY_HOURS, default 24). session-start-vault.sh has the same test for its warning.
 _toolkit_build_blocked() {
-  local at hrs; at="$(head -c 32 "$1/.cdt-build-attempted" 2>/dev/null | tr -cd '0-9')"
+  local at hrs age; at="$(head -c 32 "$1/.cdt-build-attempted" 2>/dev/null | tr -cd '0-9' | cut -c1-12)"
   [ -n "$at" ] || return 1
-  hrs="$(plib_cfg CDT_TOOLKIT_RETRY_HOURS 24 | tr -cd '0-9')"
-  [ $(( $(date +%s) - at )) -lt $(( ${hrs:-24} * 3600 )) ]
+  hrs="$(plib_cfg CDT_TOOLKIT_RETRY_HOURS 24 | tr -cd '0-9' | cut -c1-6)"
+  age=$(( $(date +%s) - 10#$at ))   # base 10: a leading 0 is not octal. A future stamp (clock skew) is expired.
+  [ "$age" -ge 0 ] && [ "$age" -lt $(( 10#${hrs:-24} * 3600 )) ]
 }
 
 # _link_toolkit <toolkit_dir> — (re)point the ~/.claude/bin CLIs at THIS version's dist. Symlinks into a

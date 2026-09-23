@@ -674,12 +674,15 @@ NOW="$(date +%s 2>/dev/null || echo 0)"
 fresh() { printf '%s' "{\"weekly\":$1,\"session\":10,\"ts\":$NOW}" > "$HOME/.claude/.cdt-usage.json"; }
 "$BIN/cdt-config" autonomy assist >/dev/null 2>&1
 has "$("$BIN/cdt-auto" status 2>&1)" "assist" "autonomy status reflects mode"
-# gate team: DENY off → ALLOW on+headroom → ASK over ceiling
+# gate team: DENY off → ASK in assist → ALLOW in auto with headroom → ASK over ceiling
 "$BIN/cdt-config" teams off >/dev/null 2>&1
 has "$("$BIN/cdt-auto" gate team 2>&1)" "DENY" "gate team DENY when engine off"
 "$BIN/cdt-config" teams on >/dev/null 2>&1
-fresh 20; has "$("$BIN/cdt-auto" gate team 2>&1)" "ALLOW" "gate team ALLOW within budget"
+fresh 20; has "$("$BIN/cdt-auto" gate team 2>&1)" "ASK" "gate team ASK in assist mode (fan-out only when the person asks)"
+"$BIN/cdt-config" autonomy auto >/dev/null 2>&1
+fresh 20; has "$("$BIN/cdt-auto" gate team 2>&1)" "ALLOW" "gate team ALLOW within budget once the person opts in to auto"
 fresh 90; has "$("$BIN/cdt-auto" gate team 2>&1)" "ASK" "gate team ASK over weekly ceiling"
+"$BIN/cdt-config" autonomy assist >/dev/null 2>&1
 # gate scale: DENY off → assist ASK → auto ALLOW/ASK(ceiling)/ASK(unknown, fail-safe)
 "$BIN/cdt-config" scale off >/dev/null 2>&1
 has "$("$BIN/cdt-auto" gate scale 2>&1)" "DENY" "gate scale DENY when engine off"

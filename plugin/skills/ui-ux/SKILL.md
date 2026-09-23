@@ -47,7 +47,8 @@ direction and get it approved before spreading it. A task is never both.
    accepted.
 4. **Compare the running page, not the code.** Serve it with representative data and capture it at
    the reference's viewport:
-   `node <this skill>/scripts/visual-check.mjs --url <page> --reference <png> --out .visual-check`.
+   `node <this skill>/scripts/visual-check.mjs --url <page> --reference <png> --out .visual-check`
+   (add `--scale 2` for a Retina screenshot).
    Open `compare.png` and look at it. The mismatch ratio and regions say where to look; they are not
    a score.
 5. **Fix the three largest differences, in this order:** layout and proportions → typography →

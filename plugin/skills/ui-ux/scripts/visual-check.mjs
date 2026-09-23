@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 // Capture the running page and put it beside the reference it is meant to match.
 //
-//   node visual-check.mjs --url <url> --reference <png> [--viewport 1440x900] [--full-page] [--out <dir>]
+//   node visual-check.mjs --url <url> --reference <png> [--scale 2] [--viewport 1440x900] [--full-page] [--out <dir>]
+//
+// --scale is the reference's pixel density: 2 for a Retina/HiDPI screenshot. The page is rendered at
+// the reference's CSS size (pixels ÷ scale) with the same density, so it hits the same breakpoint.
 //
 // Writes <out>/actual.png, <out>/compare.png (reference | actual | differences in red) and
 // <out>/summary.json (sizes, mismatch ratio, the three regions that differ most). Open compare.png
@@ -17,15 +20,18 @@ import path from 'node:path';
 const REGIONS = ['top-left', 'top-centre', 'top-right', 'middle-left', 'centre', 'middle-right', 'bottom-left', 'bottom-centre', 'bottom-right'];
 
 function parse(argv) {
-  const out = { fullPage: false, out: '.visual-check' };
+  const out = { fullPage: false, out: '.visual-check', scale: '1' };
   for (let i = 0; i < argv.length; i += 1) {
     const [flag, value] = [argv[i], argv[i + 1]];
     if (flag === '--full-page') { out.fullPage = true; continue; }
-    if (!['--url', '--reference', '--viewport', '--out'].includes(flag) || value === undefined) return null;
+    if (!['--url', '--reference', '--viewport', '--out', '--scale'].includes(flag) || value === undefined) return null;
     out[flag.slice(2)] = value; i += 1;
   }
   if (!out.url || !out.reference || !existsSync(out.reference)) return null;
   if (out.viewport && !/^\d+x\d+$/.test(out.viewport)) return null;
+  if (!/^[1-4](\.\d+)?$/.test(out.scale)) return null;
+  const head = readFileSync(out.reference).subarray(0, 8);
+  if (!head.equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) return null;
   return out;
 }
 
@@ -88,7 +94,7 @@ function compareInPage({ reference, actual, regions }) {
 async function main(argv) {
   const args = parse(argv);
   if (!args) {
-    console.error('usage: visual-check.mjs --url <url> --reference <png> [--viewport WxH] [--full-page] [--out <dir>]');
+    console.error('usage: visual-check.mjs --url <url> --reference <png> [--scale 2] [--viewport WxH] [--full-page] [--out <dir>]  (the reference must be a PNG)');
     return 2;
   }
   const playwright = loadPlaywright();
@@ -98,13 +104,14 @@ async function main(argv) {
   }
   const referencePng = readFileSync(args.reference);
   const [refW, refH] = [referencePng.readUInt32BE(16), referencePng.readUInt32BE(20)];
-  const [width, height] = args.viewport ? args.viewport.split('x').map(Number) : [refW, refH];
+  const scale = Number(args.scale);
+  const [width, height] = args.viewport ? args.viewport.split('x').map(Number) : [Math.round(refW / scale), Math.round(refH / scale)];
 
   const browser = await playwright.chromium.launch();
   try {
     let actualPng;
     try {
-      const tab = await browser.newPage({ viewport: { width, height } });
+      const tab = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: scale });
       await tab.goto(args.url, { waitUntil: 'networkidle' });
       actualPng = await tab.screenshot({ fullPage: args.fullPage });
     } catch (error) {

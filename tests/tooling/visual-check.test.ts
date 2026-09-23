@@ -62,3 +62,26 @@ test('missing arguments are refused', () => {
   const r = run(['--url', 'http://localhost:1']);
   assert.equal(r.status, 2);
 });
+
+test('a 2x (Retina) reference is compared at its CSS size with --scale 2', async () => {
+  const dir = mkdtempSync(path.join(tmpdir(), 'cm-visual-'));
+  writeFileSync(path.join(dir, 'p.html'), page(20));
+  const reference = path.join(dir, 'ref2x.png');
+  const browser = await chromium.launch();
+  const tab = await browser.newPage({ viewport: { width: 400, height: 200 }, deviceScaleFactor: 2 });
+  await tab.goto(pathToFileURL(path.join(dir, 'p.html')).href);
+  await tab.screenshot({ path: reference });
+  await browser.close();
+  const r = run(['--url', pathToFileURL(path.join(dir, 'p.html')).href, '--reference', reference, '--scale', '2', '--out', path.join(dir, 'o')]);
+  assert.equal(r.status, 0, r.stderr);
+  const s = JSON.parse(readFileSync(path.join(dir, 'o', 'summary.json'), 'utf8')) as { viewport: number[]; size_match: boolean; mismatch_ratio: number };
+  assert.deepEqual(s.viewport, [400, 200]);
+  assert.equal(s.size_match, true);
+  assert.equal(s.mismatch_ratio, 0);
+});
+
+test('a reference that is not a PNG is refused', () => {
+  const dir = mkdtempSync(path.join(tmpdir(), 'cm-visual-'));
+  writeFileSync(path.join(dir, 'x.png'), 'not a png at all, just text');
+  assert.equal(run(['--url', 'http://localhost:1', '--reference', path.join(dir, 'x.png')]).status, 2);
+});

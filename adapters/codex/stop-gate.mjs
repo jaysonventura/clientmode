@@ -7,6 +7,7 @@
 // typecheck, lint and test, otherwise `make test`. A tree that already passed is not re-run.
 // After three blocked repair cycles in one session it stops blocking and reports a BLOCKER on
 // stderr, so it can never trap a session. Input and output follow learn.chatgpt.com/docs/hooks.
+// Known limit: work the agent committed during the turn leaves a clean tree, and is not re-checked.
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -14,7 +15,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const MAX_BLOCKS = 3;
-const TIMEOUT_MS = 10 * 60 * 1000;
+// All checks share one budget that ends before the hook's own 900 s timeout (codex-hooks.ts), so a
+// slow suite ends as a reported failure instead of a silently killed hook.
+const DEADLINE = Date.now() + 840 * 1000;
 const STATE_DIR = process.env.CM_CODEX_GATE_STATE ?? path.join(path.dirname(fileURLToPath(import.meta.url)), 'state');
 
 const git = (cwd, args) => spawnSync('git', args, { cwd, encoding: 'buffer', maxBuffer: 256 * 1024 * 1024 });
@@ -51,7 +54,7 @@ function checks(cwd) {
 }
 
 function run(cwd, command) {
-  const result = spawnSync(command, { cwd, shell: true, encoding: 'utf8', timeout: TIMEOUT_MS, maxBuffer: 64 * 1024 * 1024 });
+  const result = spawnSync(command, { cwd, shell: true, encoding: 'utf8', timeout: Math.max(1000, DEADLINE - Date.now()), maxBuffer: 64 * 1024 * 1024 });
   const output = `${result.stdout ?? ''}${result.stderr ?? ''}`.trimEnd().split('\n').slice(-40).join('\n');
   const exit = result.error?.code === 'ETIMEDOUT' ? 'timed out' : `exit ${String(result.status)}`;
   return { ok: result.status === 0, exit, output };

@@ -37,3 +37,11 @@ test('emphasis is rare enough to mean something', () => {
   const bold = lead().match(/\*\*[^*]+\*\*/g) ?? [];
   assert.ok(bold.length <= 3, `${String(bold.length)} bold phrases`);
 });
+
+test('rules the lead file must keep through any trim', () => {
+  const text = lead();
+  for (const rule of ['explicit instruction first', 'a check that never fails measures nothing', 'own runner and language', '`FULL:`',
+    'cm-technical-writing', 'cm-gauge-improvements', 'walang delivery fee', 'Titles grant nothing', 'cm handoff']) {
+    assert.ok(text.includes(rule), rule);
+  }
+});

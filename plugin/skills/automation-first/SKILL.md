@@ -1,6 +1,6 @@
 ---
 name: automation-first
-description: Use BEFORE any build, deploy, run, release or environment command - use the repo's automation (Makefile first, then package scripts, scripts/, docs/CI) instead of improvised commands; if a Makefile target fails, stop and report.
+description: Use BEFORE any build, deploy, run, release or environment command - follow an explicit instruction, then the repo's automation (Makefile, package scripts, scripts/, docs/CI) instead of improvised commands; if a Makefile target fails, stop and report.
 ---
 
 # Automation-first — prefer repo automation over manual commands

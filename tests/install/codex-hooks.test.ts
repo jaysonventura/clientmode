@@ -112,3 +112,28 @@ test('after three blocked repair cycles the gate stops blocking and says BLOCKER
   assert.equal(capped.stdout.trim(), '');
   assert.match(capped.stderr, /BLOCKER/);
 });
+
+test('uninstall gives back the person\'s hooks.json byte for byte, including an empty Stop list', () => {
+  const root = temp('cm-codex-');
+  const hooks = path.join(root, 'hooks.json');
+  const original = '{"hooks": {"Stop": [], "PreToolUse": [{"matcher": "Bash", "hooks": [{"type": "command", "command": "echo pre"}]}]}}\n';
+  writeFileSync(hooks, original);
+  const r = installCodexStopHook({ config_root: root, gate_source: GATE });
+  removeCodexStopHook(r.record!);
+  assert.equal(readFileSync(hooks, 'utf8'), original);
+});
+
+test('a cm folder that was already there, and the person\'s files in it, survive uninstall', () => {
+  const root = temp('cm-codex-');
+  mkdirSync(path.join(root, 'cm'));
+  writeFileSync(path.join(root, 'cm', 'notes.txt'), 'mine');
+  const r = installCodexStopHook({ config_root: root, gate_source: GATE });
+  removeCodexStopHook(r.record!);
+  assert.equal(readFileSync(path.join(root, 'cm', 'notes.txt'), 'utf8'), 'mine');
+  assert.equal(existsSync(path.join(root, 'cm', 'stop-gate.mjs')), false);
+});
+
+test('the hook command names the node that installed it, not whichever node is first on PATH', () => {
+  const r = installCodexStopHook({ config_root: temp('cm-codex-'), gate_source: GATE });
+  assert.ok(r.record!.command.includes(process.execPath));
+});

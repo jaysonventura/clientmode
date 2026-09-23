@@ -14,9 +14,9 @@ Triage before you start, and pick the smallest shape that fits:
 - Risk floor: auth, payments, infrastructure, migrations and secrets are T2 or higher, with a
   security review and the full close, however small the diff.
 - Delegation limits, every tier: one active writer per project, at most two child jobs running at
-  once, one level deep. Your own edits count as writing. Specialists get a bounded contract —
-  exclusive write paths, a verifiable done-when, a short report — never a vague task. Wider fan-out
-  (parallel worktrees, agent teams, workflows) only when the person asks, never nested.
+  once, one level deep. Your own edits count as writing. Specialists get a bounded contract, never
+  a vague task. Wider fan-out (parallel worktrees, agent teams, workflows) only when the person asks
+  (`FULL:`, "use a workflow"), never nested.
 - Effort follows the task: the model's default for ordinary work, higher for a hard bug or
   unfamiliar code, the top level deliberately.
 
@@ -28,15 +28,15 @@ Triage before you start, and pick the smallest shape that fits:
 | Bug or failing check | `cm-debug` |
 | User interface, or copying a reference screenshot | `cm-ui-ux`, then `cm-web-qa` / `cm-mobile-qa` with `cm-qa-shared` |
 | Migration or schema change | `cm-database-change` + security review |
-| Auth, payments or secrets | security review, full close |
 | A feature that calls a model | `cm-ai-eval` |
 | Unfamiliar or version-sensitive code | `cm-grounding` |
 | Build, deploy, run or release | `cm-automation-first` |
 | Major feature | a goal (`/goal`), a plan (`/plan`), one verified slice at a time, review, then the person accepts |
 | Reviewing; working a contract; closing | `cm-review`; `cm-delivery`; `cm-verify` then `cm-handoff` |
+| TypeScript, refactors, performance, docs | `cm-clean-code-typescript`, `cm-karpathy-guidelines`, `cm-code-splitting`, `cm-gauge-improvements`, `cm-technical-writing` |
 
-Skills say how. Hooks run the checks that must happen every time. MCP servers supply tools. The
-person steers with the host's commands. None of this is repeated in prompts.
+Skills say how; hooks run the checks that must happen every time; the person steers with the
+host's commands.
 
 Titles grant nothing. No role you can name authorises deployment, spending, publication or an
 outbound message — those need an approval that names the action.
@@ -46,7 +46,7 @@ outbound message — those need an approval that names the action.
 - Every behaviour change starts red: write the test, run it, watch it fail for the reason you
   expect. Then the smallest change that makes it pass, then refactor with everything green.
 - A bug fix starts with a test that reproduces the bug. No failing test means not yet reproduced.
-- Use the project's own runner; with no harness, add the smallest one and say so. Exceptions —
+- Use the project's own runner and language; with no harness, add the smallest one and say so. Exceptions —
   documentation, formatting, a plain config value, generated files, a throwaway spike the person
   asked for — are named when they apply, and whatever check exists still runs.
 
@@ -61,15 +61,15 @@ outbound message — those need an approval that names the action.
 - Observe each thing on its own terms. A browser screenshot is not evidence about a native app, a
   model's output, or a spreadsheet's arithmetic. Where you cannot observe it, say so.
 - A green check you wrote yourself proves less than you think. Change the thing it guards and
-  confirm it goes red.
+  confirm it goes red; a check that never fails measures nothing.
 - Never loosen a gate to get past it. Turning off the instrument does not make the tests pass.
 
 ## Grounding and automation
 
 - Library, framework and API specifics come from first-party documentation for the installed
   version (context7 where available), never from memory. If unsure, say so and stop.
-- Build, deploy, run and release through the repository's own automation. If a Makefile target
-  fails, stop and report; do not improvise another deploy path.
+- Build, deploy, run and release through an explicit instruction first, then the repository's own
+  automation. If a Makefile target fails, stop and report; do not improvise another deploy path.
 
 ## Autonomy is not authority
 

@@ -3,6 +3,9 @@
 #
 #   cdt-attribution            enforce (merge the keys into settings.json; silent when already compliant)
 #   cdt-attribution --check    report only — never writes. exit 0 = compliant · exit 1 = would change
+#   cdt-attribution --guard    PreToolUse (Bash) hook: deny a git commit / gh pr command whose text carries
+#                              an AI trailer or footer. Settings stop the harness adding one; they cannot
+#                              stop the model typing one itself (it copies the repo's existing commit style).
 #
 # WHY settings.json: the "Co-Authored-By: Claude" commit trailer, the "Generated with Claude Code" PR
 # footer and the "Claude-Session: <url>" trailer are emitted because Claude Code injects an instruction
@@ -36,6 +39,7 @@ MODE="apply"
 case "${1:-}" in
   ""|--apply|apply)   MODE="apply" ;;
   --check|check)      MODE="check" ;;
+  --guard|guard)      MODE="guard"; _GUARD_IN="$(cat 2>/dev/null)" ;;
   -h|--help|help)     usage; exit 0 ;;
   *) usage; exit 0 ;;
 esac
@@ -57,6 +61,28 @@ case "$(printf '%s' "$KNOB" | tr '[:upper:]' '[:lower:]' | sed 's/^[[:space:]]*/
     [ "$MODE" = "check" ] && echo "cdt-attribution: enforcement OFF (CDT_NO_AI_ATTRIBUTION=$KNOB) — settings.json not inspected."
     exit 0 ;;
 esac
+
+if [ "$MODE" = "guard" ]; then
+  # A disabled Client Mode behaves as stock Claude Code (same switch session-start-vault.sh reads).
+  [ "$(cfg CDT_ENABLED 1)" = "0" ] && exit 0
+  command -v python3 >/dev/null 2>&1 || exit 0
+  printf '%s' "$_GUARD_IN" | python3 -c '
+import json, re, sys
+try:
+    cmd = json.load(sys.stdin).get("tool_input", {}).get("command", "")
+except Exception:
+    sys.exit(0)
+if not isinstance(cmd, str) or not re.search(r"\bgit\b.*\bcommit\b|\bgh\s+pr\s+(create|edit)\b", cmd, re.S):
+    sys.exit(0)
+if not re.search(r"co-authored-by:\s*claude|generated with \[?claude code|noreply@anthropic\.com", cmd, re.I):
+    sys.exit(0)
+print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny",
+  "permissionDecisionReason": "claude-dev-team: no AI attribution - remove the Co-Authored-By: Claude trailer / "
+  "Generated with Claude Code footer and run the command again. Earlier commits in this repo carrying one are "
+  "not a style to copy. Turn this off with: cdt-config attribution off."}}, separators=(",", ":")))
+' 2>/dev/null
+  exit 0
+fi
 
 # python3 is the only way we touch JSON (no sed/awk surgery on the user's settings). Absent → quiet no-op.
 command -v python3 >/dev/null 2>&1 || {

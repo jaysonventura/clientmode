@@ -225,6 +225,18 @@ except Exception: print(0)' 2>/dev/null)"
 [ "${EVN:-0}" -gt 0 ] && ok "verify_gate outcomes recorded to the DB" || no "verify_gate outcomes recorded to the DB"
 for s in vga vgb vgc vgw vgo vgm vgs; do clrm $s; done
 
+echo "== 4c-4. attribution guard (settings stop the harness trailer; this stops the model typing one) =="
+aguard() { python3 -c 'import json,sys;print(json.dumps({"session_id":"ag1","tool_name":"Bash","tool_input":{"command":sys.argv[1]}}))' "$1" | bash "$REPO/hooks/attribution.sh" --guard 2>&1; }
+has   "$(aguard "git commit -m \"Fix x
+
+Co-Authored-By: Claude <noreply@anthropic.com>\"")" '"permissionDecision":"deny"' "denies a commit carrying a Co-Authored-By: Claude trailer"
+has   "$(aguard "gh pr create --title x --body \"Done. 🤖 Generated with [Claude Code](https://claude.com/claude-code)\"")" '"permissionDecision":"deny"' "denies a PR body with the Generated-with footer"
+lacks "$(aguard 'git commit -m "Fix x"')" 'deny' "allows a commit without attribution"
+lacks "$(aguard 'grep -rn "Co-Authored-By: Claude" docs/')" 'deny' "leaves non-commit commands alone"
+lacks "$(CDT_NO_AI_ATTRIBUTION=0 aguard "git commit -m \"x
+
+Co-Authored-By: Claude <noreply@anthropic.com>\"")" 'deny' "honors cdt-config attribution off"
+
 echo "== 4d. grounding: builder agents carry the context7 doc tools =="
 for a in backend-engineer frontend-engineer mobile-engineer data-engineer devops-engineer qa-engineer; do
   if grep -q 'mcp__plugin_context7_context7__resolve-library-id' "$REPO/agents/$a.md" \

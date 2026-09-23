@@ -18,6 +18,11 @@
             "type": "command",
             "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/verify-wrap.sh\"",
             "async": false
+          },
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/attribution.sh\" --guard",
+            "async": false
           }
         ]
       }

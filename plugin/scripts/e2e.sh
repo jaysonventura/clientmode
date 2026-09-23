@@ -126,6 +126,14 @@ OUT2="$(stop vgf)"
 has "$OUT2" 'iteration 2/3' "a red verdict blocks AGAIN (loop), not once-per-session"
 has "$OUT2" 'bug-council' "an unchanged failure signature escalates to the Bug Council"
 has "$OUT2" 'Stop editing' "a repeated failure signature says stop editing and diagnose"
+# (d2) the host sets stop_hook_active on every Stop after a block (hooks.md); a RED verdict must still
+#      block then, or the loop gets one block per turn. A missing verdict stays once-only.
+SPA() { printf '{"session_id":"%s","cwd":"%s","stop_hook_active":true}' "$1" "$SBX"; }
+clrm vgh; lclr vgh; vclear; edit vgh; vevent "npm test" 1
+stop vgh >/dev/null 2>&1
+has "$(SPA vgh | bash "$REPO/hooks/completion-guard.sh" 2>&1)" 'iteration 2/3' "a red verdict blocks again when stop_hook_active is true"
+clrm vgn; lclr vgn; vclear; edit vgn
+lacks "$(SPA vgn | bash "$REPO/hooks/completion-guard.sh" 2>&1)" '"decision":"block"' "a missing verdict does not re-block when stop_hook_active is true"
 # (e) fixing it turns the verdict green and releases the loop
 vevent "npm test" 0
 lacks "$(stop vgf)" '"decision":"block"' "a passing re-run releases the loop"

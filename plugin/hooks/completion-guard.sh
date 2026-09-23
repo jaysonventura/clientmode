@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 # Stop hook: when a session that made edits ends, record a session row + status digest (silent),
 # and OPTIONALLY remind once to run the completion mandate (opt-in, off by default to stay cheap).
-# Loop-guarded via stop_hook_active. Fail-open: always exits cleanly.
+# Loop-guarded (see below). Fail-open: always exits cleanly.
 set +e
 
 INPUT="$(cat 2>/dev/null)"
 
-# Loop guard: if this stop was itself triggered by a stop hook, do nothing.
-printf '%s' "$INPUT" | grep -q '"stop_hook_active"[[:space:]]*:[[:space:]]*true' && exit 0
+# Loop guard. The host sets stop_hook_active on every Stop after a Stop-hook block (hooks.md) and ends the
+# turn itself after CLAUDE_CODE_STOP_HOOK_BLOCK_CAP blocks (default 8). Only a RED verdict may block again
+# here, bounded by CDT_MAX_ITERATIONS (3); every other gate stays once per stop chain.
+_STOP_ACTIVE=0
+printf '%s' "$INPUT" | grep -q '"stop_hook_active"[[:space:]]*:[[:space:]]*true' && _STOP_ACTIVE=1
 
 get() { printf '%s' "$INPUT" | sed -n "s/.*\"$1\"[[:space:]]*:[[:space:]]*\"\([^\"]*\)\".*/\1/p" | head -1; }
 SESSION_ID="$(get session_id)"
@@ -82,6 +85,8 @@ except Exception: raise SystemExit
 for f in (d.get("failing") or []): print("%s (exit %s)" % (f.get("command",""), f.get("exitCode")))' 2>/dev/null)"
   fi
 fi
+
+[ "$_STOP_ACTIVE" = 1 ] && [ "$_VERIF" != "failed" ] && exit 0
 
 # --- Verification gate + TASK LOOP -----------------------------------------------------------------
 # Two failures this replaces. (1) The old gate accepted "a verifying command RAN": it matched the command

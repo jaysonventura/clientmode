@@ -74,8 +74,8 @@ struct CDTConfig {
     var enabled = true          // core CDT (CDT_ENABLED)
     var toolkitEnabled = true   // TS engine layer, SEPARATE from core CDT (CDT_TOOLKIT_ENABLED)
     var promptMode = "auto"     // auto | always | off  (off also reflects CDT_PROMPT_ENHANCE=false)
-    var effort = "—"
-    var model = "—"          // raw, e.g. "claude-opus-4-8"
+    var effort = "default"
+    var model = "default"    // raw model id, or "default" when unpinned
     var eco = "off"          // off by default — opt in with cdt-config eco on|auto
     var realtimeUsage = true // throttled network usage refresh (CDT_REALTIME_USAGE); default ON (popup-free + rate-safe)
 }
@@ -117,8 +117,8 @@ func readCDTConfig() -> CDTConfig {
     }
     if let data = try? Data(contentsOf: home.appendingPathComponent(".claude/settings.json")),
        let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-        c.effort = (obj["effortLevel"] as? String) ?? "—"
-        c.model = (obj["model"] as? String) ?? "—"
+        c.effort = (obj["effortLevel"] as? String) ?? "default"   // unset: the model decides
+        c.model = (obj["model"] as? String) ?? "default"      // unset: the account default
     }
     return c
 }

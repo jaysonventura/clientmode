@@ -23,7 +23,7 @@ export const DEFAULT_CONFIG: CdtConfig = {
     maxContextChars: 4000,
     backend: 'haiku',
     localModel: 'qwen3:8b',
-    effort: 'medium', // the enhancer (Haiku) runs at medium effort; core CDT keeps its own (xhigh) effort
+    effort: 'medium', // the enhancer (Haiku) runs at medium effort; core CDT keeps the session's own effort
   },
   spec: {
     auto: false,

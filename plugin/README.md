@@ -261,7 +261,7 @@ session; the bare `/command` form won't match).
 | `/cm:stats [today\|week\|all]` | cost & activity report from the state DB — incl. **which agents cost the most tokens** |
 | `/cm:recall <task>` | recall the most relevant past lessons from the vault for a task |
 | `/cm:advise <task>` | advisory tier/effort prior learned from how similar past tasks went |
-| `/cm:config [...]` | enable/disable CDT **+ the toolkit** + set defaults (effort, model, eco, statusline, `prompt-mode`, `redact`, …); defaults xhigh + Opus 4.8 |
+| `/cm:config [...]` | enable/disable CDT **+ the toolkit** + set defaults (effort, model, eco, statusline, `prompt-mode`, `redact`, …); effort and model unpinned by default |
 | `/cm:doctor` | health-check the install (hooks, CLIs, DB, gh, menu bar, deps) |
 | `/cm:deps [--install]` | check / install system prerequisites (python3, git, curl, sqlite3, gh) |
 | `/cm:worktree [new\|list\|rm\|...]` | git-worktree isolation for parallel work (interops with `claude --worktree`) |
@@ -386,7 +386,7 @@ You type:  "improve the checkout flow and use requirements.pdf"
    • spots "requirements.pdf", extracts cited requirements           → .claude/specs/
    • redacts every secret before anything is written to disk
               │
-              ▼   THE WORK — the Orchestrator (the model @ xhigh, the tech-lead)
+              ▼   THE WORK — the lead (the session model at its effort level)
    triage → write per-agent contracts → dispatch specialist agents in parallel
           → quality gates → independent + security review → ship
               │
@@ -427,7 +427,7 @@ You type:  "improve the checkout flow and use requirements.pdf"
 ```sh
 cdt enable | cdt disable                   # the whole toolkit, separate from core CDT (cdt-config on|off)
 cdt-config prompt-mode auto|always|off     # when Haiku fires (auto = only unclear/risky prompts)
-cdt-config prompt-effort medium|high       # the enhancer's effort (Haiku) — your real work stays xhigh
+cdt-config prompt-effort medium|high       # the enhancer's effort (Haiku) — your real work keeps its own effort
 cdt-config spec-auto on|off                # auto-extract a spec doc named in your prompt (default off)
 cdt-config redact on|off                   # mask secrets/PII in artifacts (default on — keep it)
 ```
@@ -718,7 +718,7 @@ On top of tiered triage, CDT runs an **autonomous mode router**: after scoring a
 shape* and decides whether to stay **BOUNDED** (contained work) or escalate to **DEPTH** (an agent-team
 Bug Council that *debates*) or **BREADTH** (a dynamic workflow that fans out). It escalates **freely
 whenever the shape benefits** — a stuck/ambiguous bug → a team; a large or homogeneous set
-(audit/migration/exhaustive review) → a workflow — and **always at xhigh effort, Opus for judgment, never
+(audit/migration/exhaustive review) → a workflow — and **at the session's effort, Opus for judgment, never
 Haiku, never `max`**.
 
 A lightweight **budget safety valve** keeps "use the big engines freely" and "don't lock yourself out on
@@ -939,7 +939,7 @@ prefix is fixed by Claude Code.
 | `CDT_PLUGIN_STRICT` | 1 | gate auto-install of non-official plugins (see [Plugin bootstrap & routing](#plugin-bootstrap--routing)) |
 | `CDT_NO_AI_ATTRIBUTION` | 1 | keep AI attribution off commits/PRs; `cdt-config attribution on\|off` |
 
-Effort runs at your session level (xhigh, never `max`). The heavier engines — **parallel git-worktree
+Effort runs at your session level: the model's default unless you pin one, never `max` by default. The heavier engines — **parallel git-worktree
 sessions** and **dynamic-workflow fan-out** — are **on by default** and used whenever the work benefits;
 a weekly-budget safety valve only ASKs as you near the rate-limit ceiling (see
 [Autonomous orchestration](#autonomous-orchestration-router--cost-governor)). Pin any agent's `model:` in
@@ -950,20 +950,20 @@ a weekly-budget safety valve only ASKs as you near the rate-limit ceiling (see
 ```
 ~/.claude/bin/cdt-config                 # show current config
 ~/.claude/bin/cdt-config off | on        # disable / enable the whole orchestration layer
-~/.claude/bin/cdt-config effort xhigh    # default effort: low | medium | high | xhigh
-~/.claude/bin/cdt-config model  opus     # default model (e.g. claude-opus-4-8 / opus / sonnet)
+~/.claude/bin/cdt-config effort high     # pin effort: default | low | medium | high | xhigh
+~/.claude/bin/cdt-config model  opus     # pin a model: default | opus | sonnet | <model id>
 ~/.claude/bin/cdt-config autonomy auto   # autonomous escalation: off | assist | auto  (see /cm:auto)
 ~/.claude/bin/cdt-config teams on|off    # the agent-team DEPTH engine (on by default)
 ~/.claude/bin/cdt-config scale on|off    # the dynamic-workflow BREADTH engine (on by default)
-~/.claude/bin/cdt-config reset           # restore defaults: enabled, xhigh, Opus 4.8, autonomy=auto, engines on
+~/.claude/bin/cdt-config reset           # restore defaults: enabled, effort/model unpinned, autonomy=auto, engines on
 ```
 
-Defaults are **xhigh effort + Opus 4.8** (`claude-opus-4-8`). `off` makes the next session behave as
+By default effort and model are **not pinned**: the model's own effort default and your account's default model apply, and you raise effort for the tasks that need it. `off` makes the next session behave as
 stock Claude Code (the SessionStart hook stops injecting the orchestration protocol). `effort`/`model`
 are written to `~/.claude/settings.json` as a **safe merge** (your other settings are preserved) and
 apply next session. The **macOS menu bar dropdown** also lets you change all of this with a click — an
 **Enabled** toggle plus **Eco mode**, **Effort**, and **Model** submenus (each runs `cdt-config` for you).
-(`max` effort is session-only — `/effort max` — and intentionally can't be persisted; xhigh is the cap.)
+(`max` effort is session-only — `/effort max` — and intentionally can't be persisted.)
 
 **Budget-aware Eco mode + status line** (also via `cdt-config`):
 

@@ -190,9 +190,9 @@ final class MenuBarController: NSObject {
         menu.addItem(optionSubmenu("Eco mode", key: "eco", current: cfg.eco,
             options: [("Auto", "auto"), ("On", "on"), ("Off (default)", "off")]))
         menu.addItem(optionSubmenu("Effort", key: "effort", current: cfg.effort,
-            options: [("Low", "low"), ("Medium", "medium"), ("High", "high"), ("Xhigh (default)", "xhigh")]))
+            options: [("Model default", "default"), ("Low", "low"), ("Medium", "medium"), ("High", "high"), ("Xhigh", "xhigh")]))
         menu.addItem(optionSubmenu("Model", key: "model", current: cfg.model,
-            options: [("Opus 4.8 (default)", "claude-opus-4-8"), ("Opus", "opus"),
+            options: [("Account default", "default"), ("Opus", "opus"),
                       ("Sonnet", "sonnet"), ("Haiku", "haiku")]))
         let applyNote = NSMenuItem(title: "effort / model apply next session", action: nil, keyEquivalent: "")
         applyNote.isEnabled = false

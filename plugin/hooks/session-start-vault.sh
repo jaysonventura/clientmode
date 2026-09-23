@@ -154,7 +154,7 @@ if [ -f "$VAULT/learnings.md" ]; then
   grep '^- \[' "$VAULT/learnings.md" 2>/dev/null | tail -n 6
 fi
 echo
-echo "_Triage every task (T0–T3); delegate under contracts; gate; ship; persist. Preferred defaults: **xhigh** effort + **Opus 4.8** (adjust via cdt-config). For lessons relevant to a task, run \`~/.claude/bin/cdt-recall \"<task>\"\`. Report milestones to the user._"
+echo "_Triage every task (T0–T3); delegate under contracts; gate; ship; persist. Match effort to the task: the model's default for ordinary work, higher only for hard bugs, unfamiliar code or architecture. For lessons relevant to a task, run \`~/.claude/bin/cdt-recall \"<task>\"\`. Report milestones to the user._"
 
 # Reset per-session health metrics (context, duration, agent count) for THIS workspace on every
 # SessionStart/clear/compact — keyed per-workspace so two terminals in different projects don't reset or

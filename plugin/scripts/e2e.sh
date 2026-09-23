@@ -591,6 +591,27 @@ has "$(bash "$REPO/hooks/session-start-vault.sh" 2>/dev/null)" "DISABLED" "confi
 "$BIN/cdt-config" on >/dev/null 2>&1
 has "$(bash "$REPO/hooks/session-start-vault.sh" 2>/dev/null)" "orchestrator" "config on -> orchestration injected"
 
+echo "== 6b. effort and model follow the host unless the person sets them =="
+SET="$HOME/.claude/settings.json"
+skey() { KEY="$1" SET="$SET" python3 -c 'import json,os
+try: print(json.load(open(os.environ["SET"])).get(os.environ["KEY"], "<absent>"))
+except Exception: print("<absent>")'; }
+printf '{"theme":"dark"}\n' > "$SET"
+"$BIN/cdt-config" effort high >/dev/null 2>&1
+[ "$(skey effortLevel)" = "high" ] && ok "cdt-config effort high writes high" || no "effort high (got: $(skey effortLevel))"
+"$BIN/cdt-config" model sonnet >/dev/null 2>&1
+"$BIN/cdt-config" reset >/dev/null 2>&1
+[ "$(skey effortLevel)" = "<absent>" ] && ok "reset leaves effort to the model's default" || no "reset wrote effortLevel=$(skey effortLevel)"
+[ "$(skey model)" = "<absent>" ] && ok "reset leaves the model to the account default" || no "reset wrote model=$(skey model)"
+[ "$(skey theme)" = "dark" ] && ok "reset keeps the person's other settings" || no "reset dropped theme"
+"$BIN/cdt-config" effort medium >/dev/null 2>&1; "$BIN/cdt-config" model opus >/dev/null 2>&1
+"$BIN/cdt-config" effort default >/dev/null 2>&1; "$BIN/cdt-config" model default >/dev/null 2>&1
+[ "$(skey effortLevel)" = "<absent>" ] && [ "$(skey model)" = "<absent>" ] && ok "effort/model default unpin the key" || no "default did not unpin (effort=$(skey effortLevel) model=$(skey model))"
+lacks "$(bash "$REPO/hooks/session-start-vault.sh" 2>/dev/null)" "xhigh" "session start no longer prescribes xhigh"
+DOC="$("$BIN/cdt-doctor" 2>&1)"
+has "$DOC" "effort: model default" "doctor reports an unset effort as the model default"
+lacks "$DOC" "cdt-config effort xhigh" "doctor no longer pushes xhigh"
+
 echo "== 7. worktree isolation (cdt-worktree) =="
 if command -v git >/dev/null 2>&1; then
   PROJ="$SBX/proj"; mkdir -p "$PROJ"

@@ -4,23 +4,22 @@
 #   cdt-config                       show current config
 #   cdt-config on  | enable          turn the orchestration layer ON
 #   cdt-config off | disable         turn it OFF (acts as stock Claude Code next session)
-#   cdt-config effort <low|medium|high|xhigh>   set the default effort (default: xhigh)
-#   cdt-config model  <opus|sonnet|haiku|claude-opus-4-8|...>   set the default model (default: Opus 4.8)
+#   cdt-config effort <default|low|medium|high|xhigh>   pin an effort level; default unpins it (the model's own default)
+#   cdt-config model  <default|opus|sonnet|haiku|<model id>>   pin a model; default unpins it (the account default)
 #   cdt-config attribution on|off    enforce NO AI attribution on commits/PRs (default on; see cdt-attribution)
-#   cdt-config reset                 restore defaults: enabled, xhigh, Opus 4.8
+#   cdt-config reset                 restore defaults: enabled, effort and model left to Claude Code
 #
 # enable/disable lives in ~/.claude/claude-dev-team.env (read by the SessionStart hook).
 # effort + model are written to ~/.claude/settings.json (Claude Code's real settings; apply next session;
 # the write is a safe merge — all other keys preserved). NOTE: effort 'max' is session-only (/effort max)
-# and cannot be persisted, by design — the recommended persistent default is xhigh.
+# and cannot be persisted, by design. Match effort to the task instead of pinning the highest level:
+# the model's default for ordinary work, higher for hard bugs or unfamiliar code (code.claude.com/docs/en/model-config).
 set +e
 
 CDT_HOME="$HOME/.claude"
 BIN="$CDT_HOME/bin"
 ENV_FILE="${CDT_ENV_FILE:-$CDT_HOME/claude-dev-team.env}"
 SETTINGS="${CDT_SETTINGS:-$CDT_HOME/settings.json}"
-DEFAULT_EFFORT="xhigh"
-DEFAULT_MODEL="claude-opus-4-8"   # Opus 4.8
 mkdir -p "$CDT_HOME" 2>/dev/null
 [ -f "$ENV_FILE" ] || : > "$ENV_FILE"
 chmod 600 "$ENV_FILE" 2>/dev/null
@@ -58,6 +57,29 @@ except Exception as e:
     except OSError: pass
     print(f"cdt-config: could not write settings.json ({e})"); sys.exit(1)
 print(f"cdt-config: settings.json {key} = {val}  (applies next session — restart Claude Code)")
+PY
+}
+unset_setting() {   # remove a key we manage so Claude Code's own default applies
+  command -v python3 >/dev/null 2>&1 || { echo "cdt-config: python3 required to edit settings.json"; return 1; }
+  KEY="$1" SETTINGS="$SETTINGS" python3 - <<'PY'
+import json, os, sys, tempfile
+p = os.environ["SETTINGS"]; key = os.environ["KEY"]
+if not os.path.exists(p): sys.exit(0)
+try:
+    d = json.load(open(p))
+except Exception:
+    print("cdt-config: settings.json is not valid JSON — not modified"); sys.exit(1)
+if not isinstance(d, dict) or key not in d: sys.exit(0)
+del d[key]
+fd, tmp = tempfile.mkstemp(dir=os.path.dirname(p) or ".")
+try:
+    with os.fdopen(fd, "w") as f:
+        json.dump(d, f, indent=2); f.write("\n")
+    os.replace(tmp, p)
+except Exception as e:
+    try: os.unlink(tmp)
+    except OSError: pass
+    print(f"cdt-config: could not write settings.json ({e})"); sys.exit(1)
 PY
 }
 get_setting() {
@@ -150,8 +172,8 @@ show() {
   [ -z "$obsvault" ] && obsvault="(not set — default: ~/Documents/Obsidian/CDT)"
   echo "claude-dev-team config:"
   echo "  status    : $([ "$en" = "0" ] && echo DISABLED || echo enabled)   (core CDT — cdt-config on|off)"
-  echo "  effort    : ${eff:-(unset)}   (default $DEFAULT_EFFORT)"
-  echo "  model     : ${mdl:-(unset → Claude Code default)}   (recommended $DEFAULT_MODEL = Opus 4.8)"
+  echo "  effort    : ${eff:-(unset → model default)}"
+  echo "  model     : ${mdl:-(unset → the account default)}"
   echo "  eco       : $eco   (default off; auto = conserve when weekly usage is high; on | off | auto)"
   echo "  verify    : $vg   (block | warn | off — a Stop whose recorded verification is FAILED or missing cannot finish; loops up to $mi iterations)"
   echo "  verify-wrap: $vw  (block | warn | off — bare test/build/lint commands are redirected through 'cdt-verify -- <cmd>' so a real exit code is recorded)"
@@ -284,12 +306,15 @@ case "${1:-show}" in
   effort)
     case "$2" in
       low|medium|high|xhigh) set_setting effortLevel "$2" ;;
-      max) echo "cdt-config: 'max' is session-only (use /effort max) and cannot be persisted. Recommended persistent default: xhigh." ;;
-      *) echo "cdt-config: effort must be one of: low | medium | high | xhigh" ;;
+      default) unset_setting effortLevel && echo "cdt-config: effort unpinned — the model's default applies next session" ;;
+      max) echo "cdt-config: 'max' is session-only (use /effort max) and cannot be persisted." ;;
+      *) echo "cdt-config: effort must be one of: default | low | medium | high | xhigh" ;;
     esac ;;
   model)
     if [ -z "$2" ]; then
-      echo "cdt-config: usage: cdt-config model <opus|sonnet|haiku|claude-opus-4-8|...>"
+      echo "cdt-config: usage: cdt-config model <default|opus|sonnet|haiku|<model id>>"
+    elif [ "$2" = "default" ]; then
+      unset_setting model && echo "cdt-config: model unpinned — the account default applies next session"
     elif [[ "$2" =~ ^[A-Za-z0-9._-]+(\[1m\])?$ ]]; then
       set_setting model "$2"
     else
@@ -444,9 +469,8 @@ PY
     set_env CDT_ENABLED 1; set_env CDT_ECO off
     set_env CDT_AUTONOMY auto; set_env CDT_TEAMS on; set_env CDT_SCALE on
     set_env_setting CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS 1
-    set_setting effortLevel "$DEFAULT_EFFORT"
-    set_setting model "$DEFAULT_MODEL"
-    echo "claude-dev-team: reset to defaults (enabled, $DEFAULT_EFFORT, Opus 4.8, eco=off, autonomy=auto, engines on)." ;;
+    unset_setting effortLevel; unset_setting model
+    echo "claude-dev-team: reset to defaults (enabled, effort and model left to Claude Code, eco=off, autonomy=auto, engines on)." ;;
   *) echo "usage: cdt-config {show|on|off|toolkit <on|off>|prompt-mode <auto|always|off>|prompt-effort <medium|high>|prompt-enhance <on|off>|spec-auto <on|off>|external-ai <on|off>|ocr <on|off>|redact <on|off>|attribution <on|off>|agent-activity <on|compact|off>|phase-board <on|off>|plugins-enabled <on|off>|plugin-auto-install <on|off>|plugin-auto-update <on|off>|plugin-auto-route <on|off>|plugin-scope <user|project>|superpowers-mode <off|manual|selective|always>|plugin-strict <on|off>|bootstrap-community <on|off>|bootstrap-binaries <on|off>|bootstrap-toolkit <on|off>|auto-mode <on|off>|obsidian <on|off>|obsidian-vault <path>|obsidian-recall-root <path>|effort <lvl>|model <m>|eco <on|off|auto>|verify <block|warn|off>|verify-wrap <block|warn|off>|claim <block|warn|off>|max-iterations <n>|scope <warn|block|off>|memory <warn|block|off>|autonomy <off|assist|auto>|teams <on|off>|scale <on|off>|statusline <on|off>|realtime-usage <on|off>|reset}"; exit 0 ;;
 esac
 exit 0

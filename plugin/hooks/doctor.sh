@@ -58,12 +58,8 @@ en="$(grep -E '^CDT_ENABLED=' "$ENVF" 2>/dev/null | cut -d= -f2-)"
 [ "$en" = "0" ] && W "CDT is DISABLED" "re-enable: cdt-config on" || P "CDT enabled"
 
 eff="$(jval effortLevel)"; mdl="$(jval model)"
-[ "$eff" = "xhigh" ] && P "effort: xhigh" || W "effort: ${eff:-unset}" "recommended: cdt-config effort xhigh"
-case "$mdl" in
-  *opus*) P "model: $mdl" ;;
-  "")     W "model: unset" "recommended Opus 4.8: cdt-config model claude-opus-4-8" ;;
-  *)      W "model: $mdl (not Opus)" "for max quality: cdt-config model claude-opus-4-8" ;;
-esac
+[ -n "$eff" ] && P "effort: $eff (pinned by you)" || P "effort: model default"
+[ -n "$mdl" ] && P "model: $mdl (pinned by you)" || P "model: account default"
 
 # Usage display: the status line is the ONLY writer of the session/weekly % cache (the menu bar + cdt-budget
 # only READ it). Claude Code runs it solely in a TERMINAL — not the VS Code/JetBrains chat panel — so if it's

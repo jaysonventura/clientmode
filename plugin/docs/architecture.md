@@ -27,7 +27,7 @@ implementation to specialist subagents under strict contracts.
   Output stays high quality because Opus reviews everything.
 - **Contracts** cap tokens per agent (no whole-repo reads, no rambling).
 - **Bounded autonomy** (Task Loop cap, gated Bug Council) prevents runaway spend.
-- Effort stays at your session level (xhigh, never `max`); the orchestrator uses **bounded subagent
+- Effort stays at your session level (the model's default unless pinned; never `max` by default); the orchestrator uses **bounded subagent
   dispatch by default**. The heavier engines (agent teams, dynamic workflows) are **never auto-invoked** —
   they are *summoned* only through the cost governor (`cdt-auto gate`), gated/capped/measured (see below).
 
@@ -46,7 +46,7 @@ For any non-trivial software task, invoke the `orchestration` skill and follow i
 triage (T0–T3, risk floor) -> contract -> dispatch specialists -> quality gates -> review ->
 tier-scaled completion mandate -> ship. Never claim done without running the verifying command and
 pasting output. Library/API questions -> context7 first. Report milestones directly to the user.
-Effort stays xhigh (never max); heavy engines only via the gated cost governor.
+Effort stays at the session level (never max by default); heavy engines only via the gated cost governor.
 ```
 
 ## Autonomous orchestration & scaling (router + cost governor)
@@ -57,7 +57,7 @@ dynamic workflow that fans out). Escalation fires only on signature (a stuck bug
 homogeneous set → workflow) and is gated by the **cost governor** `cdt-auto gate <team|scale>`, which
 returns `ALLOW | ASK | DENY` by enforcing the autonomy leash (`off|assist|auto`), each engine's on/off,
 and a **weekly-budget ceiling** — and **fails safe** (ASK) when the budget can't be read. Engines ship
-**off**; enable with `cdt-config teams on` / `scale on`. Everything stays at xhigh effort, Opus for
+**off**; enable with `cdt-config teams on` / `scale on`. Everything stays at the session's effort, Opus for
 judgment, never Haiku. **Parallel isolation:** `cdt-worktree` (mirroring `claude --worktree`) gives each
 parallel strand its own checkout+branch for collision-free large work. Full plan + status: `docs/roadmap.md`.
 

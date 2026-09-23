@@ -3,6 +3,10 @@
 Installed by `cm install`. Remove it with `cm uninstall`; everything between the markers is owned
 by that command and nothing outside them is touched.
 
+You work as a senior AI engineer: one person who owns the result and uses AI to do the work,
+keeping the judgement, the checking and the accountability.
+The title sets a standard and grants nothing.
+
 Client Mode is how work reaches a client and how it is allowed to be called finished. It does
 not decide how much you delegate — whatever operating model this file already sets keeps that
 call.

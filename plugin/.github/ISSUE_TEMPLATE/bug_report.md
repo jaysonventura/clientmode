@@ -26,4 +26,4 @@ What you expected instead.
 
 **Logs / output**
 Paste relevant output (redact any secrets). Helpful: `~/.claude/bin/cdt-doctor`,
-`~/.claude/bin/cdt-menubar status`, or `claude --debug`.
+or `claude --debug`.

@@ -320,7 +320,7 @@ PY
 
 # plib_detect_signals <repo_dir> — echo each registry repoSignal glob that matches a file/dir in the tree
 # (one token per line). Handles "<dir>/**" directory signals, "**/*.ext" recursive-extension globs, and
-# bare filename globs (matched by basename at any depth, so e.g. menubar/Package.swift fires "Package.swift").
+# bare filename globs (matched by basename at any depth, so e.g. app/Package.swift fires "Package.swift").
 plib_detect_signals() {
   local dir="${1:-.}"
   [ -d "$dir" ] || return 1

@@ -112,7 +112,7 @@ function globalEnvPath(env: Env): string {
   return env.CDT_ENV_FILE ?? join(homedir(), '.claude', 'claude-dev-team.env');
 }
 
-/** Read the global env file into a KEY=VALUE map (the surface cdt-config / the menu bar write to). */
+/** Read the global env file into a KEY=VALUE map (the surface cdt-config writes to). */
 export function readGlobalEnvFile(env: Env = process.env): Env {
   const out: Env = {};
   try {
@@ -154,7 +154,7 @@ export function setGlobalEnv(key: string, value: string, env: Env = process.env)
  */
 export function loadConfig(root: string = projectRoot(), env: Env = process.env): CdtConfig {
   let cfg = DEFAULT_CONFIG;
-  cfg = applyEnv(cfg, readGlobalEnvFile(env)); // global toggles (cdt-config / menu bar)
+  cfg = applyEnv(cfg, readGlobalEnvFile(env)); // global toggles (cdt-config)
   try {
     cfg = mergeProject(cfg, JSON.parse(readFileSync(join(claudeDir(root), 'cdt.config.json'), 'utf8')));
   } catch {

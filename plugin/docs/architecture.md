@@ -65,7 +65,7 @@ parallel strand its own checkout+branch for collision-free large work. Full plan
 
 | Event | Script | Effect |
 |-------|--------|--------|
-| SessionStart | `session-start-vault.sh` | bootstrap vault + DB + `~/.claude/bin/*`; inject learnings; auto-install the menu bar (macOS, once) |
+| SessionStart | `session-start-vault.sh` | bootstrap vault + DB + `~/.claude/bin/*`; inject learnings; retire the removed menu bar app once |
 | PreToolUse (Task) | `contract-capture.sh` | dispatch banner (`▶️ 🔭 Explore · …`); capture the agent's exclusive-file contract (for the scope gate); **mark it running** (`running_agents.py add`) for the status line's live segment |
 | PostToolUse (Edit/Write) | `format-on-write.sh` | guarded prettier (only if configured) + edits marker |
 | SubagentStop | `agent-track.sh` | record each dispatched subagent by role **and its real token cost** (powers `/cm:stats`); finish line (`✅ 🔭 Explore · N tok`); **mark it done** (`running_agents.py remove`) |
@@ -75,7 +75,7 @@ All hooks are **fail-open** — any error exits 0 so they never interrupt your s
 
 **Status line (`statusline.sh` → `~/.claude/bin/cdt-statusline`, opt-in via `cdt-config statusline on`).** A
 display-only, zero-token bottom-bar line rendered from the session JSON: `CDT on · 🧠 model · ⚡ effort ·
-📊 N% wk · 🪟 ctx · ⏱ age · 🤖 N` (segment legend in the [README](../README.md#status-line-cross-platform)).
+📊 N% wk · 🪟 ctx · ⏱ age · 🤖 N` (see the [README](../README.md#usage-and-budget)).
 Its live "running agents" segment (`🔭 Explore×3`) reads the per-workspace running-set that the two hooks
 above maintain (`hooks/running_agents.py`, pruned after 30 min); roles share one emoji map
 (`hooks/cdt_emoji.py`) with the transcript dispatch/finish lines. The namespace prefix is stripped here

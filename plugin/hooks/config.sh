@@ -142,12 +142,6 @@ show() {
   local mg; mg="$(get_env CDT_MEMORY_GATE)"; [ -z "$mg" ] && mg="warn"
   local tk pe pm pef; tk="$(get_env CDT_TOOLKIT_ENABLED)"; [ -z "$tk" ] && tk="1"; pe="$(get_env CDT_PROMPT_ENHANCE)"; [ -z "$pe" ] && pe="true"; pm="$(get_env CDT_PROMPT_ENHANCE_MODE)"; [ -z "$pm" ] && pm="auto"; pef="$(get_env CDT_PROMPT_EFFORT)"; [ -z "$pef" ] && pef="medium"
   local sa ea oc rd; sa="$(get_env CDT_SPEC_AUTO)"; [ -z "$sa" ] && sa="false"; ea="$(get_env CDT_EXTERNAL_AI_ALLOWED)"; [ -z "$ea" ] && ea="false"; oc="$(get_env CDT_OCR_ENABLED)"; [ -z "$oc" ] && oc="false"; rd="$(get_env CDT_REDACT)"; [ -z "$rd" ] && rd="true"
-  # Realtime usage defaults ON (matches the menu bar): OFF only for explicit off tokens (0/off/false/no).
-  local rt rtraw; rtraw="$(get_env CDT_REALTIME_USAGE)"
-  case "$(printf '%s' "$rtraw" | tr '[:upper:]' '[:lower:]' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')" in
-    0|off|false|no) rt="off" ;;
-    *) rt="on" ;;
-  esac
   # No-AI-attribution enforcement defaults ON: OFF only for explicit off tokens (0/off/false/no).
   local na naraw; naraw="$(get_env CDT_NO_AI_ATTRIBUTION)"
   case "$(printf '%s' "$naraw" | tr '[:upper:]' '[:lower:]' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')" in
@@ -183,7 +177,6 @@ show() {
   echo "  autonomy  : $au   (off | assist | auto — autonomous escalation; details: cdt-auto status)"
   echo "  teams     : $tm   ·  scale : $sc   (DEPTH/BREADTH engines; on by default — worktrees + dynamic workflows)"
   echo "  statusline: $(statusline_state)   (terminal status line)"
-  echo "  realtime  : $rt   (menu bar realtime usage %; default on — throttled, popup-free network poll ~10 min only when the terminal reading is stale; turn off: cdt-config realtime-usage off)"
   echo "  no-attrib : $na   (default on — enforces settings.json so commits/PRs get NO 'Co-Authored-By: Claude', no 'Generated with Claude Code' footer, no session trailer; verify: cdt-attribution --check)"
   echo "  agent-act : $aa   (on | compact | off — pretty per-agent dispatch/finish lines + token cost; display-only)"
   echo "  phase-brd : $pb   (on | off — per-wave phase board + status-line phase indicator on T2/T3 tasks)"
@@ -324,11 +317,6 @@ case "${1:-show}" in
     case "$2" in
       on|off|auto) set_env CDT_ECO "$2"; echo "claude-dev-team: eco = $2 (auto conserves when weekly usage is high)." ;;
       *) echo "cdt-config: eco must be one of: on | off | auto" ;;
-    esac ;;
-  realtime-usage)
-    case "$2" in
-      on|off) set_env CDT_REALTIME_USAGE "$([ "$2" = on ] && echo 1 || echo 0)"; echo "claude-dev-team: realtime-usage = $2 (default on — menu bar makes a throttled, popup-free usage-% network poll ~10 min only when the terminal reading is stale; read-only creds. Turn off: cdt-config realtime-usage off)." ;;
-      *) echo "cdt-config: usage: cdt-config realtime-usage on|off  (default on)" ;;
     esac ;;
   plugins-enabled)
     case "$2" in
@@ -471,6 +459,6 @@ PY
     set_env_setting CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS 1
     unset_setting effortLevel; unset_setting model
     echo "claude-dev-team: reset to defaults (enabled, effort and model left to Claude Code, eco=off, autonomy=auto, engines on)." ;;
-  *) echo "usage: cdt-config {show|on|off|toolkit <on|off>|prompt-mode <auto|always|off>|prompt-effort <medium|high>|prompt-enhance <on|off>|spec-auto <on|off>|external-ai <on|off>|ocr <on|off>|redact <on|off>|attribution <on|off>|agent-activity <on|compact|off>|phase-board <on|off>|plugins-enabled <on|off>|plugin-auto-install <on|off>|plugin-auto-update <on|off>|plugin-auto-route <on|off>|plugin-scope <user|project>|superpowers-mode <off|manual|selective|always>|plugin-strict <on|off>|bootstrap-community <on|off>|bootstrap-binaries <on|off>|bootstrap-toolkit <on|off>|auto-mode <on|off>|obsidian <on|off>|obsidian-vault <path>|obsidian-recall-root <path>|effort <lvl>|model <m>|eco <on|off|auto>|verify <block|warn|off>|verify-wrap <block|warn|off>|claim <block|warn|off>|max-iterations <n>|scope <warn|block|off>|memory <warn|block|off>|autonomy <off|assist|auto>|teams <on|off>|scale <on|off>|statusline <on|off>|realtime-usage <on|off>|reset}"; exit 0 ;;
+  *) echo "usage: cdt-config {show|on|off|toolkit <on|off>|prompt-mode <auto|always|off>|prompt-effort <medium|high>|prompt-enhance <on|off>|spec-auto <on|off>|external-ai <on|off>|ocr <on|off>|redact <on|off>|attribution <on|off>|agent-activity <on|compact|off>|phase-board <on|off>|plugins-enabled <on|off>|plugin-auto-install <on|off>|plugin-auto-update <on|off>|plugin-auto-route <on|off>|plugin-scope <user|project>|superpowers-mode <off|manual|selective|always>|plugin-strict <on|off>|bootstrap-community <on|off>|bootstrap-binaries <on|off>|bootstrap-toolkit <on|off>|auto-mode <on|off>|obsidian <on|off>|obsidian-vault <path>|obsidian-recall-root <path>|effort <lvl>|model <m>|eco <on|off|auto>|verify <block|warn|off>|verify-wrap <block|warn|off>|claim <block|warn|off>|max-iterations <n>|scope <warn|block|off>|memory <warn|block|off>|autonomy <off|assist|auto>|teams <on|off>|scale <on|off>|statusline <on|off>|reset}"; exit 0 ;;
 esac
 exit 0

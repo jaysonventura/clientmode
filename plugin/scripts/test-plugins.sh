@@ -57,7 +57,6 @@ export CDT_PLUGIN_REGISTRY="$REPO/config/plugins.json"      # shipped read-only 
 export CDT_ENV_FILE="$HOME/.claude/claude-dev-team.env"     # CDT config env (superpowers gate lives here)
 export CDT_SETTINGS="$HOME/.claude/settings.json"
 mkdir -p "$HOME/.claude/plugins" "$HOME/.claude/.cdt" "$HOME/.claude/bin" "$SBX/bin"
-touch "$HOME/.claude/.cdt-menubar-disabled"                 # never build the macOS menu bar in a test
 : > "$CDT_ENV_FILE"
 
 # --- `claude` PATH-shim: records argv, returns a plausible version, NEVER mutates the real environment ---

@@ -28,7 +28,6 @@ cp "$HOOKS_DIR/stats.sh"  "$BIN/cdt-stats"    2>/dev/null && chmod +x "$BIN/cdt-
 cp "$HOOKS_DIR/phase.sh"  "$BIN/cdt-phase"    2>/dev/null && chmod +x "$BIN/cdt-phase"  2>/dev/null
 cp "$HOOKS_DIR/task.sh"   "$BIN/cdt-task"     2>/dev/null && chmod +x "$BIN/cdt-task"   2>/dev/null
 cp "$HOOKS_DIR/db.sh"     "$BIN/cdt-db.sh"    2>/dev/null
-cp "$HOOKS_DIR/menubar-install.sh" "$BIN/cdt-menubar" 2>/dev/null && chmod +x "$BIN/cdt-menubar" 2>/dev/null
 cp "$HOOKS_DIR/recall.sh"  "$BIN/cdt-recall"   2>/dev/null && chmod +x "$BIN/cdt-recall"  2>/dev/null
 cp "$HOOKS_DIR/advise.sh"  "$BIN/cdt-advise"   2>/dev/null && chmod +x "$BIN/cdt-advise"  2>/dev/null
 cp "$HOOKS_DIR/pr.sh"      "$BIN/cdt-pr"       2>/dev/null && chmod +x "$BIN/cdt-pr"      2>/dev/null
@@ -102,33 +101,25 @@ fi
 find "$CDT_HOME/.cdt/contracts" -maxdepth 1 -mindepth 1 -type d -mmin +720 -exec rm -rf {} + 2>/dev/null
 find "$CDT_HOME/.cdt/context" -maxdepth 1 -type f -mmin +720 -delete 2>/dev/null
 
-# Stage the menu bar Swift source to a stable, buildable location (source only — not .build).
-MENUBAR_SRC="$(cd "$HOOKS_DIR/.." 2>/dev/null && pwd)/menubar"
-if [ -f "$MENUBAR_SRC/Package.swift" ]; then
-  mkdir -p "$CDT_HOME/claude-dev-team-menubar" 2>/dev/null
-  cp "$MENUBAR_SRC/Package.swift" "$CDT_HOME/claude-dev-team-menubar/" 2>/dev/null
-  cp -R "$MENUBAR_SRC/Sources" "$CDT_HOME/claude-dev-team-menubar/" 2>/dev/null
-  cp "$MENUBAR_SRC/Info.plist" "$CDT_HOME/claude-dev-team-menubar/" 2>/dev/null
-  cp "$MENUBAR_SRC/AppIcon.icns" "$CDT_HOME/claude-dev-team-menubar/" 2>/dev/null
-fi
-
-# Auto-install the menu bar app on macOS (once, in the background) unless disabled.
-if [ "$(uname)" = "Darwin" ] && command -v swift >/dev/null 2>&1; then
-  AUTO=1
-  # Read only the one key we need (don't `source` the env file — a crafted value must never execute).
-  _MB="$(grep -E '^CDT_MENUBAR_AUTO=' "$CDT_HOME/claude-dev-team.env" 2>/dev/null | head -1 | cut -d= -f2-)"
-  AUTO="${_MB:-$AUTO}"
-  # Install once: guard on a success marker the installer writes (not a legacy plist that the
-  # SMAppService path never creates) — otherwise every session/clear/compact would kill+relaunch the app.
-  if [ "$AUTO" != "0" ] && [ ! -f "$CDT_HOME/.cdt-menubar-disabled" ] && [ ! -f "$CDT_HOME/.cdt-menubar-installed" ] && [ -x "$BIN/cdt-menubar" ]; then
-    ( "$BIN/cdt-menubar" install-login >/dev/null 2>&1 ) &
-  fi
-  # Already installed: after `claude plugin update`, rebuild + relaunch the menu bar app when it lags the
-  # plugin version (background; a no-op when versions already match). This is how a plugin update
-  # auto-updates the app — the update requires a restart, and this SessionStart fires on that restart.
-  if [ "$AUTO" != "0" ] && [ ! -f "$CDT_HOME/.cdt-menubar-disabled" ] && [ -f "$CDT_HOME/.cdt-menubar-installed" ] && [ -x "$BIN/cdt-menubar" ]; then
-    ( "$BIN/cdt-menubar" auto-update >/dev/null 2>&1 ) &
-  fi
+# The "CDT Usage" menu bar app was removed. Retire an existing install once: unregister its login
+# item, quit it and delete the bundle — only one carrying Client Mode's own bundle identifier — then
+# the copies under ~/.claude. Nothing else is touched. CDT_MENUBAR_APPS narrows where it looks.
+if [ -e "$CDT_HOME/.cdt-menubar-installed" ] || [ -e "$BIN/cdt-menubar" ] || [ -d "$CDT_HOME/claude-dev-team-menubar" ]; then
+  _MB_ID="com.jaysonventura.claude-dev-team.menubar"
+  while IFS= read -r _apps; do
+    _app="$_apps/CDT Usage.app"
+    grep -q "<string>$_MB_ID</string>" "$_app/Contents/Info.plist" 2>/dev/null || continue
+    "$_app/Contents/MacOS/cdt-menubar" --unregister >/dev/null 2>&1
+    pkill -f "${_app//./\\.}/Contents/MacOS/cdt-menubar" 2>/dev/null
+    rm -rf "$_app"
+  done <<MBEOF
+${CDT_MENUBAR_APPS:-/Applications
+$HOME/Applications}
+MBEOF
+  _MB_PLIST="$HOME/Library/LaunchAgents/$_MB_ID.plist"
+  [ -f "$_MB_PLIST" ] && { launchctl unload "$_MB_PLIST" 2>/dev/null; rm -f "$_MB_PLIST"; }
+  rm -rf "$CDT_HOME/claude-dev-team-menubar" 2>/dev/null
+  rm -f "$BIN/cdt-menubar" "$BIN/cdt-menubar-app" "$CDT_HOME/.cdt-menubar-installed" "$CDT_HOME/.cdt-menubar-disabled" 2>/dev/null
 fi
 
 # 2b) No AI attribution: guarantee Claude Code adds no "Co-Authored-By: Claude" trailer, no "Generated with
@@ -156,7 +147,7 @@ fi
 
 # Inject only the most RECENT lessons (cheap + scales as the vault grows). For lessons relevant to a
 # SPECIFIC task, the orchestrator runs `cdt-recall "<task>"` during triage instead of re-reading the file.
-echo "## claude-dev-team — vault learnings (you are the lead — the orchestrator who does the work)"
+echo "## Client Mode — vault learnings (you are a senior AI engineer and the orchestrator: you own the result and use AI to do the work)"
 # One-time prerequisite nudge: if python3 (required for recall/advise/config/analytics) is missing, tell
 # the user to run the installer. Companion plugins auto-install; this only covers system tools.
 command -v python3 >/dev/null 2>&1 || echo "⚠ python3 not found — tell the user to run \`~/.claude/bin/cdt-deps --install\` to set up prerequisites (recall/advise/config/analytics need it)."

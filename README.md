@@ -158,7 +158,7 @@ never touches client work under `~/.client-mode/projects/`.
   starts in Manual mode.
 - **Windows:** the plugin's Claude Code hooks run under Git Bash (`winget install --id Git.Git -e`); six
   of them were run under Git Bash on the Windows CI machine, where Python 3 was present — several hooks
-  use it. The menu bar app is macOS-only.
+  use it.
 - The sandbox for untrusted checks is macOS Seatbelt; on Linux and Windows isolation is `none` and says
   so.
 - Nothing is deployed through it, and no paid service is used by it.
@@ -177,7 +177,7 @@ after a verify run. That is normal churn.
 
 | Path | What it is |
 |---|---|
-| `plugin/` | The `cm` Claude Code plugin: agents, commands, hooks, skills, toolkit, menu bar |
+| `plugin/` | The `cm` Claude Code plugin: agents, commands, hooks, skills, toolkit |
 | `.claude-plugin/marketplace.json` | The `clientmode` marketplace (read by Claude Code and Codex) |
 | `apps/cli`, `packages/` | The `cm` controller and installer |
 | `adapters/global/` | The operating model every host loads |

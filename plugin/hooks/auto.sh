@@ -33,7 +33,7 @@ CEILING="$(get_env CDT_AUTONOMY_WEEKLY_CEILING)"; case "$CEILING" in ''|*[!0-9]*
 TEAM_MAX="$(get_env CDT_TEAM_MAX)";  case "$TEAM_MAX" in ''|*[!0-9]*) TEAM_MAX=5 ;; esac
 SCALE_CAP="$(get_env CDT_SCALE_TOKEN_CAP)"; case "$SCALE_CAP" in ''|*[!0-9]*) SCALE_CAP=2000000 ;; esac
 
-# Latest cached weekly usage % (written by the status line / menu bar). Empty if unknown OR stale
+# Latest cached weekly usage % (written by the status line). Empty if unknown OR stale
 # (no/old timestamp) — so the governor fails SAFE (asks) rather than gating today's spend on a week-old
 # reading. Stale window mirrors cdt-budget (1800s).
 weekly_pct() {
@@ -127,14 +127,14 @@ cmd_gate() {
       if [ "$TEAMS" != "on" ]; then echo "DENY  agent-teams disabled (cdt-config teams on — also sets the experimental flag)"; return; fi
       if [ -n "$wk" ] && [ "$wk" -ge "$CEILING" ]; then echo "ASK   weekly ${wk}% >= ceiling ${CEILING}% — confirm the team spend before convening"; return; fi
       # auto mode self-runs without asking; if it can't see the budget, fail SAFE and ask rather than run blind
-      if [ "$AUTONOMY" = "auto" ] && [ -z "$wk" ]; then echo "ASK   weekly budget unknown (enable status line / menu bar) — confirm the team spend"; return; fi
+      if [ "$AUTONOMY" = "auto" ] && [ -z "$wk" ]; then echo "ASK   weekly budget unknown (enable the status line: cdt-config statusline on) — confirm the team spend"; return; fi
       echo "ALLOW agent-team within budget (<= ${TEAM_MAX} teammates, time-boxed 1-2 rounds, then dissolve)"
       ;;
     scale)
       if [ "$SCALE" != "on" ]; then echo "DENY  scale mode disabled (cdt-config scale on — needs Claude Code >= 2.1.154)"; return; fi
       if [ "$AUTONOMY" = "assist" ]; then echo "ASK   assist mode proposes workflows — confirm before summoning (slice-first, cap ${SCALE_CAP} tokens)"; return; fi
       # auto mode: never self-run a fan-out without budget headroom — unknown budget fails SAFE to ASK
-      if [ -z "$wk" ]; then echo "ASK   weekly budget unknown (enable status line / menu bar) — confirm the workflow spend"; return; fi
+      if [ -z "$wk" ]; then echo "ASK   weekly budget unknown (enable the status line: cdt-config statusline on) — confirm the workflow spend"; return; fi
       if [ "$wk" -ge "$CEILING" ]; then echo "ASK   weekly ${wk}% >= ceiling ${CEILING}% — confirm the workflow spend"; return; fi
       # Slice-first is now a code gate: don't fan out until a small slice has been measured + projected.
       if ! slice_fresh; then echo "ASK   slice-first required — measure a small slice, then project, before fanning out: cdt-auto slice record <n> ; cdt-auto project <total_items>"; return; fi
@@ -159,7 +159,7 @@ cmd_fanout() {
   esac
   wk="$(weekly_pct)"
   if [ -z "$wk" ]; then
-    echo "$floor  ${tier} ${name}: ~${floor} agents (conservative) — budget unknown; enable status line / menu bar for full elastic width"
+    echo "$floor  ${tier} ${name}: ~${floor} agents (conservative) — budget unknown; enable the status line for full elastic width"
   elif [ "$wk" -ge "$CEILING" ]; then
     echo "$floor  ${tier} ${name}: trim to ~${floor} essential agents — weekly ${wk}% >= ceiling ${CEILING}%; keep security-review + qa verify"
   elif [ "$wk" -ge "$((CEILING-15))" ]; then

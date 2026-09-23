@@ -25,7 +25,7 @@ function sandbox(npm: 'fail' | 'ok'): Sandbox {
   for (const d of [hooks, toolkit, bin, path.join(home, '.claude')]) mkdirSync(d, { recursive: true });
   for (const f of ['plugins.sh', 'plugins-lib.sh', 'session-start-vault.sh']) copyFileSync(path.join(HOOKS, f), path.join(hooks, f));
   writeFileSync(path.join(toolkit, 'package.json'), '{"name":"fake-toolkit"}\n');
-  writeFileSync(path.join(home, '.claude/claude-dev-team.env'), 'CDT_MENUBAR_AUTO=0\n');
+  writeFileSync(path.join(home, '.claude/claude-dev-team.env'), '');
   const body = npm === 'fail'
     ? 'echo "npm ERR! network request to registry failed"; exit 1'
     : 'mkdir -p dist/cli && for n in hook cdt cdt-prompt cdt-spec cdt-verify; do echo "" > dist/cli/$n.js; done; mkdir -p node_modules';
@@ -90,4 +90,14 @@ test('session start promises a background build only when one will run', () => {
   assert.doesNotMatch(after, /building it in the background/, 'still promising a build that is blocked');
   assert.match(after, /toolkit build failed/);
   assert.ok(after.includes(log(s)), 'the warning does not point at the build log');
+});
+
+test('doctor fails loudly while the toolkit is unbuilt, and passes once cdt-verify is there', () => {
+  const s = sandbox('fail');
+  copyFileSync(path.join(HOOKS, 'doctor.sh'), path.join(s.dir, 'plugin/hooks/doctor.sh'));
+  const doctor = (): string => spawnSync('bash', [path.join(s.dir, 'plugin/hooks/doctor.sh')], { env: s.env, encoding: 'utf8' }).stdout;
+  assert.match(doctor(), /\[FAIL\] toolkit not built/);
+  mkdirSync(path.join(s.home, '.claude/bin'), { recursive: true });
+  writeFileSync(path.join(s.home, '.claude/bin/cdt-verify'), '');
+  assert.match(doctor(), /\[ok\]\s+toolkit built/);
 });

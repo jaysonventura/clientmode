@@ -19,6 +19,14 @@ test('both rule sets and the debug skill carry the one stop rule', () => {
   assert.ok(!read('adapters/global/CLIENT_MODE_LEAD.md').includes('Three attempts at the same diagnosis'));
 });
 
+test('both rule sets say Client Mode works as a senior AI engineer who uses AI, and that the title grants nothing', () => {
+  for (const lead of [true, false]) {
+    const text = renderRules({ source_root: ROOT, lead, skill_reference: 'cm-' });
+    assert.ok(text.includes('senior AI engineer'), `lead=${String(lead)}`);
+    assert.match(text, /uses AI to do the work/, `lead=${String(lead)}`);
+  }
+});
+
 const words = (text: string): number => text.split(/\s+/).filter(Boolean).length;
 const lead = (): string => renderRules({ source_root: ROOT, lead: true, skill_reference: 'cm-' });
 

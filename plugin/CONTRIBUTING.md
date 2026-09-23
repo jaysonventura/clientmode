@@ -37,7 +37,7 @@ throwaway sandbox and exercises the full chain (CLIs, doctor, recall, stats, eco
   specifics go through `context7`, not memory.
 - **Keep it the user's own.** No third-party names in shipped files.
 - **Update docs + `CHANGELOG.md`** for any user-visible change, and bump the version in
-  `.claude-plugin/plugin.json` (the README badge and `menubar` app read from there).
+  `.claude-plugin/plugin.json` (the README badge reads from there).
 
 ## Commit messages
 

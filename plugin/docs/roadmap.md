@@ -209,6 +209,5 @@ Two tracks, layered:
   (worktree-isolated migration agents). **P7 (federation)** stays research-only behind its own
   threat-model doc.
 
-Each phase gets a spec in `docs/specs/`, a **token-budgeted dry-run** before it's on by default, and — if
-it touches the macOS menu bar — a notarized DMG with the release. None of P4–P7 changes the bounded,
+Each phase gets a spec in `docs/specs/`, a **token-budgeted dry-run** before it's on by default. None of P4–P7 changes the bounded,
 cost-effective default; they only add capability you can summon.

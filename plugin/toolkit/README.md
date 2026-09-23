@@ -28,9 +28,6 @@ cdt-config ocr on|off                     # local on-device OCR (default off)
 cdt-config redact on|off                  # mask secrets/PII in artifacts (default on)
 ```
 
-On macOS these are also in the menu bar (separate **Enabled (core CDT)** and **Toolkit engine** toggles +
-a **Prompt enhance** submenu).
-
 ## Principles
 
 - **Deterministic first.** Local heuristics do the routing; the Haiku enhancer (`claude -p`, existing

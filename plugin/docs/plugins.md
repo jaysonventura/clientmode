@@ -417,7 +417,7 @@ You rarely need `install` for the core four. The plugin manifest
 ([`.claude-plugin/plugin.json`](../.claude-plugin/plugin.json)) declares `superpowers`, `code-review`,
 `frontend-design`, and `context7` as **dependencies**, so they auto-install (and, on Claude Code
 ≥ 2.1.143, auto-enable). The `sequential-thinking` MCP auto-registers via the shipped `.mcp.json`. See the
-README [Requirements](../README.md#requirements).
+root README [Install](../../README.md#install).
 
 ---
 
@@ -491,7 +491,7 @@ the Claude Code plugin UI / `claude plugin` CLI if you want them gone.
 
 ## See also
 
-- README: [Plugin bootstrap & routing](../README.md#plugin-bootstrap--routing)
+- README: [What runs by itself](../README.md#what-runs-by-itself)
 - [Architecture deep-dive](architecture.md)
 - Command: [`/cm:plugins`](../commands/plugins.md)
 - [CHANGELOG](../CHANGELOG.md) — `[1.59.0]`, `[1.61.0]`, `[1.61.1]`

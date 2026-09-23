@@ -15,10 +15,17 @@ genv(){ grep -E "^$1=" "$ENVF" 2>/dev/null | cut -d= -f2-; }
 echo "claude-dev-team — doctor"
 
 missing=""
-for c in cdt-stats cdt-phase cdt-task cdt-tokens cdt-menubar cdt-recall cdt-advise cdt-pr cdt-config cdt-doctor cdt-learn cdt-budget cdt-statusline cdt-deps cdt-worktree cdt-auto cdt-version cdt-obsidian cdt-plugins cdt-attribution cdt-mobile-qa cdt-web-qa; do
+for c in cdt-stats cdt-phase cdt-task cdt-tokens cdt-recall cdt-advise cdt-pr cdt-config cdt-doctor cdt-learn cdt-budget cdt-statusline cdt-deps cdt-worktree cdt-auto cdt-version cdt-obsidian cdt-plugins cdt-attribution cdt-mobile-qa cdt-web-qa; do
   [ -x "$BIN/$c" ] || missing="$missing $c"
 done
 [ -z "$missing" ] && P "CLIs installed" || W "CLIs missing:$missing" "open a new Claude Code session (the SessionStart hook installs them)"
+
+# Toolkit: cdt-verify and the trusted verification verdict live in it. Unbuilt, a "done" goes unverified.
+if [ -e "$BIN/cdt-verify" ]; then P "toolkit built (cdt-verify available)"
+else
+  _tk="$(ls -d "$DR_DIR/../toolkit" "$CDT_HOME"/plugins/cache/clientmode/cm/*/toolkit 2>/dev/null | tail -1)"
+  F "toolkit not built — cdt-verify and trusted verification are off" "read ${_tk:-the plugin toolkit}/.cdt-build.log, then: cd \"$_tk\" && npm install && npm run build"
+fi
 
 [ -f "$CDT_HOME/claude-dev-team.db" ] && P "state DB present" || W "state DB missing" "it populates as you complete tasks"
 command -v python3 >/dev/null 2>&1 && P "python3 available" || F "python3 missing" "required for recall/advise/config — run: cdt-deps --install"
@@ -61,24 +68,12 @@ eff="$(jval effortLevel)"; mdl="$(jval model)"
 [ -n "$eff" ] && P "effort: $eff (pinned by you)" || P "effort: model default"
 [ -n "$mdl" ] && P "model: $mdl (pinned by you)" || P "model: account default"
 
-# Usage display: the status line is the ONLY writer of the session/weekly % cache (the menu bar + cdt-budget
-# only READ it). Claude Code runs it solely in a TERMINAL — not the VS Code/JetBrains chat panel — so if it's
+# Usage display: the status line is the ONLY writer of the session/weekly % cache (cdt-budget and
+# cdt-auto only READ it). Claude Code runs it solely in a TERMINAL — not the VS Code/JetBrains chat panel — so if it's
 # off, or you only ever use the IDE panel, the % never refreshes. Fix is one of: enable it + use a terminal.
 sl="$(command -v python3 >/dev/null 2>&1 && python3 -c "import json,os;p=os.path.expanduser('~/.claude/settings.json');d=json.load(open(p)) if os.path.exists(p) else {};print('on' if 'cdt-statusline' in ((d.get('statusLine') or {}).get('command') or '') else 'off')" 2>/dev/null)"
 [ "$sl" = "on" ] && P "status line on (feeds the usage % cache from any terminal)" \
   || W "status line off — usage % won't refresh" "enable: cdt-config statusline on  (it runs in a terminal only; in VS Code/JetBrains use the integrated terminal)"
-
-# Realtime usage: default-ON, throttled (<=1 network call/10 min, popup-free) menu-bar refresh of the
-# subscription %. OFF only when explicitly set to an off token (0/off/false/no). Informational — never a fail.
-rt="$(genv CDT_REALTIME_USAGE)"
-case "$(printf '%s' "$rt" | tr '[:upper:]' '[:lower:]' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')" in
-  0|off|false|no) echo "  [info] realtime usage: off (explicitly disabled — menu bar % refreshes only from a terminal; re-enable: cdt-config realtime-usage on)" ;;
-  *) P "realtime usage: on  (default; menu bar makes a throttled, popup-free usage-% poll ~10 min when the terminal reading is stale)" ;;
-esac
-
-if [ "$(uname)" = "Darwin" ]; then
-  pgrep -f "CDT Usage.app/Contents/MacOS/cdt-menubar" >/dev/null 2>&1 && P "menu bar app running" || W "menu bar not running" "start: cdt-menubar install"
-fi
 
 # No-AI-attribution: commits/PRs must carry no "Co-Authored-By: Claude", no "Generated with Claude Code"
 # footer and no session trailer. Source of truth = settings.json (includeCoAuthoredBy + attribution.*);

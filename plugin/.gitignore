@@ -32,7 +32,7 @@ __pycache__/
 **/.claude/mobile-qa/
 
 # Ephemeral CDT runtime + per-prompt artifacts (regenerated each session; never tracked).
-# `**/` so they're ignored at any depth (root AND nested subdirs like menubar/.claude/).
+# `**/` so they're ignored at any depth (root AND nested subdirs).
 # NOTE: .claude/specs/ is intentionally NOT ignored — cited requirement sets are often committed.
 **/.claude/runtime/
 **/.claude/TASK_BRIEF.md
@@ -40,8 +40,3 @@ __pycache__/
 **/.claude/NEXT_PROMPT.md
 **/.claude/TASK_RESULT.json
 
-# Swift build artifacts (menu bar app)
-.build/
-menubar/.build/
-*.xcodeproj
-menubar/dist/

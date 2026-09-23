@@ -11,7 +11,6 @@ SBX="$(mktemp -d 2>/dev/null)" || { echo "e2e: cannot create sandbox"; exit 1; }
 trap 'rm -rf "$SBX"' EXIT
 export HOME="$SBX"
 mkdir -p "$HOME/.claude"
-touch "$HOME/.claude/.cdt-menubar-disabled"   # never build the macOS menu bar inside the test
 BIN="$HOME/.claude/bin"
 
 fail=0

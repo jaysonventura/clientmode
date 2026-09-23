@@ -232,6 +232,7 @@ has   "$(aguard "git commit -m \"Fix x
 Co-Authored-By: Claude <noreply@anthropic.com>\"")" '"permissionDecision":"deny"' "denies a commit carrying a Co-Authored-By: Claude trailer"
 has   "$(aguard "gh pr create --title x --body \"Done. 🤖 Generated with [Claude Code](https://claude.com/claude-code)\"")" '"permissionDecision":"deny"' "denies a PR body with the Generated-with footer"
 lacks "$(aguard 'git commit -m "Fix x"')" 'deny' "allows a commit without attribution"
+lacks "$(aguard "git commit -m \"Guard: the model typed 'Co-Authored-By: Claude' into commits\"")" 'deny' "allows a message that only mentions the trailer mid-line"
 lacks "$(aguard 'grep -rn "Co-Authored-By: Claude" docs/')" 'deny' "leaves non-commit commands alone"
 lacks "$(CDT_NO_AI_ATTRIBUTION=0 aguard "git commit -m \"x
 

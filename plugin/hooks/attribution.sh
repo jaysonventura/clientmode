@@ -29,7 +29,7 @@ ENV_FILE="${CDT_ENV_FILE:-$CDT_HOME/claude-dev-team.env}"
 SETTINGS="${CDT_SETTINGS:-$CDT_HOME/settings.json}"
 
 usage() {
-  echo "usage: cdt-attribution [--check]"
+  echo "usage: cdt-attribution [--check|--guard]"
   echo "  (no args)  enforce no-AI-attribution in $SETTINGS (silent when already compliant)"
   echo "  --check    report only, never writes — exit 0 = compliant, exit 1 = would change"
   echo "  knob: CDT_NO_AI_ATTRIBUTION=0 disables enforcement (cdt-config attribution off)"
@@ -74,7 +74,11 @@ except Exception:
     sys.exit(0)
 if not isinstance(cmd, str) or not re.search(r"\bgit\b.*\bcommit\b|\bgh\s+pr\s+(create|edit)\b", cmd, re.S):
     sys.exit(0)
-if not re.search(r"co-authored-by:\s*claude|generated with \[?claude code|noreply@anthropic\.com", cmd, re.I):
+# A trailer starts a line (or a -m argument); the footer is the literal markdown link. A sentence that
+# merely mentions either one is not a signature.
+trailer = re.search(r"(^|-m\s+[\"\x27])\s*co-authored-by:\s*claude\b", cmd, re.I | re.M)
+footer = re.search(r"generated with \[claude code\]", cmd, re.I)
+if not (trailer or footer):
     sys.exit(0)
 print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny",
   "permissionDecisionReason": "claude-dev-team: no AI attribution - remove the Co-Authored-By: Claude trailer / "

@@ -128,6 +128,7 @@ needed) — and a **SHIP** digest at the end: `<N delivered / M deferred / K blo
 | TypeScript; refactors; "this is better" claims | `clean-code-typescript`; `karpathy-guidelines` + `code-splitting`; `gauge-improvements` |
 | Docs, release notes, ADRs, PR descriptions | `technical-writing` + `technical-writer` |
 | A repository's CLAUDE.md, AGENTS.md or rules files | `agent-instructions` |
+| A task that needs a tool you lack (MCP server, CLI, linter, plugin) | `tooling` |
 | Before claiming done | `verify`, then `handoff` |
 
 Name the skills a specialist must apply in its contract.

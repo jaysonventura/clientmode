@@ -223,6 +223,15 @@ orchestration/SKILL.md|EnterPlanMode
 orchestration/SKILL.md|ExitPlanMode
 orchestration/SKILL.md|Explore subagent
 intake/SKILL.md|edge cases only they can decide
+tooling/SKILL.md|Proof bar
+tooling/SKILL.md|local scope
+tooling/SKILL.md|restart
+tooling/SKILL.md|Decide and do, then report
+tooling/SKILL.md|Ask once
+tooling/SKILL.md|never work around a host approval prompt
+tooling/SKILL.md|does not security-audit
+tooling/SKILL.md|OWASP MCP Top 10
+tooling/SKILL.md|gauge-improvements
 BESTPRACTICES
 # skills.md: "disable-model-invocation: true — Only you can invoke the skill. Use this for workflows with
 # side effects". These commands write settings, the vault, worktrees or a PR, or install software.

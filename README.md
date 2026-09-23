@@ -126,7 +126,7 @@ requirements.
 The skills, in every host: `orchestration`, `intake`, `requirement-intelligence`, `grounding`, `tdd`,
 `delivery`, `debug`, `verify`, `review`, `handoff`, `ui-ux`, `automation-first`, `web-qa`, `mobile-qa`,
 `qa-shared`, `clean-code-typescript`, `karpathy-guidelines`, `code-splitting`, `gauge-improvements`,
-`technical-writing`, `database-change`, `ai-eval`, `agent-instructions`, `history-lessons`. In Claude Code they are `cm:<name>`; elsewhere `cm-<name>`. The Claude plugin also
+`technical-writing`, `database-change`, `ai-eval`, `agent-instructions`, `history-lessons`, `tooling`. In Claude Code they are `cm:<name>`; elsewhere `cm-<name>`. The Claude plugin also
 brings the specialist agents, the Bug Council, the Task Loop and cost analytics — see
 [plugin/README.md](plugin/README.md).
 

@@ -461,30 +461,41 @@ _ensure_toolkit() {
 
   # Built AND installed? Just make sure the CLIs are linked and leave.
   if [ -f "$tk/dist/cli/hook.js" ] && [ -d "$tk/node_modules" ]; then _link_toolkit "$tk"; return 0; fi
-  # Stamp lives INSIDE the version's toolkit dir, so a plugin upgrade (a new dir) rebuilds automatically
-  # and a pruned version takes its stamp with it. One attempt per version — a broken build must not retry
-  # on every single session start.
-  [ -e "$tk/.cdt-build-attempted" ] && return 0
+  # Stamp lives INSIDE the version's toolkit dir and holds the attempt's epoch. A broken build must not
+  # retry on every session start, but one failure (a flaky network, a slow first install) must not leave
+  # verification off for good either — reinstalls keep the same version dir, so it would never reset.
+  # Retry once the window passes; an empty stamp from an older version counts as expired.
+  _toolkit_build_blocked "$tk" && return 0
   if ! command -v npm >/dev/null 2>&1 || ! command -v node >/dev/null 2>&1; then
     _say "  ⨯ toolkit needs node+npm to build — verification evidence stays degraded. Install Node 18+."
     return 0
   fi
-  : > "$tk/.cdt-build-attempted" 2>/dev/null
+  date +%s > "$tk/.cdt-build-attempted" 2>/dev/null
 
   _say "  → building claude-dev-team-toolkit (one-time, enables trusted verification)…"
   # --omit=optional skips pdf-parse/tesseract/mammoth (large, only for spec OCR). devDependencies are
   # REQUIRED: the build is `tsc`. npm's `prepare` script builds on install; the explicit build is the
-  # fallback for an npm that skipped it.
-  ( cd "$tk" && _run_bounded npm install --omit=optional --no-audit --no-fund --silent ) >/dev/null 2>&1
-  [ -f "$tk/dist/cli/hook.js" ] || ( cd "$tk" && _run_bounded npm run build ) >/dev/null 2>&1
+  # fallback for an npm that skipped it. Output (redacted) goes to a log, so a failure has a cause.
+  local log="$tk/.cdt-build.log"
+  ( cd "$tk" && _run_bounded npm install --omit=optional --no-audit --no-fund --silent ) > "$log" 2>&1
+  [ -f "$tk/dist/cli/hook.js" ] || ( cd "$tk" && _run_bounded npm run build ) >> "$log" 2>&1
 
   if [ -f "$tk/dist/cli/hook.js" ]; then
     _link_toolkit "$tk"
     _say "  ✓ toolkit built — cdt-verify + TASK_RESULT verification are live"
   else
-    _say "  ⨯ toolkit build failed — run: cd \"$tk\" && npm install && npm run build"
+    _say "  ⨯ toolkit build failed (log: $log) — run: cd \"$tk\" && npm install && npm run build"
   fi
   return 0
+}
+
+# _toolkit_build_blocked <toolkit_dir> — true while a failed build's stamp is inside the retry window
+# (CDT_TOOLKIT_RETRY_HOURS, default 24). session-start-vault.sh has the same test for its warning.
+_toolkit_build_blocked() {
+  local at hrs; at="$(head -c 32 "$1/.cdt-build-attempted" 2>/dev/null | tr -cd '0-9')"
+  [ -n "$at" ] || return 1
+  hrs="$(plib_cfg CDT_TOOLKIT_RETRY_HOURS 24 | tr -cd '0-9')"
+  [ $(( $(date +%s) - at )) -lt $(( ${hrs:-24} * 3600 )) ]
 }
 
 # _link_toolkit <toolkit_dir> — (re)point the ~/.claude/bin CLIs at THIS version's dist. Symlinks into a

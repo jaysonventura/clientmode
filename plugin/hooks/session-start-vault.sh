@@ -85,7 +85,17 @@ elif [ -d "$HOOKS_DIR/../toolkit" ]; then
   for _b in cdt cdt-prompt cdt-spec cdt-verify; do
     [ -L "$BIN/$_b" ] && [ ! -e "$BIN/$_b" ] && rm -f "$BIN/$_b" 2>/dev/null
   done
-  echo "⚠ claude-dev-team-toolkit not built — building it in the background (or: cd \"$HOOKS_DIR/../toolkit\" && npm install && npm run build)"
+  # Promise a background build only when plugins.sh will actually run one: a failed attempt inside its
+  # retry window (same rule as _toolkit_build_blocked there) is reported as a failure, with its log.
+  _TK="$(cd "$HOOKS_DIR/../toolkit" && pwd)"
+  _TK_AT="$(head -c 32 "$_TK/.cdt-build-attempted" 2>/dev/null | tr -cd '0-9')"
+  _TK_HRS="$(grep -E '^CDT_TOOLKIT_RETRY_HOURS=[0-9]+$' "$CDT_HOME/claude-dev-team.env" 2>/dev/null | head -1 | cut -d= -f2)"
+  _TK_HRS="$(printf '%s' "${CDT_TOOLKIT_RETRY_HOURS:-$_TK_HRS}" | tr -cd '0-9')"; _TK_HRS="${_TK_HRS:-24}"
+  if [ -n "$_TK_AT" ] && [ $(( $(date +%s) - _TK_AT )) -lt $(( _TK_HRS * 3600 )) ]; then
+    echo "⚠ claude-dev-team-toolkit build failed — cdt-verify is unavailable; retried automatically ${_TK_HRS}h after the attempt. Cause: $_TK/.cdt-build.log (or: cd \"$_TK\" && npm install && npm run build)"
+  else
+    echo "⚠ claude-dev-team-toolkit not built — building it in the background (or: cd \"$_TK\" && npm install && npm run build)"
+  fi
 fi
 
 # Housekeeping: drop stale per-session scope-contracts and context packs (>12h old) so they don't pile up.

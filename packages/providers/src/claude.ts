@@ -25,6 +25,9 @@ export type ClaudeAdapterOptions = {
   permission_mode?: 'plan' | 'acceptEdits' | 'manual' | 'dontAsk';
   extra_args?: string[];
   model?: string;
+  /** The only MCP servers the worker may load. A client repository's `.mcp.json` is never
+   * read: under `-p` the host would load it without asking (docs: mcp#project-scope). */
+  mcp_config?: string;
 };
 
 /** The prompt is assembled from the bounded context packet. The full handoff, other projects'
@@ -82,7 +85,9 @@ export class ClaudeAdapter implements ProviderAdapter {
       '--output-format', 'stream-json',
       '--verbose',
       '--permission-mode', this.#options.permission_mode ?? 'plan',
+      '--strict-mcp-config',
     ];
+    if (this.#options.mcp_config !== undefined) argv.push('--mcp-config', this.#options.mcp_config);
     if (input.resume !== undefined) argv.push('--resume', input.resume);
     else if (input.session_id !== undefined) argv.push('--session-id', input.session_id);
     if (this.#options.model !== undefined) argv.push('--model', this.#options.model);

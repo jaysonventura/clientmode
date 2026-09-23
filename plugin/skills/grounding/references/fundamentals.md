@@ -96,7 +96,7 @@ Source: docs.python.org 3.14, PEP 8, packaging.python.org, pytest 9.
 - Security: never unpickle untrusted data; `shell=True` makes injection your job; `yaml.safe_load`.
 
 ## Terraform
-Source: developer.hashicorp.com tutorials, Terraform 1.12.
+Source: developer.hashicorp.com tutorials (written for Terraform 1.12; newer releases exist).
 - Write, `init`, `plan`, `apply`; in pipelines apply a saved plan (`plan -out`).
 - `apply` is not transactional: a partial apply does not roll back.
 - Commit `.terraform.lock.hcl`; pin provider and module versions.

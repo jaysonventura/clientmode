@@ -34,17 +34,17 @@ course, and facts buried in the middle of a long context are used less reliably.
 - Ask for structured output with a schema when code consumes the answer, and validate it. A valid
   shape still carries invented values; the eval checks content.
 - Sampling settings are tuned by the eval, not by feel, and only where the model accepts them:
-  on current Claude models a non-default `temperature` / `top_p`, an assistant prefill and a fixed
-  thinking `budget_tokens` are rejected with a 400. Use structured outputs and the `effort`
+  on Claude Opus 4.7 and later and Sonnet 5, a non-default `temperature` / `top_p`, an assistant
+  prefill and a fixed thinking `budget_tokens` are rejected with a 400. Use structured outputs and the `effort`
   setting instead, and check the provider's docs for the model you call.
 
 ## Writing the prompt
 
 Anthropic's prompting guidance (platform.claude.com, read 2026-09-23):
 
-- Separate the parts - instructions, context, examples, documents, the user's input - and use one
-  scheme consistently. XML tags parse unambiguously when a prompt mixes these; Markdown headings
-  work too, and the docs state no preference beyond consistency.
+- Separate the parts - instructions, context, examples, documents, the user's input. The guidance
+  recommends XML tags for this: they parse unambiguously when a prompt mixes them. Use the same
+  tags throughout.
 - Give 3 to 5 examples of the hard cases, wrapped in `<example>` tags.
 - Put long documents near the top, above the question; the question goes last.
 - Keep templates in versioned files with named variables (`{{CONTRACT_TEXT}}`); insert untrusted
@@ -119,7 +119,8 @@ sentence in the system prompt.
 
 ## Responsible release
 
-Map, Measure, Mitigate, Manage (the NIST AI RMF pattern used by Microsoft's AI-engineer path): map
+Map, Measure, Mitigate, Manage (Microsoft's AI-engineer path, adapted from the NIST AI RMF
+functions Govern, Map, Measure, Manage): map
 the harms this feature can do, measure them on the eval sets, mitigate at each layer (model,
 safety filters, system prompt and grounding, user experience), and manage in production. Before
 release, have an incident plan, a rollback, a way to block a response or a user, and a way for users

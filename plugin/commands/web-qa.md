@@ -14,8 +14,8 @@ Start with the preflight — never assume a browser is installed:
 
 Subcommands: `doctor` · `browsers [--install]` · `artifacts` · `scaffold` · `test` · `trace`.
 
-Control-plane precedence: **Playwright MCP** (`mcp__playwright__browser_*` — already installed as a CDT
-plugin dependency, no setup needed) for live driving, then `cdt-web-qa`, then raw `npx playwright`.
+Control-plane precedence: **Playwright MCP** (`mcp__playwright__browser_*` — an optional
+companion: `cdt-plugins install playwright` if it is missing) for live driving, then `cdt-web-qa`, then raw `npx playwright`.
 
 Rules that are not negotiable:
 

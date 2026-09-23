@@ -382,8 +382,9 @@ if need_file "$PSH" 33 "sync does not warn about a configured marketplace"; then
 fi
 
 echo "== Community bootstrap (plugins.sh bootstrap — the all-in-one acquisition path) =="
-# Official rows arrive as plugin.json dependencies; community rows CANNOT (Claude Code leaves a dependency
-# from an unconfigured marketplace unresolved and DISABLES the dependent plugin), so bootstrap acquires them.
+# Only the REQUIRED official rows are plugin.json dependencies (a missing or disabled dependency disables cm).
+# By default the bootstrap heals just those; optional companions need CDT_PLUGIN_AUTO_INSTALL=1 (the person's
+# opt-in), and third-party rows also need CDT_PLUGIN_STRICT=0 or the community opt-in.
 # All shell-outs land on the argv shim — the real claude CLI is never invoked.
 boot_run() { CDT_HOME="$MKT_HOME" CDT_SETTINGS="$MKT_HOME/settings.json" bash "$PSH" bootstrap 2>/dev/null; }
 
@@ -398,10 +399,6 @@ if need_file "$PSH" 34 "bootstrap adds the marketplace before installing"; then
   else
     fail 34 "bootstrap ordering (add before install)" "add=$add_ln install=$ins_ln log: $(tr '\n' '|' <"$SHIM_LOG" | cut -c1-200)"
   fi
-  # An UPGRADE leaves manifest deps lazily unresolved, which parks CDT in dependency-unsatisfied. The
-  # bootstrap must heal official rows too, not just the community pair.
-  want 34 "bootstrap also heals a missing OFFICIAL dependency (github)" \
-    "$(cat "$SHIM_LOG")" "install github@claude-plugins-official -s user"
 fi
 
 # (35) Third-party plugins are never installed without an explicit opt-in: by default only official
@@ -412,8 +409,20 @@ if need_file "$PSH" 35 "community installs are opt-in; kill switch blocks all sh
   if grep -q 'ponytail\|claude-mem\|thedotmack' "$SHIM_LOG"; then
     fail 35 "default bootstrap installs no third-party plugin" "shim-log: $(tr '\n' '|' <"$SHIM_LOG" | cut -c1-200)"
   else
-    want 35 "default bootstrap still heals an official dependency" "$(cat "$SHIM_LOG")" "install github@claude-plugins-official -s user"
+    # Optional companions are the person's choice. The bootstrap's own output names every row it tries (the
+    # fixture has no official marketplace, so an attempted row reports that instead of reaching the shim).
+    OUT0="$(boot_run)"
+    lack 35 "default bootstrap never tries an optional official companion (playwright)" "$OUT0" "playwright"
+    lack 35 "default bootstrap never tries an optional third-party companion (github)" "$OUT0" "github"
+    want 35 "default bootstrap still heals a required companion (context7)" "$OUT0" "context7"
   fi
+  rm -f "$MKT_HOME/.cdt/bootstrap-community.done" 2>/dev/null
+  OUT1="$(CDT_PLUGIN_AUTO_INSTALL=1 boot_run)"
+  want 35 "CDT_PLUGIN_AUTO_INSTALL=1 -> optional official companion tried (playwright)" "$OUT1" "playwright"
+  lack 35 "CDT_PLUGIN_AUTO_INSTALL=1 with strict on -> third-party companion not tried (github)" "$OUT1" "github"
+  rm -f "$MKT_HOME/.cdt/bootstrap-community.done" 2>/dev/null
+  OUT2="$(CDT_PLUGIN_AUTO_INSTALL=1 CDT_PLUGIN_STRICT=0 boot_run)"
+  want 35 "CDT_PLUGIN_AUTO_INSTALL=1 CDT_PLUGIN_STRICT=0 -> verified third-party companion tried (github)" "$OUT2" "github"
   : > "$SHIM_LOG"; rm -f "$MKT_HOME/.cdt/bootstrap-community.done" 2>/dev/null
   CDT_BOOTSTRAP=off CDT_BOOTSTRAP_COMMUNITY=on boot_run >/dev/null 2>&1
   if [ ! -s "$SHIM_LOG" ]; then pass 35 "CDT_BOOTSTRAP=off -> shim never invoked"
@@ -530,6 +539,6 @@ HARNESS
 fi
 
 echo
-echo "PASSED $PASS/42"
+echo "PASSED $PASS/46"
 [ "$BLOCKED" -gt 0 ] && echo "($BLOCKED scenario(s) BLOCKED on sibling hooks not yet built — see BLOCKED lines above)"
-if [ "$PASS" -eq 42 ]; then echo "ALL PLUGIN TESTS PASSED"; exit 0; else echo "PLUGIN TESTS INCOMPLETE OR FAILING"; exit 1; fi
+if [ "$PASS" -eq 46 ]; then echo "ALL PLUGIN TESTS PASSED"; exit 0; else echo "PLUGIN TESTS INCOMPLETE OR FAILING"; exit 1; fi

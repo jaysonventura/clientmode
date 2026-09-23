@@ -239,6 +239,8 @@ orchestration/SKILL.md|ExitPlanMode
 orchestration/SKILL.md|Explore subagent
 intake/SKILL.md|edge cases only they can decide
 tooling/SKILL.md|Proof bar
+tooling/SKILL.md|sends project data off the machine
+tooling/SKILL.md|Git reverts the files, not what an install
 tooling/SKILL.md|local scope
 tooling/SKILL.md|restart
 tooling/SKILL.md|Decide and do, then report
@@ -248,7 +250,7 @@ tooling/SKILL.md|does not security-audit
 tooling/SKILL.md|OWASP MCP Top 10
 tooling/SKILL.md|gauge-improvements
 grounding/SKILL.md|references/fundamentals.md
-grounding/references/fundamentals.md|## React
+grounding/references/fundamentals.md|Source: react.dev/learn
 grounding/references/fundamentals.md|## Angular
 grounding/references/fundamentals.md|## Ionic
 grounding/references/fundamentals.md|## React Native
@@ -274,7 +276,7 @@ handoff/SKILL.md|Checkpoints (`/rewind`)
 BESTPRACTICES
 # skills.md: "disable-model-invocation: true — Only you can invoke the skill. Use this for workflows with
 # side effects". These commands write settings, the vault, worktrees or a PR, or install software.
-for c in autopilot config worktree obsidian deps auto learn; do
+for c in autopilot config worktree obsidian deps auto learn plugins; do
   grep -q '^disable-model-invocation: true' "commands/$c.md" && ok "commands/$c.md is manual-only" || err "commands/$c.md can be run by the model (side effects)"
 done
 # costs.md / sub-agents.md: match the model to the job. CONTRIBUTING.md: pin opus only for judgment

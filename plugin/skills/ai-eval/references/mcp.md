@@ -71,7 +71,7 @@ and telemetry, shadow MCP servers, and context over-sharing.
   controls describe revision 2025-11-25 or older.
 - A multi-round-trip example with a bare base64 `requestState` for a destructive action is unsafe.
 - A token whose audience is the client id is wrong: the audience is the MCP server.
-- Sampling is not a core primitive any more; SSE was deprecated in 2025-03-26, not later.
+- Sampling is deprecated (still in the spec for its deprecation window), not a core primitive to build on; SSE was deprecated in 2025-03-26, not later.
 - Inspector `--sse` and port 5173 are out of date. Sample servers that write `notes/${title}` or
   run a caller's SQL show path traversal and injection, not practice. The npm package is
   `@modelcontextprotocol/sdk`.

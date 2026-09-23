@@ -2,6 +2,7 @@
 description: Inspect & manage the CDT companion plugins (Superpowers, Code Review, Context7, LSPs, MCPs …). Read-only detection driven by the plugin registry; real install/enable work is shelled out to the `claude plugin` CLI. No destructive uninstall.
 argument-hint: "[list [--json] | status | doctor | explain <id> | sync | enable <id> | disable <id> | install <id> | update <id>]"
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 Run the plugins CLI with the user's arguments and report the result:

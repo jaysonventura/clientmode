@@ -143,7 +143,7 @@ after updating unregisters and deletes it.
 ## Layout
 
 ```
-.claude-plugin/   plugin.json (manifest and companion dependencies)
+.claude-plugin/   plugin.json (manifest; the four required companions)
 agents/           the specialist, reviewer and Bug Council agents
 skills/           the skills above, each with its SKILL.md and references
 commands/         the /cm:* commands

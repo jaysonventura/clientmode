@@ -29,10 +29,14 @@ All of these, recorded with where you read them:
 
 ## 3. Who decides
 
-- **Decide and do, then report:** project dev tooling from the stack's official registry, pinned,
-  with the lockfile committed on the working branch - a linter, a test runner, `@types`, Playwright.
-  Git undoes it.
-- **Ask once, naming the tool, the scope and what it can reach:** MCP servers, Claude Code plugins,
+- **Decide and do, then report:** project dev tooling from the stack's official registry that clears
+  the proof bar: the exact package name checked (typosquats look alike), pinned, the lockfile
+  committed on the working branch - a linter, a test runner, `@types`. Prefer `--ignore-scripts`
+  where the tool works without its install scripts. Git reverts the files, not what an install
+  script ran, so a package that runs install scripts or downloads binaries (the Playwright npm
+  package fetches browsers) is ask-once unless the project already uses it.
+- **Ask once per tool and per scope, naming the tool, the scope and what it can reach:** MCP servers,
+  Claude Code plugins,
   global or system installs (`brew`, `npm -g`), anything that needs a login, a key or money, and
   anything that sends project data off the machine. An MCP server runs code with the person's
   privileges and sees the conversation.
@@ -43,7 +47,8 @@ All of these, recorded with where you read them:
 
 - MCP: install at local scope first (`claude mcp add --scope local`: private to this project, in
   `~/.claude.json`);
-  project scope (`.mcp.json`, shared through git) only when the team should get it. A new server
+  project scope (`.mcp.json`, shared through git) only when the team should get it, and only after
+  asking again: it reaches everyone who clones the repository. A new server
   connects at the next session: tell the person a restart is needed. In Codex the same step is
   `codex mcp add <name> -- <command>`.
 - `.mcp.json`, `.claude.json` and `.claude/` are protected paths. Editing them to skip a prompt is
@@ -66,5 +71,5 @@ Record what you installed, where, the version, the evidence and how to remove it
   use Xcode tools", then `claude mcp add --transport stdio xcode -- xcrun mcpbridge` (ask once).
   Xcode must be running with the project open. Apple publishes no tool list, so read the tool
   names on first use.
-- A web project with no end-to-end runner: add Playwright as a pinned dev dependency (decide and
-  do), then run the journey through `web-qa`.
+- A web project with no end-to-end runner: propose the Playwright npm package as a pinned dev
+  dependency (ask once: it downloads browser binaries), then run the journey through `web-qa`.

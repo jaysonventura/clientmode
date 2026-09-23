@@ -23,7 +23,7 @@ export function buildAdditionalContext(r: EnhanceResult, cfg: CdtConfig): string
       (rt.risk.flagged ? `, risk: ${rt.risk.domains.join('/')} (security-review: ${rt.securityReview ? 'yes' : 'no'})` : ''),
   ];
   // Claude Code best practices: plan when the approach is uncertain or several files change. A hook says it
-  // because the orchestration skill is not always loaded (observed in a plugin eval run, 2026-09-23).
+  // because a skill is read only when it triggers; hooks run on every prompt.
   if (rt.tier === 'T2' || rt.tier === 'T3') {
     parts.push('Plan first: explore read-only, then call EnterPlanMode and present the plan with ExitPlanMode for approval before writing code. Skip this only if the whole change fits in one sentence.');
   }

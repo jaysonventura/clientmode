@@ -537,15 +537,19 @@ cmd_bootstrap() {
     1|on|true|yes) community=1 ;;
   esac
   command -v claude >/dev/null 2>&1 || { _say "cdt-plugins bootstrap: 'claude' CLI not on PATH — skipped"; return 0; }
-
-  _cache_installed; _cache_mkts
+  # Optional companions (required=false) are the person's choice: installed only after they opted in with
+  # CDT_PLUGIN_AUTO_INSTALL=1, and a non-official one also needs CDT_PLUGIN_STRICT=0 (the same gate as
+  # `cdt-plugins install`). Required rows are healed by default because cm depends on them.
+  local optional=0 lax=0
+  auto_install_on && optional=1
+  strict_on || lax=1
   _ensure_bun
   local pending=0 id ident mkt src
   # Re-read live state each run rather than trusting the stamp, so an uninstall re-heals. This covers the
   # OFFICIAL rows too: Claude Code resolves manifest dependencies eagerly on a FRESH install, but on an
   # UPGRADE it resolves them lazily — leaving CDT `dependency-unsatisfied` (and therefore disable-eligible)
   # until it catches up. Healing them here makes the bundle converge on both paths.
-  for id in $(_meta | awk -F"$US" -v c="$community" '$2!="cdt-skill" && $9!="" && (c==1 || $7!="community-third-party"){print $1}'); do
+  for id in $(_meta | awk -F"$US" -v c="$community" -v o="$optional" -v l="$lax" '$2!="cdt-skill" && $9!="" && (c==1 || $7!="community-third-party") && ($5=="true" || $7=="community-third-party" || (o==1 && ($7=="official" || l==1))){print $1}'); do
     is_inst "$id" && continue
     [ "$(plib_state_get "$id" 2>/dev/null)" = "disabled" ] && continue   # respect a deliberate opt-out
     pending=1
@@ -559,6 +563,10 @@ cmd_bootstrap() {
     [ "$_t" = "cdt-skill" ] && continue
     [ -n "$ident" ] || continue
     [ "$community" = 1 ] || [ "$sec" != "community-third-party" ] || continue
+    if [ "$_r" != "true" ] && [ "$sec" != "community-third-party" ]; then
+      [ "$optional" = 1 ] || continue
+      [ "$sec" = "official" ] || [ "$lax" = 1 ] || continue
+    fi
     is_inst "$id" && continue
     [ "$(plib_state_get "$id" 2>/dev/null)" = "disabled" ] && continue
     valid_ident "$ident" || { _say "  ⨯ $id: refusing malformed identifier"; rc_any=1; continue; }

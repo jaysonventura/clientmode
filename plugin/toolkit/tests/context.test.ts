@@ -36,7 +36,7 @@ describe('additionalContext', () => {
   });
 
   // Claude Code best practices: plan when the approach is uncertain or several files change; skip it when
-  // the diff fits in a sentence. The skill alone was not read in a live eval run, so the hook says it.
+  // the diff fits in a sentence. A skill is read only when it triggers, so the hook says it.
   it('tells T2 and T3 work to enter plan mode before code', () => {
     const root = tmpRoot();
     const ctx = buildAdditionalContext(fakeResult(root, ''), cfg());

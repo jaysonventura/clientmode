@@ -53,6 +53,22 @@ echo "Tasks by tier (count · tokens):"
 q "SELECT '  '||COALESCE(tier,'?')||'  ×'||COUNT(*)||'  '||$(hum "SUM(COALESCE(tokens,0))") FROM tasks WHERE started >= '$SINCE' GROUP BY tier ORDER BY tier;"
 echo "Avg Task Loop iterations: $(q "SELECT IFNULL(ROUND(AVG(iterations),1),'n/a') FROM tasks WHERE started >= '$SINCE';")"
 echo
+echo "Per session (latest 10) — prompts after the first are follow-ups; time runs from the first prompt"
+echo "to the last green Stop verdict; tokens only where the Stop hook measured them:"
+_PS="$(q "SELECT '  '||sid||'  '||p||' prompt'||(CASE WHEN p=1 THEN '' ELSE 's' END)||' · '||(p-1)||' follow-up'||(CASE WHEN p=2 THEN '' ELSE 's' END)
+  ||' · '||r||' red stop'||(CASE WHEN r=1 THEN '' ELSE 's' END)||' · '
+  ||(CASE WHEN lg IS NULL THEN 'no green verdict' ELSE 'green after '||CAST(ROUND((julianday(lg)-julianday(fp))*1440) AS INTEGER)||'m' END)
+  ||' · '||COALESCE('tokens '||tok,'tokens unknown')
+  FROM (SELECT e.session_id AS sid,
+          SUM(e.type='prompt') AS p,
+          SUM(e.type='verify_gate' AND e.message LIKE 'block-failed%') AS r,
+          MIN(CASE WHEN e.type='prompt' THEN e.ts END) AS fp,
+          MAX(CASE WHEN e.type='verify_gate' AND e.message='pass-trusted' THEN e.ts END) AS lg,
+          (SELECT o.message FROM events o WHERE o.session_id=e.session_id AND o.type='orch_overhead' ORDER BY o.ts DESC LIMIT 1) AS tok
+        FROM events e WHERE e.ts >= '$SINCE' AND e.session_id != '' GROUP BY e.session_id)
+  WHERE p > 0 ORDER BY fp DESC LIMIT 10;")"
+echo "${_PS:-  (no prompts recorded yet)}"
+echo
 echo "Agent runs — which roles cost the most (role · runs · tokens; +cache reads, discounted):"
 q "SELECT '  '||REPLACE(REPLACE(agent,'claude-dev-team:',''),'cdt:','')||'  ×'||COUNT(*)||'  '||$(hum "SUM(COALESCE(tokens,0))")||'  (+'||$(hum "SUM(COALESCE(cache_read,0))")||' cache)' FROM agent_runs WHERE started >= '$SINCE' AND agent NOT IN ('unknown','') GROUP BY agent ORDER BY SUM(COALESCE(tokens,0)) DESC, COUNT(*) DESC;"
 echo "Total agent tokens: $(q "SELECT $(hum "SUM(COALESCE(tokens,0))") FROM agent_runs WHERE started >= '$SINCE' AND agent NOT IN ('unknown','');")  (+ $(q "SELECT $(hum "SUM(COALESCE(cache_read,0))") FROM agent_runs WHERE started >= '$SINCE' AND agent NOT IN ('unknown','');") cache reads, discounted)"

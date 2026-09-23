@@ -15,6 +15,13 @@ CDT_HOME="$HOME/.claude"
 # Global off switches (read keys directly — never `source` the env file).
 _EN="$(grep -E '^CDT_ENABLED=' "$CDT_HOME/claude-dev-team.env" 2>/dev/null | head -1 | cut -d= -f2-)"
 [ "$_EN" = "0" ] && exit 0
+# Count the prompt for cdt-stats (follow-ups per session). The session id only — never the prompt text.
+_DBL="$CDT_HOME/bin/cdt-db.sh"; [ -f "$_DBL" ] || _DBL="$(cd "$(dirname "$0")" 2>/dev/null && pwd)/db.sh"
+_SID="$(printf '%s' "$INPUT" | python3 -c 'import sys,json
+try: print(json.load(sys.stdin).get("session_id",""))
+except Exception: pass' 2>/dev/null)"
+# shellcheck source=/dev/null
+[ -n "$_SID" ] && [ -f "$_DBL" ] && ( . "$_DBL" && db_event prompt "" "$_SID" ) >/dev/null 2>&1
 # Separate toolkit switch (independent of core CDT): cdt disable / cdt-config toolkit off.
 _TK="$(grep -E '^CDT_TOOLKIT_ENABLED=' "$CDT_HOME/claude-dev-team.env" 2>/dev/null | head -1 | cut -d= -f2-)"
 case "$_TK" in 0|false|off) exit 0 ;; esac

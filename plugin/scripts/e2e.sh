@@ -39,6 +39,26 @@ echo "== 4. task -> stats =="
 "$BIN/cdt-task" T2 shipped 1 "e2e sandbox task" >/dev/null 2>&1
 has "$("$BIN/cdt-stats" all 2>&1)" "T2" "stats reflects the logged task"
 
+echo "== 4a. per-session outcome: follow-up prompts, red stops, time to a green verdict, tokens =="
+SDB="$HOME/.claude/claude-dev-team.db"
+sq() { CDT_DB="$SDB" _Q="$1" python3 -c 'import os,sqlite3
+c=sqlite3.connect(os.environ["CDT_DB"]); c.execute(os.environ["_Q"]); c.commit()'; }
+NOWD="$(date -u +%Y-%m-%d)"
+sq "INSERT INTO sessions(id,cwd,started) VALUES('s-measured','/p','${NOWD}T09:00:00Z')"
+for t in 09:00:05 09:04:00 09:09:00; do sq "INSERT INTO events(ts,session_id,type,message) VALUES('${NOWD}T$t'||'Z','s-measured','prompt','')"; done
+sq "INSERT INTO events(ts,session_id,type,message) VALUES('${NOWD}T09:06:00Z','s-measured','verify_gate','block-failed (1)')"
+sq "INSERT INTO events(ts,session_id,type,message) VALUES('${NOWD}T09:12:05Z','s-measured','verify_gate','pass-trusted')"
+PS="$("$BIN/cdt-stats" all 2>&1 | grep 's-measured')"
+has "$PS" "3 prompts" "per-session: prompts counted"
+has "$PS" "2 follow-ups" "per-session: follow-ups are the prompts after the first"
+has "$PS" "1 red stop" "per-session: red Stop verdicts counted"
+has "$PS" "green after 12m" "per-session: time from the first prompt to the last green verdict"
+has "$PS" "tokens unknown" "per-session: tokens not measured are unknown, not 0"
+printf '{"session_id":"s-hook","prompt":"make the booking form a page","cwd":"%s"}' "$SBX" | bash "$REPO/hooks/prompt-enhance.sh" >/dev/null 2>&1
+N="$(CDT_DB="$SDB" python3 -c 'import os,sqlite3
+print(sqlite3.connect(os.environ["CDT_DB"]).execute("SELECT COUNT(*) FROM events WHERE type=\"prompt\" AND session_id=\"s-hook\"").fetchone()[0])')"
+[ "$N" = "1" ] && ok "the prompt hook records one prompt event" || no "prompt events for s-hook: $N"
+
 echo "== 4b. per-agent telemetry: cost-relevant tokens vs cache reads split =="
 TR="$SBX/agent-transcript.jsonl"
 cat > "$TR" <<'JSONL'

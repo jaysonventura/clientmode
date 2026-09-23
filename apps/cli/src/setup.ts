@@ -11,6 +11,7 @@
 import { existsSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { applyAutonomy, restoreAutonomy, type AutonomyChange } from '../../../packages/packaging/src/autonomy.js';
+import { installCodexStopHook, removeCodexStopHook, type CodexHookRecord } from '../../../packages/packaging/src/codex-hooks.js';
 import { PLUGIN_ID, registerClaudePlugin, unregisterClaudePlugin, type PluginRegistration, type Runner } from '../../../packages/packaging/src/claude-plugin.js';
 import {
   HOSTS, SKILLS_DIRECTORY, activateHost, deactivateHost, hostLayout, migrateLegacyInstructions, restoreLegacyInstructions,
@@ -31,6 +32,8 @@ export type SetupRecord = {
   created: string[];
   autonomy: AutonomyChange[];
   plugin: PluginRegistration | null;
+  /** The Stop hook that runs the project's checks in Codex; absent in records written before it. */
+  codex_hook?: CodexHookRecord | null;
   legacy_sections: MovedSection[];
   launcher: string | null;
   launchers: string[];
@@ -149,20 +152,22 @@ export async function setupHosts(input: SetupInput): Promise<{ lines: string[]; 
     const legacy_sections = migrateLegacyInstructions(layout);
     const activation = activateHost({ layout, source_root: contentRoot, lead: input.lead, skills_source: path.join(contentRoot, SKILLS_DIRECTORY) });
     const autonomy = input.autonomy ? applyAutonomy(layout) : { changes: [], notes: [] };
+    const codexHook = layout.host !== 'codex' ? null
+      : installCodexStopHook({ config_root: layout.config_root, gate_source: path.join(contentRoot, 'adapters', 'codex', 'stop-gate.mjs') });
     const plugin = layout.host !== 'claude' ? null : registerClaudePlugin({
       config_root: layout.config_root, marketplace_dir: contentRoot,
       claude: input.install_root === null ? findExecutable('claude', input.env) : null,
     });
     const record: SetupRecord = {
       schema: 2, host: layout.host, version: input.version, installed_at: input.now, layout, lead: input.lead,
-      config_root_created, created: activation.created, autonomy: autonomy.changes, plugin, legacy_sections,
+      config_root_created, created: activation.created, autonomy: autonomy.changes, plugin, codex_hook: codexHook?.record ?? null, legacy_sections,
       launcher: launchers[0] ?? null, launchers, toolkit_root: toolkitRoot,
     };
     writeFileSync(recordFile(input.cm_home, layout.host), `${JSON.stringify(record, null, 2)}\n`, { mode: PRIVATE_FILE_MODE });
     records.push(record);
     lines.push(`${activation.summary}${legacy_sections.length > 0 ? '; moved the old claude-dev-team section into the install record' : ''}`);
     if (plugin !== null) lines.push(`claude: plugin ${PLUGIN_ID} ${plugin.method === 'cli' ? 'installed with the claude CLI' : 'declared in settings.json'}`);
-    notes.push(...autonomy.notes, ...(plugin?.notes ?? []));
+    notes.push(...autonomy.notes, ...(plugin?.notes ?? []), ...(codexHook?.notes ?? []));
   }
 
   lines.push(toolkitRoot === null ? `toolkit: not built; cm runs from ${input.source_root}` : `toolkit: ${toolkitRoot}`);
@@ -190,6 +195,7 @@ export function uninstallHosts(input: { hosts?: HostName[]; cm_home: string; env
     if (record.plugin !== null) {
       notes.push(...unregisterClaudePlugin({ registration: record.plugin, claude: record.plugin.method === 'cli' ? findExecutable('claude', input.env) : null }).notes);
     }
+    if (record.codex_hook) removeCodexStopHook(record.codex_hook);
     const restored = restoreAutonomy(record.autonomy);
     notes.push(...restored.left_alone.map(entry => `left alone: ${entry}`));
     // Skills in a shared directory stay while another installed host still reads them.

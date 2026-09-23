@@ -21,7 +21,7 @@ Status: **aligned**, **gap** (with the change that closes it), or **diverges** (
 | Configure permissions | Allowlists, sandbox, auto mode | `cm install` turns on auto mode; `CM_NO_AUTONOMY=1` opts out | aligned |
 | Use CLI tools | `gh`, `aws` and similar are the most context-efficient way to reach services | `cm:deps` checks `gh` | aligned |
 | Connect MCP servers | Connect trackers, databases, designs | companion plugins via `cm:plugins` | aligned |
-| Set up hooks | Anything that must happen every time is a hook, not a rule | Claude side has hooks; Codex had none | gap → W9 Codex Stop hook |
+| Set up hooks | Anything that must happen every time is a hook, not a rule | Claude: verify/claim/Stop hooks. Codex: `cm install` adds a Stop hook that runs the project's checks | aligned |
 | Create skills | Workflows as on-demand skills | 20 skills | aligned; W11 trims descriptions that load every session |
 | Create custom subagents | Isolated contexts for read-heavy or specialist work | 19 agents | aligned; W2 makes one implementer the default |
 | Install plugins | Bundle skills, hooks, agents, MCP | Client Mode ships as the `cm` plugin | aligned |

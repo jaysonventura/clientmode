@@ -18,7 +18,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync
 import path from 'node:path';
 import type { HostLayout } from './hosts.js';
 
-type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
+export type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
 
 export type AutonomyChange =
   | { kind: 'json'; file: string; key_path: string[]; wrote: Json; previous?: Json; created_file: boolean }
@@ -29,7 +29,7 @@ export type AutonomyOutcome = { changes: AutonomyChange[]; notes: string[] };
 
 const digest = (text: string): string => `sha256:${createHash('sha256').update(text).digest('hex')}`;
 
-function readJson(file: string): { value: Record<string, Json> } | { error: string } {
+export function readJson(file: string): { value: Record<string, Json> } | { error: string } {
   if (!existsSync(file)) return { value: {} };
   try {
     const parsed = JSON.parse(readFileSync(file, 'utf8')) as unknown;
@@ -40,7 +40,7 @@ function readJson(file: string): { value: Record<string, Json> } | { error: stri
   }
 }
 
-function writeJson(file: string, value: Record<string, Json>): void {
+export function writeJson(file: string, value: Record<string, Json>): void {
   mkdirSync(path.dirname(file), { recursive: true });
   writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`);
 }

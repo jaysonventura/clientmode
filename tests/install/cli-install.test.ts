@@ -113,6 +113,9 @@ test('install configures all four hosts from one toolkit, and uninstall puts eve
   assert.match(codexConfig, /^approval_policy = "never"$/m);
   assert.match(readFileSync(path.join(h.home, '.codex', 'AGENTS.md'), 'utf8'), /## Test first, always/);
   assert.ok(existsSync(path.join(h.home, '.agents', 'skills', 'cm-tdd', 'SKILL.md')));
+  const codexGate = path.join(h.home, '.codex', 'cm', 'stop-gate.mjs');
+  assert.ok(existsSync(codexGate), 'the Codex Stop gate is installed');
+  assert.match(JSON.stringify(json(path.join(h.home, '.codex', 'hooks.json')).hooks.Stop), /stop-gate\.mjs/);
   assert.match(readFileSync(path.join(h.home, '.gemini', 'GEMINI.md'), 'utf8'), /`cm-orchestration`/);
   assert.ok(existsSync(path.join(h.home, '.gemini', 'policies', 'client-mode.toml')));
   assert.deepEqual(json(path.join(h.home, '.gemini', 'settings.json')), { ui: { theme: 'GitHub' } }, 'folder trust left on');
@@ -137,6 +140,8 @@ test('install configures all four hosts from one toolkit, and uninstall puts eve
     else assert.equal(readFileSync(file, 'utf8'), text, relative);
   }
   assert.ok(existsSync(theirs), 'their own cm-mine skill survives uninstall');
+  assert.equal(existsSync(path.join(h.home, '.codex', 'hooks.json')), false, 'the hooks.json the install created is gone');
+  assert.equal(existsSync(path.join(h.home, '.codex', 'cm')), false, 'the Codex gate is gone');
   assert.deepEqual(readdirSync(path.join(h.home, '.agents', 'skills')), ['cm-mine']);
   for (const gone of ['.cursor', '.gemini/GEMINI.md', '.gemini/policies', '.codex/client-mode', '.claude/client-mode', '.client-mode/toolkit']) {
     assert.equal(existsSync(path.join(h.home, gone)), false, `${gone} removed`);

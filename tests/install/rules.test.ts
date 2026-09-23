@@ -18,3 +18,22 @@ test('both rule sets and the debug skill carry the one stop rule', () => {
   assert.ok(read('plugin/skills/debug/SKILL.md').includes(STOP));
   assert.ok(!read('adapters/global/CLIENT_MODE_LEAD.md').includes('Three attempts at the same diagnosis'));
 });
+
+const words = (text: string): number => text.split(/\s+/).filter(Boolean).length;
+const lead = (): string => renderRules({ source_root: ROOT, lead: true, skill_reference: 'cm-' });
+
+test('the lead rules stay within the size they had before the workflow table was added', () => {
+  assert.ok(words(lead()) <= 1209, `lead rules are ${String(words(lead()))} words`);
+});
+
+test('the lead rules route each kind of work to its workflow and name the host commands', () => {
+  const text = lead();
+  for (const needle of ['cm-ui-ux', 'cm-debug', 'cm-ai-eval', 'cm-database-change', '/goal', '/plan', '/compact', '/btw', '/side']) {
+    assert.ok(text.includes(needle), needle);
+  }
+});
+
+test('emphasis is rare enough to mean something', () => {
+  const bold = lead().match(/\*\*[^*]+\*\*/g) ?? [];
+  assert.ok(bold.length <= 3, `${String(bold.length)} bold phrases`);
+});

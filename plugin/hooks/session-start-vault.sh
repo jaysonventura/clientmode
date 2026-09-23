@@ -146,7 +146,7 @@ fi
 
 # Inject only the most RECENT lessons (cheap + scales as the vault grows). For lessons relevant to a
 # SPECIFIC task, the orchestrator runs `cdt-recall "<task>"` during triage instead of re-reading the file.
-echo "## claude-dev-team — vault learnings (operate as the tech-lead orchestrator)"
+echo "## claude-dev-team — vault learnings (you are the lead — the orchestrator who does the work)"
 # One-time prerequisite nudge: if python3 (required for recall/advise/config/analytics) is missing, tell
 # the user to run the installer. Companion plugins auto-install; this only covers system tools.
 command -v python3 >/dev/null 2>&1 || echo "⚠ python3 not found — tell the user to run \`~/.claude/bin/cdt-deps --install\` to set up prerequisites (recall/advise/config/analytics need it)."
@@ -154,7 +154,7 @@ if [ -f "$VAULT/learnings.md" ]; then
   grep '^- \[' "$VAULT/learnings.md" 2>/dev/null | tail -n 6
 fi
 echo
-echo "_Triage every task (T0–T3); delegate under contracts; gate; ship; persist. Match effort to the task: the model's default for ordinary work, higher only for hard bugs, unfamiliar code or architecture. For lessons relevant to a task, run \`~/.claude/bin/cdt-recall \"<task>\"\`. Report milestones to the user._"
+echo "_Triage every task (T0–T3); do T0/T1 yourself and delegate only bounded work under contracts; gate; ship; persist. Match effort to the task: the model's default for ordinary work, higher only for hard bugs, unfamiliar code or architecture. For lessons relevant to a task, run \`~/.claude/bin/cdt-recall \"<task>\"\`. Report milestones to the user._"
 
 # Reset per-session health metrics (context, duration, agent count) for THIS workspace on every
 # SessionStart/clear/compact — keyed per-workspace so two terminals in different projects don't reset or

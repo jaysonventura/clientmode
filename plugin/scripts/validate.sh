@@ -174,5 +174,13 @@ else
   err "obsidian recall tests (run: bash scripts/test-obsidian-recall.sh)"
 fi
 
+# A skill body is read in full whenever it triggers, and orchestration triggers on every software
+# task. Detail that only some tasks need lives in the skill's references/ and is read on demand.
+echo "== skill size ceilings (always-triggered skills stay short) =="
+for pair in orchestration:1500; do
+  s="${pair%%:*}"; max="${pair##*:}"; words="$(wc -w < "skills/$s/SKILL.md" | tr -d ' ')"
+  if [ "$words" -le "$max" ]; then ok "skills/$s/SKILL.md $words words (<= $max)"; else err "skills/$s/SKILL.md is $words words (ceiling $max) — move mode-specific detail to references/"; fi
+done
+
 echo
 if [ "$fail" = 0 ]; then echo "ALL CHECKS PASSED"; else echo "VALIDATION FAILED"; exit 1; fi

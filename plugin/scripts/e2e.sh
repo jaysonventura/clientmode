@@ -302,12 +302,12 @@ has "$("$BIN/cdt-route" "rename a variable across files" 2>&1)" "haiku" "route: 
 has "$("$BIN/cdt-route" "design the caching architecture" 2>&1)" "opus" "route: design/architecture -> Opus"
 
 echo "== 4i. quality-via-parallelism (bounded patterns documented) =="
-SK="$(cat "$REPO/skills/orchestration/SKILL.md")"
+SK="$(cat "$REPO/skills/orchestration/SKILL.md" "$REPO"/skills/orchestration/references/*.md)"
 has "$SK" "Adversarial verify" "SKILL documents adversarial verify"
 has "$SK" "Diverse-lens review" "SKILL documents diverse-lens review"
 has "$SK" "Design judge-panel" "SKILL documents the design judge-panel"
 [ -f "$REPO/commands/adversarial.md" ] && ok "/cm:adversarial command present" || no "/cm:adversarial command present"
-has "$(sed -n '/STEP 3f/,/STEP 4/p' "$REPO/skills/orchestration/SKILL.md")" "never Haiku" "STEP 3f stays above the production-grade floor (no Haiku)"
+has "$(sed -n '/STEP 3f/,$p' "$REPO/skills/orchestration/references/modes.md")" "never Haiku" "STEP 3f stays above the production-grade floor (no Haiku)"
 
 echo "== 4j. adaptive advise (agent mix from telemetry) =="
 has "$("$BIN/cdt-advise" "sandbox task" 2>&1)" "agent mix" "advise recommends an agent mix from telemetry"

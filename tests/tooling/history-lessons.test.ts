@@ -16,7 +16,7 @@ const SCRIPT = path.join(ROOT, 'plugin/skills/history-lessons/scripts/mine-histo
 interface Candidate { sha: string; subject: string; kinds: string[]; files: string[]; reverts?: string }
 interface Cluster { file: string; shas: string[] }
 interface Report {
-  head: string; branch: string; dirty: number; sampled: number;
+  head: string; branch: string; dirty: number; sampled: number; readAllSubjects: boolean;
   candidates: Candidate[]; clusters: Cluster[]; skipped: { sha: string; reason: string }[];
 }
 
@@ -60,6 +60,11 @@ function fixture(): { dir: string; sha: Record<string, string> } {
   for (let i = 0; i < 30; i += 1) many[`src/gen/f${String(i)}.js`] = `export const v${String(i)} = ${String(i)};\n`;
   sha.format = commit(dir, 8, 'chore: format everything with prettier', many);
   sha.lock = commit(dir, 9, 'fix: bump lodash', { 'package-lock.json': '{"lockfileVersion":3}\n' });
+  sha.never500 = commit(dir, 9, 'Proof read: never 500 — clean 404 with detail', { 'src/proof.js': 'export const read = () => 404;\n' });
+  sha.safe = commit(dir, 9, 'Members: make removal FK-safe', { 'src/members.js': 'export const remove = () => true;\n' });
+  sha.limiter = commit(dir, 9, 'Uploads: add the missing per-org limiter', { 'src/uploads.js': 'export const limit = 30;\n' });
+  sha.status = commit(dir, 9, 'Answer 401, not 500, when a guest wants HTML', { 'src/auth.js': 'export const code = 401;\n' });
+  sha.audit = commit(dir, 9, "Close the audit's smaller gaps", { 'src/limits.js': 'export const max = 5;\n' });
   git(dir, ['checkout', '-q', '-b', 'side'], 10);
   sha.side = commit(dir, 10, 'feat: side branch work', { 'src/side.js': 'export const side = 1;\n' });
   git(dir, ['checkout', '-q', 'main'], 11);
@@ -97,6 +102,7 @@ test('fixes, repeat fixes on one file, reverts and tests-with-fix are candidates
   assert.deepEqual(bySha.get(sha.fix1!)?.kinds.sort(), ['fix', 'repeat-fix', 'test-with-fix']);
   assert.deepEqual(bySha.get(sha.fix2!)?.kinds.sort(), ['fix', 'repeat-fix']);
   assert.deepEqual(bySha.get(sha.revert!)?.kinds, ['revert']);
+  for (const worded of [sha.never500, sha.safe, sha.limiter, sha.status, sha.audit]) assert.deepEqual(bySha.get(worded!)?.kinds, ['fix']);
   assert.equal(bySha.get(sha.revert!)?.reverts, sha.settings);
   for (const feature of [sha.cart, sha.fixture, sha.settings, sha.side]) assert.equal(bySha.has(feature!), false);
   assert.deepEqual(report.clusters, [{ file: 'src/cart.js', shas: [sha.fix2, sha.fix1] }]);
@@ -110,10 +116,23 @@ test('merges are not sampled; lockfile-only and bulk formatting commits are skip
   const reasons = new Map(report.skipped.map(s => [s.sha, s.reason]));
   assert.equal(reasons.get(sha.lock!), 'dependency or lockfile only');
   assert.equal(reasons.get(sha.format!), 'bulk change');
-  assert.equal(report.sampled, 9);
+  assert.equal(report.sampled, 14);
+  assert.equal(report.readAllSubjects, false);
   assert.equal(report.head, sha.merge);
   assert.equal(report.branch, 'main');
   assert.equal(report.dirty, 1);
+});
+
+test('a history whose corrections do not name themselves says to read every subject', () => {
+  const dir = mkdtempSync(path.join(tmpdir(), 'cm-history-plain-'));
+  git(dir, ['init', '-q', '-b', 'main']);
+  git(dir, ['config', 'user.email', 'synthetic@example.test']);
+  git(dir, ['config', 'user.name', 'Synthetic']);
+  for (let i = 1; i <= 12; i += 1) commit(dir, i, `Scope write route ${String(i)} to its owner`, { [`src/r${String(i)}.js`]: `${String(i)}\n` });
+  commit(dir, 13, 'Fix the card', { 'src/card.js': 'x\n' });
+  const report = mine(dir);
+  assert.equal(report.candidates.length, 1);
+  assert.equal(report.readAllSubjects, true);
 });
 
 test('--limit bounds the sample and --pick bounds the candidates', () => {

@@ -9,6 +9,8 @@
 //               and tests added with a fix, highest signal first, at most --pick
 //   clusters    files that needed more than one fix inside the window
 //   skipped     commits left out, with the reason (lockfile or dependency only, bulk change)
+//   readAllSubjects  true when under a fifth of the sample was flagged: the history describes its
+//               corrections without naming them, so read every subject line yourself
 // A subject that says "fix" is a lead, not proof of a defect: read the diff before calling it one.
 //
 // Read-only: no optional locks, no fsmonitor, no external diff or textconv helpers, and nothing in
@@ -17,13 +19,20 @@ import { spawnSync } from 'node:child_process';
 import { realpathSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-const FIX = /\b(fix(es|ed)?|bug(fix)?|hotfix|regression|broken|crash(es)?|patch(ed)?|resolves?|wrong|incorrect)\b/i;
+const FIX = new RegExp([
+  /\b(fix(es|ed)?|bug(fix)?|hotfix|regression|broken|crash(es)?|patch(ed)?|resolves?|wrong|incorrect)\b/.source,
+  // corrections that never say "fix": "never 500", "make removal FK-safe", "the missing limiter"
+  /\b(never|no longer) (500|5xx|crash|fail)|-safe\b|\b(missing|stale|leak(s|ed)?|unreachable|prevent|guard against)\b/.source,
+  // "401, not 500"; "close the audit's gaps"
+  /\bnot [45]\d\d\b|\b(findings?|gaps?)\b/.source,
+].join('|'), 'i');
 const REVERT = /^Revert\b/;
 const TEST = /(^|\/)(tests?|__tests__|spec)\/|[._-](test|spec)\.[a-z]+$/i;
 const LOCK = /(^|\/)(package-lock\.json|yarn\.lock|pnpm-lock\.yaml|composer\.lock|Gemfile\.lock|poetry\.lock|Cargo\.lock|go\.sum|Podfile\.lock|pubspec\.lock)$/;
 const GENERATED = /(^|\/)(dist|build|vendor|node_modules|coverage|\.next|generated)\//;
 const BULK_FILES = 25;
 const DAY = 86_400_000;
+const LOW_SIGNAL = 0.2;
 
 function parse(argv) {
   const out = { limit: 100, pick: 12, windowDays: 14 };
@@ -107,8 +116,10 @@ export function mine(repo, { limit = 100, pick = 12, windowDays = 14 } = {}) {
   clusters.sort((a, b) => b.shas.length - a.shas.length || a.file.localeCompare(b.file));
 
   const score = k => (k.has('revert') ? 3 : 0) + (k.has('fix') ? 2 : 0) + (k.has('repeat-fix') ? 2 : 0) + (k.has('test-with-fix') ? 1 : 0);
-  const candidates = kept
-    .filter(c => kinds.get(c.sha).size > 0)
+  const flagged = kept.filter(c => kinds.get(c.sha).size > 0);
+  // Few leads for the sample means this history describes its corrections without naming them.
+  const readAllSubjects = flagged.length < kept.length * LOW_SIGNAL;
+  const candidates = flagged
     .map((c, order) => ({ c, order, k: kinds.get(c.sha) }))
     .sort((a, b) => score(b.k) - score(a.k) || a.order - b.order)
     .slice(0, pick)
@@ -119,7 +130,7 @@ export function mine(repo, { limit = 100, pick = 12, windowDays = 14 } = {}) {
       return out;
     });
 
-  return { repo, branch, head: head.trim(), dirty, sampled: all.length, windowDays, candidates, clusters, skipped };
+  return { repo, branch, head: head.trim(), dirty, sampled: all.length, windowDays, readAllSubjects, candidates, clusters, skipped };
 }
 
 if (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url))) {

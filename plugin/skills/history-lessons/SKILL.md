@@ -29,7 +29,9 @@ them. The person approves each one first.
 2. **Mine.** Run
    `node <this skill>/scripts/mine-history.mjs --repo <path> > ~/.client-mode/lessons/<repo>/mine.json`.
    It samples the last 100 non-merge commits and ranks fixes, reverts, repeat fixes to one file,
-   and tests added with a fix. The subject line is a lead, not evidence.
+   and tests added with a fix. The subject line is a lead, not evidence. When `readAllSubjects`
+   is true, the history describes its corrections without naming them: read every subject in the
+   sample yourself.
 3. **Read the actual changes.** For up to 12 candidates, run `git show` and diff the before and
    after. Sort each one into a defect correction, a requirement change, a planned refactor, or
    unclear. Only defect corrections can become lessons. Count distinct incidents, not commits.

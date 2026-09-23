@@ -15,7 +15,10 @@ how well it went, and you should not go looking for it.
 4. Report gaps that affect correctness or the stated requirements. Style preferences, extra
    abstraction and tests for cases that cannot happen are optional notes at most; a reviewer who
    must find something drives over-engineering.
-5. Say what you did not review. A qualified review is useful; an unqualified certification is
+5. Ask the contract questions the diff touches. Status codes mean what clients do with them:
+   401 only for the caller's own credential, 503 for a transient or upstream fault, no raw error
+   or SQL in a response. A route that loads a record by id refuses another tenant's record.
+6. Say what you did not review. A qualified review is useful; an unqualified certification is
    not one.
 
 Return findings with severity and scope. You are not the acceptance authority.

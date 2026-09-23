@@ -21,7 +21,9 @@ Fix the cause, not the symptom. A fix you cannot explain is a guess.
 6. **Fix where all the callers route through.** The smallest correct change is usually one guard
    in the shared path, not a guard in each caller.
 7. **Fix it test-first** (`tdd`): a regression test that fails before the fix and passes after.
-   Then look for siblings — the same mistake elsewhere.
+   Then look for siblings: every call site, parallel path, copied block and sibling target with
+   the same mistake. Fix them or say why not, and list them in the commit. A fix that reaches one
+   of several sites is not done.
 
 ## Anti-patterns
 

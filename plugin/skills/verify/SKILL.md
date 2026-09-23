@@ -16,4 +16,8 @@ description: Use before claiming anything works - separates what you ran from wh
 5. Exit zero is not a pass. Zero discovered tests, unexpected skips, a stale candidate or an
    unparseable report are all rejections.
 
+6. A project with no pre-deploy test gate (CI that only deploys, or none) is a gap to report,
+   not a pass. Configuration is checked per stage: a value that works on staging says
+   nothing about production.
+
 Paste the command and its real output. A summary of a run nobody can reproduce is not evidence.

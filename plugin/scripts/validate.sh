@@ -188,6 +188,23 @@ for needle in "Read-only in the audited repository" "Silence counts as rejected"
 done
 [ -f skills/history-lessons/scripts/mine-history.mjs ] && ok "history-lessons ships scripts/mine-history.mjs" || err "history-lessons/scripts/mine-history.mjs missing"
 
+# Approved lessons from the 2026-09-23 history-lessons audit of real repositories.
+echo "== audited lessons stay in the skills =="
+while IFS='|' read -r skill needle; do
+  grep -qF "$needle" "skills/$skill/SKILL.md" && ok "$skill: $needle" || err "$skill lost: $needle"
+done <<'LESSONS'
+tdd|Fixtures must tell right from wrong
+tdd|at least one test through the real callee
+tdd|the same engine as production
+tdd|same shell options
+debug|list them in the commit
+verify|no pre-deploy test gate
+verify|Configuration is checked per stage
+review|401 only for the caller's own credential
+review|another tenant's record
+intake|including sibling repositories
+LESSONS
+
 # Every skill, command and agent description is loaded into every session; the body loads on use.
 echo "== descriptions stay short (loaded every session; <= 40 words) =="
 for f in skills/*/SKILL.md commands/*.md agents/*.md; do

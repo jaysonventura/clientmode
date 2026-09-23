@@ -44,7 +44,8 @@ convert a component to another language to make it easier to test.
 
 - **Unit** for logic: branches, parsing, calculations, state transitions.
 - **Integration** for boundaries you own: the database, HTTP handlers, the filesystem. Do not
-  mock the boundary you are testing.
+  mock the boundary you are testing. SQL, enum values, collation and locking are tested on
+  the same engine as production: sqlite or a fake connection accepts what MySQL rejects.
 - **End-to-end** for user journeys: `web-qa` for browsers, `mobile-qa` for devices.
 
 ## Prove the test is load-bearing
@@ -52,6 +53,14 @@ convert a component to another language to make it easier to test.
 A test that has never been seen failing measures nothing. When you add a test to existing code,
 or change a check, break the code it guards — revert the fix, flip the condition — confirm the
 test goes red, then restore it.
+
+- Fixtures must tell right from wrong. Ids 9 and 10 sort the same wrong way as text, a quantity of
+  1 hides a multiplier, and a missing field satisfies `!== 'other'`.
+- A test that asserts what a stub received needs at least one test through the real callee: the
+  stub cannot show that the callee honours the value.
+- Keep the real timing and environment. An async boundary gets an async fake, the spec passes on
+  its own, and a CI check is tried under the same shell options (`set -euo pipefail`) and
+  deployed configuration as CI.
 
 ## When test-first does not apply
 

@@ -13,12 +13,15 @@ Three layers, in order: the rules for what counts as evidence, the foundations, 
    of colour roles, one control shape. A token that exists in a stylesheet but is overridden on
    every element is not a design system.
 2. **Build the states, not just the happy one.** Loading, empty, error and success each need real
-   content: what happened and what to do next. An empty table is not an empty state.
+   content: what happened and what to do next. An empty table is not an empty state. A
+   server-authoritative action shows success only after the server confirms it; queued is pending.
 3. **Look at the rendered page.** Screenshots at the declared viewports, a keyboard walkthrough of
    the primary journey, 200% zoom, reduced motion. Measure the layout in the live document; a
    screenshot that exists is not a result.
 4. **A native target is observed on its platform.** A responsive web page is never the
-   deliverable for a native application, however good it looks on a phone-sized viewport.
+   deliverable for a native application, however good it looks on a phone-sized viewport. Each
+   runtime is its own target: a capability seen in Chrome or Android WebView is unverified in iOS
+   WKWebView.
 5. **Record where every asset came from and under what licence.** No competitor's logo, no
    unlicensed image. Generating one needs an available tool, permitted data transfer and
    approved cost.

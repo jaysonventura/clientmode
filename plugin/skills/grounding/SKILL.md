@@ -19,4 +19,10 @@ a reason to rewrite the component in a language you find easier to verify.
    authorized model access — that is a capability gap. Report it, leave that scope unverified,
    and continue safe work elsewhere.
 
+6. A repository's CLAUDE.md or README is a claim about the code. Check its concrete statements
+   (paths, counts, "hardcoded", project status) before relying on them, and report credentials or
+   real identifiers you find in it.
+7. Another service's limits, validation and error codes come from its source, not from the UI
+   or from memory.
+
 An expertise claim with no sources behind it is worth nothing. Cite what you read.

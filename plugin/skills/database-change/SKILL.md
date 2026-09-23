@@ -17,6 +17,9 @@ on the risk floor: T2 or higher, a security review and the full close, however s
    without approval.
 3. **Name what happens to every existing row:** new columns get a default or a backfill, renamed
    columns keep their data, and anything dropped is either intended or kept.
+4. **Name every other reader of the column** and every record already in flight. A backfill that
+   changes who owns or approves a record strands the ones under way; clearing a column can cut off
+   another feature. Enum values, uniqueness and collation come from the live schema, not a comment.
 
 ## Writing it
 
@@ -25,6 +28,8 @@ on the risk floor: T2 or higher, a security review and the full close, however s
 - Prefer additive steps: add, backfill, switch readers, then remove in a later release. A rename is
   add + copy + switch + drop.
 - Backfills run in batches, can resume, and are safe to run twice.
+- An invariant guard reads its inputs inside the transaction and must fail closed on an empty set:
+  `if (rows.length && …)` passes exactly when the guard is needed.
 - Unique constraints and foreign keys are validated against the existing data before they are
   added, not discovered when the migration fails.
 

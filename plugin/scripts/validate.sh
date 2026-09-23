@@ -203,6 +203,17 @@ verify|Configuration is checked per stage
 review|401 only for the caller's own credential
 review|another tenant's record
 intake|including sibling repositories
+review|never a device clock
+review|survives redelivery
+review|Debug output and temporary routes
+review|Per-tenant values come from one source
+debug|Removing a documented capability
+database-change|every other reader of the column
+database-change|fail closed on an empty set
+grounding|is a claim about the code
+grounding|from its source, not from the UI
+ui-ux|only after the server confirms it
+ui-ux|WKWebView
 LESSONS
 
 # Every skill, command and agent description is loaded into every session; the body loads on use.

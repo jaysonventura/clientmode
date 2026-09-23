@@ -43,3 +43,4 @@ Without the council command (other hosts), work its five lenses one after anothe
 history, known patterns, system interactions, adversarial inputs.
 
 Loosening a gate or adding workers to make a failure disappear is not a repair.
+Removing a documented capability to get a build green is a requirement change: ask first.

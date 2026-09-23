@@ -204,8 +204,10 @@ echo "== 4c-3. verify-wrap (exit codes get recorded, and it never bricks a test 
 wrap() { printf '{"session_id":"w1","tool_name":"Bash","tool_input":{"command":"%s"}}' "$1" | bash "$REPO/hooks/verify-wrap.sh" 2>&1; }
 # With no runnable cdt-verify it MUST stay silent: denying in favour of a binary that cannot run would
 # make the project's own test command un-runnable.
+# verify-wrap also looks on PATH, so drop every PATH dir holding a real install (e.g. ~/.local/bin).
 rm -f "$BIN/cdt-verify" 2>/dev/null
-lacks "$(wrap 'npm test')" 'deny' "no runnable cdt-verify -> never denies (fail-open)"
+NOVERIFY_PATH="$(printf '%s' "$PATH" | tr ':' '\n' | while IFS= read -r d; do [ -e "$d/cdt-verify" ] || printf '%s:' "$d"; done)"
+lacks "$(PATH="${NOVERIFY_PATH%:}" wrap 'npm test')" 'deny' "no runnable cdt-verify -> never denies (fail-open)"
 ln -sf "$REPO/toolkit/dist/cli/cdt-verify.js" "$BIN/cdt-verify" 2>/dev/null
 has "$(wrap 'npm test')" '"permissionDecision":"deny"' "denies a bare verify command"
 has "$(wrap 'npm test')" 'cdt-verify -- npm test' "tells the model the exact wrapped command"

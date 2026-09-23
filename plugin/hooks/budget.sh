@@ -6,7 +6,6 @@ set +e
 
 THRESHOLD="${CDT_ECO_THRESHOLD:-80}"; case "$THRESHOLD" in ''|*[!0-9]*) THRESHOLD=80 ;; esac
 CACHE="$HOME/.claude/.cdt-usage.json"
-ENV_FILE="${CDT_ENV_FILE:-$HOME/.claude/claude-dev-team.env}"
 
 command -v python3 >/dev/null 2>&1 || { echo "cdt-budget: python3 unavailable"; exit 0; }
 [ -f "$CACHE" ] || { echo "cdt-budget: usage unavailable — enable the status line (cdt-config statusline on), then run claude in a terminal once to populate it (VS Code/JetBrains: the integrated terminal)"; exit 0; }

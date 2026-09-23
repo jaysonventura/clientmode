@@ -62,7 +62,8 @@ jobs:
           assert "## Test first, always" in open(f"{home}/.gemini/GEMINI.md").read()
           assert json.load(open(f"{home}/.cursor/cli-config.json"))["approvalMode"] == "unrestricted"
           assert "security" not in json.load(open(f"{home}/.gemini/settings.json")) if os.path.exists(f"{home}/.gemini/settings.json") else True
-          assert len(os.listdir(f"{home}/.agents/skills")) == 20
+          skills = [d for d in os.listdir(os.path.join(os.environ["GITHUB_WORKSPACE"], "plugin/skills")) if os.path.isfile(os.path.join(os.environ["GITHUB_WORKSPACE"], "plugin/skills", d, "SKILL.md"))]
+          assert len(os.listdir(f"{home}/.agents/skills")) == len(skills), (len(os.listdir(f"{home}/.agents/skills")), len(skills))
           print("hosts configured:", hosts)
           PY
           mkdir -p "$RUNNER_TEMP/project" && cd "$RUNNER_TEMP/project" && cm handoff

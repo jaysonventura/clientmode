@@ -325,7 +325,7 @@ done
 ok "description lengths checked"
 
 echo "== skill size ceilings (always-triggered skills stay short) =="
-for pair in orchestration:1500; do
+for pair in orchestration:1500 tooling:800; do
   s="${pair%%:*}"; max="${pair##*:}"; words="$(wc -w < "skills/$s/SKILL.md" | tr -d ' ')"
   if [ "$words" -le "$max" ]; then ok "skills/$s/SKILL.md $words words (<= $max)"; else err "skills/$s/SKILL.md is $words words (ceiling $max) — move mode-specific detail to references/"; fi
 done

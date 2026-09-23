@@ -133,7 +133,7 @@ if [ "$GATE" != "off" ] && [ "$_DOCS_ONLY" != 1 ]; then
       echo "claude-dev-team: ⚠ verification FAILED — $(printf '%s' "$_FAILING" | tr '\n' ';') (cdt-config verify block to enforce)" >&2
     else
       db_event verify_gate "block-failed ($_IT)" "${SESSION_ID:-}" 2>/dev/null
-      _REASON="claude-dev-team: VERIFICATION FAILED — this is not done. Currently red: $(printf '%s' "$_FAILING" | tr '\n' ';' | sed 's/"/\\"/g'). Task Loop iteration $_IT/$_MAXIT: diagnose the failure, fix the root cause (not the symptom), then re-run the SAME command via 'cdt-verify -- <cmd>' so the exit code is recorded.$_ESC Do not claim success while this is red."
+      _REASON="claude-dev-team: VERIFICATION FAILED — this is not done. Currently red: $(printf '%s' "$_FAILING" | tr '\n' ';' | sed 's/"/\\"/g'). Task Loop iteration $_IT/$_MAXIT: diagnose the failure, fix the root cause (not the symptom), then re-run the SAME command via '~/.claude/bin/cdt-verify -- <cmd>' so the exit code is recorded.$_ESC Do not claim success while this is red."
       printf '{"decision":"block","reason":"%s"}\n' "$_REASON"
       exit 0
     fi
@@ -160,7 +160,10 @@ if [ "$GATE" != "off" ] && [ "$_DOCS_ONLY" != 1 ]; then
         echo "claude-dev-team: ⚠ edits were made but no verified test/build/lint/typecheck run followed — verify before trusting this as done (cdt-config verify off to silence)." >&2
       else
         db_event verify_gate "block" "${SESSION_ID:-}" 2>/dev/null
-        _R="claude-dev-team: edits were made but no verifying command (test / build / lint / typecheck) ran afterward with a recorded result. Run the project's verifying command as 'cdt-verify -- <cmd>' so its real exit code is captured, then stop. If a subagent already ran it, re-run it through cdt-verify. (Soften: cdt-config verify warn|off.)"
+        _R="claude-dev-team: edits were made but no verifying command (test / build / lint / typecheck) ran afterward with a recorded result. Run the project's verifying command as '~/.claude/bin/cdt-verify -- <cmd>' so its real exit code is captured, then stop. If a subagent already ran it, re-run it through cdt-verify. (Soften: cdt-config verify warn|off.)"
+        if [ ! -x "$CDT_HOME/bin/cdt-verify" ] || [ ! -e "$CDT_HOME/bin/cdt-verify" ]; then
+          _R="claude-dev-team: edits were made but no verifying command (test / build / lint / typecheck) ran afterward. cdt-verify is not installed on this machine yet, so run the project's check normally and paste its output (to install it: cm install, or open a new session and let the bootstrap build the toolkit). (Soften: cdt-config verify warn|off.)"
+        fi
         [ -z "$_TKDIST" ] && _R="$_R NOTE: the toolkit is not built, so only degraded evidence is available."
         printf '{"decision":"block","reason":"%s"}\n' "$_R"
         exit 0
@@ -220,7 +223,7 @@ PYC
       echo "claude-dev-team: ⚠ the reply claims success but recorded verification is $_EV." >&2
     else
       db_event claim_gate "block" "${SESSION_ID:-}" 2>/dev/null
-      printf '{"decision":"block","reason":"%s"}\n' "claude-dev-team: your reply claims success — \"$(printf '%s' "$_CLAIM" | sed 's/"/\\"/g')\" — but the recorded verification is $_EV. Either produce the evidence (re-run the verifying command via 'cdt-verify -- <cmd>' and let it pass), or correct the claim: say what is actually red/unverified and report it as PARTIAL or BLOCKER. Do not restate success without evidence. (Soften: cdt-config claim warn|off.)"
+      printf '{"decision":"block","reason":"%s"}\n' "claude-dev-team: your reply claims success — \"$(printf '%s' "$_CLAIM" | sed 's/"/\\"/g')\" — but the recorded verification is $_EV. Either produce the evidence (re-run the verifying command via '~/.claude/bin/cdt-verify -- <cmd>' and let it pass), or correct the claim: say what is actually red/unverified and report it as PARTIAL or BLOCKER. Do not restate success without evidence. (Soften: cdt-config claim warn|off.)"
       exit 0
     fi
   fi
@@ -314,7 +317,7 @@ except Exception:
 for w in (d.get("stagingWarnings") or []):
     print("claude-dev-team: ⚠ STAGING GUARD: " + str(w))
 if d.get("hookOnly"):
-    print("claude-dev-team: a verify command ran but not via cdt-verify — re-run as 'cdt-verify -- <cmd>' to record trusted evidence.")
+    print("claude-dev-team: a verify command ran but not via cdt-verify — re-run as '~/.claude/bin/cdt-verify -- <cmd>' to record trusted evidence.")
 # TASK_RESULT.json is the machine source of truth (already written by the engine). This is a one-shot,
 # non-blocking nudge so the final reply matches the recorded result — it never blocks or loops.
 if os.environ.get("CDT_FR") == "1" and d.get("finalResponse"):

@@ -510,6 +510,24 @@ _link_toolkit() {
   for n in cdt cdt-prompt cdt-spec cdt-verify; do
     [ -f "$d/cli/$n.js" ] && ln -sf "$d/cli/$n.js" "$b/$n" 2>/dev/null
   done
+  # `cm install` passes its launcher directory (already on PATH) so a shell finds cdt-verify by name.
+  if [ -n "${CDT_LINK_BIN_DIR:-}" ] && mkdir -p "$CDT_LINK_BIN_DIR" 2>/dev/null; then
+    for n in cdt cdt-prompt cdt-spec cdt-verify; do
+      [ -f "$d/cli/$n.js" ] && ln -sf "$d/cli/$n.js" "$CDT_LINK_BIN_DIR/$n" 2>/dev/null
+    done
+  fi
+  return 0
+}
+
+# cmd_toolkit — build and link the toolkit now. `cm install` runs it right after it replaces the toolkit
+# copy, so cdt-verify works before the first session. An explicit install is a fresh attempt: the retry
+# window that stops a SessionStart from rebuilding a failed build every session does not apply.
+cmd_toolkit() {
+  _say() { printf '%s\n' "$1"; }
+  local tk; tk="$(cd "$_HERE/../toolkit" 2>/dev/null && pwd)" || { _say "cdt-plugins toolkit: no toolkit directory"; return 0; }
+  rm -f "$tk/.cdt-build-attempted" 2>/dev/null
+  _ensure_toolkit
+  [ -f "$tk/dist/cli/cdt-verify.js" ] && _link_toolkit "$tk"
   return 0
 }
 
@@ -631,6 +649,7 @@ case "${1:-list}" in
   explain)         cmd_explain "${2:-}" ;;
   sync)            cmd_sync ;;
   bootstrap)       cmd_bootstrap "${2:-}" ;;
+  toolkit)         cmd_toolkit ;;
   enable)          _toggle enable "${2:-}" ;;
   disable)         _toggle disable "${2:-}" ;;
   install)         _acquire install "${2:-}" ;;

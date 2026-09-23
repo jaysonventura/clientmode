@@ -116,3 +116,28 @@ test('a stamp from the future (clock skew) does not block the retry', () => {
   bootstrap(s);
   assert.ok(npmCalls(s) > 0, 'a future stamp blocked the build');
 });
+
+// `cm install` runs `plugins.sh toolkit` so cdt-verify works the moment the install finishes: the
+// install replaces the toolkit copy, and links into the old one would otherwise dangle until a later
+// SessionStart finished a background build.
+function toolkitCommand(s: Sandbox, binDir: string): void {
+  const run = spawnSync('bash', [path.join(s.dir, 'plugin/hooks/plugins.sh'), 'toolkit'],
+    { env: { ...s.env, CDT_LINK_BIN_DIR: binDir }, encoding: 'utf8', input: '' });
+  assert.equal(run.status, 0, run.stderr);
+}
+
+test('the install-time toolkit command builds and links cdt-verify where a shell can find it', () => {
+  const s = sandbox('ok');
+  const binDir = path.join(s.dir, 'launcher-bin');
+  toolkitCommand(s, binDir);
+  for (const link of [path.join(s.home, '.claude/bin/cdt-verify'), path.join(binDir, 'cdt-verify')]) {
+    assert.ok(existsSync(link), `${link} is missing or dangling`);
+  }
+});
+
+test('the install-time toolkit command builds even inside a failed build retry window', () => {
+  const s = sandbox('ok');
+  writeFileSync(stamp(s), String(Math.floor(Date.now() / 1000)));
+  toolkitCommand(s, path.join(s.dir, 'launcher-bin'));
+  assert.ok(existsSync(path.join(s.home, '.claude/bin/cdt-verify')), 'an explicit install must not wait out the retry window');
+});

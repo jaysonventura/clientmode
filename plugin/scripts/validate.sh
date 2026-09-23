@@ -100,6 +100,10 @@ else
   echo "  skip: shellcheck not installed (local)"
 fi
 
+echo "== the verify command the hooks name is one a shell can run =="
+# ~/.claude/bin is not on PATH, so a bare 'cdt-verify -- <cmd>' in a hook message fails as "command not found".
+if grep -n "'cdt-verify -- " hooks/*.sh >/dev/null 2>&1; then err "a hook message names bare cdt-verify: $(grep -ln "'cdt-verify -- " hooks/*.sh | tr '\n' ' ')"; else ok "hook messages give the full cdt-verify path"; fi
+
 echo "== hard dependencies are only the required companions =="
 # plugin-dependencies docs: a missing or disabled dependency disables the dependent plugin. Optional
 # companions are installed by the SessionStart bootstrap instead, so disabling one never disables cm.

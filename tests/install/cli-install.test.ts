@@ -164,3 +164,21 @@ test('--no-autonomy leaves every permission setting exactly as it was', () => {
   assert.equal(existsSync(path.join(h.home, '.gemini', 'GEMINI.md')), false, 'only the hosts asked for');
   assert.ok(statSync(path.join(h.home, '.agents', 'skills', 'cm-tdd')).isDirectory());
 });
+
+// The install leaves everything Client Mode needs working, not waiting for a later session: the toolkit
+// is built and cdt-verify is linked into the launcher directory, which is on PATH. A fake npm stands in
+// for the registry so the test never reaches the network.
+test('install builds the toolkit and puts cdt-verify on PATH; uninstall takes it back out', () => {
+  const h = disposableHome();
+  const fakeNpm = path.join(h.home, '.path', 'npm');
+  writeFileSync(fakeNpm, '#!/bin/sh\nmkdir -p dist/cli node_modules && for n in hook cdt cdt-prompt cdt-spec cdt-verify; do echo "" > dist/cli/$n.js; done\n');
+  spawnSync('chmod', ['755', fakeNpm]);
+  const installed = cm(h, ['install', '--host', 'claude', '--bin-dir', h.bin]);
+  assert.equal(installed.status, 0, installed.stderr + installed.stdout);
+  const link = path.join(h.bin, 'cdt-verify');
+  assert.ok(existsSync(link), `cdt-verify is not on PATH after install:\n${installed.stdout}`);
+  assert.ok(existsSync(path.join(h.home, '.claude/bin/cdt-verify')), 'the hooks cannot find cdt-verify');
+  const removed = cm(h, ['uninstall']);
+  assert.equal(removed.status, 0, removed.stderr);
+  assert.ok(!existsSync(link), 'uninstall left cdt-verify behind');
+});

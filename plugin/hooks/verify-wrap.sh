@@ -51,12 +51,12 @@ cdt_verify_match "$CMD" || exit 0
 # rewriting it would change its semantics. Nudge, never block.
 case "$CMD" in
   *"|"*|*"&&"*|*";"*)   # `|` already covers `||`
-    [ "$MODE" = "block" ] && echo "claude-dev-team: verify command is part of a chain — run the verifying part alone as 'cdt-verify -- <cmd>' to record trusted evidence." >&2
+    [ "$MODE" = "block" ] && echo "claude-dev-team: verify command is part of a chain — run the verifying part alone as '~/.claude/bin/cdt-verify -- <cmd>' to record trusted evidence." >&2
     exit 0 ;;
 esac
 
 if [ "$MODE" = "warn" ]; then
-  echo "claude-dev-team: ⚠ run this as 'cdt-verify -- $CMD' so its exit code is recorded as trusted evidence." >&2
+  echo "claude-dev-team: ⚠ run this as '~/.claude/bin/cdt-verify -- $CMD' so its exit code is recorded as trusted evidence." >&2
   exit 0
 fi
 

@@ -170,7 +170,7 @@ show() {
   echo "  model     : ${mdl:-(unset → the account default)}"
   echo "  eco       : $eco   (default off; auto = conserve when weekly usage is high; on | off | auto)"
   echo "  verify    : $vg   (block | warn | off — a Stop whose recorded verification is FAILED or missing cannot finish; loops up to $mi iterations)"
-  echo "  verify-wrap: $vw  (block | warn | off — bare test/build/lint commands are redirected through 'cdt-verify -- <cmd>' so a real exit code is recorded)"
+  echo "  verify-wrap: $vw  (block | warn | off — bare test/build/lint commands are redirected through '~/.claude/bin/cdt-verify -- <cmd>' so a real exit code is recorded)"
   echo "  claim     : $cg   (block | warn | off — a final reply asserting done/fixed/passing while the evidence is red or absent is blocked)"
   echo "  scope     : $sg   (warn | block | off — flag a subagent that wrote outside its exclusive contract)"
   echo "  memory    : $mg   (warn | block | off — nudge a team-tier session to persist a vault lesson)"
@@ -381,7 +381,7 @@ case "${1:-show}" in
   verify-wrap)
     case "$2" in
       block|warn|off) set_env CDT_VERIFY_WRAP "$2"
-              echo "claude-dev-team: verify-wrap = $2 (default block — a bare test/build/lint command is denied with an instruction to re-run it as 'cdt-verify -- <cmd>', because only that records a real exit code. Never denies when cdt-verify is not runnable)." ;;
+              echo "claude-dev-team: verify-wrap = $2 (default block — a bare test/build/lint command is denied with an instruction to re-run it as '~/.claude/bin/cdt-verify -- <cmd>', because only that records a real exit code. Never denies when cdt-verify is not runnable)." ;;
       *) echo "cdt-config: verify-wrap must be one of: block | warn | off" ;;
     esac ;;
   claim)

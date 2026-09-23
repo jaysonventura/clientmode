@@ -8,6 +8,7 @@
  * from that record alone: it restores the values that were replaced, removes what was created, and
  * leaves anything the person changed since then exactly as they left it.
  */
+import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { applyAutonomy, restoreAutonomy, type AutonomyChange } from '../../../packages/packaging/src/autonomy.js';
@@ -146,6 +147,21 @@ export async function setupHosts(input: SetupInput): Promise<{ lines: string[]; 
     toolkitRoot = finalToolkit;
     launchers = writeLauncher({ bin_dir: input.bin_dir, toolkit_root: finalToolkit, node: process.execPath });
   }
+  // Everything Client Mode needs works when the install finishes, not after a later session: replacing
+  // the toolkit copy left the old cdt-* links dangling, and until a SessionStart finished a background
+  // build every hook that asked for cdt-verify failed. The build also links cdt-* into the launcher
+  // directory, which is on PATH; those links are recorded so uninstall removes them.
+  const claudeLayout = layouts.find(layout => layout.host === 'claude');
+  const pluginHooks = toolkitRoot === null ? null : path.join(toolkitRoot, 'plugin', 'hooks', 'plugins.sh');
+  const hookEnv = claudeLayout === undefined ? null : { ...input.env, CDT_HOME: claudeLayout.config_root, CDT_LINK_BIN_DIR: input.bin_dir };
+  if (pluginHooks !== null && hookEnv !== null && process.platform !== 'win32' && existsSync(pluginHooks)) {
+    const built = spawnSync('bash', [pluginHooks, 'toolkit'], { env: hookEnv, encoding: 'utf8', timeout: 600_000 });
+    const linked = ['cdt', 'cdt-prompt', 'cdt-spec', 'cdt-verify'].map(name => path.join(input.bin_dir, name)).filter(file => existsSync(file));
+    launchers.push(...linked);
+    if (!linked.includes(path.join(input.bin_dir, 'cdt-verify'))) {
+      notes.push(`cdt-verify is not built yet (${(built.stdout ?? '').trim().split('\n').pop() ?? 'no output'}); the next Claude Code session retries in the background`);
+    }
+  }
   const contentRoot = toolkitRoot ?? input.source_root;
   const records: SetupRecord[] = [];
 
@@ -174,6 +190,13 @@ export async function setupHosts(input: SetupInput): Promise<{ lines: string[]; 
     notes.push(...autonomy.notes, ...(plugin?.notes ?? []), ...(codexHook?.notes ?? []));
   }
 
+  // The required companion plugins (superpowers, code-review, frontend-design, context7) are installed now
+  // too; optional ones stay opt-in (CDT_PLUGIN_AUTO_INSTALL). Needs the claude CLI; without it the
+  // SessionStart bootstrap does the same on the first session.
+  if (pluginHooks !== null && hookEnv !== null && process.platform !== 'win32' && existsSync(pluginHooks) && input.install_root === null && findExecutable('claude', input.env) !== null) {
+    const companions = spawnSync('bash', [pluginHooks, 'bootstrap', '--quiet'], { env: hookEnv, encoding: 'utf8', timeout: 600_000 });
+    lines.push(companions.status === 0 ? 'claude: required companion plugins checked' : 'claude: companion plugins not checked; the next session retries');
+  }
   lines.push(toolkitRoot === null ? `toolkit: not built; cm runs from ${input.source_root}` : `toolkit: ${toolkitRoot}`);
   if (launchers.length > 0) lines.push(`launcher: ${launchers.join(', ')}`);
   return { lines, notes, records, toolkit_error: null };

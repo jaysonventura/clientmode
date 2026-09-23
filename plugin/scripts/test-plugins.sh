@@ -538,7 +538,14 @@ HARNESS
   [ "$bun_ok" = 1 ] && pass 41 "bun: brew->npm->remediation, one-shot stamp, 3 guards each block it"
 fi
 
+echo "== Installed CLI (the names session-start-vault.sh copies into ~/.claude/bin) =="
+# (47) cdt-plugins run from $BIN must find its library under the installed name cdt-plugins-lib.sh
+IBIN="$SBX/installed-bin"; mkdir -p "$IBIN"
+cp "$PSH" "$IBIN/cdt-plugins"; cp "$LIB" "$IBIN/cdt-plugins-lib.sh"; chmod +x "$IBIN/cdt-plugins"
+out="$(CDT_HOME="$SBX/no-such-home" bash "$IBIN/cdt-plugins" doctor 2>&1)"
+lack 47 "installed cdt-plugins finds cdt-plugins-lib.sh beside it" "$out" "cannot find plugins-lib.sh"
+
 echo
-echo "PASSED $PASS/46"
+echo "PASSED $PASS/47"
 [ "$BLOCKED" -gt 0 ] && echo "($BLOCKED scenario(s) BLOCKED on sibling hooks not yet built — see BLOCKED lines above)"
-if [ "$PASS" -eq 46 ]; then echo "ALL PLUGIN TESTS PASSED"; exit 0; else echo "PLUGIN TESTS INCOMPLETE OR FAILING"; exit 1; fi
+if [ "$PASS" -eq 47 ]; then echo "ALL PLUGIN TESTS PASSED"; exit 0; else echo "PLUGIN TESTS INCOMPLETE OR FAILING"; exit 1; fi

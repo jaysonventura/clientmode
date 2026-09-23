@@ -12,13 +12,14 @@ CDT_HOME="${CDT_HOME:-$HOME/.claude}"
 BIN="$CDT_HOME/bin"
 
 # --- source the frozen detection library (dirname sibling, then $BIN; CDT_PLUGINS_LIB overrides) -----
+# In the repo it is hooks/plugins-lib.sh; session-start-vault.sh installs it as $BIN/cdt-plugins-lib.sh.
 _HERE="$(cd "$(dirname "$0")" 2>/dev/null && pwd)"
 _LIB=""
-for _c in "${CDT_PLUGINS_LIB:-}" "$_HERE/plugins-lib.sh" "$BIN/plugins-lib.sh"; do
+for _c in "${CDT_PLUGINS_LIB:-}" "$_HERE/plugins-lib.sh" "$_HERE/cdt-plugins-lib.sh" "$BIN/cdt-plugins-lib.sh"; do
   [ -n "$_c" ] && [ -r "$_c" ] && { _LIB="$_c"; break; }
 done
 if [ -z "$_LIB" ]; then
-  echo "cdt-plugins: cannot find plugins-lib.sh (looked in ${_HERE} and ${BIN})." >&2
+  echo "cdt-plugins: cannot find plugins-lib.sh or cdt-plugins-lib.sh (looked in ${_HERE} and ${BIN})." >&2
   echo "             open a fresh Claude Code session to reinstall the CLIs." >&2
   exit 1
 fi

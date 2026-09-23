@@ -19,6 +19,6 @@ Then:
 3. Proceed with the orchestration workflow using the routing as a prior.
 
 Notes:
-- Haiku enhancement (via `claude --bare -p`, your existing login) is used only for genuinely unclear / risky
+- Haiku enhancement (via `claude -p` with your existing login; `--bare` would skip the login) is used only for genuinely unclear / risky
   / spec-driven prompts and never for sensitive or very short ones.
 - `TASK_RESULT.json` (written at Stop) is local-only — nothing is sent anywhere.

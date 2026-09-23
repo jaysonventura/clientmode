@@ -8,7 +8,7 @@ set +e
 
 INPUT="$(cat 2>/dev/null)"
 
-# Recursion guard: the nested `claude --bare -p` enhancer runs with CDT_IN_ENHANCER=1.
+# Recursion guard: the nested `claude -p` enhancer (not --bare: it needs the login) runs with CDT_IN_ENHANCER=1.
 [ "${CDT_IN_ENHANCER:-0}" = "1" ] && exit 0
 
 CDT_HOME="$HOME/.claude"

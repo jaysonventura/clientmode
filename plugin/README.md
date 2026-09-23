@@ -646,7 +646,7 @@ flowchart TD
 ```
 
 Anti-abandonment: agents must emit a structured `BLOCKER` rather than quit or fake success. The loop
-stops after `CDT_MAX_ITERATIONS` (default 5) and reports what's left — protecting your Max rate limits.
+stops after `CDT_MAX_ITERATIONS` (default 3) and reports what's left — protecting your Max rate limits.
 
 > **DEPTH upgrade.** With agent teams enabled (`cdt-config teams on`), the Council convenes as a
 > *debating* **agent-team** — a shared task list + mailbox so the five lenses challenge each other before
@@ -924,7 +924,7 @@ prefix is fixed by Claude Code.
 |---------|---------|---------|
 | session model | your choice | Sonnet = cheap throughput; Opus = max power |
 | `FULL:` / `T0:` prefixes | — | up/down-throttle a single request |
-| `CDT_MAX_ITERATIONS` | 5 | Task Loop hard cap |
+| `CDT_MAX_ITERATIONS` | 3 | Task Loop hard cap |
 | `CDT_AUTONOMY` | auto | autonomous escalation leash: `off` / `assist` / `auto` |
 | `CDT_TEAMS` · `CDT_SCALE` | on · on | the DEPTH (agent-team) / BREADTH (workflow) engines — on by default |
 | `CDT_AUTONOMY_WEEKLY_CEILING` | 85 | budget safety valve pauses to ASK at/above this weekly usage % |

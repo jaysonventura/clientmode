@@ -169,10 +169,10 @@ Stop hook re-blocks while the recorded verdict is red, so skipping it is not an 
    `cdt-verify`** so the fix is proven, not asserted.
 4. **Anti-abandonment:** an agent must emit a structured `BLOCKER` (what failed, what it tried, what it
    needs) — never silently quit or fake success.
-5. **Stuck-loop detection:** the *same* command failing with the *same* signature **twice** → the Stop hook
-   itself tells you to escalate to the **Bug Council** (Step 3c). Heed it: a third identical patch attempt
-   is wasted budget.
-6. **Hard cap:** the loop stops blocking after `CDT_MAX_ITERATIONS` (default 5). That is **not permission
+5. **Stuck-loop detection:** the second failed fix for the same failure is the last one — the Stop hook
+   says so. Stop editing, report reproduction / evidence / suspected cause / what was tried / what is
+   unknown, and escalate to the **Bug Council** (Step 3c).
+6. **Hard cap:** the loop stops blocking after `CDT_MAX_ITERATIONS` (default 3). That is **not permission
    to claim success** — the claim gate still blocks a "done/fixed/passing" reply while the evidence is red.
    Mark the task `DEFERRED`/`BLOCKER`, report what is still failing, and summarize what's left.
 

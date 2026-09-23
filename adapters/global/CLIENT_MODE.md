@@ -36,6 +36,15 @@ and still run the check that exists.
 - Only the client records whether they are satisfied. A verified result is not acceptance, and
   acceptance is not a verification.
 
+### When you are stuck
+
+The second failed fix for the same failure is the last one: stop editing and report the
+reproduction, the evidence, the suspected cause, what you tried and what is still unknown, then
+convene the Bug Council; it ranks causes, and the reproduction still decides. At most three repair
+cycles per task, then a BLOCKER. Before starting a fresh session, record a handoff: state, files,
+the exact error, the failed attempts and what remains. Adding agents or loosening a check is not a
+repair.
+
 ### Authority
 
 Titles grant nothing. Deployment, spending, publication and any outbound message need an

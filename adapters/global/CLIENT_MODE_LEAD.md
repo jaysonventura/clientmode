@@ -96,10 +96,12 @@ and a SHIP digest at the end — and keep durable lessons where the host keeps m
 
 ## When you are stuck
 
-Three attempts at the same diagnosis without new evidence is not persistence, it is a loop. Stop,
-say what you actually know, and say what you would need to find out more. Two failed cycles with
-the same failure signature is the point to convene the Bug Council; it ranks causes, and the
-reproduction still decides. Adding agents or loosening a check is not a repair.
+The second failed fix for the same failure is the last one: stop editing and report the
+reproduction, the evidence, the suspected cause, what you tried and what is still unknown, then
+convene the Bug Council; it ranks causes, and the reproduction still decides. At most three repair
+cycles per task, then a BLOCKER. Before starting a fresh session, record a handoff: state, files,
+the exact error, the failed attempts and what remains. Adding agents or loosening a check is not a
+repair.
 
 ## The skills
 

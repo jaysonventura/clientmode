@@ -96,17 +96,18 @@ clrm vgf; lclr vgf; vclear; edit vgf; vevent "npm test" 1
 OUT1="$(stop vgf)"
 has "$OUT1" '"decision":"block"' "blocks on a trusted FAILING verify event"
 has "$OUT1" 'npm test' "the block names the failing command"
-has "$OUT1" 'iteration 1/5' "the block reports the Task Loop iteration"
+has "$OUT1" 'iteration 1/3' "the block reports the Task Loop iteration"
 OUT2="$(stop vgf)"
-has "$OUT2" 'iteration 2/5' "a red verdict blocks AGAIN (loop), not once-per-session"
+has "$OUT2" 'iteration 2/3' "a red verdict blocks AGAIN (loop), not once-per-session"
 has "$OUT2" 'bug-council' "an unchanged failure signature escalates to the Bug Council"
+has "$OUT2" 'Stop editing' "a repeated failure signature says stop editing and diagnose"
 # (e) fixing it turns the verdict green and releases the loop
 vevent "npm test" 0
 lacks "$(stop vgf)" '"decision":"block"' "a passing re-run releases the loop"
 # (f) the loop is capped — it must never trap a session forever
 clrm vgx; lclr vgx; vclear; edit vgx; vevent "npm test" 1
-i=0; while [ "$i" -lt 5 ]; do stop vgx >/dev/null 2>&1; i=$((i+1)); done
-lacks "$(stop vgx)" '"decision":"block"' "stops blocking after CDT_MAX_ITERATIONS"
+i=0; while [ "$i" -lt 3 ]; do stop vgx >/dev/null 2>&1; i=$((i+1)); done
+lacks "$(stop vgx)" '"decision":"block"' "stops blocking after CDT_MAX_ITERATIONS (default 3, spec §11)"
 has "$(stop vgx 2>&1)" "BLOCKER" "reports the capped session as BLOCKER, not done"
 # (g) stale evidence: a green run from BEFORE the edit proves nothing about the code that replaced it
 clrm vgt; lclr vgt; vclear; vevent "npm test" 0 "2020-01-01T00:00:00Z"; edit vgt

@@ -115,7 +115,7 @@ show() {
   local vg; vg="$(get_env CDT_VERIFY_GATE)"; [ -z "$vg" ] && vg="block"
   local vw; vw="$(get_env CDT_VERIFY_WRAP)"; [ -z "$vw" ] && vw="block"
   local cg; cg="$(get_env CDT_CLAIM_GATE)"; [ -z "$cg" ] && cg="block"
-  local mi; mi="$(get_env CDT_MAX_ITERATIONS)"; [ -z "$mi" ] && mi="5"
+  local mi; mi="$(get_env CDT_MAX_ITERATIONS)"; [ -z "$mi" ] && mi="3"
   local sg; sg="$(get_env CDT_SCOPE_GATE)"; [ -z "$sg" ] && sg="warn"
   local mg; mg="$(get_env CDT_MEMORY_GATE)"; [ -z "$mg" ] && mg="warn"
   local tk pe pm pef; tk="$(get_env CDT_TOOLKIT_ENABLED)"; [ -z "$tk" ] && tk="1"; pe="$(get_env CDT_PROMPT_ENHANCE)"; [ -z "$pe" ] && pe="true"; pm="$(get_env CDT_PROMPT_ENHANCE_MODE)"; [ -z "$pm" ] && pm="auto"; pef="$(get_env CDT_PROMPT_EFFORT)"; [ -z "$pef" ] && pef="medium"
@@ -379,7 +379,7 @@ case "${1:-show}" in
     esac ;;
   max-iterations)
     case "$2" in
-      ''|*[!0-9]*) echo "cdt-config: usage: cdt-config max-iterations <n>  (default 5 — Task Loop cap before a red session is reported as BLOCKER instead of retried)" ;;
+      ''|*[!0-9]*) echo "cdt-config: usage: cdt-config max-iterations <n>  (default 3 — Task Loop cap before a red session is reported as BLOCKER instead of retried)" ;;
       *) set_env CDT_MAX_ITERATIONS "$2"; echo "claude-dev-team: Task Loop cap = $2 iterations." ;;
     esac ;;
   scope)

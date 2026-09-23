@@ -97,7 +97,8 @@ if [ "$GATE" != "off" ] && [ "$_DOCS_ONLY" != 1 ]; then
   VBLOCK="${TMPDIR:-/tmp}/cdt-verify-blocked-${SESSION_ID:-default}.marker"
 
   _MAXIT="$(grep -E '^CDT_MAX_ITERATIONS=' "$CDT_HOME/claude-dev-team.env" 2>/dev/null | head -1 | cut -d= -f2-)"
-  case "$_MAXIT" in ''|*[!0-9]*) _MAXIT=5 ;; esac
+  # Three repair cycles per task, then BLOCKER (ENGINEERING_HANDOVER §11, packages/core/src/router.ts).
+  case "$_MAXIT" in ''|*[!0-9]*) _MAXIT=3 ;; esac
 
   # Iteration + signature state: "<count>\n<signature>". The signature is the set of currently-red commands;
   # seeing the SAME one twice means the last fix attempt changed nothing, which is the Bug Council trigger.
@@ -114,7 +115,7 @@ if [ "$GATE" != "off" ] && [ "$_DOCS_ONLY" != 1 ]; then
     printf '%s\n%s\n' "$_IT" "$_SIG" > "$LOOPSTATE" 2>/dev/null
     _ESC=""
     [ -n "$_PREVSIG" ] && [ "$_PREVSIG" = "$_SIG" ] && \
-      _ESC=" The SAME command(s) failed identically last iteration — the last fix changed nothing. Stop patching and diagnose: run /cm:bug-council for a root-cause verdict before editing again."
+      _ESC=" The SAME command(s) failed identically last iteration — the last fix changed nothing. Stop editing and diagnose: state the reproduction, the evidence, the suspected cause, what was tried and what is still unknown; run /cm:bug-council for a root-cause verdict before editing again."
     if [ "$_IT" -gt "$_MAXIT" ]; then
       # Cap reached. Stop blocking (never trap a session forever) but forbid a success claim: the P3 gate
       # below reads this marker and blocks any "done/fixed/passing" wording while the evidence is red.

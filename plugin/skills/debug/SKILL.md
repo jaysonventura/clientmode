@@ -32,9 +32,12 @@ layer above the real cause.
 ## When stuck
 
 Repeating the same diagnosis without new evidence is not another attempt; it is a blocker.
-Two failed cycles with the same failure signature: convene the Bug Council (`/cm:bug-council` in
-Claude Code; elsewhere, work the five lenses — root cause, history, known patterns, system
-interactions, adversarial inputs — one after another). The council ranks causes; the reproduction
-still decides. Three repair cycles per task, then record what you tried and stop.
+The second failed fix for the same failure is the last one: stop editing and report the
+reproduction, the evidence, the suspected cause, what you tried and what is still unknown, then
+convene the Bug Council; it ranks causes, and the reproduction still decides. At most three repair
+cycles per task, then a BLOCKER. Before starting a fresh session, record a handoff: state, files,
+the exact error, the failed attempts and what remains.
+Without the council command (other hosts), work its five lenses one after another: root cause,
+history, known patterns, system interactions, adversarial inputs.
 
 Loosening a gate or adding workers to make a failure disappear is not a repair.

@@ -31,7 +31,7 @@ doctor → build/deploy → launch → read the accessibility tree → act → a
    exit code is evidence. Evidence recorded *before* your last edit is stale and does not count.
 8. **Bounded.** Same command + same failure signature twice → **stuck loop**: escalate to the
    **Bug Council** (`/cm:bug-council`); do not attempt a third identical patch. Hard cap
-   `CDT_MAX_ITERATIONS` (default 5). Hitting it is **not** permission to claim success — report
+   `CDT_MAX_ITERATIONS` (default 3). Hitting it is **not** permission to claim success — report
    `DEFERRED`/`BLOCKER` with what is still red.
 
 This is `skills/orchestration/SKILL.md` STEP 3b applied to a UI. Same vocabulary, same gate.

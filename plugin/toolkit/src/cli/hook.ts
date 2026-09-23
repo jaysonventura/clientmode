@@ -44,7 +44,7 @@ async function promptMode(): Promise<void> {
   if (str(input.permission_mode) === 'plan') return;
 
   const ik = intake(str(input.prompt));
-  if (!ik.normalized || ik.isSlashCommand) return;
+  if (!ik.normalized || ik.isSlashCommand || ik.isHarnessEvent) return;
 
   const hash = promptHash(ik.normalized, root);
   if (hasProcessed(hash, root)) return; // already processed this prompt — no re-run/rewrite

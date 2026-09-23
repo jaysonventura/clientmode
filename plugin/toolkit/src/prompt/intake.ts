@@ -6,6 +6,8 @@ export interface Intake {
   raw: string;
   normalized: string;
   isSlashCommand: boolean;
+  /** Claude Code delivered a harness event (e.g. a background-task completion), not a person's request. */
+  isHarnessEvent: boolean;
   isTrivial: boolean;
   length: number;
 }
@@ -16,6 +18,7 @@ export function intake(raw: string): Intake {
     raw,
     normalized,
     isSlashCommand: normalized.startsWith('/'),
+    isHarnessEvent: normalized.startsWith('<task-notification>'),
     isTrivial: hasAny(lc(normalized), TRIVIAL),
     length: normalized.length,
   };

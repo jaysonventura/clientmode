@@ -392,7 +392,9 @@ _acquire() {
 }
 
 # cmd_bootstrap [--quiet] — acquire the community-third-party rows so a fresh `claude plugin install cdt`
-# lands the whole bundle. Official rows come from plugin.json `dependencies`; these CANNOT, because Claude
+# lands the whole bundle. Only the REQUIRED official rows are plugin.json `dependencies` (a missing or
+# disabled dependency disables cm itself); the optional official rows are installed below. Community rows
+# CANNOT be dependencies either, because Claude
 # Code leaves "dependencies from a marketplace you have not added" unresolved and DISABLES the dependent
 # plugin — declaring them would brick CDT itself on any machine lacking their marketplaces. So we add the
 # marketplace and install them here instead.

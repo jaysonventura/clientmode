@@ -22,6 +22,11 @@ export function buildAdditionalContext(r: EnhanceResult, cfg: CdtConfig): string
     `CDT routing (advisory, local): tier ${rt.tier}, model ${rt.model}, confidence ${rt.confidence}` +
       (rt.risk.flagged ? `, risk: ${rt.risk.domains.join('/')} (security-review: ${rt.securityReview ? 'yes' : 'no'})` : ''),
   ];
+  // Claude Code best practices: plan when the approach is uncertain or several files change. A hook says it
+  // because the orchestration skill is not always loaded (observed in a plugin eval run, 2026-09-23).
+  if (rt.tier === 'T2' || rt.tier === 'T3') {
+    parts.push('Plan first: explore read-only, then call EnterPlanMode and present the plan with ExitPlanMode for approval before writing code. Skip this only if the whole change fits in one sentence.');
+  }
   if (rt.agents.length > 0) parts.push('Suggested agents: ' + rt.agents.map((a) => a.name).join(', '));
   if (r.enhancedText.trim()) parts.push('\nSuggested prompt (review, do not auto-submit):\n' + r.enhancedText.trim());
 

@@ -100,6 +100,17 @@ else
   echo "  skip: shellcheck not installed (local)"
 fi
 
+echo "== hard dependencies are only the required companions =="
+# plugin-dependencies docs: a missing or disabled dependency disables the dependent plugin. Optional
+# companions are installed by the SessionStart bootstrap instead, so disabling one never disables cm.
+if python3 - <<'PY'
+import json, sys
+deps = sorted(d["name"] for d in json.load(open(".claude-plugin/plugin.json")).get("dependencies", []))
+req = sorted(p["id"] for p in json.load(open("config/plugins.json"))["plugins"] if p.get("required") and p.get("type") != "cdt-skill")
+sys.exit(0 if deps == req else (print("  deps:", deps, "required:", req) or 1))
+PY
+then ok "plugin.json dependencies == required companions in config/plugins.json"; else err "plugin.json declares optional companions as hard dependencies"; fi
+
 echo "== plugin.json <-> marketplace.json version/name sanity =="
 if ! python3 - <<'PY'
 import json,sys

@@ -39,38 +39,6 @@
     {
       "name": "context7",
       "marketplace": "claude-plugins-official"
-    },
-    {
-      "name": "playwright",
-      "marketplace": "claude-plugins-official"
-    },
-    {
-      "name": "github",
-      "marketplace": "claude-plugins-official"
-    },
-    {
-      "name": "sentry",
-      "marketplace": "claude-plugins-official"
-    },
-    {
-      "name": "terraform",
-      "marketplace": "claude-plugins-official"
-    },
-    {
-      "name": "laravel-boost",
-      "marketplace": "claude-plugins-official"
-    },
-    {
-      "name": "typescript-lsp",
-      "marketplace": "claude-plugins-official"
-    },
-    {
-      "name": "php-lsp",
-      "marketplace": "claude-plugins-official"
-    },
-    {
-      "name": "swift-lsp",
-      "marketplace": "claude-plugins-official"
     }
   ]
 }

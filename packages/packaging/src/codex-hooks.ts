@@ -30,7 +30,7 @@ function entriesFor(root: Record<string, Json>): Json[] {
 
 const isOurs = (entry: Json, command: string): boolean => JSON.stringify(entry).includes(JSON.stringify(command).slice(1, -1));
 
-export function installCodexStopHook(input: { config_root: string; gate_source: string; node?: string }): { record: CodexHookRecord | null; notes: string[] } {
+export function installCodexStopHook(input: { config_root: string; gate_source: string; node?: string; platform?: NodeJS.Platform }): { record: CodexHookRecord | null; notes: string[] } {
   const hooks_file = path.join(input.config_root, 'hooks.json');
   const read = readJson(hooks_file);
   if ('error' in read) {
@@ -42,8 +42,10 @@ export function installCodexStopHook(input: { config_root: string; gate_source: 
   const created_dir = !existsSync(path.dirname(script));
   mkdirSync(path.dirname(script), { recursive: true });
   copyFileSync(input.gate_source, script);
-  // The node that installed it, not whichever node a GUI-launched Codex finds first on PATH.
-  const command = `${quoted(input.node ?? process.execPath)} ${quoted(script)}`;
+  // POSIX: the node that installed it, not whichever node a GUI-launched Codex finds first on PATH.
+  // Windows: `node "<script>"`, because two quoted strings in a row break both cmd /c and PowerShell.
+  const command = (input.platform ?? process.platform) === 'win32'
+    ? `node ${quoted(script)}` : `${quoted(input.node ?? process.execPath)} ${quoted(script)}`;
   const stop = entriesFor(read.value);
   if (!stop.some(entry => isOurs(entry, script))) {
     stop.push({ hooks: [{ type: 'command', command, timeout: 900, statusMessage: 'Client Mode: running the project checks' }] });

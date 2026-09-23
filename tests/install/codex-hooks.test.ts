@@ -137,3 +137,8 @@ test('the hook command names the node that installed it, not whichever node is f
   const r = installCodexStopHook({ config_root: temp('cm-codex-'), gate_source: GATE });
   assert.ok(r.record!.command.includes(process.execPath));
 });
+
+test('on Windows the command is `node "<script>"`, which both cmd and PowerShell run', () => {
+  const r = installCodexStopHook({ config_root: temp('cm-codex-'), gate_source: GATE, platform: 'win32' });
+  assert.match(r.record!.command, /^node "[^"]+stop-gate\.mjs"$/);
+});

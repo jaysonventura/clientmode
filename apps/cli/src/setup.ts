@@ -82,7 +82,9 @@ function describeHost(layout: HostLayout, autonomy: boolean): string {
     gemini: 'allow-all tool policy (folder trust stays on)',
     cursor: 'CLI approvalMode = "unrestricted" (IDE Run Everything is a UI switch)',
   }[layout.host];
-  return `  ${layout.host.padEnd(7)} ${rules}; ${skills}; ${permission}`;
+  const hook = layout.host === 'codex' && autonomy
+    ? `; Stop hook in ${path.join(layout.config_root, 'hooks.json')} runs the project's checks at turn end (approve once with /hooks)` : '';
+  return `  ${layout.host.padEnd(7)} ${rules}; ${skills}; ${permission}${hook}`;
 }
 
 export type SetupInput = {
@@ -152,7 +154,9 @@ export async function setupHosts(input: SetupInput): Promise<{ lines: string[]; 
     const legacy_sections = migrateLegacyInstructions(layout);
     const activation = activateHost({ layout, source_root: contentRoot, lead: input.lead, skills_source: path.join(contentRoot, SKILLS_DIRECTORY) });
     const autonomy = input.autonomy ? applyAutonomy(layout) : { changes: [], notes: [] };
-    const codexHook = layout.host !== 'codex' ? null
+    // Only with autonomy: the gate runs commands the project chooses, which a sandboxed Codex that
+    // still asks before commands must not do unasked in a cloned, untrusted repository.
+    const codexHook = layout.host !== 'codex' || !input.autonomy ? null
       : installCodexStopHook({ config_root: layout.config_root, gate_source: path.join(contentRoot, 'adapters', 'codex', 'stop-gate.mjs') });
     const plugin = layout.host !== 'claude' ? null : registerClaudePlugin({
       config_root: layout.config_root, marketplace_dir: contentRoot,

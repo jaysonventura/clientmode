@@ -76,6 +76,7 @@ test('install configures all four hosts from one toolkit, and uninstall puts eve
   const dry = cm(h, ['install', '--dry-run', '--bin-dir', h.bin]);
   assert.equal(dry.status, 0, dry.stderr);
   assert.match(dry.stdout, /claude[\s\S]*codex[\s\S]*gemini[\s\S]*cursor/);
+  assert.match(dry.stdout, /codex .*Stop hook in .*hooks\.json/, 'the plan names the Codex Stop hook before installing it');
   assert.deepEqual(fingerprintTree(h.home), before, 'dry run left the home untouched');
 
   // A skill of the person's own, with a name that happens to start with cm-, in the shared directory.
@@ -157,6 +158,9 @@ test('--no-autonomy leaves every permission setting exactly as it was', () => {
   assert.equal(installed.status, 0, installed.stderr);
   assert.equal(json(path.join(h.home, '.claude', 'settings.json')).permissions.defaultMode, 'bypassPermissions');
   assert.equal(readFileSync(path.join(h.home, '.codex', 'config.toml'), 'utf8'), original['.codex/config.toml']);
+  // Without autonomy Codex keeps asking before commands, so nothing may run a repo's checks unasked.
+  assert.equal(existsSync(path.join(h.home, '.codex', 'hooks.json')), false, 'no Stop hook without autonomy');
+  assert.equal(existsSync(path.join(h.home, '.codex', 'cm')), false, 'no Stop gate without autonomy');
   assert.equal(existsSync(path.join(h.home, '.gemini', 'GEMINI.md')), false, 'only the hosts asked for');
   assert.ok(statSync(path.join(h.home, '.agents', 'skills', 'cm-tdd')).isDirectory());
 });

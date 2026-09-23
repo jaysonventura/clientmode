@@ -70,7 +70,8 @@ Codex also gets a Stop hook (`~/.codex/hooks.json` → `~/.codex/cm/stop-gate.mj
 with changes, it runs the project's checks — the commands in `.cm/checks` if the project has that
 file, otherwise its `typecheck` / `lint` / `test` scripts, otherwise `make test` — and hands a
 failure back to the agent, for at most three repair cycles. Codex runs a new hook only after you
-approve it once with `/hooks`.
+approve it once with `/hooks`. With `--no-autonomy` the hook is not installed: Codex keeps asking
+before commands, and nothing runs a repository's checks unasked.
 
 If the old `cdt@claude-dev-team` plugin is enabled it is switched off (it is part of `cm` now), and the
 claude-dev-team section pasted into `~/.claude/CLAUDE.md` is moved into the install record.

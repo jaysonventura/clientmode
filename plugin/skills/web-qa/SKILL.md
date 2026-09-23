@@ -61,6 +61,9 @@ and the refs the action tools consume. A screenshot is a picture — you cannot 
 guessing, and a "looks right" judgement from an image is exactly the fabricated pass this skill exists to
 prevent.
 
+This governs functional QA. Matching a supplied visual reference is a separate acceptance check with
+its own loop — `ui-ux`, "Reproducing a reference" — and it never replaces these assertions.
+
 | Question | Answer with | Never with |
 |----------|-------------|------------|
 | Is the control there / labelled / enabled? | `browser_snapshot` → `expect(locator).toBeVisible()` / `toBeEnabled()` | eyeballing a screenshot |

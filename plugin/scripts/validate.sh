@@ -176,6 +176,12 @@ fi
 
 # A skill body is read in full whenever it triggers, and orchestration triggers on every software
 # task. Detail that only some tasks need lives in the skill's references/ and is read on demand.
+echo "== ui-ux reference reproduction (bounded loop against the running page) =="
+for needle in "reproduction, not" "two correction passes" "scripts/visual-check.mjs"; do
+  grep -q "$needle" skills/ui-ux/SKILL.md && ok "ui-ux: $needle" || err "ui-ux lost: $needle"
+done
+[ -f skills/ui-ux/scripts/visual-check.mjs ] && ok "ui-ux ships scripts/visual-check.mjs" || err "ui-ux/scripts/visual-check.mjs missing"
+
 echo "== skill size ceilings (always-triggered skills stay short) =="
 for pair in orchestration:1500; do
   s="${pair%%:*}"; max="${pair##*:}"; words="$(wc -w < "skills/$s/SKILL.md" | tr -d ' ')"

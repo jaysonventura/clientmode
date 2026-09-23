@@ -1,6 +1,6 @@
 ---
 name: ui-ux
-description: Use when designing, building or reviewing a user interface - direction and tokens, all states, accessibility and polish, proven with observed rendered evidence rather than claimed taste.
+description: Use when designing, building or reviewing a user interface, or matching a supplied screenshot or design - direction and tokens, all states, accessibility and polish, proven by comparing the running page rather than claimed taste.
 ---
 
 # UI and UX
@@ -28,6 +28,37 @@ Three layers, in order: the rules for what counts as evidence, the foundations, 
 
 When feedback arrives — "too crowded", "hard to find the button" — change the presentation and
 leave the business rules alone. Re-verify the journeys the change touched.
+
+## Reproducing a reference
+
+When the person supplies a screenshot or design to match, the task is **reproduction, not
+redesign**. Say which mode you are in before you start. In reproduction the reference is the target
+and there is no creative licence: no "more premium", no extra effects. In design you propose a
+direction and get it approved before spreading it. A task is never both.
+
+1. **Split the authority.** The reference governs how the target page looks. The existing app
+   governs business rules, permissions, validation and API behaviour. List the existing styles,
+   components or instructions that conflict with the reference, and say so rather than letting
+   the old style win quietly.
+2. **Break the reference down before coding:** proportions and layout, typography (family, sizes,
+   weights), spacing and density, hierarchy, colours, borders and icons, assets. Anything read off
+   pixels — a font, an exact spacing — is labelled an estimate.
+3. **One representative page first.** Do not spread the styling to other pages until this one is
+   accepted.
+4. **Compare the running page, not the code.** Serve it with representative data and capture it at
+   the reference's viewport:
+   `node <this skill>/scripts/visual-check.mjs --url <page> --reference <png> --out .visual-check`.
+   Open `compare.png` and look at it. The mismatch ratio and regions say where to look; they are not
+   a score.
+5. **Fix the three largest differences, in this order:** layout and proportions → typography →
+   spacing and density → colour, borders, icons. At most **two correction passes per batch**, then
+   report the remaining differences or a revised diagnosis instead of more CSS churn.
+6. **Then make it reusable.** Extract the shared tokens and components, and keep the accepted render
+   as the reference for later visual checks, under pinned conditions (browser, fonts, data). Never
+   update a reference to make a check pass.
+
+A matching screenshot is not a usable page. Visual match and usability — errors shown, input kept
+after a failed save, loading states, keyboard use, small screens — are separate acceptance checks.
 
 ## Foundations
 

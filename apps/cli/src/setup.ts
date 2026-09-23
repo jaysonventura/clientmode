@@ -9,7 +9,7 @@
  * leaves anything the person changed since then exactly as they left it.
  */
 import { spawnSync } from 'node:child_process';
-import { existsSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, lstatSync, readFileSync, readdirSync, readlinkSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { applyAutonomy, restoreAutonomy, type AutonomyChange } from '../../../packages/packaging/src/autonomy.js';
 import { installCodexStopHook, removeCodexStopHook, type CodexHookRecord } from '../../../packages/packaging/src/codex-hooks.js';
@@ -152,12 +152,19 @@ export async function setupHosts(input: SetupInput): Promise<{ lines: string[]; 
   // build every hook that asked for cdt-verify failed. The build also links cdt-* into the launcher
   // directory, which is on PATH; those links are recorded so uninstall removes them.
   const claudeLayout = layouts.find(layout => layout.host === 'claude');
+  // Whether each host's folder is ours is decided before anything below writes into it.
+  const createdRoots = new Map(layouts.map(layout => [layout.host, !existsSync(layout.config_root)] as const));
   const pluginHooks = toolkitRoot === null ? null : path.join(toolkitRoot, 'plugin', 'hooks', 'plugins.sh');
   const hookEnv = claudeLayout === undefined ? null : { ...input.env, CDT_HOME: claudeLayout.config_root, CDT_LINK_BIN_DIR: input.bin_dir };
   if (pluginHooks !== null && hookEnv !== null && process.platform !== 'win32' && existsSync(pluginHooks)) {
     const built = spawnSync('bash', [pluginHooks, 'toolkit'], { env: hookEnv, encoding: 'utf8', timeout: 600_000 });
-    const linked = ['cdt', 'cdt-prompt', 'cdt-spec', 'cdt-verify'].map(name => path.join(input.bin_dir, name)).filter(file => existsSync(file));
-    launchers.push(...linked);
+    const names = ['cdt', 'cdt-prompt', 'cdt-spec', 'cdt-verify'];
+    const linked = names.map(name => path.join(input.bin_dir, name)).filter(file => existsSync(file));
+    // The hooks' copies in ~/.claude/bin point into this toolkit too; they are recorded so uninstall
+    // removes them rather than leaving links that dangle once the toolkit is gone.
+    const hookLinks = names.map(name => path.join(hookEnv.CDT_HOME, 'bin', name))
+      .filter(file => { try { return lstatSync(file).isSymbolicLink() && readlinkSync(file).startsWith(toolkitRoot!); } catch { return false; } });
+    launchers.push(...linked, ...hookLinks);
     if (!linked.includes(path.join(input.bin_dir, 'cdt-verify'))) {
       notes.push(`cdt-verify is not built yet (${(built.stdout ?? '').trim().split('\n').pop() ?? 'no output'}); the next Claude Code session retries in the background`);
     }
@@ -166,7 +173,7 @@ export async function setupHosts(input: SetupInput): Promise<{ lines: string[]; 
   const records: SetupRecord[] = [];
 
   for (const layout of layouts) {
-    const config_root_created = !existsSync(layout.config_root);
+    const config_root_created = createdRoots.get(layout.host) ?? false;
     const legacy_sections = migrateLegacyInstructions(layout);
     const activation = activateHost({ layout, source_root: contentRoot, lead: input.lead, skills_source: path.join(contentRoot, SKILLS_DIRECTORY) });
     const autonomy = input.autonomy ? applyAutonomy(layout) : { changes: [], notes: [] };
@@ -208,6 +215,7 @@ export function uninstallHosts(input: { hosts?: HostName[]; cm_home: string; env
   const targets = (input.hosts ?? installed).filter(host => installed.includes(host));
   const notes: string[] = [];
   const launchers = new Set<string>();
+  const createdRoots: string[] = [];
   let toolkit: string | null = null;
 
   for (const host of targets) {
@@ -234,6 +242,7 @@ export function uninstallHosts(input: { hosts?: HostName[]; cm_home: string; env
       rmSync(record.layout.config_root, { recursive: true, force: true });
     }
     for (const launcher of record.launchers) launchers.add(launcher);
+    if (record.config_root_created) createdRoots.push(record.layout.config_root);
     if (record.toolkit_root !== null) toolkit = record.toolkit_root;
     rmSync(recordFile(input.cm_home, host), { force: true });
   }
@@ -241,6 +250,13 @@ export function uninstallHosts(input: { hosts?: HostName[]; cm_home: string; env
   const remaining = HOSTS.filter(host => readRecord(input.cm_home, host) !== null);
   if (remaining.length === 0 && input.keep_toolkit !== true) {
     removeLaunchers([...launchers], input.platform ?? process.platform, input.env);
+    // Some launchers (the hooks' cdt-* links) live inside a host folder the install created; once
+    // they are gone, that folder and its bin/ are removed if nothing else is in them.
+    for (const root of createdRoots) {
+      for (const dir of [path.join(root, 'bin'), root]) {
+        if (existsSync(dir) && readdirSync(dir).length === 0) rmSync(dir, { recursive: true, force: true });
+      }
+    }
     if (toolkit !== null) rmSync(toolkit, { recursive: true, force: true });
     rmSync(path.join(input.cm_home, 'dist'), { recursive: true, force: true });
     notes.push(...removeBootstrapFootprint(input.cm_home, input.env, input.platform ?? process.platform));

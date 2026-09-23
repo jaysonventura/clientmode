@@ -8,7 +8,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, statSync, symlinkSync, writeFileSync } from 'node:fs';
+import { existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, statSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fingerprintTree } from '../../packages/packaging/src/install.js';
@@ -181,4 +181,11 @@ test('install builds the toolkit and puts cdt-verify on PATH; uninstall takes it
   const removed = cm(h, ['uninstall']);
   assert.equal(removed.status, 0, removed.stderr);
   assert.ok(!existsSync(link), 'uninstall left cdt-verify behind');
+  // A fresh home had no ~/.claude: uninstall leaves none, not even dangling cdt-* links (lstat, not stat).
+  let left: string[] = [];
+  try { left = readdirSync(path.join(h.home, '.claude'), { recursive: true }) as string[]; lstatSync(path.join(h.home, '.claude')); } catch { left = []; }
+  assert.deepEqual(left, [], `uninstall left ~/.claude behind: ${left.join(', ')}`);
+  for (const name of ['cdt', 'cdt-prompt', 'cdt-spec', 'cdt-verify']) {
+    assert.throws(() => lstatSync(path.join(h.bin, name)), /ENOENT/, `dangling ${name} left in the launcher directory`);
+  }
 });

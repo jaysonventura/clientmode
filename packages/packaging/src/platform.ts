@@ -8,7 +8,7 @@
  * because the shim is a batch file that cmd.exe parses again).
  */
 import { spawn } from 'node:child_process';
-import { chmodSync, existsSync, mkdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { chmodSync, existsSync, mkdirSync, rmSync, statSync, writeFileSync, lstatSync } from 'node:fs';
 import path from 'node:path';
 
 export function findExecutable(name: string, env: NodeJS.ProcessEnv, platform: NodeJS.Platform = process.platform): string | null {
@@ -107,7 +107,8 @@ const detached: Spawner = (command, args) => {
  * exit non-zero after a successful uninstall. There the files are removed by a detached cmd.exe a
  * couple of seconds after this process has exited. */
 export function removeLaunchers(files: string[], platform: NodeJS.Platform = process.platform, env: NodeJS.ProcessEnv = process.env, spawner: Spawner = detached): void {
-  const present = files.filter(file => existsSync(file));
+  // lstat, not stat: a link whose target is already gone still has to be removed.
+  const present = files.filter(file => { try { lstatSync(file); return true; } catch { return false; } });
   if (present.length === 0) return;
   if (platform !== 'win32') {
     for (const file of present) rmSync(file, { force: true });

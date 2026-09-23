@@ -182,6 +182,14 @@ for needle in "reproduction, not" "two correction passes" "scripts/visual-check.
 done
 [ -f skills/ui-ux/scripts/visual-check.mjs ] && ok "ui-ux ships scripts/visual-check.mjs" || err "ui-ux/scripts/visual-check.mjs missing"
 
+# Every skill, command and agent description is loaded into every session; the body loads on use.
+echo "== descriptions stay short (loaded every session; <= 40 words) =="
+for f in skills/*/SKILL.md commands/*.md agents/*.md; do
+  n="$(grep -m1 '^description:' "$f" | sed 's/^description:[[:space:]]*//' | wc -w | tr -d ' ')"
+  [ "$n" -le 40 ] || err "$f description is $n words (ceiling 40)"
+done
+ok "description lengths checked"
+
 echo "== skill size ceilings (always-triggered skills stay short) =="
 for pair in orchestration:1500; do
   s="${pair%%:*}"; max="${pair##*:}"; words="$(wc -w < "skills/$s/SKILL.md" | tr -d ' ')"

@@ -1,6 +1,6 @@
 ---
 name: web-qa
-description: Use for any web QA or browser end-to-end testing work — "test this web app", drive a site to reproduce a bug, write or fix Playwright E2E specs, chase a flaky web test, check a flow in Chromium/Firefox/WebKit, verify a form/login/checkout in a real browser, or investigate a console error or failed XHR behind a broken page. Runs the autonomous QA loop against a live browser (preflight → serve → read the accessibility snapshot → act → assert UI + console + network + backend → capture evidence and root cause on failure → re-verify through cdt-verify) and turns every confirmed bug into a durable Playwright spec.
+description: Use for web QA or browser end-to-end testing - test a web app, reproduce a bug in a browser, write or fix Playwright specs, chase a flaky test, or investigate a console error or failed request.
 ---
 
 # Web QA — autonomous browser-driven testing

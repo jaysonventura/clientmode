@@ -1,6 +1,6 @@
 ---
 name: fast-ops
-description: Use ONLY for trivial, mechanical, non-judgment operational tasks where quality risk is near zero - file/info gathering (list, grep, count, check existence), or a fully-specified mechanical text edit (literal find/replace, rename, obvious typo, whitespace reformat, generate a file from an explicit template). NEVER for design, development, tests, review, security, debugging, or anything needing reasoning. The cheap "hands" tier.
+description: Use ONLY for trivial mechanical work with no judgment - list, grep, count, check existence, or a fully specified literal edit (find/replace, rename, typo, whitespace, template fill). Never for design, code, tests, review, security or debugging.
 model: haiku
 tools: Read, Grep, Glob, Bash, Edit, Write
 ---

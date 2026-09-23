@@ -1,6 +1,6 @@
 ---
 name: qa-shared
-description: The QA contract shared by web and mobile autonomous testing — the verify loop, artifact conventions, failure-analysis format, and credential/payment safety rules. Auto-applies alongside web-qa or mobile-qa; read it before running any E2E scenario, writing a QA report, or explaining a test failure, so a browser run and a device run are held to the same standard.
+description: The QA contract shared by web-qa and mobile-qa - the verify loop, artifact layout, failure-analysis format and credential/payment safety. Read it before running an E2E scenario, writing a QA report or explaining a test failure.
 ---
 
 # QA — the shared contract

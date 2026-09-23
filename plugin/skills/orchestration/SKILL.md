@@ -1,6 +1,6 @@
 ---
 name: orchestration
-description: Use at the START of any software task - building a feature, fixing a bug, refactoring, reviewing, or shipping code. Sizes the work (T0-T3), keeps one implementer by default, and runs the gates, the bounded repair loop and the completion mandate.
+description: Use at the START of any software task - a feature, bug fix, refactor, review or release. Sizes the work (T0-T3), keeps one implementer by default, and runs the gates, the bounded repair loop and the completion mandate.
 ---
 
 # Orchestration — how the lead works

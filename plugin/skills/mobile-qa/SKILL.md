@@ -1,6 +1,6 @@
 ---
 name: mobile-qa
-description: Use for any mobile QA or Android end-to-end testing work — "test the app on a device/emulator", install/launch an APK, drive a real app to reproduce a bug, write or fix Appium / UiAutomator2 / WebdriverIO mobile tests, chase a flaky Android test, or QA a Capacitor/React Native build. Runs the autonomous QA loop (preflight → install → read the a11y tree → execute → assert → capture evidence + root cause on failure → re-verify through cdt-verify until green) and turns every confirmed bug into a durable regression test.
+description: Use for mobile QA or Android end-to-end testing - test an app on a device or emulator, install an APK, reproduce a bug, write or fix Appium tests, chase a flaky mobile test, or QA a Capacitor/React Native build.
 ---
 
 # Mobile QA — autonomous device-driven testing

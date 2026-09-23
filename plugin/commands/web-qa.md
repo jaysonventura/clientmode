@@ -1,5 +1,5 @@
 ---
-description: Autonomous web QA — drive a real browser like a QA engineer (navigate, run full user journeys, assert the accessibility tree, catch JS errors and failed network calls, capture traces/video on failure, explain root causes, and generate or re-run Playwright E2E tests until green).
+description: Autonomous web QA - drive a real browser through user journeys, assert the accessibility tree, catch console errors and failed requests, capture traces on failure, and generate or re-run Playwright tests until green.
 allowed-tools: Bash, Read, Write, Edit, Grep, Glob, Task
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: automation-first
-description: Use BEFORE running any build, deploy, run, release, or env command. Prefer existing repo automation over improvised manual commands — inspect the Makefile first, then package/composer scripts, scripts/, docs/CI. Stops agents inventing serverless / gradle / npm·ng build / cap sync / AWS deploy commands when a target already exists; on a Makefile-target failure, STOP and report instead of improvising another path.
+description: Use BEFORE any build, deploy, run, release or environment command - use the repo's automation (Makefile first, then package scripts, scripts/, docs/CI) instead of improvised commands; if a Makefile target fails, stop and report.
 ---
 
 # Automation-first — prefer repo automation over manual commands

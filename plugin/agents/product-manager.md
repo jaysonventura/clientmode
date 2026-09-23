@@ -1,6 +1,6 @@
 ---
 name: product-manager
-description: Use in Wave 0 (before design/build), especially for a vague or user-facing feature request, to turn it into clear requirements, testable acceptance criteria, scope/non-goals, and edge cases. Read-only - it specifies WHAT and WHY, never the technical HOW or the code. Pairs with superpowers:brainstorming.
+description: Use in Wave 0 for a vague or user-facing feature - turns it into requirements, testable acceptance criteria, scope, non-goals and edge cases. Read-only: specifies what and why, never the technical how.
 tools: Read, Grep, Glob, Bash, WebFetch
 model: opus
 ---

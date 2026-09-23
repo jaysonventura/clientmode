@@ -79,7 +79,9 @@ claude-dev-team section pasted into `~/.claude/CLAUDE.md` is moved into the inst
 **About running without prompts.** It removes the approval prompt, not the rules: Client Mode still
 tells every host to ask in the conversation before money leaves an account, data leaves the project, or
 anything irreversible happens. Codex in `danger-full-access` and Claude in auto mode can change files
-anywhere your user account can. If you want the prompts, install with `CM_NO_AUTONOMY=1`.
+anywhere your user account can. If you want the prompts, install with `CM_NO_AUTONOMY=1`. To keep auto
+mode but fence Bash in, run `/sandbox` in Claude Code (macOS, Linux and WSL2): the operating system then
+limits which files and network domains commands can reach. Client Mode does not turn it on for you.
 
 ## Use
 
